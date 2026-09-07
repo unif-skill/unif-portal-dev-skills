@@ -1,0 +1,20 @@
+{
+  "name": "unif-portal-dev-skills",
+  "interface": {
+    "displayName": "Unif Portal 研发技能"
+  },
+  "plugins": [
+    {
+      "name": "unif-portal-dev-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

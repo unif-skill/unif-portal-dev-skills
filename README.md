@@ -36,6 +36,19 @@ git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 
 更新时，在克隆的仓库中运行 `git pull --ff-only`，再替换已安装的完整技能目录。如有本地修改，先将旧目录备份到技能扫描目录之外。
 
+### 插件市场（Codex，可选）
+
+在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills)，不要使用 README 或技能子目录的链接。添加后选择 `unif-portal-dev-skills` 安装。
+
+也可使用 Codex CLI：
+
+```sh
+codex plugin marketplace add unif-skill/unif-portal-dev-skills --ref main
+codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
+```
+
+仓库的 [marketplace.json](.agents/plugins/marketplace.json) 是市场入口，引用根 `plugin.json` 所定义的标准插件；清单格式见 [Codex 插件管理文档](https://learn.chatgpt.com/zh-Hans/docs/enterprise/plugin-management#支持的格式)。
+
 ### 使用
 
 按目标工具的方式加载技能，并在任务中指定，例如：
