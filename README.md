@@ -38,7 +38,7 @@ git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 
 ### 插件市场（Codex，可选）
 
-在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills)，不要使用 README 或技能子目录的链接。添加后选择 `unif-portal-dev-skills` 安装。
+在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills.git)，分支选择 `main`，不要使用 README 或技能子目录的链接。添加后选择 `unif-portal-dev-skills` 安装。
 
 也可使用 Codex CLI：
 
@@ -46,6 +46,8 @@ git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 codex plugin marketplace add unif-skill/unif-portal-dev-skills --ref main
 codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
 ```
+
+界面与 CLI 任选一种添加方式。已添加的市场直接打开使用；刷新市场内容时运行 `codex plugin marketplace upgrade unif-portal-dev-skills`，无需重复添加。
 
 仓库的 [marketplace.json](.agents/plugins/marketplace.json) 是市场入口，引用根 `plugin.json` 所定义的标准插件；清单格式见 [Codex 插件管理文档](https://learn.chatgpt.com/zh-Hans/docs/enterprise/plugin-management#支持的格式)。
 
@@ -62,7 +64,7 @@ codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
 ## 使用与分发
 
 - 独立技能：分发完整的 `skills/architecture-design/`，保留相对引用。
-- 标准插件：分发根 [plugin.json](plugin.json) 与完整的 `skills/` 目录。
+- 标准插件：分发根 [plugin.json](plugin.json)、`assets/` 与完整的 `skills/` 目录。插件使用 `assets/logo.png`，技能使用各自的 `assets/icon.png`；Codex 的插件展示配置放在标准清单的 `extensions.com.openai` 中。
 - 使用时声明目标工程采用的架构规范及版本；未指定时使用包内快照。
 
 README、docs、evals、同步脚本和测试用于仓库维护，不进入技能默认上下文。
