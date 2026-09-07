@@ -1,0 +1,5 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-portal-dev-skills",
+  "description": "Unif Portal 产品研发阶段的技能集合，适用于客户端及相关 Agent、Channel、CLI 工程。"
+}

@@ -1,0 +1,112 @@
+{
+  "date": "2026-09-07",
+  "method": "independent-subagent-contexts",
+  "modelConfiguration": "inherited-no-override",
+  "modelId": null,
+  "modelCalls": null,
+  "tokens": null,
+  "latency": null,
+  "invocations": {
+    "control": 5,
+    "skill": 5,
+    "switch": 1,
+    "descriptionSelection": 1
+  },
+  "files": {
+    "control/01.md": {
+      "sha256": "a0b10cdea772e1622e9d3f811b47a022aa5515c6aa5c38cda98506797b172bcd",
+      "utf8Bytes": 7018,
+      "characters": 2672
+    },
+    "control/02.md": {
+      "sha256": "07bf34c14e1a3d011c1e16320f140e4a95b2dc1e5b4a5d63227bfc1c0084fc61",
+      "utf8Bytes": 6751,
+      "characters": 2571
+    },
+    "control/03.md": {
+      "sha256": "ee15778da8ac18d7d371bac0a0eea6d6f841372e96a4fec0c1f26b4c1d50258e",
+      "utf8Bytes": 6707,
+      "characters": 2589
+    },
+    "control/04.md": {
+      "sha256": "6cd194260fbe42c1150d7a058533dc9661fdbc55ca2778b0c2b9b5ee6813d00e",
+      "utf8Bytes": 8191,
+      "characters": 3157
+    },
+    "control/05.md": {
+      "sha256": "d375ab5c8e48f3b3fe85aebbbdbfaebb8df8364b58e0c35ee5e1d09b84c5d8f0",
+      "utf8Bytes": 8830,
+      "characters": 3482
+    },
+    "heldout/discovery.md": {
+      "sha256": "4ad573822ed547f585eca539ed387f4b6a2b0379718e2ef13281fe1804f2b5ff",
+      "utf8Bytes": 873,
+      "characters": 315
+    },
+    "heldout/switch.md": {
+      "sha256": "f5ff8216493c504f13e19d4a10a91adf412e60ecc4dc2ece4de177f2d1010227",
+      "utf8Bytes": 19506,
+      "characters": 8026
+    },
+    "inputs/bundled-platform-architecture.txt": {
+      "sha256": "282644b8879e79559ffc81aedfda8f828286213be199b8bde3d1ba6d1aa92646",
+      "utf8Bytes": 28569,
+      "characters": 11205
+    },
+    "inputs/discovery.md": {
+      "sha256": "d204dfe7cf9f17cea987a7b9384da4128f3aa637c77f0abd3645dbbd63ca5293",
+      "utf8Bytes": 725,
+      "characters": 279
+    },
+    "inputs/platform-architecture.txt": {
+      "sha256": "f32f6b25af884641ade7d49ea09b246dc283c0a5dfcb36c1e34258acf10def26",
+      "utf8Bytes": 26805,
+      "characters": 10515
+    },
+    "inputs/review.md": {
+      "sha256": "e1a6aa680351f0a7b7fe344bf1b1611c1f51f6ebcc352b18315f8a328dd42b98",
+      "utf8Bytes": 3141,
+      "characters": 1707
+    },
+    "inputs/rubric.md": {
+      "sha256": "52a7d8aeeb0916138e91aefafbf8cfcc60335378edf51e5a02abcf30188de99f",
+      "utf8Bytes": 2190,
+      "characters": 840
+    },
+    "inputs/skill.txt": {
+      "sha256": "2cc5ac640aba02596bf4257c372fb0a8b92b492722e49d0762d27f04a9ab6e8e",
+      "utf8Bytes": 4685,
+      "characters": 1761
+    },
+    "inputs/switch.md": {
+      "sha256": "630b037b43d08ba46c360075215e999c18c8ed932b471676e0b648c55ee4f2b2",
+      "utf8Bytes": 1010,
+      "characters": 374
+    },
+    "skill/01.md": {
+      "sha256": "47345b33d1e2f677e2b3a857741653d30c0e2937759b1aaf6c7518f4deaf1e58",
+      "utf8Bytes": 7654,
+      "characters": 2946
+    },
+    "skill/02.md": {
+      "sha256": "44253ff8603d259df1d6187c2be9eaad5b5dcabb8f0ff3bc6b60a7c86975c43c",
+      "utf8Bytes": 9328,
+      "characters": 3880
+    },
+    "skill/03.md": {
+      "sha256": "6d7e8a87c5c0861b6632631abe4196a05312997432c32b695348fa2944743401",
+      "utf8Bytes": 7102,
+      "characters": 2736
+    },
+    "skill/04.md": {
+      "sha256": "d8f5ea5cccd99670c9a1e1017d2f7b41a6727b82dde07cbe5bd185a2c17d1f53",
+      "utf8Bytes": 6436,
+      "characters": 2486
+    },
+    "skill/05.md": {
+      "sha256": "6c0ff0ba08f09ecf2011c143e7831cc5b0b418ecf70650b347797acf047647ed",
+      "utf8Bytes": 7309,
+      "characters": 3047
+    }
+  }
+}

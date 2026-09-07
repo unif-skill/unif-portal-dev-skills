@@ -1,0 +1,173 @@
+{
+  "runner": "collaboration.spawn_agent",
+  "modelConfiguration": "继承主任务；未覆盖模型或推理设置。工具未提供可核验模型标识。",
+  "tokenUsage": null,
+  "modelLatency": null,
+  "rubricProvidedToTestedAgents": false,
+  "replay": "归档中的路径相对于本运行目录。复跑时将提示中的临时输入与输出路径替换为新的隔离目录，每个任务使用独立且不继承对话的上下文；不提供评分标准、原始技能归档或其他输出。",
+  "runs": [
+    {
+      "taskName": "/root/provenance_control_01",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/platform-architecture.md 和同目录 provenance.md，按后者的任务交付中文结论。不读取其他资料、技能、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-01.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/platform-architecture.md",
+        "inputs/provenance.md"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-01.md",
+      "archivedOutput": "control/01.md"
+    },
+    {
+      "taskName": "/root/provenance_control_02",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/platform-architecture.md 和同目录 provenance.md，按后者的任务交付中文结论。不读取其他资料、技能、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-02.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/platform-architecture.md",
+        "inputs/provenance.md"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-02.md",
+      "archivedOutput": "control/02.md"
+    },
+    {
+      "taskName": "/root/provenance_control_03",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/platform-architecture.md 和同目录 provenance.md，按后者的任务交付中文结论。不读取其他资料、技能、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-03.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/platform-architecture.md",
+        "inputs/provenance.md"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-03.md",
+      "archivedOutput": "control/03.md"
+    },
+    {
+      "taskName": "/root/provenance_control_04",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/platform-architecture.md 和同目录 provenance.md，按后者的任务交付中文结论。不读取其他资料、技能、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-04.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/platform-architecture.md",
+        "inputs/provenance.md"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-04.md",
+      "archivedOutput": "control/04.md"
+    },
+    {
+      "taskName": "/root/provenance_control_05",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/platform-architecture.md 和同目录 provenance.md，按后者的任务交付中文结论。不读取其他资料、技能、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-05.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/platform-architecture.md",
+        "inputs/provenance.md"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/control-05.md",
+      "archivedOutput": "control/05.md"
+    },
+    {
+      "taskName": "/root/provenance_skill_01",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/provenance.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 provenance.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-01.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/provenance.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-01.md",
+      "archivedOutput": "skill/01.md"
+    },
+    {
+      "taskName": "/root/provenance_skill_02",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/provenance.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 provenance.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-02.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/provenance.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-02.md",
+      "archivedOutput": "skill/02.md"
+    },
+    {
+      "taskName": "/root/provenance_skill_03",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/provenance.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 provenance.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-03.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/provenance.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-03.md",
+      "archivedOutput": "skill/03.md"
+    },
+    {
+      "taskName": "/root/provenance_skill_04",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/provenance.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 provenance.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-04.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/provenance.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-04.md",
+      "archivedOutput": "skill/04.md"
+    },
+    {
+      "taskName": "/root/provenance_skill_05",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计任务。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/provenance.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 provenance.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-05.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/provenance.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/skill-05.md",
+      "archivedOutput": "skill/05.md"
+    },
+    {
+      "taskName": "/root/provenance_rename_a",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计审查。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/rename-a.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 rename-a.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/rename-a.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/rename-a.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/rename-a.md",
+      "archivedOutput": "rename/a.md"
+    },
+    {
+      "taskName": "/root/provenance_rename_b",
+      "forkTurns": "none",
+      "modelOverride": null,
+      "verifiedModelId": null,
+      "prompt": "请独立完成给定设计审查。只读取 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/inputs/rename-b.md、同目录 platform-architecture.md 和 revised-skill.txt。使用 revised-skill.txt 中的架构设计技能；本任务明确采用所附 platform-architecture.md，按 rename-b.md 交付中文结论。不读取其他资料、历史、评分规则或其他输出，不修改业务代码，不执行安装、提交或外部操作。将完整答案原样保存到 /var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/rename-b.md，并在最终回复给出相同的完整答案。不要附带执行过程。",
+      "allowedFiles": [
+        "inputs/rename-b.md",
+        "inputs/platform-architecture.md",
+        "inputs/revised-skill.txt"
+      ],
+      "originalOutput": "/var/folders/tx/zvhkqny115d348hp0zgbw3j80000gn/T/contract-provenance-5sw1lqbw/rename-b.md",
+      "archivedOutput": "rename/b.md"
+    }
+  ]
+}

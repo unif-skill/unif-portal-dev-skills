@@ -1,0 +1,239 @@
+{
+  "rubric": "inputs/rubric.md",
+  "assessment": "主任务依据冻结判据逐段进行语义判读；不是自动关键词打分，也不代表人工人员验收。原文摘录用于定位证据，判定覆盖整份输出。",
+  "provenance": [
+    {
+      "output": "control/01.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "沿用已确认的 `findExistingVisitTasks`、`getOrCreateVisitTask`、`completeVisit` 及其契约，本次只增加聊天入口接线。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "部署、源码、实际接线和后端适配证据尚未提供，不能声称已经实现或验证。"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "只提出候选能力 `closeWorkOrder({ ref, reason }) → CloseResult`，名称和类型待模块评审，不能声称已有该函数。"
+        }
+      }
+    },
+    {
+      "output": "control/02.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "本次只接入聊天入口，不新增查询能力、不更名、不重写结果契约。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "其他样本中的“缺少查询”“返回 unknown”不适用于本项目"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "页面已持有引用，无依据增加查找、创建工单或模型调用。"
+        }
+      }
+    },
+    {
+      "output": "control/03.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "完成链路不调用可能创建的 `getOrCreateVisitTask`，它仍供开始场景使用。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "其他样本的评测摘录不能证明本项目缺函数、使用 `acquireVisitTask` 或返回 `unknown`"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称和字段仅为本项目设计候选，尚未确认或证明已有实现。"
+        }
+      }
+    },
+    {
+      "output": "control/04.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "沿用已确认的三个公开名称与契约，不新增或改名。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "其他样本的评测摘录不能证明本项目缺函数或返回 `unknown`"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称和类型均待模块确认，不声称已经存在。详情页持有明确引用，无需新增定位、查询或创建能力。"
+        }
+      }
+    },
+    {
+      "output": "control/05.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "保留已确认的 `findExistingVisitTasks`、`getOrCreateVisitTask`、`completeVisit` 及其类型，不新增或重命名公开能力。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "另一评测样本的缺口、`acquireVisitTask` 和 `unknown` 签名均不适用于本项目"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称、字段与结果结构待模块契约确认，不声称函数已经存在。页面已有明确工单引用，无需增加查找或创建能力。"
+        }
+      }
+    },
+    {
+      "output": "skill/01.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "沿用正式的 `findExistingVisitTasks`、`getOrCreateVisitTask`、`completeVisit` 及给定类型；本次无需新增、改名或重写结果契约。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "另一评测样本的“缺查询、可能创建、返回 unknown”不构成本项目证据"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称按关闭写入职责拟定，不声称已存在"
+        }
+      }
+    },
+    {
+      "output": "skill/02.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "保留 findExistingVisitTasks、getOrCreateVisitTask、completeVisit 及给定 Result 语义"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "其他样本中的 acquireVisitTask、unknown 签名不能作为本项目依据。"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称与类型均为设计候选，不声称已有实现"
+        }
+      }
+    },
+    {
+      "output": "skill/03.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "此次只接入口，不新增查询、不改名、不重写结果契约。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "旧评测来自其他样本，不能证明本模块缺查询、存在 `acquireVisitTask` 或返回 `unknown`"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称按关闭职责提出，不是既有 API 或平台标准；引用形状、结果载荷及映射均待核实。"
+        }
+      }
+    },
+    {
+      "output": "skill/04.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "沿用正式名称 `findExistingVisitTasks`、`getOrCreateVisitTask`、`completeVisit` 及其给定类型。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "另一评测样本的摘录不能证明本项目缺少方法或返回 `unknown`"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "页面已有明确引用，无须增加查找、创建或可关闭性预查能力。"
+        }
+      }
+    },
+    {
+      "output": "skill/05.md",
+      "criteria": {
+        "P1": {
+          "verdict": "pass",
+          "rationale": "逐段核对三个正式名称、既有只读定位、完成场景复用及零创建边界；未以名称曾出现在评测中为由改名或重复新增。",
+          "excerpt": "沿用正式契约 `findExistingVisitTasks`、`getOrCreateVisitTask`、`completeVisit` 及给定类型，无需新增查询、换名或重写结果。"
+        },
+        "P2": {
+          "verdict": "pass",
+          "rationale": "拒绝把异项目的缺口与错误签名作为当前事实；区分目标契约、源码/部署证据与计划验证，未擅改正式结果契约。",
+          "excerpt": "上述为契约级接线，不能声称源码或部署已接通。"
+        },
+        "P3": {
+          "verdict": "pass",
+          "rationale": "工单已有明确引用；关闭能力标为草案，缺失字段与码表列为缺口，未继承客户查任务链路或声明样本方法为已有/必建接口。",
+          "excerpt": "名称按关闭职责提出，与项目甲无契约继承关系。"
+        }
+      }
+    }
+  ],
+  "rename": [
+    {
+      "output": "rename/a.md",
+      "criteria": {
+        "R1": {
+          "verdict": "pass",
+          "excerpt": "问题在副作用，改名不能解决。保留它及开始入口的既有语义。",
+          "rationale": "拒绝可能创建的身份桥接；只读发现明确为草案，保留开始入口；核对引用、查询范围、确认与三类关闭结果。"
+        }
+      }
+    },
+    {
+      "output": "rename/b.md",
+      "criteria": {
+        "R1": {
+          "verdict": "pass",
+          "excerpt": "判断依据是实际职责与副作用，方法名称不改变结论。",
+          "rationale": "同样拒绝完成前创建；只读发现为候选，保留开始入口及创建条件；没有要求额外必调 readInspection 请求。"
+        }
+      }
+    }
+  ],
+  "pairComparison": {
+    "criterion": "R2",
+    "verdict": "pass",
+    "rationale": "两个输入只有一个标识符替换；输出均要求客户到任务的只读交接，拒绝可能创建操作，沿用已有确认与关闭并保留开始角色，缺失接口均为候选。readInspection 在两者中均不能替代客户发现，未增加必调预查或改变业务目标；查询完整性、零创建、确认、业务码及受影响消费者验证结论一致。"
+  },
+  "limitations": [
+    "各组使用同一更新后的平台规范，控制组也包含 6.4 来源规则；本轮未测旧技能。",
+    "P1–P3 是来源边界定向判据，不是完整架构方案质量分数。",
+    "项目乙是同一复合题中的独立仓库设定，未单独做无任何其他项目上下文的运行。",
+    "改名仅一个成对样本，不足以推断多模型或广泛改名稳定性。"
+  ]
+}

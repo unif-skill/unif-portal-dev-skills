@@ -1,0 +1,141 @@
+{
+  "formatVersion": 1,
+  "run": "2026-09-07-contract-provenance",
+  "filesExcludeManifestItself": true,
+  "scope": "针对性来源边界 5 控制 + 5 技能、仅改名 1 对；未重跑首版评测",
+  "sourceRecord": "inputs/source.json",
+  "dispatches": "dispatches.json",
+  "scores": "scores.json",
+  "files": {
+    "RESULTS.md": {
+      "sha256": "fc8b9ccf9862f3d0aaf66698f1ff1e2f3a98e8c3db37ff74252f783305209b63",
+      "bytes": 7314,
+      "characters": 3410
+    },
+    "control/01.md": {
+      "sha256": "fe8a0e6fee9aa0fc702a8029a2cd9db12c6dc345ae5044c075673182ec29d250",
+      "bytes": 2671,
+      "characters": 1077
+    },
+    "control/02.md": {
+      "sha256": "fabb8aa80c3ffa9e59e8e1dde76e763cf2ff5ee701b753c820d15611cbef8653",
+      "bytes": 2611,
+      "characters": 1023
+    },
+    "control/03.md": {
+      "sha256": "9a87497954b708f3d2dec659c112df9d52ce204a9dd63c7aae220e2ce00c7dea",
+      "bytes": 2674,
+      "characters": 1084
+    },
+    "control/04.md": {
+      "sha256": "e0c5ed174f67094ab1e473e6925f58d4ce2372aae4d957d2c8b42f7c49f947ab",
+      "bytes": 2376,
+      "characters": 964
+    },
+    "control/05.md": {
+      "sha256": "7562e8085f4ca596554e477c45d5d3ab48b4732ba1e36d12756aacf07ed4bb01",
+      "bytes": 2403,
+      "characters": 1005
+    },
+    "dispatches.json": {
+      "sha256": "9cfa398a3c7af28d0533a3ff8b2e0af18ff7fb35e786e69530c8088cf03b0913",
+      "bytes": 13505,
+      "characters": 10327
+    },
+    "inputs/before.json": {
+      "sha256": "558cacab27d6b708e7c97009411611e906334ecf1a116f048126962b72e8f058",
+      "bytes": 4534,
+      "characters": 4534
+    },
+    "inputs/historical-hashes.json": {
+      "sha256": "511b1c6ee7b89a489b2c5d3d93c2070b28e13757ded500e2007f2858b751c5b3",
+      "bytes": 1974,
+      "characters": 1974
+    },
+    "inputs/original-skill.txt": {
+      "sha256": "2cc5ac640aba02596bf4257c372fb0a8b92b492722e49d0762d27f04a9ab6e8e",
+      "bytes": 4685,
+      "characters": 1761
+    },
+    "inputs/platform-architecture.md": {
+      "sha256": "9b31d6e421ee3218fda1c16730cb8656156a9ff2b8713352cfa0e1ba4e47f219",
+      "bytes": 29298,
+      "characters": 11454
+    },
+    "inputs/provenance.md": {
+      "sha256": "43d38ed8237081de479f28e7ac1afd89b5c2955dd8641be3bdac4316f0ea3eef",
+      "bytes": 2304,
+      "characters": 1150
+    },
+    "inputs/rename-a.md": {
+      "sha256": "f69541da5266bfd66858b99724e2e286a27785a541f401575039c12d03ff0500",
+      "bytes": 1375,
+      "characters": 769
+    },
+    "inputs/rename-b.md": {
+      "sha256": "baa2ba4aa059f491e0b39db05287a9148770e7bc327233d080ec9dc56b42908b",
+      "bytes": 1379,
+      "characters": 773
+    },
+    "inputs/revised-skill.txt": {
+      "sha256": "765dddab7dfb5e63d1af3f2faec659a424631fe256218faa3bef7152971368b0",
+      "bytes": 5125,
+      "characters": 1909
+    },
+    "inputs/rubric.md": {
+      "sha256": "84f78879c7565fda8de1b6c618619ace1be33e0c9ccbff47341710cb4f548d26",
+      "bytes": 1569,
+      "characters": 549
+    },
+    "inputs/source.json": {
+      "sha256": "a9ec5c3a9a1b2e72986e2fea23fdab9aecb22f6ea8474f507f1a3a93bd63cfb4",
+      "bytes": 217,
+      "characters": 217
+    },
+    "rename/a.md": {
+      "sha256": "397acff1fb768a27488dfe68cc93073ba01ec5d7e4c9f744555250c63be8b9c8",
+      "bytes": 1607,
+      "characters": 655
+    },
+    "rename/b.md": {
+      "sha256": "2c9e782a05bc7aedee8a0aeaac40defac6a8082ad291a6edae23c22552a84e1c",
+      "bytes": 1637,
+      "characters": 661
+    },
+    "scores.json": {
+      "sha256": "49e223c9673d3d17a0e9457d2d4a3fb266deb060199745a15ea17d22e65533bc",
+      "bytes": 13584,
+      "characters": 7992
+    },
+    "skill/01.md": {
+      "sha256": "33910144df79eacc46daebb51bd3263044ef9c980ff37c49608f9a9d1b669640",
+      "bytes": 2692,
+      "characters": 1144
+    },
+    "skill/02.md": {
+      "sha256": "6d1c5a5cacbcd303c1ac924773b7d2176d2d86a9330cc89c26d61bac3b562193",
+      "bytes": 2763,
+      "characters": 1205
+    },
+    "skill/03.md": {
+      "sha256": "bea61a4ee5f63d2740058c1edc2269c809dead5b53f06702fdcc0500d3901207",
+      "bytes": 2839,
+      "characters": 1215
+    },
+    "skill/04.md": {
+      "sha256": "2d03200f497e90c515ff648f878e44a327e34ba9e09ea0d099bb035b87390ca3",
+      "bytes": 2730,
+      "characters": 1180
+    },
+    "skill/05.md": {
+      "sha256": "796f4e500848f706a377c46cb451a69220af15da485219a43bf845a356b0c402",
+      "bytes": 2681,
+      "characters": 1213
+    },
+    "static-validation.json": {
+      "sha256": "1f98980ad2821c341c90281ded8706d0e820355afa30ad0d10beecdb4b780632",
+      "bytes": 4427,
+      "characters": 4403
+    }
+  }
+}
