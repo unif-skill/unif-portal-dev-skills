@@ -4,33 +4,47 @@ Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Ch
 
 当前提供[架构与模块设计技能](skills/architecture-design/SKILL.md)，用于研发设计与审查。职责与验收要求见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
 
-## 安装与使用（Codex）
+## 安装与使用
 
-本仓库为私有仓库，需要本仓访问权限和可用的 GitHub Git 认证。在 Codex 对话中输入：
+技能采用 Agent Skills 格式，可安装到支持该格式的工具中。本仓库为私有仓库，需要本仓访问权限及可用的 Git 认证。
 
-```text
-使用 $skill-installer 安装 https://github.com/unif-skill/unif-portal-dev-skills/tree/main/skills/architecture-design
-```
+### 使用 Skills CLI
 
-也可在已安装 Codex 内置 `skill-installer` 的终端环境中执行，需要 Python 3 和 Git：
+准备 Node.js（含 npm/npx）和 Git，在目标项目目录运行：
 
 ```sh
-python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --repo unif-skill/unif-portal-dev-skills \
-  --path skills/architecture-design \
-  --ref main \
-  --method git
+npx skills add unif-skill/unif-portal-dev-skills --skill architecture-design
 ```
 
-安装器会复制完整技能目录，包括 references、agents 和 assets。默认安装到 `~/.codex/skills/architecture-design`；设置了 `CODEX_HOME` 时，安装到其 `skills/architecture-design` 下。
+按提示选择目标工具，例如 Claude Code、Cursor 或 Codex。默认安装到当前项目；需要用户级安装时，在命令后添加 `--global`。支持的工具、安装位置和认证方式见 [Skills CLI 文档](https://github.com/vercel-labs/skills#readme)。
 
-安装后在下一轮对话中使用，例如：
+通过 Skills CLI 安装的技能，可运行以下命令选择安装范围并更新：
+
+```sh
+npx skills update architecture-design
+```
+
+### 手动安装
+
+也可直接克隆仓库：
+
+```sh
+git clone https://github.com/unif-skill/unif-portal-dev-skills.git
+```
+
+将 `skills/architecture-design/` 完整复制到目标工具支持的技能目录，保留 `SKILL.md`、`references/`、`agents/` 和 `assets/` 的相对位置；具体安装目录以目标工具文档为准。
+
+更新时，在克隆的仓库中运行 `git pull --ff-only`，再替换已安装的完整技能目录。如有本地修改，先将旧目录备份到技能扫描目录之外。
+
+### 使用
+
+按目标工具的方式加载技能，并在任务中指定，例如：
 
 ```text
-使用 $architecture-design，依据本项目的架构规范审查这个模块的职责、接口交接和验证范围。
+使用 architecture-design 技能，依据本项目的架构规范审查这个模块的职责、接口交接和验证范围。
 ```
 
-如果技能未出现，重启 Codex 后再查看。更新时，先核对并备份已有安装目录，将其移到技能扫描目录之外，再重新安装；安装器不会覆盖已存在的同名目录。更新应替换完整目录，以同时更新规范、界面配置和图标。
+技能识别、调用语法和图标显示由目标工具决定。
 
 ## 使用与分发
 
