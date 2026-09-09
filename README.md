@@ -85,7 +85,19 @@ python3 -m unittest discover -s tests
 
 ## 验证
 
+- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 推送及手动触发时运行脚本测试和仓库校验：检查技能格式、标准插件清单、本仓市场入口、包内文档与图标引用，以及评测 manifest 中登记文件的摘要。校验不调用模型、改写仓库文件或自动提交。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。官方 Schema、`skills-ref validate` 的环境与复跑命令见[格式验证记录](docs/validation/2026-09-07-agent-standards.md)。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。
+
+本地复现 CI（Python 3.12）：
+
+```sh
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r scripts/requirements-ci.txt
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python scripts/validate_repository.py
+```
+
+校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为评测按规范或判断引导的实际变化另行执行。
 
 格式校验、模型评测和实际宿主加载分别验证。
