@@ -1,0 +1,160 @@
+{
+  "purpose": "比较规范更新前后技能包在相同针对性题设中的设计行为；不用于推断技能增益或生产正确率",
+  "date": "2026-09-09",
+  "repositoryBaseCommit": "b3c61df181de1953aadd9fb4ea1330ee9d756001",
+  "source": {
+    "path": "unif-platform-architecture/ARCHITECTURE.md",
+    "basis": "current source working tree, includes uncommitted documentation",
+    "baselineSha256": "0dd53bb3a432383c8af3e108552cc1ca47293b7d74aa655edbac67e8e5e20484",
+    "candidateSha256": "1a6c8eb93a1763517acbfa1acbf0e8e9eba4ddfda83f760985c95bdc84bea458"
+  },
+  "execution": {
+    "tool": "collaboration.spawn_agent",
+    "fork_turns": "none",
+    "model": "继承当前任务默认模型；工具结果未提供精确模型标识与版本",
+    "repetitionsPerCasePerVariant": 1,
+    "tokenUsage": null,
+    "modelLatency": null,
+    "scoring": "主任务按冻结 rubric 逐段人工核对；rubric 未作为被测输入提供"
+  },
+  "runs": [
+    {
+      "id": "baseline-response",
+      "agentTask": "/root/baseline_response",
+      "case": "inputs/cases/response.md",
+      "allowedNormativeFiles": [
+        "inputs/baseline/SKILL.md",
+        "inputs/baseline/references/platform-architecture.md",
+        "inputs/baseline/references/source.json"
+      ],
+      "output": "outputs/baseline-response.md",
+      "instructions": "仅凭指定题设及技能和规范产出书面设计，不读取其他项目、已安装技能、记忆、rubric 或其他运行结果；不实现产品代码；只将完整答案写入指定输出。"
+    },
+    {
+      "id": "baseline-confirmation",
+      "agentTask": "/root/baseline_confirmation",
+      "case": "inputs/cases/confirmation.md",
+      "allowedNormativeFiles": [
+        "inputs/baseline/SKILL.md",
+        "inputs/baseline/references/platform-architecture.md",
+        "inputs/baseline/references/source.json"
+      ],
+      "output": "outputs/baseline-confirmation.md",
+      "instructions": "仅凭指定题设及技能和规范产出书面设计，不读取其他项目、已安装技能、记忆、rubric 或其他运行结果；不实现产品代码；只将完整答案写入指定输出。"
+    },
+    {
+      "id": "baseline-switch",
+      "agentTask": "/root/baseline_switch",
+      "case": "inputs/cases/switch.md",
+      "allowedNormativeFiles": [
+        "inputs/baseline/SKILL.md",
+        "inputs/baseline/references/platform-architecture.md",
+        "inputs/baseline/references/source.json"
+      ],
+      "output": "outputs/baseline-switch.md",
+      "instructions": "仅凭指定题设及技能和规范产出书面设计，不读取其他项目、已安装技能、记忆、rubric 或其他运行结果；不实现产品代码；只将完整答案写入指定输出。"
+    },
+    {
+      "id": "candidate-response",
+      "agentTask": "/root/candidate_response",
+      "case": "inputs/cases/response.md",
+      "allowedNormativeFiles": [
+        "inputs/candidate/SKILL.md",
+        "inputs/candidate/references/platform-architecture.md",
+        "inputs/candidate/references/source.json"
+      ],
+      "output": "outputs/candidate-response.md",
+      "instructions": "仅凭指定题设及技能和规范产出书面设计，不读取其他项目、已安装技能、记忆、rubric 或其他运行结果；不实现产品代码；只将完整答案写入指定输出。"
+    },
+    {
+      "id": "candidate-confirmation",
+      "agentTask": "/root/candidate_confirmation",
+      "case": "inputs/cases/confirmation.md",
+      "allowedNormativeFiles": [
+        "inputs/candidate/SKILL.md",
+        "inputs/candidate/references/platform-architecture.md",
+        "inputs/candidate/references/source.json"
+      ],
+      "output": "outputs/candidate-confirmation.md",
+      "instructions": "仅凭指定题设及技能和规范产出书面设计，不读取其他项目、已安装技能、记忆、rubric 或其他运行结果；不实现产品代码；只将完整答案写入指定输出。"
+    },
+    {
+      "id": "candidate-switch",
+      "agentTask": "/root/candidate_switch",
+      "case": "inputs/cases/switch.md",
+      "allowedNormativeFiles": [
+        "inputs/candidate/SKILL.md",
+        "inputs/candidate/references/platform-architecture.md",
+        "inputs/candidate/references/source.json"
+      ],
+      "output": "outputs/candidate-switch.md",
+      "instructions": "仅凭指定题设及技能和规范产出书面设计，不读取其他项目、已安装技能、记忆、rubric 或其他运行结果；不实现产品代码；只将完整答案写入指定输出。"
+    }
+  ],
+  "files": {
+    "outputs/candidate-response.md": {
+      "sha256": "09864852142e962e86cb8adef4b79af81ca7d728c0e88594e808c3aa1c809a9e",
+      "bytes": 9802
+    },
+    "outputs/candidate-confirmation.md": {
+      "sha256": "b53d4c5fb4da16a081171736729c1e3668e084264480109945b6adc9ce38cb78",
+      "bytes": 6576
+    },
+    "outputs/baseline-response.md": {
+      "sha256": "6f71052334c5984eec804d5958cf023ad93e98bd7f803b1af256d3ef206bea3b",
+      "bytes": 8879
+    },
+    "outputs/baseline-confirmation.md": {
+      "sha256": "53e987d0b61ef529969307ce6c110ea678b69ed3011266e0f27a20af27cbe223",
+      "bytes": 7430
+    },
+    "outputs/candidate-switch.md": {
+      "sha256": "92e59bc7c3238e8e2b431e535ccdac0da4b605a7f17458e541fc206587fc04a6",
+      "bytes": 14194
+    },
+    "outputs/baseline-switch.md": {
+      "sha256": "cb755357a0882f634dddcd3e1a722e3c4aa733c9c01281f39943f25c7d27f481",
+      "bytes": 12644
+    },
+    "inputs/rubric.md": {
+      "sha256": "409391a47a433fc71dce77bfad2c33c08b6ee34980d52d1d79897954808fda37",
+      "bytes": 7335
+    },
+    "inputs/candidate/SKILL.md": {
+      "sha256": "4f43afaa6f64193fe458d7ba5b54baaf60b0c09324fe61873f341e820cc786c9",
+      "bytes": 2297
+    },
+    "inputs/cases/confirmation.md": {
+      "sha256": "0c58c991f3980b41e5ca3e7852fc977199a0e5f74caca3e6638b2f91814ecc88",
+      "bytes": 2443
+    },
+    "inputs/cases/response.md": {
+      "sha256": "9d124e81960f576c2614139edd8bdecc6dcb9394612757868af4c54902599acc",
+      "bytes": 2477
+    },
+    "inputs/cases/switch.md": {
+      "sha256": "53153a3b4c7d79e1d76cdb6e1acf7a7530e5e67c5b42f2f8fe3a2d2956613c74",
+      "bytes": 2729
+    },
+    "inputs/baseline/SKILL.md": {
+      "sha256": "1b5b54a16e3c7c0738f64a86a9db9c3baea386c08cb3cb3ef8b93fd47b9755b3",
+      "bytes": 1990
+    },
+    "inputs/baseline/references/source.json": {
+      "sha256": "41ec0efd4bc16568a42ff021d4f3778abfe7d5cb6394f420aca35d3644510a7c",
+      "bytes": 217
+    },
+    "inputs/baseline/references/platform-architecture.md": {
+      "sha256": "e96a5dd0ad2696036490ed72163b6535e43a81f5a7f69ff896d751b627d65590",
+      "bytes": 28865
+    },
+    "inputs/candidate/references/source.json": {
+      "sha256": "5e8cd3f639ad7e09ca5b0c9273ba67d5d3d976d59ef114422d37bc0629c2f91c",
+      "bytes": 217
+    },
+    "inputs/candidate/references/platform-architecture.md": {
+      "sha256": "ce8eb384545e5ab0bb78129937e16c15ffdfc41b31fb411238968d679aec7a34",
+      "bytes": 36072
+    }
+  }
+}
