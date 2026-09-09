@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
@@ -34,4 +35,11 @@ jobs:
       - name: Test validation and synchronization scripts
         run: python -m unittest discover -s tests -v
       - name: Validate package and evaluation records
-        run: python scripts/validate_repository.py
+        env:
+          RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        run: |
+          if [ -n "$RELEASE_TAG" ]; then
+            python scripts/validate_repository.py --release-tag "$RELEASE_TAG"
+          else
+            python scripts/validate_repository.py
+          fi

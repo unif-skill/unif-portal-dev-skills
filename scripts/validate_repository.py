@@ -48,6 +48,8 @@ def check_plugin(root, validator):
     errors = list(validator.iter_errors(manifest))
     if errors:
         raise ValueError(f'{path}: {errors[0].message}')
+    if not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', manifest.get('version', '')):
+        raise ValueError(f'{path}: version 必须是无前缀、无前导零的 X.Y.Z 版本号')
     interface = manifest.get('extensions', {}).get('com.openai', {}).get('interface', {})
     check_assets(root, interface, ('composerIcon', 'logo', 'logoDark'))
     for screenshot in interface.get('screenshots', []):
@@ -148,12 +150,14 @@ def check_evaluations(root):
     return len(runs), count
 
 
-def validate_repository(root):
+def validate_repository(root, release_tag=None):
     root = Path(root).resolve()
     schema = read_json(SCHEMA)
     Draft202012Validator.check_schema(schema)
     validator = Draft202012Validator(schema)
-    check_plugin(root, validator)
+    plugin = check_plugin(root, validator)
+    if release_tag is not None and release_tag != f'v{plugin["version"]}':
+        raise ValueError(f'发布 tag {release_tag!r} 与 plugin.json version {plugin["version"]!r} 不一致')
     check_marketplace(root, validator)
     skill_count = check_skills(root)
     run_count, file_count = check_evaluations(root)
@@ -163,9 +167,10 @@ def validate_repository(root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument('--release-tag', help='发布时核对 vX.Y.Z tag 与插件版本一致')
     args = parser.parse_args()
     try:
-        skills, runs, files = validate_repository(args.root)
+        skills, runs, files = validate_repository(args.root, release_tag=args.release_tag)
     except (ValueError, OSError) as error:
         parser.exit(1, f'校验失败：{error}\n')
     print(f'校验通过：{skills} 个技能、{runs} 份评测清单、{files} 个冻结文件。')

@@ -15,6 +15,7 @@ class RepositoryValidationTests(unittest.TestCase):
         self.write_json('plugin.json', {
             '$schema': 'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json',
             'name': 'example',
+            'version': '0.0.1',
             'extensions': {'com.openai': {'interface': {'logo': './assets/logo.png'}}},
         })
         self.write('assets/logo.png', b'image fixture')
@@ -68,6 +69,31 @@ class RepositoryValidationTests(unittest.TestCase):
     def test_rejects_unknown_plugin_field(self):
         self.edit_json('plugin.json', lambda d: d.update({'unexpected': True}))
         self.assert_invalid('plugin.json')
+
+    def test_rejects_missing_version(self):
+        self.edit_json('plugin.json', lambda d: d.pop('version'))
+        self.assert_invalid('version')
+
+    def test_rejects_non_release_version(self):
+        for version in ('0.1', 'v0.0.1', '00.1.0', '0.01.0', '0.0.1+local', ''):
+            with self.subTest(version=version):
+                self.edit_json('plugin.json', lambda d: d.update({'version': version}))
+                self.assert_invalid('version')
+
+    def test_accepts_zero_major_upgrades(self):
+        for version in ('0.0.2', '0.1.0', '0.12.34'):
+            with self.subTest(version=version):
+                self.edit_json('plugin.json', lambda d: d.update({'version': version}))
+                validate_repository(self.root)
+
+    def test_accepts_release_tag_matching_manifest(self):
+        validate_repository(self.root, release_tag='v0.0.1')
+
+    def test_rejects_release_tag_mismatch(self):
+        for tag in ('v0.0.2', '0.0.1', 'v1.0.0'):
+            with self.subTest(tag=tag):
+                with self.assertRaisesRegex(ValueError, 'tag'):
+                    validate_repository(self.root, release_tag=tag)
 
     def test_rejects_missing_marketplace(self):
         (self.root / '.agents/plugins/marketplace.json').unlink()
