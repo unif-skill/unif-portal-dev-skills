@@ -12,7 +12,7 @@ description: 在 Unif Portal 及相关 Agent、Channel、CLI 工程进行架构�
 优先采用任务或工程指定的规范版本；未指定时按问题选读包内主题，已有依据足够时不扩读：
 
 - 需求与范围：[设计依据](references/scope.md)、[模块文档](references/documentation.md)。
-- 职责与调用：[系统边界](references/responsibilities.md)、[能力、场景与入口](references/composition.md)。
+- 调用、输入准备与结果复用：[能力、场景与入口](references/composition.md)；系统职责：[系统边界](references/responsibilities.md)。
 - 状态与确认：[状态归属](references/state.md)、[入口确认](references/composition.md)。
 - 自然语言任务与记忆：[智能体与上下文](references/agent-context.md)。
 - 跨边界输入输出、业务成功、取消与未确认结果：[交接契约](references/contracts.md)。
@@ -26,8 +26,8 @@ description: 在 Unif Portal 及相关 Agent、Channel、CLI 工程进行架构�
 
 围绕本次变化说明：
 
-- **职责**：能力、场景、入口的分工，以及新增边界、状态或调用的实际需要与消费者。
-- **交接**：各步骤的输入输出、实际路由、错误和副作用，前一步产出能否支持后一步。
+- **职责**：能力、场景、入口的分工，调用、输入准备与结果复用由谁决定；新增边界、状态或调用的实际需要与消费者。
+- **交接**：公共函数的参数与实际依赖，步骤间的输出、路由、错误和副作用，前一步产出能否满足下一步输入。
 - **状态**：草稿、确认和业务事实的归属，确认的有效范围及异步结果的接收责任。
 - **验证**：真实被测单元、可替换的外部依赖、受影响消费者及扩大范围的条件。
 

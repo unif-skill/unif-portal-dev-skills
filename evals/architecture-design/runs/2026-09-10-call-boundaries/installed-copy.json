@@ -1,0 +1,12 @@
+{
+  "inspectedPath": "/Users/liulijun/.codex/plugins/cache/unif-portal-dev-skills/unif-portal-dev-skills/0.0.1",
+  "exists": true,
+  "scope": "current-session listed cache directory only; not a host load test",
+  "skills": [
+    {
+      "path": "skills/architecture-design/SKILL.md",
+      "sha256": "4f43afaa6f64193fe458d7ba5b54baaf60b0c09324fe61873f341e820cc786c9",
+      "repositorySha256": "c53f258f4cd60528cf634dea9dc21fc40e935ac6970ae4b112a1831156be5ca8"
+    }
+  ]
+}

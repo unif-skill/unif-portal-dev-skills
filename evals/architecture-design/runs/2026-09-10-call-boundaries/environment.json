@@ -1,0 +1,21 @@
+{
+  "baselineCommit": "722ef37dce7e062673fe3eac13576d9a6138b3c5",
+  "variants": {
+    "A": "已交付包",
+    "B": "仅同步架构规范，入口沿用 A",
+    "C": "同 B 规范，使用调整后的两个入口"
+  },
+  "samplesPerVariantPerCase": 1,
+  "independentContexts": 9,
+  "forkTurns": "none",
+  "model": "inherited from parent task; no override; exact model ID not exposed in evaluation tool output",
+  "node": "v24.13.0",
+  "python": "Python 3.14.7",
+  "scriptTests": 37,
+  "schemaAndReferenceValidator": "scripts/validate_repository.py with scripts/requirements-ci.txt environment",
+  "localOnly": true,
+  "realPortalImplementation": false,
+  "hostAutomaticInvocation": false,
+  "compressedContext": false,
+  "releaseOrInstall": false
+}

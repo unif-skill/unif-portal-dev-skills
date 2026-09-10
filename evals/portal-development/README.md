@@ -11,3 +11,5 @@
 [职责去重验证](runs/2026-09-10-scope/RESULTS.md)记录平台资料移除后的读取缺口、共享技能调用、独立安装边界及精简 description 的检查，保留未满足的初始产出。
 
 两个技能入口的进一步精简及描述、共享规范读取和独立安装回归见[措辞验证](../architecture-design/runs/2026-09-10-wording/RESULTS.md)。
+
+输入与请求边界、合理内部协调及等价文件收尾见[调用边界验证](../architecture-design/runs/2026-09-10-call-boundaries/RESULTS.md)，区分规范同步、入口调整和实际安装的证据。

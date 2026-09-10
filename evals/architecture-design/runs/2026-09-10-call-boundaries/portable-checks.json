@@ -1,0 +1,16 @@
+[
+  {
+    "skill": "architecture-design",
+    "skillCount": 1,
+    "referencesResolved": true,
+    "sourceCheckoutIncluded": false,
+    "otherSkillIncluded": false
+  },
+  {
+    "skill": "portal-development",
+    "skillCount": 1,
+    "referencesResolved": true,
+    "sourceCheckoutIncluded": false,
+    "otherSkillIncluded": false
+  }
+]
