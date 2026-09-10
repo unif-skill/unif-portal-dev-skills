@@ -1,6 +1,6 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-portable-links-v2",
+  "transformation": "section-text-portable-links-v3",
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
@@ -41,7 +41,7 @@
           ]
         }
       ],
-      "sha256": "0f3159bda42ca1e737132aaf2fc99f7f98791878429020624439bb2eaf98545d"
+      "sha256": "b0e393ef22ccd83d10556f6624f34723f8de739acf5b92baaefd09a34c8ebaf8"
     },
     "composition.md": {
       "sections": [
@@ -132,7 +132,7 @@
           ]
         }
       ],
-      "sha256": "5c2f97a35f88e38e0127156d2c83b29377d688b2c1ebf46756469075beaf98a0"
+      "sha256": "ad65b9de43e8b996dea8a012d1d08c01423e622a3d57448c53cbd53e25a3bdde"
     }
   }
 }
