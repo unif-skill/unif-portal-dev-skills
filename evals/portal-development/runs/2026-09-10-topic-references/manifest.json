@@ -1,0 +1,207 @@
+{
+  "run": "2026-09-10-topic-references",
+  "baselineCommit": "b8b84a1a030a760a168b4e8acae9177772c6cf37",
+  "method": "paired independent skill reads; three cases, one sample per variant; characters and UTF-8 bytes, not model tokens",
+  "files": {
+    "RESULTS.md": {
+      "sha256": "fb7a6085515471c7fee2cffdb8999f11647f90efda55ff934d556276e4f1fc10",
+      "bytes": 5201
+    },
+    "inputs/after/architecture-design/SKILL.md": {
+      "sha256": "0d9b2be9657476434d2b1b7d3786e5a0471b48ab63c69fef9a80b0901ab791e7",
+      "bytes": 2065
+    },
+    "inputs/after/architecture-design/references/agent-context.md": {
+      "sha256": "9772fe131d964d759351c37828f7a91347e426c616324be16c75b8f04580757a",
+      "bytes": 4035
+    },
+    "inputs/after/architecture-design/references/composition.md": {
+      "sha256": "e1a96c1dbc817a07677244144a93add5ceb237646eacc8bb723d6b197f0d40e9",
+      "bytes": 2796
+    },
+    "inputs/after/architecture-design/references/contracts.md": {
+      "sha256": "414ae3e1f937fd78d31742566a18af43db881a671e1759710bbaf5625be181d7",
+      "bytes": 8713
+    },
+    "inputs/after/architecture-design/references/cost.md": {
+      "sha256": "bf2ff75f80e2d16d2a867706c429d396301dea3987e333cf2801dea508bf9f84",
+      "bytes": 1591
+    },
+    "inputs/after/architecture-design/references/documentation.md": {
+      "sha256": "c849ea93dec24d822e0f98696131215f66123a2fd1426325fd4b897520e324b5",
+      "bytes": 4513
+    },
+    "inputs/after/architecture-design/references/responsibilities.md": {
+      "sha256": "0f3159bda42ca1e737132aaf2fc99f7f98791878429020624439bb2eaf98545d",
+      "bytes": 4759
+    },
+    "inputs/after/architecture-design/references/scope.md": {
+      "sha256": "e059f85570c2393c6ce87be7328561e086f8bb5098bfa40524d9ee79f5f27ee0",
+      "bytes": 3780
+    },
+    "inputs/after/architecture-design/references/source.json": {
+      "sha256": "8836e3350c66558ffccd6f07cf7485d53176b62197030464f34b3c3329991f30",
+      "bytes": 3280
+    },
+    "inputs/after/architecture-design/references/state.md": {
+      "sha256": "ab2404ccd8deebaaafaac5dd8a22d11bc0542d89c8ed979c47eba2562f8e243b",
+      "bytes": 2169
+    },
+    "inputs/after/architecture-design/references/verification.md": {
+      "sha256": "5ad28d7b1d6707ad013e93c83a86b4beef0b3151f4d0a5ba60ded7ea2a31ff11",
+      "bytes": 5038
+    },
+    "inputs/after/portal-development/SKILL.md": {
+      "sha256": "16a63537a769074cbbe7c83233a4d5729861631afa266e7958f6bcbfce22ac3f",
+      "bytes": 1822
+    },
+    "inputs/after/portal-development/references/dependencies.md": {
+      "sha256": "bffb540663ed5ac0833e565175b4f99ad4c8eb59fb87365bcf55b358596a6e7a",
+      "bytes": 3580
+    },
+    "inputs/after/portal-development/references/directory.md": {
+      "sha256": "12fb0bce9f4a75a592dd37719d28033b7ee30abacd217cfa88dfe40b204fa5da",
+      "bytes": 6684
+    },
+    "inputs/after/portal-development/references/file-rules.md": {
+      "sha256": "32388a67aa3ac70abac93fd5e3747feed5938434816ebd768de02ccab21c3400",
+      "bytes": 6325
+    },
+    "inputs/after/portal-development/references/scope.md": {
+      "sha256": "7a7f5b50e5f4854dcfc2635454c913712e9940b7f407c3959c65b1e20b5244af",
+      "bytes": 3684
+    },
+    "inputs/after/portal-development/references/source.json": {
+      "sha256": "2e1375ba8a8fe3ba8e3b27aee7a4ea0a6e8b925553c85daa2d9d769d410a481b",
+      "bytes": 3808
+    },
+    "inputs/after/portal-development/references/testing.md": {
+      "sha256": "031a14585bc919317944e31901b589d3704a1c5bd2a415ca066aa79694991ae6",
+      "bytes": 4445
+    },
+    "inputs/after/portal-development/references/ui.md": {
+      "sha256": "1e72443e986a836eab7f852b0254a12f648a0cd3e8a20e010689d2281597a6aa",
+      "bytes": 2864
+    },
+    "inputs/after/portal-development/references/utilities-config.md": {
+      "sha256": "f65f8d9a4b19e4fe6becb03c6b385e85a1e2177776805e1f6859ccf5ba2c961f",
+      "bytes": 3426
+    },
+    "inputs/before/architecture-design/SKILL.md": {
+      "sha256": "e7f0deb36f50c7b946dc73bfac9d81d782caa7008dfa9d4712415a024f53cf90",
+      "bytes": 1543
+    },
+    "inputs/before/architecture-design/references/platform-architecture.md": {
+      "sha256": "aa088f6c6631df84d95a51246c98370f3d4cb84ec9f3e1986a373e09f6b5ac81",
+      "bytes": 36528
+    },
+    "inputs/before/architecture-design/references/source.json": {
+      "sha256": "c01203ce0dbea7416cf4dc96e6813c778cb9691b5666f55106fd5379ecb5e9c2",
+      "bytes": 217
+    },
+    "inputs/before/portal-development/SKILL.md": {
+      "sha256": "69ff0f22e7bc9d3d36b57572e838571b65ac15b2a9bd69b200bcd2848070704d",
+      "bytes": 1576
+    },
+    "inputs/before/portal-development/references/portal-development.md": {
+      "sha256": "3e922d6d7d3dc8e1231533caa37bc8f0561137d75339f6bcd24af64c86d2f464",
+      "bytes": 11574
+    },
+    "inputs/before/portal-development/references/portal-structure.md": {
+      "sha256": "7f3fee22e154c64818a228c1b6ec588f4d2fe8fb46648262688d6f17991785f7",
+      "bytes": 19149
+    },
+    "inputs/before/portal-development/references/source.json": {
+      "sha256": "be9ced9138828cb38eee5506268ad77a48cacc1415f9e26ddb4c8a95910140d9",
+      "bytes": 556
+    },
+    "inputs/cases/capability.md": {
+      "sha256": "b9b174933425a46147a3dd7f8c36826eabb47f2a9f6c66e3274e5937e104c38a",
+      "bytes": 2450
+    },
+    "inputs/cases/component.md": {
+      "sha256": "ee04f6125d34cd6cb9e385a97ac8c9de907844dc69c6c3662859de012a91560f",
+      "bytes": 2031
+    },
+    "inputs/cases/utility.md": {
+      "sha256": "655eef5c51a2e0cb1d53e781b558d222f7959debcb629f63a16f5da16819c57b",
+      "bytes": 398
+    },
+    "inputs/prompt.txt": {
+      "sha256": "1e81818d2f8d3a6cbf08be32019cfa7746fc398ac08bd3bb456b4ffa9683c4e3",
+      "bytes": 1065
+    },
+    "inputs/rubric.md": {
+      "sha256": "f5d401460812b2e63795a188d039b23d871fae92be756359bea45f5d2ac8de25",
+      "bytes": 3106
+    },
+    "inputs/utility-rubric.md": {
+      "sha256": "2cc5ed6fa5a01b6a9c58b1b6e5219995cea95a8ced68ce7c0282942d68cf7dd3",
+      "bytes": 225
+    },
+    "outputs/after-capability-check.mjs": {
+      "sha256": "0329b4ef4bd204d0e882ec61f484ac5791783617824a7bacf71fe2b319e2d27b",
+      "bytes": 3466
+    },
+    "outputs/after-capability.md": {
+      "sha256": "48737c5ff163f02ca171f999cb9f3e087e3d7eea35c79547a88dae424c5d16fe",
+      "bytes": 12640
+    },
+    "outputs/after-component.md": {
+      "sha256": "bf80c3a50233d2fb365dfbcba68a787da10714eabae6f622a8d16646bfe8c0c7",
+      "bytes": 6447
+    },
+    "outputs/after-utility.md": {
+      "sha256": "b1734bbd1dc01b8b6ed114459be7520f24a396a66f62ec5f82e04f891df451ed",
+      "bytes": 2514
+    },
+    "outputs/before-capability.md": {
+      "sha256": "08f14be58dddd8937fa79f73951ac80f89c8ba01e3f21d67fce306a263a51fc4",
+      "bytes": 13329
+    },
+    "outputs/before-component.md": {
+      "sha256": "e4a35b8525dfa551b31382dc9b38e1e29790da3bed9edcfafd833e8e87c9b5ab",
+      "bytes": 6550
+    },
+    "outputs/before-utility.md": {
+      "sha256": "eea8d0737c35f566f212588c8e69393e8d428fd73dbf923a297116313eff2315",
+      "bytes": 2236
+    },
+    "read_material.py": {
+      "sha256": "142c5bb477b309661103122c3eb7926a2341d97aeb359e5a83fc8cc064cad5b6",
+      "bytes": 1486
+    },
+    "summarize_reads.py": {
+      "sha256": "06e99200715a96cf9fca88d3d6f75398b31954d6a80fed600c86536e2b84585c",
+      "bytes": 1691
+    },
+    "traces/after-capability.jsonl": {
+      "sha256": "08672b5881622389e5a37e9482589e06c778c702a6dd3bbe23136624c6d93fa5",
+      "bytes": 1686
+    },
+    "traces/after-component.jsonl": {
+      "sha256": "3597c5c04f6bb6aec394c1f0c49641a4153e10946c66ab6d8f78f28da2b1464b",
+      "bytes": 1677
+    },
+    "traces/after-utility.jsonl": {
+      "sha256": "734fef037917ca7da9097cc8769efdf4b86779a634f7292e06a1c5f312735948",
+      "bytes": 695
+    },
+    "traces/before-capability.jsonl": {
+      "sha256": "5e7e434253699e8d0d777d9e3e9854cae00742e7c6538a55eff4897a8eedeb8f",
+      "bytes": 3319
+    },
+    "traces/before-component.jsonl": {
+      "sha256": "cb5c724e19a36ec46ee4da0e2cea78e5cf681f62873d046be06c274076664758",
+      "bytes": 2529
+    },
+    "traces/before-utility.jsonl": {
+      "sha256": "b47a27d91ae35ccba9afc2f9504a88d304516cba62d4d31f2e33d7158d7faa11",
+      "bytes": 2542
+    },
+    "traces/output-status.md": {
+      "sha256": "5543c2001e2657f4ff0642a04ad198e70ddb042539f742dc8605f8107ab750c1",
+      "bytes": 1505
+    }
+  }
+}

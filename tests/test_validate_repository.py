@@ -61,6 +61,56 @@ class RepositoryValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, diagnostic):
             validate_repository(self.root)
 
+    def generated_references(self):
+        content = '<!-- 此文件由 scripts/sync_architecture.py 生成 -->\n\n# Guide\n'
+        self.write('skills/example/references/guide.md', content)
+        self.write_json('skills/example/references/source.json', {
+            'formatVersion': 2,
+            'sources': {'SOURCE.md': {'source': 'canonical/SOURCE.md', 'sha256': 'a' * 64, 'lines': 3}},
+            'files': {'guide.md': {
+                'sha256': hashlib.sha256(content.encode()).hexdigest(),
+                'sections': [{'source': 'SOURCE.md', 'heading': '', 'lines': [1, 3]}],
+            }},
+        })
+
+    def test_generated_material_is_verifiable_without_canonical_checkout(self):
+        self.generated_references()
+        validate_repository(self.root)
+
+    def test_rejects_edited_generated_material(self):
+        self.generated_references()
+        self.write('skills/example/references/guide.md', '# Changed\n')
+        self.assert_invalid('guide.md')
+
+    def test_rejects_missing_generated_source_record(self):
+        self.generated_references()
+        (self.root / 'skills/example/references/source.json').unlink()
+        self.assert_invalid('source.json')
+
+    def test_rejects_omitted_source_sections(self):
+        self.generated_references()
+        self.edit_json('skills/example/references/source.json',
+                       lambda d: d['files']['guide.md']['sections'][0].update({'lines': [1, 2]}))
+        self.assert_invalid('SOURCE.md')
+
+    def test_rejects_duplicate_source_sections(self):
+        self.generated_references()
+        self.edit_json('skills/example/references/source.json',
+                       lambda d: d['files']['guide.md']['sections'].append(
+                           {'source': 'SOURCE.md', 'heading': '', 'lines': [1, 3]}))
+        self.assert_invalid('SOURCE.md')
+
+    def test_rejects_unknown_source(self):
+        self.generated_references()
+        self.edit_json('skills/example/references/source.json',
+                       lambda d: d['files']['guide.md']['sections'][0].update({'source': 'MISSING.md'}))
+        self.assert_invalid('MISSING.md')
+
+    def test_rejects_unregistered_generated_material(self):
+        self.generated_references()
+        self.write('skills/example/references/old.md', '<!-- 此文件由 scripts/sync_architecture.py 生成 -->\nOld\n')
+        self.assert_invalid('old.md')
+
     def test_valid_package_is_read_only(self):
         before = {p: p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
         validate_repository(self.root)

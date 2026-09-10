@@ -9,7 +9,16 @@ description: 在 Unif Portal 及相关 Agent、Channel、CLI 工程进行架构�
 
 ## 依据
 
-优先采用任务或工程指定的规范版本；未指定时使用[平台规范](references/platform-architecture.md)。按问题选读：需求与范围第 1、9 节，职责与路由第 2—3 节，状态第 4 节，智能体与记忆第 5 节，契约与结果第 6 节，验证第 7 节，成本第 8 节。溯源时读取同目录 source.json。
+优先采用任务或工程指定的规范版本；未指定时按问题选读包内主题，已有依据足够时不扩读：
+
+- 需求与范围：[设计依据](references/scope.md)、[模块文档](references/documentation.md)。
+- 职责与调用：[系统边界](references/responsibilities.md)、[能力、场景与入口](references/composition.md)。
+- 状态与确认：[状态归属](references/state.md)、[入口确认](references/composition.md)。
+- 自然语言任务与记忆：[智能体与上下文](references/agent-context.md)。
+- 跨边界输入输出、业务成功、取消与未确认结果：[交接契约](references/contracts.md)。
+- 测试、消费者与变更影响：[独立验证](references/verification.md)；调用与模型成本：[成本验证](references/cost.md)。
+
+主题保留规范源文，溯源时读取 references/source.json。
 
 模块契约确定公共名称与语义；未定部分标明草案及影响范围。资料缺口只限制依赖它的设计。
 

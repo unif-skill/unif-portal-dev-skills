@@ -101,6 +101,57 @@ def check_markdown(root, path):
             contained_path(root, path.parent, unquote(url.path))
 
 
+def check_generated_references(skill):
+    directory = skill / 'references'
+    generated = {p.name for p in directory.glob('*.md')
+                 if p.read_text(encoding='utf-8').startswith('<!-- 此文件由 scripts/sync_architecture.py 生成')}
+    manifest = directory / 'source.json'
+    if not generated and not manifest.exists():
+        return
+    contained_path(skill, directory, 'source.json')
+    data = read_json(manifest)
+    if not isinstance(data, dict) or data.get('formatVersion') != 2:
+        raise ValueError(f'{manifest}: 不支持的来源记录格式')
+    sources, files = data.get('sources'), data.get('files')
+    if not isinstance(sources, dict) or not sources or not isinstance(files, dict) or not files:
+        raise ValueError(f'{manifest}: sources 和 files 必须是非空对象')
+    if generated - files.keys():
+        raise ValueError(f'{manifest}: 未登记的生成资料 {sorted(generated - files.keys())}')
+    covered = {name: [] for name in sources}
+    for name, source in sources.items():
+        if (not isinstance(source, dict) or not isinstance(source.get('source'), str)
+                or not re.fullmatch(r'[0-9a-f]{64}', str(source.get('sha256', '')))
+                or type(source.get('lines')) is not int or source['lines'] < 1):
+            raise ValueError(f'{manifest}: {name} 来源或摘要无效')
+    for name, record in files.items():
+        path = contained_path(skill, directory, name)
+        if (not isinstance(record, dict)
+                or hashlib.sha256(path.read_bytes()).hexdigest() != record.get('sha256')):
+            raise ValueError(f'{manifest}: {name} SHA-256 不匹配')
+        sections = record.get('sections')
+        if not isinstance(sections, list) or not sections:
+            raise ValueError(f'{manifest}: {name} 缺少源章节')
+        for section in sections:
+            if not isinstance(section, dict):
+                raise ValueError(f'{manifest}: {name} 非法源章节')
+            source, lines = section.get('source'), section.get('lines')
+            if not isinstance(source, str) or source not in sources:
+                raise ValueError(f'{manifest}: {name} 未知来源 {source!r}')
+            if (not isinstance(section.get('heading'), str) or not isinstance(lines, list)
+                    or len(lines) != 2 or any(type(n) is not int for n in lines)
+                    or not 1 <= lines[0] <= lines[1] <= sources[source]['lines']):
+                raise ValueError(f'{manifest}: {name} 非法源行段 {lines!r}')
+            covered[source].append(lines)
+    for source, spans in covered.items():
+        next_line = 1
+        for start, end in sorted(spans):
+            if start != next_line:
+                raise ValueError(f'{manifest}: {source} 源章节重复或缺失')
+            next_line = end + 1
+        if next_line != sources[source]['lines'] + 1:
+            raise ValueError(f'{manifest}: {source} 源章节缺失')
+
+
 def check_skills(root):
     directory = contained_path(root, root, 'skills', directory=True)
     skills = sorted(p for p in directory.iterdir() if p.is_dir())
@@ -114,6 +165,7 @@ def check_skills(root):
         for path in skill.rglob('*.md'):
             contained_path(skill, skill, str(path.relative_to(skill)))
             check_markdown(skill, path)
+        check_generated_references(skill)
         metadata = skill / 'agents/openai.yaml'
         if metadata.exists():
             contained_path(skill, skill, 'agents/openai.yaml')

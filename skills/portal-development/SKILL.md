@@ -9,13 +9,19 @@ description: 在 Portal 客户端新增、修改、移动、重命名或删除�
 
 ## 依据
 
-优先采用任务或工程指定的规则版本；未指定时使用包内快照，溯源时读取 references/source.json。
+优先采用任务或工程指定的规则版本；未指定时按本次改动选读包内主题，已有依据足够时不扩读：
 
-- [开发规则](references/portal-development.md)：第 2 节按代码类别查边界，第 3—4 节查文件角色、作用域、类型来源和命名，第 5 节查执行要求。
-- [工程组织](references/portal-structure.md)：第 1 节定位目录，第 2 节查 UI 复用，第 3 节查工具与配置，第 4—5 节查依赖、能力和宿主，第 6 节选择验证范围。
-- 业务结果映射、状态或确认处理，使用 architecture-design 核对共享平台规范；新模块、公共契约或场景职责变更先完成必要设计。该技能不可用时采用目标工程的架构规范；缺少依据则列明缺口，继续其余文件工作。
+- 文件拆分、作用域、类型与命名：[文件规则](references/file-rules.md)。
+- 组件、样式与 UI 复用：[UI 规则](references/ui.md)。
+- 工具、配置及资源文件：[归属规则](references/utilities-config.md)。
+- 公共入口、依赖、基础能力与宿主接线：[依赖规则](references/dependencies.md)。
+- 代码类别与职责边界：[开发范围](references/scope.md)。
+- 初始化工程、顶层目录或迁移落点：[目标目录](references/directory.md)。
+- 测试与变更影响：[定向验证](references/testing.md)。
 
-领域契约和 SDK 接口按需从目标工程取得。
+业务结果映射、状态或确认处理，使用 architecture-design 核对对应平台主题；新模块、公共契约或场景职责变更先完成必要设计。该技能不可用时采用目标工程的架构规范；缺少依据则列明缺口，继续其余文件工作。
+
+领域契约和 SDK 接口按需从目标工程取得；包内主题溯源时读取 references/source.json。
 
 ## 实施与交付
 
