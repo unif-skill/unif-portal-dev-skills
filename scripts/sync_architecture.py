@@ -4,11 +4,17 @@
 import argparse
 import hashlib
 import json
+import posixpath
 import re
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
-RELATIVE_LINK = re.compile(r'(?<!!)\[([^\]\n]+)\]\(([^)\s]+)\)')
+from markdown_it import MarkdownIt
+
+INLINE_CONTENT = re.compile(
+    r'(?P<code>(?<!`)(?P<ticks>`+)(?!`)(?s:.*?)(?<!`)(?P=ticks)(?!`))'
+    r'|(?<!!)\[(?P<label>[^\]\n]+)\]\((?P<target>[^)\s]+)\)'
+)
 MARKER = '<!-- 此文件由 scripts/sync_architecture.py 生成'
 HEADER = MARKER + '，请修改规范源后重新同步。来源与章节见 source.json。 -->\n\n'
 # 每个源章节仅分配一次；空标题表示首个二级标题之前的引言。
@@ -47,58 +53,125 @@ LEGACY = {
 }
 
 
-def portable_link(match):
-    target = match.group(2)
-    return match.group(0) if urlsplit(target).scheme or target.startswith('#') else match.group(1)
-
-
-def split_sections(text):
-    """保留原文和行号；代码围栏内的标题和示例链接不参与转换。"""
-    lines = text.splitlines(keepends=True)
-    sections = []
-    heading, start, body, fence = '', 1, [], None
-    for number, line in enumerate(lines, 1):
+def markdown_lines(text):
+    """标出代码围栏，供章节划分、锚点定位和链接转换共用。"""
+    fence = None
+    for number, line in enumerate(text.splitlines(keepends=True), 1):
         if fence:
-            body.append(line)
             if re.fullmatch(r' {0,3}' + re.escape(fence[0]) + '{' + str(len(fence)) + r',}\s*', line):
                 fence = None
+            yield number, line, True
             continue
         opening = re.match(r' {0,3}(`{3,}|~{3,})', line)
         if opening:
             fence = opening[1]
-            body.append(line)
-            continue
-        title = re.match(r'^## (.+?)\s*$', line)
+        yield number, line, bool(opening)
+
+
+def split_sections(text):
+    """保留源文和行号；代码围栏内的标题不参与章节划分。"""
+    sections = []
+    heading, start, body = '', 1, []
+    for number, line, code in markdown_lines(text):
+        title = None if code else re.match(r'^## (.+?)\s*$', line)
         if title:
             sections.append((heading, start, number - 1, ''.join(body)))
             heading, start, body = title[1], number, []
-        body.append(RELATIVE_LINK.sub(portable_link, line))
-    sections.append((heading, start, len(lines), ''.join(body)))
+        body.append(line)
+    sections.append((heading, start, len(text.splitlines()), ''.join(body)))
     return sections
+
+
+def add_anchor(heading, used):
+    base = re.sub(r'[^\w -]', '', heading.lower()).replace(' ', '-')
+    anchor, suffix = base, 0
+    while anchor in used:
+        suffix += 1
+        anchor = f'{base}-{suffix}'
+    used.add(anchor)
+    return anchor
+
+
+def topic_anchors(sections, topics, output_anchors):
+    """将规范的 ATX 标题锚点定位到所属主题，包括三级及以下标题。"""
+    anchors, source_anchors, section_titles = {}, set(), {}
+    for section, _, _, body in sections:
+        section_titles[section] = []
+        for _, line, code in markdown_lines(body):
+            title = None if code else re.match(r'^#{1,6} +(.+?)\s*$', line)
+            if not title:
+                continue
+            heading = re.sub(r'\s+#+$', '', title[1])
+            anchor = add_anchor(heading, source_anchors)
+            section_titles[section].append((anchor, heading))
+    # 源章节可以换序；目标锚点按 render 实际写出的顺序计数。
+    for filename, selected in topics.items():
+        for section in selected:
+            for anchor, heading in section_titles[section]:
+                output_anchor = add_anchor(heading, output_anchors.setdefault(filename, set()))
+                anchors[anchor] = f'{filename}#{output_anchor}'
+    return anchors
+
+
+def portable_text(body, source_name, anchors):
+    def link(match):
+        if match['code'] is not None:
+            return match[0]
+        label, target = match['label'], match['target']
+        url = urlsplit(target)
+        if url.scheme or url.netloc:
+            return match[0]
+        source = (posixpath.normpath(posixpath.join(posixpath.dirname(source_name), unquote(url.path)))
+                  if url.path else source_name)
+        if source not in anchors or url.query:
+            return f'{label}（规范源相对路径：`{target}`）'
+        if not url.fragment:
+            return f'[{label}](../SKILL.md)'
+        fragment = unquote(url.fragment)
+        if fragment not in anchors[source]:
+            raise ValueError(f'{source_name}: 引用的规范锚点不存在：{target}')
+        return f'[{label}]({anchors[source][fragment]})'
+
+    lines, output, start = body.splitlines(keepends=True), [], 0
+    # 只在同一个 Markdown 行内块内识别代码 span，保留围栏与块间原文。
+    for token in MarkdownIt('commonmark').parse(body):
+        if token.type != 'inline' or token.map is None:
+            continue
+        first, last = token.map
+        output.extend(lines[start:first])
+        output.append(INLINE_CONTENT.sub(link, ''.join(lines[first:last])))
+        start = last
+    output.extend(lines[start:])
+    return ''.join(output)
 
 
 def render(sources, skill):
     outputs, records = {}, {}
-    provenance = {'formatVersion': 2, 'transformation': 'section-text-portable-links-v2',
+    provenance = {'formatVersion': 2, 'transformation': 'section-text-portable-links-v3',
                   'sources': {}, 'files': records}
+    parsed = {name: split_sections(content.decode('utf-8')) for name, content in sources.items()}
+    anchors, output_anchors = {}, {}
     for source_name, topics in TOPICS[skill].items():
-        content = sources[source_name]
-        sections = split_sections(content.decode('utf-8'))
+        sections = parsed[source_name]
         headings = [section[0] for section in sections]
         expected = [heading for selection in topics.values() for heading in selection]
         if (len(set(headings)) != len(headings) or len(set(expected)) != len(expected)
                 or set(headings) != set(expected)):
             raise ValueError(f'{source_name}: 二级章节缺失、重复或未分配；请核对主题映射。'
                              f' 缺失={set(expected) - set(headings)}，未分配={set(headings) - set(expected)}')
+        anchors[source_name] = topic_anchors(sections, topics, output_anchors)
+    for source_name, topics in TOPICS[skill].items():
+        content = sources[source_name]
         provenance['sources'][source_name] = {
             'source': 'unif-platform-architecture/' + source_name,
             'sha256': hashlib.sha256(content).hexdigest(),
             'lines': len(content.decode('utf-8').splitlines()),
         }
-        by_heading = {section[0]: section for section in sections}
+        by_heading = {section[0]: section for section in parsed[source_name]}
         for filename, selected in topics.items():
             for title in selected:
                 heading, start, end, body = by_heading[title]
+                body = portable_text(body, source_name, anchors)
                 outputs[filename] = outputs.get(filename, HEADER) + ('' if filename not in outputs else '\n') + body
                 records.setdefault(filename, {'sections': []})['sections'].append({
                     'source': source_name, 'heading': heading, 'lines': [start, end],

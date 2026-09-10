@@ -81,15 +81,125 @@ class SnapshotTests(unittest.TestCase):
                     self.assertEqual(record['sources'][name]['sha256'], hashlib.sha256(source).hexdigest())
                 self.assertEqual(self.run_sync('--check', portal=portal).returncode, 0)
 
-    def test_preserves_code_and_external_links_but_removes_relative_document_links(self):
+    def test_preserves_code_and_external_links_with_source_relative_hints(self):
         self.source.write_text(self.source.read_text() +
-                               '[领域](domains/example.md) [外部](https://example.com) [锚点](#a)\n'
+                               '[领域](domains/example.md#entity) [外部](https://example.com) '
+                               '[站外](//example.com/docs)\n'
+                               '`[内联示例](relative.md)`\n'
                                '```md\n## 10. 代码里的标题\n[示例](relative.md)\n```\n')
         result = self.run_sync()
         self.assertEqual(result.returncode, 0, result.stderr)
         text = (self.reference / 'documentation.md').read_text()
-        self.assertIn('领域 [外部](https://example.com) [锚点](#a)', text)
+        self.assertIn('领域（规范源相对路径：`domains/example.md#entity`）', text)
+        self.assertIn('[外部](https://example.com) [站外](//example.com/docs)', text)
+        self.assertIn('`[内联示例](relative.md)`', text)
         self.assertIn('```md\n## 10. 代码里的标题\n[示例](relative.md)\n```', text)
+
+    def test_rewrites_source_anchors_to_their_generated_topics(self):
+        source = self.source.read_text().replace(
+            '## 3. 功能、场景与入口\n', '## 3. 功能、场景与入口\n\n### 公共输入\n')
+        self.source.write_text(source +
+                               '[状态](./ARCHITECTURE.md#4-状态归属) '
+                               '[输入](#公共输入)\n')
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        text = (self.reference / 'documentation.md').read_text()
+        self.assertIn('[状态](state.md#4-状态归属)', text)
+        self.assertIn('[输入](composition.md#公共输入)', text)
+        self.assertIn('### 公共输入', (self.reference / 'composition.md').read_text())
+
+    def test_code_styled_link_labels_are_resolved_and_validated(self):
+        original = self.source.read_text()
+        self.source.write_text(original + '[`状态`](#4-状态归属)\n')
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('[`状态`](state.md#4-状态归属)', (self.reference / 'documentation.md').read_text())
+        before = self.files()
+        self.source.write_text(original + '[`缺失`](#missing)\n')
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn('锚点', result.stderr)
+        self.assertEqual(self.files(), before)
+
+    def test_multiline_code_spans_remain_literal(self):
+        example = '`代码示例\n[状态](#4-状态归属)\n[缺失](#missing)\n`\n'
+        self.source.write_text(self.source.read_text() + example)
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(example, (self.reference / 'documentation.md').read_text())
+
+    def test_code_spans_do_not_cross_markdown_block_boundaries(self):
+        original = self.source.read_text()
+        examples = (
+            '第一段 `\n\n[缺失](#missing)\n\n第三段 `\n',
+            '第一段 `\n### 标题\n[缺失](#missing)\n结束 `\n',
+            '第一段 `\n- [缺失](#missing)\n结束 `\n',
+        )
+        for example in examples:
+            with self.subTest(example=example):
+                self.source.write_text(original + example)
+                result = self.run_sync()
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn('锚点', result.stderr)
+
+    def test_routes_bundled_documents_and_preserves_unbundled_source_paths(self):
+        source = self.sources / 'PORTAL_STRUCTURE.md'
+        source.write_text(source.read_text() +
+                          '[文件角色](PORTAL_DEVELOPMENT.md#3-常量类型变量与文件拆分) '
+                          '[完整规则](PORTAL_DEVELOPMENT.md) '
+                          '[状态](ARCHITECTURE.md#4-状态归属)\n')
+        result = self.run_sync(portal=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        reference = self.root / 'package/skills/portal-development/references'
+        text = (reference / 'testing.md').read_text()
+        self.assertIn('[文件角色](file-rules.md#3-常量类型变量与文件拆分)', text)
+        self.assertIn('[完整规则](../SKILL.md)', text)
+        self.assertIn('状态（规范源相对路径：`ARCHITECTURE.md#4-状态归属`）', text)
+        self.assertEqual(self.run_sync('--check', portal=True).returncode, 0)
+
+    def test_missing_bundled_anchor_fails_before_writing(self):
+        self.assertEqual(self.run_sync().returncode, 0)
+        before = self.files()
+        self.source.write_text(self.source.read_text() + '[缺失章节](#missing)\n')
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn('锚点', result.stderr)
+        self.assertEqual(self.files(), before)
+
+    def test_reconciles_duplicate_anchors_after_splitting_and_combining_sources(self):
+        source = self.source.read_text()
+        for heading in ('3. 功能、场景与入口', '4. 状态归属'):
+            source = source.replace(f'## {heading}\n', f'## {heading}\n\n### 输入\n')
+        self.source.write_text(source + '[后者](#输入-1)\n')
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('[后者](state.md#输入)', (self.reference / 'documentation.md').read_text())
+
+        for name, heading in (('PORTAL_DEVELOPMENT.md', '5. 规则执行与定向验证'),
+                              ('PORTAL_STRUCTURE.md', '6. 分批重写与定向验证')):
+            path = self.sources / name
+            source = path.read_text().replace(f'## {heading}\n', f'## {heading}\n\n### 验证对象\n')
+            path.write_text(source + '[本规范的验证对象](#验证对象)\n')
+        result = self.run_sync(portal=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        text = (self.root / 'package/skills/portal-development/references/testing.md').read_text()
+        self.assertIn('[本规范的验证对象](testing.md#验证对象)', text)
+        self.assertIn('[本规范的验证对象](testing.md#验证对象-1)', text)
+
+    def test_reconciles_source_and_output_heading_order(self):
+        path = self.sources / 'PORTAL_DEVELOPMENT.md'
+        source = path.read_text()
+        third = source.index('## 3. 常量、类型、变量与文件拆分')
+        fourth = source.index('## 4. 命名与公开出口')
+        fifth = source.index('## 5. 规则执行与定向验证')
+        names = source[fourth:fifth] + '### 输入\n\n[名称部分输入](#输入)\n\n'
+        types = source[third:fourth] + '### 输入\n\n[类型部分输入](#输入-1)\n\n'
+        path.write_text(source[:third] + names + types + source[fifth:])
+        result = self.run_sync(portal=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        text = (self.root / 'package/skills/portal-development/references/file-rules.md').read_text()
+        self.assertIn('[类型部分输入](file-rules.md#输入)', text)
+        self.assertIn('[名称部分输入](file-rules.md#输入-1)', text)
 
     def test_unknown_missing_and_duplicate_sections_fail_without_writes(self):
         self.assertEqual(self.run_sync().returncode, 0)

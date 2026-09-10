@@ -78,9 +78,11 @@ README、docs、evals、同步脚本和测试用于仓库维护，不进入技�
 
 ## 规范来源
 
-先修改 `unif-platform-architecture/ARCHITECTURE.md`，再通过脚本生成技能内的[平台主题资料](skills/architecture-design/SKILL.md#依据)和 source.json。脚本按完整章节拆分，保留源文及章节编号，将正文中的包外相对文档链接转为文字。source.json 记录源文件摘要、主题摘要及对应行段。
+先修改 `unif-platform-architecture/ARCHITECTURE.md`，再通过脚本生成技能内的[平台主题资料](skills/architecture-design/SKILL.md#依据)和 source.json。脚本按完整章节拆分，保留源文及章节编号：同一技能内的章节引用转为对应主题链接，整份规范引用转到技能主题索引，包外文档保留规范源相对路径作为定位线索，不表示已随包提供。source.json 记录源文件摘要、主题摘要及对应行段。
 
 默认模式只同步 architecture-design 的根规范。领域方法在对应模块契约中维护，由技能按需读取。`SKILL.md`、spec 和 evals 单独维护，不由脚本生成。实现后的类型、运行时校验和模型 Schema 从业务代码契约取得。
+
+同步工具使用下方[验证](#验证)步骤准备的 Python 环境与依赖。
 
 ```sh
 python3 scripts/sync_architecture.py --source /path/to/unif-platform-architecture/ARCHITECTURE.md
