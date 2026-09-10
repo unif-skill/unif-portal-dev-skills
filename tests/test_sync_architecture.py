@@ -1,4 +1,6 @@
 import shutil
+import hashlib
+import json
 import subprocess
 import sys
 import tempfile
@@ -55,6 +57,68 @@ class SnapshotTests(unittest.TestCase):
         (self.reference / "source.json").write_text("{}", encoding="utf-8")
         self.assertNotEqual(self.run_sync("--check").returncode, 0)
 
+
+class PortalSnapshotTests(SnapshotTests):
+    def setUp(self):
+        super().setUp()
+        self.sources = self.root / 'rules'
+        self.sources.mkdir()
+        self.contents = {
+            'PORTAL_DEVELOPMENT.md': '# Development\n[Structure](PORTAL_STRUCTURE.md)\n',
+            'PORTAL_STRUCTURE.md': '# Structure\nKeep real consumers.\n',
+        }
+        for name, content in self.contents.items():
+            (self.sources / name).write_text(content)
+        self.reference = self.root / 'package/skills/portal-development/references'
+
+    def run_sync(self, *args):
+        return subprocess.run(
+            [sys.executable, str(self.script), '--skill', 'portal-development',
+             '--source', str(self.sources), *args], capture_output=True, text=True,
+        )
+
+    def test_generate_preserves_rules_and_makes_relative_link_portable(self):
+        self.assertEqual(self.run_sync().returncode, 0)
+        record = json.loads((self.reference / 'source.json').read_text())['sources']
+        expected = {'portal-development.md', 'portal-structure.md'}
+        self.assertEqual(set(record), expected)
+        self.assertEqual({p.name for p in self.reference.iterdir()}, expected | {'source.json'})
+        for name, source in [('portal-development.md', 'PORTAL_DEVELOPMENT.md'),
+                             ('portal-structure.md', 'PORTAL_STRUCTURE.md')]:
+            self.assertEqual(record[name]['source'], 'unif-platform-architecture/' + source)
+            self.assertEqual(record[name]['sourceSha256'],
+                             hashlib.sha256(self.contents[source].encode()).hexdigest())
+            text = (self.reference / name).read_text()
+            self.assertIn(self.contents[source].splitlines()[0], text)
+            self.assertNotIn(str(self.root), text)
+        self.assertNotIn('](PORTAL_STRUCTURE.md)',
+                         (self.reference / 'portal-development.md').read_text())
+        self.assertEqual(self.run_sync('--check').returncode, 0)
+        self.assertFalse((self.root / 'package/skills/architecture-design').exists())
+
+    def test_check_detects_source_change(self):
+        self.assertEqual(self.run_sync().returncode, 0)
+        source = self.sources / 'PORTAL_STRUCTURE.md'
+        original = (self.reference / 'portal-structure.md').read_bytes()
+        source.write_text('# Changed structure\n')
+        result = self.run_sync('--check')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('portal-structure.md', result.stderr)
+        self.assertEqual((self.reference / 'portal-structure.md').read_bytes(), original)
+
+    def test_missing_source_does_not_partially_write(self):
+        (self.sources / 'PORTAL_STRUCTURE.md').unlink()
+        result = self.run_sync()
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('PORTAL_STRUCTURE.md', result.stderr)
+        self.assertFalse(self.reference.exists())
+
+    def test_check_detects_snapshot_edit_without_overwriting_it(self):
+        self.assertEqual(self.run_sync().returncode, 0)
+        target = self.reference / 'portal-development.md'
+        target.write_text('被改写的规则')
+        self.assertNotEqual(self.run_sync('--check').returncode, 0)
+        self.assertEqual(target.read_text(), '被改写的规则')
+
 if __name__ == "__main__":
     unittest.main()
-

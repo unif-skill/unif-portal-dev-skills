@@ -1,0 +1,271 @@
+{
+  "date": "2026-09-10",
+  "purpose": "两个技能入口的等义精简与识别/行为回归",
+  "execution": {
+    "tool": "collaboration.spawn_agent",
+    "fork_turns": "none",
+    "model": "继承当前任务默认设置，工具未返回精确模型标识与版本",
+    "descriptionRepetitionsPerVariant": 5,
+    "tokenUsage": null,
+    "modelLatency": null,
+    "scoring": "人工阅读全部选择及行为输出；判据未提供给被测上下文"
+  },
+  "runs": [
+    {
+      "id": "before-1",
+      "agentTask": "/root/wording_before_1",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-before.md"
+      ],
+      "output": "outputs/before-1.md"
+    },
+    {
+      "id": "before-2",
+      "agentTask": "/root/wording_before_2",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-before.md"
+      ],
+      "output": "outputs/before-2.md"
+    },
+    {
+      "id": "before-3",
+      "agentTask": "/root/wording_before_3",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-before.md"
+      ],
+      "output": "outputs/before-3.md"
+    },
+    {
+      "id": "before-4",
+      "agentTask": "/root/wording_before_4",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-before.md"
+      ],
+      "output": "outputs/before-4.md"
+    },
+    {
+      "id": "before-5",
+      "agentTask": "/root/wording_before_5",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-before.md"
+      ],
+      "output": "outputs/before-5.md"
+    },
+    {
+      "id": "after-1",
+      "agentTask": "/root/wording_after_1",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-after.md"
+      ],
+      "output": "outputs/after-1.md"
+    },
+    {
+      "id": "after-2",
+      "agentTask": "/root/wording_after_2",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-after.md"
+      ],
+      "output": "outputs/after-2.md"
+    },
+    {
+      "id": "after-3",
+      "agentTask": "/root/wording_after_3",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-after.md"
+      ],
+      "output": "outputs/after-3.md"
+    },
+    {
+      "id": "after-4",
+      "agentTask": "/root/wording_after_4",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-after.md"
+      ],
+      "output": "outputs/after-4.md"
+    },
+    {
+      "id": "after-5",
+      "agentTask": "/root/wording_after_5",
+      "allowedInputs": [
+        "inputs/cases.md",
+        "inputs/catalog-after.md"
+      ],
+      "output": "outputs/after-5.md"
+    },
+    {
+      "id": "response",
+      "agentTask": "/root/wording_response",
+      "case": "inputs/behavior/response.md",
+      "allowedSkills": [
+        "inputs/after/architecture-design"
+      ],
+      "output": "outputs/response.md"
+    },
+    {
+      "id": "capability",
+      "agentTask": "/root/wording_capability",
+      "case": "inputs/behavior/capability.md",
+      "allowedSkills": [
+        "inputs/after/architecture-design",
+        "inputs/after/portal-development"
+      ],
+      "output": "outputs/capability.md"
+    },
+    {
+      "id": "standalone",
+      "agentTask": "/root/wording_standalone",
+      "case": "inputs/behavior/standalone.md",
+      "allowedSkills": [
+        "inputs/after/portal-development"
+      ],
+      "output": "outputs/standalone.md"
+    }
+  ],
+  "files": {
+    "outputs/after-2.md": {
+      "sha256": "d6c3c23c949704dcda8bb18decb5dd9afa9eba86e50eb9466eb857514e3f0c13",
+      "bytes": 1051
+    },
+    "outputs/after-3.md": {
+      "sha256": "b93a536826464ff82ac4d6a8ba21daac777608bb5137b60ae2ca80e4421b712b",
+      "bytes": 1182
+    },
+    "outputs/capability.md": {
+      "sha256": "7ddaffc6a4775273ee80ad4fe74077102a441467b02119d99590746407886d66",
+      "bytes": 13426
+    },
+    "outputs/before-3.md": {
+      "sha256": "be6af82bcf2cf76d77450249e6ee337d3437f88b35941fe8ef45d36a1c2fe3f2",
+      "bytes": 1221
+    },
+    "outputs/before-2.md": {
+      "sha256": "0c4ffa419878d3ff8334c524d6a3d913e66b51e8ae68cf29cdf6d6dd9db00438",
+      "bytes": 1165
+    },
+    "outputs/before-5.md": {
+      "sha256": "2d7f050faf3cc5b55c6162c9c7ea23d74a39359d84f850fc780f119248320f08",
+      "bytes": 1022
+    },
+    "outputs/before-1.md": {
+      "sha256": "593150c68d116d3554c5f8edfc36a18af58308e980a30bbfdb53e64a534df84f",
+      "bytes": 1076
+    },
+    "outputs/standalone.md": {
+      "sha256": "df7d89e39fc173cf1cfd7d2b6bc69158d99ea48fe3f8476c730875a16bb71763",
+      "bytes": 4590
+    },
+    "outputs/before-4.md": {
+      "sha256": "4b499604ca7e42f40ea9ebc6d405af403e30e6f7f19fa9a529fb0717c5da03ba",
+      "bytes": 968
+    },
+    "outputs/after-4.md": {
+      "sha256": "db81cc1f456b2e73a07de2eec61d29bc2788374e2318d607f620a0b13c3b1a61",
+      "bytes": 1087
+    },
+    "outputs/response.md": {
+      "sha256": "fb22bd8c64b987344e9931c3dfb7f00ad49c7c65939c364a63641e16e725fc6e",
+      "bytes": 8866
+    },
+    "outputs/after-1.md": {
+      "sha256": "c0dc7d40ffd00385231eed07f9363823d9763a8734ad13bd2c2bd82c1611d65a",
+      "bytes": 1174
+    },
+    "outputs/after-5.md": {
+      "sha256": "e0ef6dd45aaa9af50fe87194a40a96835913dedc7b9b62a3acdf082188a86f15",
+      "bytes": 936
+    },
+    "inputs/catalog-after.md": {
+      "sha256": "5ed64e5d1e47cf387fcf9fca2dfe3e0cddefca5ec1fbb847c520699ffad85022",
+      "bytes": 475
+    },
+    "inputs/rubric.md": {
+      "sha256": "fe2f820d2efeef0070590830de66c19a3bd85e86b809a52e81342f44f208c573",
+      "bytes": 329
+    },
+    "inputs/cases.md": {
+      "sha256": "0b49f4214a2ce69ef576e9e100ab50d5f4c2d4acc068cbb7cf23b46e26145d30",
+      "bytes": 1024
+    },
+    "inputs/catalog-before.md": {
+      "sha256": "2cd5c6057457370ec248cdc6ba74f6b8531d235414ca3ff020a2ac17d068e7d0",
+      "bytes": 748
+    },
+    "inputs/behavior/capability.md": {
+      "sha256": "b9b174933425a46147a3dd7f8c36826eabb47f2a9f6c66e3274e5937e104c38a",
+      "bytes": 2450
+    },
+    "inputs/behavior/standalone.md": {
+      "sha256": "cf2c01f04997b4053ae27028ad014754f4c416b075562bbd3f2b6bd401e2ffe9",
+      "bytes": 858
+    },
+    "inputs/behavior/response.md": {
+      "sha256": "9d124e81960f576c2614139edd8bdecc6dcb9394612757868af4c54902599acc",
+      "bytes": 2477
+    },
+    "inputs/after/architecture-design/SKILL.md": {
+      "sha256": "e7f0deb36f50c7b946dc73bfac9d81d782caa7008dfa9d4712415a024f53cf90",
+      "bytes": 1543
+    },
+    "inputs/after/portal-development/SKILL.md": {
+      "sha256": "69ff0f22e7bc9d3d36b57572e838571b65ac15b2a9bd69b200bcd2848070704d",
+      "bytes": 1576
+    },
+    "inputs/after/portal-development/references/portal-structure.md": {
+      "sha256": "7f3fee22e154c64818a228c1b6ec588f4d2fe8fb46648262688d6f17991785f7",
+      "bytes": 19149
+    },
+    "inputs/after/portal-development/references/source.json": {
+      "sha256": "be9ced9138828cb38eee5506268ad77a48cacc1415f9e26ddb4c8a95910140d9",
+      "bytes": 556
+    },
+    "inputs/after/portal-development/references/portal-development.md": {
+      "sha256": "3e922d6d7d3dc8e1231533caa37bc8f0561137d75339f6bcd24af64c86d2f464",
+      "bytes": 11574
+    },
+    "inputs/after/architecture-design/references/source.json": {
+      "sha256": "c01203ce0dbea7416cf4dc96e6813c778cb9691b5666f55106fd5379ecb5e9c2",
+      "bytes": 217
+    },
+    "inputs/after/architecture-design/references/platform-architecture.md": {
+      "sha256": "aa088f6c6631df84d95a51246c98370f3d4cb84ec9f3e1986a373e09f6b5ac81",
+      "bytes": 36528
+    },
+    "inputs/before/architecture-design/SKILL.md": {
+      "sha256": "4f43afaa6f64193fe458d7ba5b54baaf60b0c09324fe61873f341e820cc786c9",
+      "bytes": 2297
+    },
+    "inputs/before/portal-development/SKILL.md": {
+      "sha256": "29df0dffb2f65d23dae56e2c119e3a093740ce2560704c6054196826eb3a7760",
+      "bytes": 2191
+    },
+    "inputs/before/portal-development/references/portal-structure.md": {
+      "sha256": "7f3fee22e154c64818a228c1b6ec588f4d2fe8fb46648262688d6f17991785f7",
+      "bytes": 19149
+    },
+    "inputs/before/portal-development/references/source.json": {
+      "sha256": "be9ced9138828cb38eee5506268ad77a48cacc1415f9e26ddb4c8a95910140d9",
+      "bytes": 556
+    },
+    "inputs/before/portal-development/references/portal-development.md": {
+      "sha256": "3e922d6d7d3dc8e1231533caa37bc8f0561137d75339f6bcd24af64c86d2f464",
+      "bytes": 11574
+    },
+    "inputs/before/architecture-design/references/source.json": {
+      "sha256": "c01203ce0dbea7416cf4dc96e6813c778cb9691b5666f55106fd5379ecb5e9c2",
+      "bytes": 217
+    },
+    "inputs/before/architecture-design/references/platform-architecture.md": {
+      "sha256": "aa088f6c6631df84d95a51246c98370f3d4cb84ec9f3e1986a373e09f6b5ac81",
+      "bytes": 36528
+    }
+  }
+}

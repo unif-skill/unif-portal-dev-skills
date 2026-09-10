@@ -2,7 +2,10 @@
 
 Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Channel、CLI 工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
-当前提供[架构与模块设计技能](skills/architecture-design/SKILL.md)，用于研发设计与审查。职责与验收要求见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
+当前提供：
+
+- [architecture-design](skills/architecture-design/SKILL.md)：研发设计与审查，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
+- [portal-development](skills/portal-development/SKILL.md)：Portal 文件开发，目标工程调用方式见[接入说明](docs/portal-development-integration.md)。其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
 
 ## 安装与使用
 
@@ -15,6 +18,8 @@ Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Ch
 ```sh
 npx skills add unif-skill/unif-portal-dev-skills --skill architecture-design
 ```
+
+安装 `portal-development` 时将 `--skill` 的值替换为该名称；手动分发时同样复制对应的完整技能目录。
 
 按提示选择目标工具，例如 Claude Code、Cursor 或 Codex。默认安装到当前项目；需要用户级安装时，在命令后添加 `--global`。支持的工具、安装位置和认证方式见 [Skills CLI 文档](https://github.com/vercel-labs/skills#readme)。
 
@@ -73,7 +78,7 @@ README、docs、evals、同步脚本和测试用于仓库维护，不进入技�
 
 先修改 `unif-platform-architecture/ARCHITECTURE.md`，再通过脚本生成技能内的[平台快照](skills/architecture-design/references/platform-architecture.md)和 source.json。脚本保留正文，仅将包外相对文档链接转为文字。
 
-脚本只同步根规范，领域方法在对应模块契约中维护，由技能按需读取。`SKILL.md`、spec 和 evals 单独维护，不由脚本生成。实现后的类型、运行时校验和模型 Schema 从业务代码契约取得。
+默认模式只同步 architecture-design 的根规范。领域方法在对应模块契约中维护，由技能按需读取。`SKILL.md`、spec 和 evals 单独维护，不由脚本生成。实现后的类型、运行时校验和模型 Schema 从业务代码契约取得。
 
 ```sh
 python3 scripts/sync_architecture.py --source /path/to/unif-platform-architecture/ARCHITECTURE.md
@@ -82,6 +87,13 @@ python3 -m unittest discover -s tests
 ```
 
 `--check` 只比较规范源、快照和来源记录的一致性，不修改文件。
+
+portal-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成文件开发资料及来源记录。平台原则由 architecture-design 维护；需要架构设计时按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
+
+```sh
+python3 scripts/sync_architecture.py --skill portal-development --source /path/to/unif-platform-architecture
+python3 scripts/sync_architecture.py --skill portal-development --source /path/to/unif-platform-architecture --check
+```
 
 ## 版本与发布
 
