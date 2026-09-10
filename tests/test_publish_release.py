@@ -30,6 +30,8 @@ class FakeGitHub:
         self.calls.append(('GET', path))
         if path in self.responses:
             return self.responses[path]
+        if path.startswith('commits/refs%2Ftags%2F'):
+            raise HTTPError('https://api.github.com/' + path, 422, 'No commit found for SHA', {}, io.BytesIO())
         if missing_ok:
             return None
         raise AssertionError(f'unexpected GET {path}')
@@ -43,6 +45,7 @@ class FakeGitHub:
         if commit == 'main':
             commit = self.responses['git/ref/heads/main']['object']['sha']
         self.responses[f'commits/refs%2Ftags%2F{tag}'] = {'sha': commit}
+        self.responses[f'git/ref/tags/{tag}'] = {'object': {'type': 'commit', 'sha': commit}}
         result = {'tag_name': tag, 'draft': False, 'html_url': f'https://github.com/example/repo/releases/tag/{tag}'}
         self.responses['releases?per_page=100&page=1'] = [result]
         return result
@@ -68,7 +71,7 @@ class PublishTests(unittest.TestCase):
         self.assertEqual(api.calls, [
             ('GET', 'git/ref/heads/main'),
             ('GET', 'releases?per_page=100&page=1'),
-            ('GET', 'commits/refs%2Ftags%2Fv0.1.0'),
+            ('GET', 'git/ref/tags/v0.1.0'),
             ('POST', 'releases', {
                 'tag_name': 'v0.1.0', 'target_commitish': SHA, 'name': 'v0.1.0',
                 'draft': False, 'prerelease': False, 'generate_release_notes': True,
@@ -120,9 +123,10 @@ class PublishTests(unittest.TestCase):
         self.assertEqual(api.calls, [('GET', 'git/ref/heads/main')])
 
     def test_existing_tag_can_recover_release_only_at_the_same_commit(self):
-        api = FakeGitHub({'commits/refs%2Ftags%2Fv0.1.0': {'sha': SHA}})
+        tag_object = {'object': {'type': 'tag', 'sha': 'c' * 40}}
+        api = FakeGitHub({'git/ref/tags/v0.1.0': tag_object, 'commits/refs%2Ftags%2Fv0.1.0': {'sha': SHA}})
         self.assertEqual(publish(self.root, CONTEXT, api)['status'], 'published')
-        conflict = FakeGitHub({'commits/refs%2Ftags%2Fv0.1.0': {'sha': OTHER}})
+        conflict = FakeGitHub({'git/ref/tags/v0.1.0': tag_object, 'commits/refs%2Ftags%2Fv0.1.0': {'sha': OTHER}})
         with self.assertRaisesRegex(ValueError, 'tag'):
             publish(self.root, CONTEXT, conflict)
         self.assertFalse(any(call[0] == 'POST' for call in conflict.calls))

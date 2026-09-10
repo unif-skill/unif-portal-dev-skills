@@ -74,7 +74,9 @@ def publish(root, context, api):
             raise ValueError(f'{tag} 存在 draft 或不匹配的 Release，需要人工核对')
         return {'status': 'already-published', 'tag': tag, 'url': existing['html_url']}
     tag_ref = f'commits/refs%2Ftags%2F{tag}'
-    tagged_commit = api.get(tag_ref, missing_ok=True)
+    # 不存在的 commit 查询返回 422；只有 refs 接口以 404 表达标签缺失。
+    existing_tag = api.get(f'git/ref/tags/{tag}', missing_ok=True)
+    tagged_commit = api.get(tag_ref) if existing_tag is not None else None
     if tagged_commit is not None and tagged_commit['sha'] != commit:
         raise ValueError(f'{tag} tag 已指向其他提交，不覆盖或发布该标签')
 
