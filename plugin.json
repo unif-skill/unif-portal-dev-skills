@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-portal-dev-skills",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Unif Portal 产品研发阶段的技能集合，适用于客户端及相关 Agent、Channel、CLI 工程。",
   "extensions": {
     "com.openai": {

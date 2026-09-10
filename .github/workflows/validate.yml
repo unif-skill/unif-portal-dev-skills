@@ -1,4 +1,4 @@
-name: Validate skills
+name: Validate and release skills
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: validate-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   validate:
@@ -43,3 +43,23 @@ jobs:
           else
             python scripts/validate_repository.py
           fi
+
+  release:
+    name: Release 0.x.x
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Publish unreleased 0.x.x version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/publish_release.py
