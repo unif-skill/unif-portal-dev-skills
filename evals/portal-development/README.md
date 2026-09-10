@@ -6,10 +6,6 @@
 
 逐项人工核对代码与语义；未执行编译、实际 SDK、模型或宿主发现时分别标明，不用书面方案或关键词命中证明工程已经接入。
 
-[2026-09-10 验证记录](runs/2026-09-10/RESULTS.md)包含三组代码场景的规则基线与带技能产出，以及独立的描述选择检查。
+`cases/`、`rubric.md` 和本文件纳入版本管理；`runs/` 中的完整输入、输出、日志和结果仅保留本地，由 `.gitignore` 排除。规范与入口同时变化时，按[分组对照方法](../architecture-design/README.md#可重复执行方式)分别验证。
 
-[职责去重验证](runs/2026-09-10-scope/RESULTS.md)记录平台资料移除后的读取缺口、共享技能调用、独立安装边界及精简 description 的检查，保留未满足的初始产出。
-
-两个技能入口的进一步精简及描述、共享规范读取和独立安装回归见[措辞验证](../architecture-design/runs/2026-09-10-wording/RESULTS.md)。
-
-输入与请求边界、合理内部协调及等价文件收尾见[调用边界验证](../architecture-design/runs/2026-09-10-call-boundaries/RESULTS.md)，区分规范同步、入口调整和实际安装的证据。
+本地评测完成后可执行 `python scripts/validate_repository.py --include-evals` 检查档案摘要；默认分发包校验不依赖这些运行产物。

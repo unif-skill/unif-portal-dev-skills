@@ -2,3 +2,6 @@ __pycache__/
 *.py[cod]
 .DS_Store
 .venv/
+
+# 评测运行产物仅保留本地，题目和判据继续跟踪。
+/evals/*/runs/

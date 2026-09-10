@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""只读校验技能分发包及评测记录；不调用模型或修改生成文件。"""
+"""只读校验技能分发包；--include-evals 另校验本地评测记录。"""
 
 import argparse
 import hashlib
@@ -202,7 +202,7 @@ def check_evaluations(root):
     return len(runs), count
 
 
-def validate_repository(root, release_tag=None):
+def validate_repository(root, release_tag=None, include_evals=False):
     root = Path(root).resolve()
     schema = read_json(SCHEMA)
     Draft202012Validator.check_schema(schema)
@@ -212,7 +212,7 @@ def validate_repository(root, release_tag=None):
         raise ValueError(f'发布 tag {release_tag!r} 与 plugin.json version {plugin["version"]!r} 不一致')
     check_marketplace(root, validator)
     skill_count = check_skills(root)
-    run_count, file_count = check_evaluations(root)
+    run_count, file_count = check_evaluations(root) if include_evals else (0, 0)
     return skill_count, run_count, file_count
 
 
@@ -220,12 +220,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--release-tag', help='发布时核对 vX.Y.Z tag 与插件版本一致')
+    parser.add_argument('--include-evals', action='store_true', help='同时校验本地 runs 中的评测清单和文件摘要')
     args = parser.parse_args()
     try:
-        skills, runs, files = validate_repository(args.root, release_tag=args.release_tag)
+        skills, runs, files = validate_repository(
+            args.root, release_tag=args.release_tag, include_evals=args.include_evals,
+        )
     except (ValueError, OSError) as error:
         parser.exit(1, f'校验失败：{error}\n')
-    print(f'校验通过：{skills} 个技能、{runs} 份评测清单、{files} 个冻结文件。')
+    detail = f'、{runs} 份评测清单、{files} 个冻结文件' if args.include_evals else ''
+    print(f'校验通过：{skills} 个技能{detail}。')
 
 
 if __name__ == '__main__':

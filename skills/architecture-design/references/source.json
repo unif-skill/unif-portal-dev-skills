@@ -4,8 +4,8 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "b029877ffa2ba9e79ff7b5f63943cdd9c0f08cafb095a2a7bc909f785ce852da",
-      "lines": 409
+      "sha256": "ae651414004d5eb775244988af4c49f8396f6dc4f89a451de9784ecd9d311f22",
+      "lines": 411
     }
   },
   "files": {
@@ -24,11 +24,11 @@
           "heading": "1. 架构目标",
           "lines": [
             7,
-            38
+            40
           ]
         }
       ],
-      "sha256": "e059f85570c2393c6ce87be7328561e086f8bb5098bfa40524d9ee79f5f27ee0"
+      "sha256": "ed115c74dcdf7fe0bd8f49f12528bcf54dadbf22fe66a60f0607c8272f8ef980"
     },
     "responsibilities.md": {
       "sections": [
@@ -36,8 +36,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "2. 系统边界与职责",
           "lines": [
-            39,
-            100
+            41,
+            102
           ]
         }
       ],
@@ -49,12 +49,12 @@
           "source": "ARCHITECTURE.md",
           "heading": "3. 功能、场景与入口",
           "lines": [
-            101,
-            137
+            103,
+            139
           ]
         }
       ],
-      "sha256": "6f4b4196fb90296fe52442d571f2b3f4e8802f945f15abba5621ed870e63dfa2"
+      "sha256": "ce2fbdf04d4aca4bbacbe00459ba37182ec956181f821f9dcabca1d51a76bcbe"
     },
     "state.md": {
       "sections": [
@@ -62,8 +62,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "4. 状态归属",
           "lines": [
-            138,
-            156
+            140,
+            158
           ]
         }
       ],
@@ -75,8 +75,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "5. 自然语言任务与上下文",
           "lines": [
-            157,
-            211
+            159,
+            213
           ]
         }
       ],
@@ -88,8 +88,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
-            212,
-            287
+            214,
+            289
           ]
         }
       ],
@@ -101,8 +101,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "7. 独立开发与验证",
           "lines": [
-            288,
-            350
+            290,
+            352
           ]
         }
       ],
@@ -114,8 +114,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "8. 成本与效果验证",
           "lines": [
-            351,
-            366
+            353,
+            368
           ]
         }
       ],
@@ -127,12 +127,12 @@
           "source": "ARCHITECTURE.md",
           "heading": "9. 领域与模块文档",
           "lines": [
-            367,
-            409
+            369,
+            411
           ]
         }
       ],
-      "sha256": "c849ea93dec24d822e0f98696131215f66123a2fd1426325fd4b897520e324b5"
+      "sha256": "5c2f97a35f88e38e0127156d2c83b29377d688b2c1ebf46756469075beaf98a0"
     }
   }
 }

@@ -57,9 +57,16 @@ class RepositoryValidationTests(unittest.TestCase):
         edit(content)
         self.write_json(name, content)
 
-    def assert_invalid(self, diagnostic):
+    def assert_invalid(self, diagnostic, **options):
         with self.assertRaisesRegex(ValueError, diagnostic):
-            validate_repository(self.root)
+            validate_repository(self.root, **options)
+
+    def test_default_validation_does_not_depend_on_local_evaluation_artifacts(self):
+        (self.root / 'evals/example/runs/one/manifest.json').unlink()
+        self.assertEqual(validate_repository(self.root), (1, 0, 0))
+
+    def test_local_evaluation_validation_is_explicit(self):
+        self.assertEqual(validate_repository(self.root, include_evals=True), (1, 1, 1))
 
     def generated_references(self):
         content = '<!-- 此文件由 scripts/sync_architecture.py 生成 -->\n\n# Guide\n'
@@ -188,15 +195,15 @@ class RepositoryValidationTests(unittest.TestCase):
 
     def test_rejects_modified_evaluation_output(self):
         self.write('evals/example/runs/one/output.md', 'edited\n')
-        self.assert_invalid('output.md')
+        self.assert_invalid('output.md', include_evals=True)
 
     def test_rejects_missing_evaluation_manifest(self):
         (self.root / 'evals/example/runs/one/manifest.json').unlink()
-        self.assert_invalid('manifest.json')
+        self.assert_invalid('manifest.json', include_evals=True)
 
     def test_rejects_empty_evaluation_manifest(self):
         self.write_json('evals/example/runs/one/manifest.json', {'files': {}})
-        self.assert_invalid('manifest.json')
+        self.assert_invalid('manifest.json', include_evals=True)
 
     def test_rejects_manifest_path_outside_run(self):
         self.write_json('evals/example/runs/one/manifest.json', {
@@ -204,7 +211,7 @@ class RepositoryValidationTests(unittest.TestCase):
                 'sha256': hashlib.sha256(b'image fixture').hexdigest(),
             }},
         })
-        self.assert_invalid('logo.png')
+        self.assert_invalid('logo.png', include_evals=True)
 
 
 if __name__ == '__main__':

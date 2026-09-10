@@ -74,6 +74,8 @@ codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
 
 README、docs、evals、同步脚本和测试用于仓库维护，不进入技能默认上下文。
 
+`evals/*/cases/`、`rubric.md` 和评测方法纳入版本管理；`evals/*/runs/` 中的规范快照、原始输出、日志及结果记录仅在本地保留，由 `.gitignore` 排除。
+
 ## 规范来源
 
 先修改 `unif-platform-architecture/ARCHITECTURE.md`，再通过脚本生成技能内的[平台主题资料](skills/architecture-design/SKILL.md#依据)和 source.json。脚本按完整章节拆分，保留源文及章节编号，将正文中的包外相对文档链接转为文字。source.json 记录源文件摘要、主题摘要及对应行段。
@@ -88,7 +90,7 @@ python3 -m unittest discover -s tests
 
 `--check` 只比较规范源、主题资料和来源记录的一致性，不修改文件。生成时要求源章节完整分配且不重复；章节新增或改名后需更新脚本中的主题映射。同步会清理旧的生成资料，手工文件不参与清理。
 
-portal-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成文件、UI、工具、依赖、目录及验证等主题。两个技能的入口按任务定位资料，完整目录仅在初始化、顶层组织或迁移时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
+portal-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成文件、UI、工具、依赖、目录及验证等主题。两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
 
 ```sh
 python3 scripts/sync_architecture.py --skill portal-development --source /path/to/unif-platform-architecture
@@ -106,7 +108,7 @@ python3 scripts/sync_architecture.py --skill portal-development --source /path/t
 
 ## 验证
 
-- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和仓库校验：检查版本、技能格式、标准插件清单、本仓市场入口、包内文档与图标引用、主题资料摘要与源行段覆盖，以及评测 manifest 中登记文件的摘要。校验 job 保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得创建 tag 和 Release 的写权限。
+- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查版本、技能格式、标准插件清单、本仓市场入口、包内文档与图标引用、主题资料摘要与源行段覆盖。校验不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得创建 tag 和 Release 的写权限。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。官方 Schema、`skills-ref validate` 的环境与复跑命令见[格式验证记录](docs/validation/2026-09-07-agent-standards.md)。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。
 
@@ -118,6 +120,8 @@ python3.12 -m venv .venv
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python scripts/validate_repository.py
 ```
+
+本地完成模型评测后，可加 `--include-evals` 校验运行目录中的 manifest 与原始文件摘要；默认校验及 CI 不读取这些目录。
 
 校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为评测按规范或判断引导的实际变化另行执行。
 

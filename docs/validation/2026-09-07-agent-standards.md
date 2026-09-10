@@ -1,6 +1,6 @@
 # Agent Skills 与 Agent Plugins 标准补齐
 
-日期：2026-09-07。用户确认补齐标准插件清单、格式验证及规范说明。该工作扩充本地打包范围，不改变技能行为；原始[模型评测](../../evals/architecture-design/runs/2026-09-07/RESULTS.md)和[接收复核](../../evals/architecture-design/runs/2026-09-07/INTAKE.md)作为当时版本的记录保留。
+日期：2026-09-07。用户确认补齐标准插件清单、格式验证及规范说明。该工作扩充本地打包范围，不改变技能行为；原始[模型评测](https://github.com/unif-skill/unif-portal-dev-skills/blob/d8ab5d0c642ce3b5e21d2030c1cfb9727b5d8739/evals/architecture-design/runs/2026-09-07/RESULTS.md)和[接收复核](https://github.com/unif-skill/unif-portal-dev-skills/blob/d8ab5d0c642ce3b5e21d2030c1cfb9727b5d8739/evals/architecture-design/runs/2026-09-07/INTAKE.md)作为当时版本的记录保留。
 
 ## 规范依据与落地
 
