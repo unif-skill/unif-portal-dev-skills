@@ -4,8 +4,12 @@ Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Ch
 
 当前提供：
 
-- [architecture-design](skills/architecture-design/SKILL.md)：研发设计与审查，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [portal-development](skills/portal-development/SKILL.md)：Portal 文件开发，目标工程调用方式见[接入说明](docs/portal-development-integration.md)。其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [architecture-design](skills/architecture-design/SKILL.md)：职责、公共契约、状态与场景设计，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
+- [portal-development](skills/portal-development/SKILL.md)：文件开发与接线，其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-review](skills/code-review/SKILL.md)：审查实际代码变更，给出缺陷证据与验证限制。
+- [code-delivery](skills/code-delivery/SKILL.md)：工作区隔离、提交、PR/MR、合并、发布与分支清理，采用目标工程的交付规则。
+
+工程调用方式见[接入说明](docs/portal-development-integration.md)。审查与交付技能直接读取目标工程的规范和门禁，不依赖其他插件。
 
 ## 安装与使用
 
@@ -19,7 +23,7 @@ Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Ch
 npx skills add unif-skill/unif-portal-dev-skills --skill architecture-design
 ```
 
-安装 `portal-development` 时将 `--skill` 的值替换为该名称；手动分发时同样复制对应的完整技能目录。
+安装其他技能时将 `--skill` 的值替换为上面的技能名称；手动分发时同样复制对应的完整技能目录。
 
 按提示选择目标工具，例如 Claude Code、Cursor 或 Codex。默认安装到当前项目；需要用户级安装时，在命令后添加 `--global`。支持的工具、安装位置和认证方式见 [Skills CLI 文档](https://github.com/vercel-labs/skills#readme)。
 
@@ -37,7 +41,7 @@ npx skills update architecture-design
 git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 ```
 
-将 `skills/architecture-design/` 完整复制到目标工具支持的技能目录，保留 `SKILL.md`、`references/`、`agents/` 和 `assets/` 的相对位置；具体安装目录以目标工具文档为准。
+将所需的 `skills/<技能名>/` 完整复制到目标工具支持的技能目录，保留其文件与相对引用；具体安装目录以目标工具文档为准。
 
 更新时，在克隆的仓库中运行 `git pull --ff-only`，再替换已安装的完整技能目录。如有本地修改，先将旧目录备份到技能扫描目录之外。
 
@@ -68,9 +72,9 @@ codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
 
 ## 使用与分发
 
-- 独立技能：分发完整的 `skills/architecture-design/`，保留相对引用。
-- 标准插件：分发根 [plugin.json](plugin.json)、`assets/` 与完整的 `skills/` 目录。插件使用 `assets/logo.png`，技能使用各自的 `assets/icon.png`；Codex 的插件展示配置放在标准清单的 `extensions.com.openai` 中。
-- 使用时声明目标工程采用的架构规范及版本；未指定时使用包内快照。
+- 独立技能：分发对应的完整技能目录，保留相对引用。
+- 标准插件：分发根 [plugin.json](plugin.json)、`assets/` 与完整的 `skills/` 目录。插件使用 `assets/logo.png`，已配置的技能图标随所属技能分发；Codex 的插件展示配置放在标准清单的 `extensions.com.openai` 中。
+- 使用时声明目标工程采用的规范及版本；设计与开发技能未指定规范时使用包内快照，审查与交付技能采用目标工程的规则。
 
 README、docs、evals、同步脚本和测试用于仓库维护，不进入技能默认上下文。
 
