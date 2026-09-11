@@ -8,4 +8,6 @@
 
 `cases/`、`rubric.md` 和本文件纳入版本管理；`runs/` 中的完整输入、输出、日志和结果仅保留本地，由 `.gitignore` 排除。规范与入口同时变化时，按[分组对照方法](../architecture-design/README.md#可重复执行方式)分别验证。
 
+[单元组织样本](cases/unit-boundaries.md)覆盖新增页面的单元划分、已有计划与检查通过时的文件组织审查，以及合理共享和局部修改。分别记录旧包、仅更新规范、规范与入口一起更新的输出；区分已有要求的执行改善与新增明确规则带来的行为变化。
+
 本地评测完成后可执行 `python scripts/validate_repository.py --include-evals` 检查档案摘要；默认分发包校验不依赖这些运行产物。
