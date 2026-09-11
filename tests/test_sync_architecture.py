@@ -45,7 +45,7 @@ class SnapshotTests(unittest.TestCase):
     def run_sync(self, *args, portal=False):
         arguments = ['--source', str(self.sources if portal else self.source)]
         if portal:
-            arguments += ['--skill', 'portal-development']
+            arguments += ['--skill', 'code-development']
         return subprocess.run([sys.executable, str(self.script), *arguments, *args],
                               capture_output=True, text=True)
 
@@ -57,7 +57,7 @@ class SnapshotTests(unittest.TestCase):
             with self.subTest(portal=portal):
                 result = self.run_sync(portal=portal)
                 self.assertEqual(result.returncode, 0, result.stderr)
-                skill = 'portal-development' if portal else 'architecture-design'
+                skill = 'code-development' if portal else 'architecture-design'
                 reference = self.root / 'package/skills' / skill / 'references'
                 record = json.loads((reference / 'source.json').read_text())
                 expected_sources = set(HEADINGS) - {'ARCHITECTURE.md'} if portal else {'ARCHITECTURE.md'}
@@ -150,7 +150,7 @@ class SnapshotTests(unittest.TestCase):
                           '[状态](ARCHITECTURE.md#4-状态归属)\n')
         result = self.run_sync(portal=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        reference = self.root / 'package/skills/portal-development/references'
+        reference = self.root / 'package/skills/code-development/references'
         text = (reference / 'testing.md').read_text()
         self.assertIn('[文件角色](file-rules.md#3-常量类型变量与文件拆分)', text)
         self.assertIn('[完整规则](../SKILL.md)', text)
@@ -182,7 +182,7 @@ class SnapshotTests(unittest.TestCase):
             path.write_text(source + '[本规范的验证对象](#验证对象)\n')
         result = self.run_sync(portal=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        text = (self.root / 'package/skills/portal-development/references/testing.md').read_text()
+        text = (self.root / 'package/skills/code-development/references/testing.md').read_text()
         self.assertIn('[本规范的验证对象](testing.md#验证对象)', text)
         self.assertIn('[本规范的验证对象](testing.md#验证对象-1)', text)
 
@@ -197,7 +197,7 @@ class SnapshotTests(unittest.TestCase):
         path.write_text(source[:third] + names + types + source[fifth:])
         result = self.run_sync(portal=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        text = (self.root / 'package/skills/portal-development/references/file-rules.md').read_text()
+        text = (self.root / 'package/skills/code-development/references/file-rules.md').read_text()
         self.assertIn('[类型部分输入](file-rules.md#输入)', text)
         self.assertIn('[名称部分输入](file-rules.md#输入-1)', text)
 
@@ -238,7 +238,7 @@ class SnapshotTests(unittest.TestCase):
     def test_missing_second_source_does_not_partially_generate(self):
         (self.sources / 'PORTAL_STRUCTURE.md').unlink()
         self.assertEqual(self.run_sync(portal=True).returncode, 2)
-        self.assertFalse((self.root / 'package/skills/portal-development').exists())
+        self.assertFalse((self.root / 'package/skills/code-development').exists())
 
     def test_removes_only_obsolete_generated_files_and_check_is_read_only(self):
         self.reference.mkdir(parents=True)

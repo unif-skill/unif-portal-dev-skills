@@ -5,11 +5,14 @@ Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Ch
 当前提供：
 
 - [architecture-design](skills/architecture-design/SKILL.md)：职责、公共契约、状态与场景设计，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [portal-development](skills/portal-development/SKILL.md)：文件开发与接线，其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
-- [code-review](skills/code-review/SKILL.md)：审查实际代码变更，给出缺陷证据与验证限制。
-- [code-delivery](skills/code-delivery/SKILL.md)：工作区隔离、提交、PR/MR、合并、发布与分支清理，采用目标工程的交付规则。
+- [code-development](skills/code-development/SKILL.md)：文件开发与接线，其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-testing](skills/code-testing/SKILL.md)：测试覆盖缺口、断言、隔离与稳定性改进。
+- [code-review](skills/code-review/SKILL.md)：核对代码与工程规范、契约和消费者，给出问题证据。
+- [code-delivery](skills/code-delivery/SKILL.md)：核对提交范围、PR/MR、CI、发布与清理的实际交付证据。
 
-工程调用方式见[接入说明](docs/portal-development-integration.md)。审查与交付技能直接读取目标工程的规范和门禁，不依赖其他插件。
+工程调用方式见[接入说明](docs/code-development-integration.md)。技能提供工程规范与证据要求，沿用任务已选的通用流程；不重复编排测试、审查或交付，也不强制依赖某个流程插件。
+
+`code-development` 是原 `portal-development` 的新名称，工程中的技能引用和同步命令使用新名称；更新单独安装的技能时替换原目录，避免两个入口并存。历史评测保留原名称与输入，不回写为新版本结果。
 
 ## 安装与使用
 
@@ -96,11 +99,11 @@ python3 -m unittest discover -s tests
 
 `--check` 只比较规范源、主题资料和来源记录的一致性，不修改文件。生成时要求源章节完整分配且不重复；章节新增或改名后需更新脚本中的主题映射。同步会清理旧的生成资料，手工文件不参与清理。
 
-portal-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成文件、UI、工具、依赖、目录及验证等主题。两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
+code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成文件、UI、工具、依赖、目录及验证等主题。两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
 
 ```sh
-python3 scripts/sync_architecture.py --skill portal-development --source /path/to/unif-platform-architecture
-python3 scripts/sync_architecture.py --skill portal-development --source /path/to/unif-platform-architecture --check
+python3 scripts/sync_architecture.py --skill code-development --source /path/to/unif-platform-architecture
+python3 scripts/sync_architecture.py --skill code-development --source /path/to/unif-platform-architecture --check
 ```
 
 ## 版本与发布

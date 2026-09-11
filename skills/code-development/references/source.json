@@ -4,7 +4,7 @@
   "sources": {
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "c3fd976ea98ed1d8f67a1288e011b28fa3a2d3781fec2c1f8ae70444b28589f9",
+      "sha256": "9ae801818f9c7b0428b9a88c18c540aeb7e78a4af46f277667183e6ff3a92580",
       "lines": 98
     },
     "PORTAL_STRUCTURE.md": {
@@ -41,7 +41,7 @@
           ]
         }
       ],
-      "sha256": "b797e00798afda8c28b7f190c8a16f352956511cbba73192e5ade133b1665184"
+      "sha256": "b9bd8a98892928737f1df6e19e7242b13ecd9f0b2b926c15aa1f39a7ad8d98ae"
     },
     "file-rules.md": {
       "sections": [
@@ -83,7 +83,7 @@
           ]
         }
       ],
-      "sha256": "ac710d2413126d9bd99c57d9ece8fc193ca346259cd31adccda154be3a83965a"
+      "sha256": "176b23ee8a4ba2208c42421d4f33bf5705f5a3efa8c9d2112b8dd213d8360a32"
     },
     "directory.md": {
       "sections": [
