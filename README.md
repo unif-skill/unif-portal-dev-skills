@@ -4,13 +4,15 @@ Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Ch
 
 当前提供：
 
-- [architecture-design](skills/architecture-design/SKILL.md)：职责、公共契约、状态与场景设计，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [code-development](skills/code-development/SKILL.md)：文件开发与接线，其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
-- [code-testing](skills/code-testing/SKILL.md)：测试覆盖缺口、断言、隔离与稳定性改进。
-- [code-review](skills/code-review/SKILL.md)：核对代码与工程规范、契约和消费者，给出问题证据。
-- [code-delivery](skills/code-delivery/SKILL.md)：核对提交范围、PR/MR、CI、发布与清理的实际交付证据。
+- [architecture-design](skills/architecture-design/SKILL.md)：平台职责、契约、状态及验证规范，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
+- [code-development](skills/code-development/SKILL.md)：客户端文件、依赖、接线及验收规范，其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-testing](skills/code-testing/SKILL.md)：测试步骤的企业规范入口，定位测试质量、消费者与平台验证要求。
+- [code-review](skills/code-review/SKILL.md)：审查步骤的企业规范入口，定位文件规则和架构契约。
+- [code-delivery](skills/code-delivery/SKILL.md)：交付步骤的企业规范入口，定位工程门禁、版本及验收要求。
 
-工程调用方式见[接入说明](docs/code-development-integration.md)。技能提供工程规范与证据要求，沿用任务已选的通用流程；不重复编排测试、审查或交付，也不强制依赖某个流程插件。
+工程调用方式见[接入说明](docs/code-development-integration.md)。本插件承载企业工程规范，对应步骤必须加载并应用相关技能；它们与任务采用的通用工作流共同执行，不另开重复流程，也不强制依赖某个流程插件。
+
+阶段入口使用本插件的架构与客户端规范资料，默认分发完整插件；选择单独安装时一并提供所需的规范技能，不把阶段入口当作独立的通用流程工具。
 
 `code-development` 是原 `portal-development` 的新名称，工程中的技能引用和同步命令使用新名称；更新单独安装的技能时替换原目录，避免两个入口并存。历史评测保留原名称与输入，不回写为新版本结果。
 
