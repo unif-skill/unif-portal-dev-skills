@@ -4,12 +4,12 @@
   "sources": {
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "616496c8ed4167f4bfc2370dbdb9be9f437e99fcc35e9c70d12f5c6a088519b5",
-      "lines": 102
+      "sha256": "de2c02663d3bee947b964989846c49d55d38719c3bd3e70a04d7bdd601660598",
+      "lines": 104
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "9d5f467680676cd714a9758039f52dbb9d3b2615976e65778218f5ad14aa4142",
+      "sha256": "7ed9154ee9e90b67a549d898e8516f5f533a566bda6b84f622aa3d914222164e",
       "lines": 209
     }
   },
@@ -50,19 +50,19 @@
           "heading": "3. 常量、类型、变量与文件拆分",
           "lines": [
             30,
-            68
+            70
           ]
         },
         {
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "4. 命名与公开出口",
           "lines": [
-            69,
-            87
+            71,
+            89
           ]
         }
       ],
-      "sha256": "32388a67aa3ac70abac93fd5e3747feed5938434816ebd768de02ccab21c3400"
+      "sha256": "cfee526335a1d435c8306dbdaa7e4976bbcd3dbdd8990f4eec2f290035012f7c"
     },
     "testing.md": {
       "sections": [
@@ -70,8 +70,8 @@
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "5. 规则执行与定向验证",
           "lines": [
-            88,
-            102
+            90,
+            104
           ]
         },
         {
@@ -104,7 +104,7 @@
           ]
         }
       ],
-      "sha256": "12969de15fc4bdc4dc5891c4c33620965351acf883b28780d7433af6a7a3117f"
+      "sha256": "6500e2bb435d3a65a769d0cf1bdff6fb86555524fc034f98e1e800d5f2a25191"
     },
     "ui.md": {
       "sections": [
