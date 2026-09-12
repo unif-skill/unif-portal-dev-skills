@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""在 main 推送通过校验后发布尚未发布的 0.x.x；不修改版本或重试写请求。"""
+"""发布准备步骤验证后的 0.x.x 提交；不覆盖标签或自动重试写请求。"""
 
 import json
 import os
@@ -53,8 +53,8 @@ def publish(root, context, api):
     if not isinstance(version, str) or not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', version):
         raise ValueError('version 必须是无前缀、无前导零的 X.Y.Z')
     if not version.startswith('0.'):
-        return {'status': 'manual-review-required', 'version': version}
-    commit = context.get('GITHUB_SHA', '')
+        raise ValueError('发布版本仅允许 0.x.x')
+    commit = context.get('RELEASE_SHA', context.get('GITHUB_SHA', ''))
     if not re.fullmatch(r'[0-9a-f]{40}', commit):
         raise ValueError('GITHUB_SHA 必须是本次已验证提交的完整 SHA')
     if api.get('git/ref/heads/main')['object']['sha'] != commit:
@@ -72,6 +72,8 @@ def publish(root, context, api):
     if existing is not None:
         if existing.get('draft') is not False or existing.get('tag_name') != tag:
             raise ValueError(f'{tag} 存在 draft 或不匹配的 Release，需要人工核对')
+        if api.get(f'commits/refs%2Ftags%2F{tag}')['sha'] != commit:
+            raise ValueError(f'{tag} tag 与本次已验证提交不一致')
         return {'status': 'already-published', 'tag': tag, 'url': existing['html_url']}
     tag_ref = f'commits/refs%2Ftags%2F{tag}'
     # 不存在的 commit 查询返回 422；只有 refs 接口以 404 表达标签缺失。
@@ -101,8 +103,6 @@ def main():
     except (OSError, ValueError, KeyError) as error:
         raise SystemExit(f'发布失败：{error}') from error
     print(json.dumps(result, ensure_ascii=False))
-    if result['status'] == 'manual-review-required':
-        print('::notice::1.0.0 及以上版本须经用户审核后人工发布，自动发布已跳过。')
 
 
 if __name__ == '__main__':

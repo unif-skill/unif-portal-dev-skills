@@ -50,6 +50,8 @@ def check_plugin(root, validator):
         raise ValueError(f'{path}: {errors[0].message}')
     if not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', manifest.get('version', '')):
         raise ValueError(f'{path}: version 必须是无前缀、无前导零的 X.Y.Z 版本号')
+    if not manifest['version'].startswith('0.'):
+        raise ValueError(f'{path}: version 仅允许 0.x.x')
     interface = manifest.get('extensions', {}).get('com.openai', {}).get('interface', {})
     check_assets(root, interface, ('composerIcon', 'logo', 'logoDark'))
     for screenshot in interface.get('screenshots', []):

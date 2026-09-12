@@ -110,16 +110,16 @@ python3 scripts/sync_architecture.py --skill code-development --source /path/to/
 
 ## 版本与发布
 
-插件及所含技能共用根 `plugin.json` 的 `version`，采用 `X.Y.Z` 格式；Git tag 使用对应的 `vX.Y.Z`。
+插件及所含技能共用根 `plugin.json` 的 `version`，版本限定为 `0.x.x`；Git tag 使用对应的 `v0.x.x`。包校验与发布脚本均拒绝 `1.0.0` 及以上版本。
 
-- 版本号显式修改并提交到 `main`；CI 不根据提交类型自动提升版本。
-- `main` 推送通过完整校验后，发布 job 为尚未发布的 `0.x.x` 创建对应 tag 和 GitHub Release，标签固定到本次已验证的提交，发布说明由 GitHub 生成。已有 Release 时跳过；已有同名标签指向其他提交或存在草稿时停止，不覆盖。失败后可核对状态并重跑原工作流，写请求不自动重试。
-- 发布 `1.0.0` 及更高版本前，每次都须由用户明确审核确认，包括这些版本的后续 minor 和 patch 升级；自动发布会跳过这些版本。审核后按人工流程创建同版本 tag，tag 校验通过后创建 Release。
-- PR、tag 推送和手动触发仅校验，不自动发布。自动创建标签使用 `GITHUB_TOKEN`，不会再触发一轮 tag 工作流；其证据是同一流水线中先通过的完整校验，以及发布脚本对版本和标签提交的核对。Codex 的安装更新另行执行。
+- `main` 的新提交通过完整校验后，CI 自动递增补丁号，例如 `0.3.3 → 0.3.4`；不根据提交类型自动升级 minor 或 major。日常修改无需手动改版本。若显式指定尚未发布且不落后于已有标签的 `0.x.x`，则使用该版本。
+- 准备步骤只修改 `plugin.json` 的版本字段，对候选包再次执行带 tag 的完整包校验，再创建版本提交并以普通快进推送写回 `main`。发布步骤为该提交创建 tag 和 GitHub Release，发布说明由 GitHub 生成；main、tag 和清单版本保持一致。
+- 重跑同一次 main 推送可识别其版本提交，继续未完成的发布，不再次升版。已发布且 tag 指向同一提交时跳过；草稿、同名 tag 冲突或倒退版本均停止处理。远端 main 已有其他更新时旧运行停止发布；写回不强推，写请求失败不自动重试。
+- PR、tag 推送和手动触发仅校验。CI 使用 `GITHUB_TOKEN` 写回版本和创建标签，不会递归触发新的 push 工作流；版本提交也带有 `[skip ci]`。发布依据为原提交的完整检查、候选版本包校验及最终提交核对。Codex 的安装更新另行执行。
 
 ## 验证
 
-- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查版本、技能格式、标准插件清单、本仓市场入口、包内文档与图标引用、主题资料摘要与源行段覆盖。校验不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得创建 tag 和 Release 的写权限。
+- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查版本、技能格式、标准插件清单、本仓市场入口、包内文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。官方 Schema、`skills-ref validate` 的环境与复跑命令见[格式验证记录](docs/validation/2026-09-07-agent-standards.md)。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。
 

@@ -143,6 +143,12 @@ class RepositoryValidationTests(unittest.TestCase):
                 self.edit_json('plugin.json', lambda d: d.update({'version': version}))
                 validate_repository(self.root)
 
+    def test_rejects_one_major_and_later_versions(self):
+        for version in ('1.0.0', '1.2.3', '2.0.0'):
+            with self.subTest(version=version):
+                self.edit_json('plugin.json', lambda d: d.update({'version': version}))
+                self.assert_invalid('0.x.x')
+
     def test_accepts_release_tag_matching_manifest(self):
         validate_repository(self.root, release_tag='v0.0.1')
 

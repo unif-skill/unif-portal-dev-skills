@@ -95,13 +95,32 @@ class PublishTests(unittest.TestCase):
                 self.assertEqual(publish(self.root, {**CONTEXT, field: value}, api)['status'], 'not-main-push')
                 self.assertEqual(api.calls, [])
 
-    def test_one_major_and_later_require_manual_review_without_api_access(self):
+    def test_one_major_and_later_are_rejected_without_api_access(self):
         for version in ('1.0.0', '1.0.1', '1.2.0', '2.0.0'):
             with self.subTest(version=version):
                 self.version(version)
                 api = FakeGitHub()
-                self.assertEqual(publish(self.root, CONTEXT, api)['status'], 'manual-review-required')
+                with self.assertRaisesRegex(ValueError, '0.x.x'):
+                    publish(self.root, CONTEXT, api)
                 self.assertEqual(api.calls, [])
+
+    def test_generated_release_commit_is_used_instead_of_source_commit(self):
+        api = FakeGitHub({'git/ref/heads/main': {'object': {'sha': OTHER}}})
+        result = publish(self.root, {**CONTEXT, 'RELEASE_SHA': OTHER}, api)
+        self.assertEqual(result['status'], 'published')
+        posts = [call for call in api.calls if call[0] == 'POST']
+        self.assertEqual(posts[0][2]['target_commitish'], OTHER)
+
+    def test_published_release_must_still_point_to_the_validated_commit(self):
+        api = FakeGitHub({
+            'releases?per_page=100&page=1': [
+                {'tag_name': 'v0.1.0', 'draft': False, 'html_url': 'https://example.test/release'},
+            ],
+            'commits/refs%2Ftags%2Fv0.1.0': {'sha': OTHER},
+        })
+        with self.assertRaisesRegex(ValueError, 'tag'):
+            publish(self.root, CONTEXT, api)
+        self.assertFalse(any(call[0] == 'POST' for call in api.calls))
 
     def test_invalid_version_or_commit_is_rejected_before_api_access(self):
         for version in ('0.1', '00.1.0', 'v0.1.0', '0.1.0+local', '0.1.0;bad'):
@@ -143,6 +162,7 @@ class PublishTests(unittest.TestCase):
             'releases?per_page=100&page=2': [
                 {'tag_name': 'v0.1.0', 'draft': False, 'html_url': 'https://github.com/example/repo/releases/tag/v0.1.0'},
             ],
+            'commits/refs%2Ftags%2Fv0.1.0': {'sha': SHA},
         })
         self.assertEqual(publish(self.root, CONTEXT, api)['status'], 'already-published')
         self.assertIn(('GET', 'releases?per_page=100&page=2'), api.calls)
