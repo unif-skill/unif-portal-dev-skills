@@ -15,7 +15,7 @@ description: 在采用或迁入目标架构的 Portal 客户端开发、测试�
 - SDK 与公共能力选用、组件和样式复用：[复用规则](references/ui.md)。
 - 工具、配置及资源文件：[归属规则](references/utilities-config.md)。
 - 公共入口、依赖、基础能力与宿主接线：[依赖规则](references/dependencies.md)。
-- 代码类别、旧实现参考与重写范围：[开发范围](references/scope.md)。
+- 任务范围、状态表定位与实现边界：[开发范围](references/scope.md)。
 - 初始化工程与代码归属：[目标目录](references/directory.md)。
 - 测试组织、质量、变更影响与交付证据：[测试与验收](references/testing.md)。
 

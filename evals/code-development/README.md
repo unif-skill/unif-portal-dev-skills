@@ -12,4 +12,6 @@
 
 [SDK 选型样本](cases/sdk-choice.md)检查是否先比较已采用的公开能力，再确定必要自有适配；不把单个库的限制或未提出的防御需求当成自写原生模块的充分依据。样本只作判断回归，不是实际 SDK 选型结论。
 
+[复用与输入契约样本](cases/reuse-contracts.md)检查共享计算、输入拒绝、运行时校验和资源生命周期是否保持各自语义；[状态与范围样本](cases/status-scope.md)检查指定规范可用、登记滞后及局部未定时的执行判断。与[测试迁移样本](../code-testing/cases/test-migration.md)一起覆盖重构中的契约与消费者保护。
+
 本地评测完成后可执行 `python scripts/validate_repository.py --include-evals` 检查档案摘要；默认分发包校验不依赖这些运行产物。
