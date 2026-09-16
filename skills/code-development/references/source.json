@@ -9,8 +9,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "6303b48b3bcf714e93c5fc7e8885b60f804a567bef3977045ae781012625a0c8",
-      "lines": 209
+      "sha256": "e1dcb93bce2e7f7f8a85e1a62f86e9f87f398ca5ab50f9269fe1844ea58c720c",
+      "lines": 210
     }
   },
   "files": {
@@ -78,8 +78,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            188,
-            209
+            189,
+            210
           ]
         }
       ],
@@ -100,11 +100,11 @@
           "heading": "1. 目标目录",
           "lines": [
             9,
-            98
+            99
           ]
         }
       ],
-      "sha256": "6500e2bb435d3a65a769d0cf1bdff6fb86555524fc034f98e1e800d5f2a25191"
+      "sha256": "be819f52c5bebdc3c57b0cf6f3c8f09eb4d1d93054afc9c54fba021daf40e787"
     },
     "ui.md": {
       "sections": [
@@ -112,8 +112,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "2. 基础组件与 UI 复用",
           "lines": [
-            99,
-            129
+            100,
+            130
           ]
         }
       ],
@@ -125,12 +125,12 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "3. 工具、常量、类型及其他文件的归属",
           "lines": [
-            130,
-            155
+            131,
+            156
           ]
         }
       ],
-      "sha256": "97da458b733ce8800f9a476af75718ab5202b5c2fdb995ac72a2bf6d57d2bdef"
+      "sha256": "17aea1a1e7e1b3565b452245f7620e0505bd42a2ac7b5424f973bc7b3a46ebb8"
     },
     "dependencies.md": {
       "sections": [
@@ -138,16 +138,16 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "4. 公共入口与依赖方向",
           "lines": [
-            156,
-            179
+            157,
+            180
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            180,
-            187
+            181,
+            188
           ]
         }
       ],
