@@ -24,6 +24,7 @@ Portal/
 │   │   ├── settings/          # 应用设置、主题偏好等
 │   │   ├── configuration/     # 业务系统提供的应用配置及其客户端状态
 │   │   ├── policy/            # 应用协议内容与相关交互
+│   │   ├── qrCode/            # 明确内容的通用二维码展示与返回
 │   │   └── chat/              # 对话入口、客户端交互及业务结果接线
 │   ├── components/            # 可复用的展示与交互组件
 │   │   ├── ScreenLayout/
