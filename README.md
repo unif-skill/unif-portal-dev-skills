@@ -1,16 +1,18 @@
 # unif-portal-dev-skills
 
-Unif Portal 产品的研发技能集合，适用于客户端及相关 Agent、Channel、CLI 工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
+Unif 产品的研发技能集合，适用于 Portal 客户端、相关 Agent／Channel／CLI 及 @unif React Native 库工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
 当前提供：
 
 - [architecture-design](skills/architecture-design/SKILL.md)：平台职责、契约、状态及验证规范，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [code-development](skills/code-development/SKILL.md)：客户端文件、依赖、接线及验收规范，其 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、Chat UI、Design 系统和 H5 桥接专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
 - [code-testing](skills/code-testing/SKILL.md)：测试步骤的企业规范入口，定位测试质量、消费者与平台验证要求。
 - [code-review](skills/code-review/SKILL.md)：审查步骤的企业规范入口，定位文件规则和架构契约。
 - [code-delivery](skills/code-delivery/SKILL.md)：交付步骤的企业规范入口，定位工程门禁、版本及验收要求。
 
 工程调用方式见[接入说明](docs/code-development-integration.md)。本插件承载企业工程规范，对应步骤必须加载并应用相关技能；它们与任务采用的通用工作流共同执行，不另开重复流程，也不强制依赖某个流程插件。
+
+专题是 `code-development` 的按需资料，不增加独立技能入口。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部专题。完整模块、组件及协议契约仍由工程采用的规范源和当前代码维护。
 
 阶段入口使用本插件的架构与客户端规范资料，默认分发完整插件；选择单独安装时一并提供所需的规范技能，不把阶段入口当作独立的通用流程工具。
 
@@ -101,7 +103,9 @@ python3 -m unittest discover -s tests
 
 `--check` 只比较规范源、主题资料和来源记录的一致性，不修改文件。生成时要求源章节完整分配且不重复；章节新增或改名后需更新脚本中的主题映射。同步会清理旧的生成资料，手工文件不参与清理。
 
-code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成文件、UI、工具、依赖、目录及验证等主题。两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
+code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成客户端的文件、UI、工具、依赖、目录及验证等主题。库开发、Chat UI、Design 系统和 H5 桥接资料手工维护必要的任务路由与边界，引用规范源中的 `libraries/` 和 `integrations/h5/` 契约，不由客户端同步模式覆盖，也不为它们复制完整 API。
+
+两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
 
 ```sh
 python3 scripts/sync_architecture.py --skill code-development --source /path/to/unif-platform-architecture
