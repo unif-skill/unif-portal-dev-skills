@@ -1,6 +1,6 @@
 ---
 name: architecture-design
-description: 在 Unif Portal 及相关 Agent、Channel、CLI 工程进行架构与模块设计、能力契约审查，或分析职责、状态和公共契约的变更影响时使用。
+description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Native 库进行架构与模块设计、能力契约审查，或分析职责、状态和公共契约变更影响时使用。
 ---
 
 # 架构与模块设计

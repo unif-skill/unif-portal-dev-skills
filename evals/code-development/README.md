@@ -14,4 +14,6 @@
 
 [复用与输入契约样本](cases/reuse-contracts.md)检查共享计算、输入拒绝、运行时校验和资源生命周期是否保持各自语义；[状态与范围样本](cases/status-scope.md)检查指定规范可用、登记滞后及局部未定时的执行判断。与[测试迁移样本](../code-testing/cases/test-migration.md)一起覆盖重构中的契约与消费者保护。
 
+[库与 H5 样本](cases/platform-units.md)检查客户端消费与库维护的资料选择、Chat 目标接口与实际发布证据、Design 字体及组件范围、H5 文档和授权交接。记录实际读取文件，按必要依赖评价渐进加载，不以未读取任何依赖作为节省上下文的证明。
+
 本地评测完成后可执行 `python scripts/validate_repository.py --include-evals` 检查档案摘要；默认分发包校验不依赖这些运行产物。
