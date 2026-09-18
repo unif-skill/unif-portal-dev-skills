@@ -5,7 +5,7 @@ Unif 产品的研发技能集合，适用于 Portal 客户端、相关 Agent／C
 当前提供：
 
 - [architecture-design](skills/architecture-design/SKILL.md)：平台职责、契约、状态及验证规范，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、Chat UI、Design 系统、[文档站开发](skills/code-development/references/documentation-site.md)和 H5 桥接专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、[新库接入](skills/code-development/references/library-onboarding.md)、Chat UI、Design 系统、[文档站开发](skills/code-development/references/documentation-site.md)和 H5 桥接专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
 - [code-testing](skills/code-testing/SKILL.md)：测试步骤的企业规范入口，定位测试质量、消费者与平台验证要求。
 - [code-review](skills/code-review/SKILL.md)：审查步骤的企业规范入口，定位文件规则和架构契约。
 - [code-delivery](skills/code-delivery/SKILL.md)：交付步骤的企业规范入口，定位工程门禁、版本及验收要求。
@@ -103,7 +103,7 @@ python3 -m unittest discover -s tests
 
 `--check` 只比较规范源、主题资料和来源记录的一致性，不修改文件。生成时要求源章节完整分配且不重复；章节新增或改名后需更新脚本中的主题映射。同步会清理旧的生成资料，手工文件不参与清理。
 
-code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成客户端的文件、UI、工具、依赖、目录及验证等主题。库开发、Chat UI、Design 系统、文档站和 H5 桥接资料手工维护必要的任务路由与边界，按需定位规范源中的 `libraries/`、`integrations/h5/` 契约或所属库的站点源码，不由客户端同步模式覆盖，也不为它们复制完整 API。
+code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md` 和 `PORTAL_STRUCTURE.md`，生成客户端的文件、UI、工具、依赖、目录及验证等主题。库开发、Chat UI、Design 系统、文档站和 H5 桥接资料手工维护必要的任务路由与边界，按需定位规范源中的 `libraries/`、`integrations/h5/` 契约或所属库的站点源码，不由客户端同步模式覆盖，也不为它们复制完整 API。新库接入引用组织标准仓 `unif-design/.github` 的接入与发布依据，模板及其回归继续由该仓维护。
 
 两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
 
