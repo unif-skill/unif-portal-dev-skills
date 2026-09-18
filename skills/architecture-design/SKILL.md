@@ -1,6 +1,6 @@
 ---
 name: architecture-design
-description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Native 库进行架构与模块设计、能力契约审查，或分析职责、状态和公共契约变更影响时使用。
+description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Native 库设计或评审模块职责、场景组合、状态归属和公共契约时使用。单纯查阅现有接口不触发架构设计。
 ---
 
 # 架构与模块设计
@@ -9,7 +9,7 @@ description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Nati
 
 ## 依据
 
-优先采用任务或工程指定的规范版本；未指定时按问题选读包内主题，已有依据足够时不扩读：
+优先采用任务或工程指定的规范版本；未指定时按问题选读包内主题。同一上下文中已读且仍适用的内容直接复用，只补新范围或新修订涉及的部分：
 
 - 需求、范围与旧实现参考：[设计依据](references/scope.md)、[模块文档](references/documentation.md)。
 - 调用、输入准备与结果复用：[能力、场景与入口](references/composition.md)；系统职责：[系统边界](references/responsibilities.md)。
@@ -24,4 +24,4 @@ description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Nati
 
 ## 应用
 
-按所选规范核对职责、交接、状态和验证范围，设计产物满足[最小验收依据](references/verification.md#74-设计交付的最小依据)。将企业要求用于当前工作流；已有契约覆盖的等价内部调整沿用有效设计，不重启讨论或另建一套设计模板。
+按所选规范核对职责、交接、状态和验证范围，设计产物满足[最小验收依据](references/verification.md#74-设计交付的最小依据)。其他阶段取得这里的共同规则不等于进入架构设计；已有契约覆盖的等价内部调整沿用有效设计，不重启讨论或另建一套设计模板。
