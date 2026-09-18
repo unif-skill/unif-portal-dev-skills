@@ -1,0 +1,15 @@
+{
+  "fixtures/component/AGENTS.md": "# 组件库任务\n本工程已采用 Unif 目标架构和组织工程标准；接入与发布配置有有效记录。本次只修正 Button 内部 disabled 状态的颜色，现有公共接口、事件和文档示例不变。\n\n",
+  "fixtures/component/src/Button.tsx": "export const disabledColor = '#888888';\n\n",
+  "fixtures/component/version-result.json": "{\n  \"name\": \"@unif/react-native-signal-kit\",\n  \"version\": \"0.8.0\"\n}\n",
+  "fixtures/release/package.json": "{\n  \"name\": \"@unif/react-native-signal-kit\",\n  \"version\": \"0.1.0\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/unif-design/react-native-signal-kit\"\n  },\n  \"publishConfig\": {\n    \"registry\": \"https://registry.npmjs.org/\",\n    \"access\": \"public\"\n  }\n}\n",
+  "fixtures/release/status.json": "{\n  \"registryQuery\": {\n    \"httpStatus\": 404,\n    \"versions\": null,\n    \"reason\": \"not established\"\n  },\n  \"gitTags\": [\n    \"v0.1.0\"\n  ],\n  \"archivedPublishLog\": {\n    \"package\": \"@unif/react-native-signal-kit\",\n    \"version\": \"0.1.0\",\n    \"result\": \"published successfully\"\n  },\n  \"currentUserCanPublish\": true,\n  \"remoteSettings\": {\n    \"requiredChecks\": \"not verified\",\n    \"releaseAppInstallation\": \"not verified\",\n    \"releaseAppBypass\": \"not verified\",\n    \"trustedPublisher\": \"not verified\"\n  }\n}\n",
+  "fixtures/scaffold/.github/workflows/ci.yml": "name: CI\n\"on\": [push, pull_request]\njobs:\n  checks:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm ci\n      - run: npm test\n\n",
+  "fixtures/scaffold/README.md": "# Signal kit\n由库生成器创建。源码入口为 src/index.ts，发布命令为 package.json 的 release。组件职责与接口已由本次任务确认。\n\n",
+  "fixtures/scaffold/package.json": "{\n  \"name\": \"@unif/react-native-signal-kit\",\n  \"version\": \"0.1.0\",\n  \"scripts\": {\n    \"test\": \"jest\",\n    \"build\": \"bob build\",\n    \"release\": \"npm publish\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/unif-design/react-native-signal-kit\"\n  }\n}\n",
+  "fixtures/site/.github/workflows/ci.yml": "name: CI\n\"on\": [pull_request]\njobs:\n  paths:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: dorny/paths-filter@v4\n        with:\n          filters: |\n            website:\n              - website/**\n\n",
+  "fixtures/site/.github/workflows/deploy-docs.yml": "name: Docs\n\"on\":\n  push:\n    branches: [main]\n    paths: [\"website/**\"]\n  workflow_dispatch:\njobs:\n  docs:\n    runs-on: ubuntu-latest\n    steps:\n      - run: npm run docs:build\n\n",
+  "fixtures/site/example/src/demos/SelectorDemo.tsx": "import { Selector } from '@unif/react-native-signal-kit';\nexport function SelectorDemo() { return <Selector value=\"sample\" onChange={() => {}} />; }\n\n",
+  "fixtures/site/package.json": "{\n  \"name\": \"@unif/react-native-signal-kit\",\n  \"version\": \"0.8.0\",\n  \"scripts\": {\n    \"docs:build\": \"docusaurus build website\"\n  }\n}\n",
+  "fixtures/site/website/src/components/LiveDemo.tsx": "export { SelectorDemo as LiveDemo } from '../../../example/src/demos/SelectorDemo';\n\n"
+}

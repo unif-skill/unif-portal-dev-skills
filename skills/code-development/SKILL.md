@@ -1,6 +1,6 @@
 ---
 name: code-development
-description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Native 库实现、调整代码、接入能力、定位实现缺陷，或开发库文档站、组件 Web 示例与 LiveDemo 时使用。单纯查询版本、解释已有接口或读取状态不触发。
+description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Native 库新建工程、实现或调整代码、接入能力、定位实现缺陷，或开发库文档站、组件 Web 示例与 LiveDemo 时使用。单纯查询版本、解释已有接口或读取状态不触发。
 ---
 
 # 代码开发规范
@@ -23,7 +23,8 @@ description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Nati
 
 库与专项接入：
 
-- 修改 @unif React Native 库的源码、公开接口、依赖或发布产物：[库开发](references/library-development.md)。应用仅消费一个库时不加载库维护流程。
+- 新建或维护 @unif React Native 库的源码、公开接口、依赖或发布产物：[库开发](references/library-development.md)。应用仅消费一个库时不加载库维护流程。
+- 新库、工程标准尚未接入，或首次／恢复发布准备：[新库接入](references/library-onboarding.md)。成熟工程的小改动沿用有效接入依据。
 - 开发或接入聊天组件、消息列表、输入区与附件展示：[Chat UI](references/chat-ui.md)。
 - 使用或修改 Design 组件、主题字体、组件族与 UI 宿主：[Design 系统](references/design-system.md)。
 - 开发库文档站、组件 Web 示例、公开演示或 LiveDemo：[文档站开发](references/documentation-site.md)。组件附带 Web 示例也进入此专题；仅改组件内部或原生能力且不影响网站时不加载。
@@ -31,7 +32,7 @@ description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Nati
 
 需要确定或实质调整模块职责、公共契约、调用交接或状态归属时，使用本插件 architecture-design。按已有契约实现、排查或整理时沿用有效设计；仅为核对已有规则，不重启架构设计。缺少技能入口时可采用工程指定的同一规范源；缺少必需依据时明确影响，不用通用流程或旧工程惯例替代。
 
-领域、库及 SDK 契约按需从目标工程取得。专题中的规范路径相对于工程采用的 unif-platform-architecture 规范根目录，表示外部契约入口，不表示完整契约随技能分发；标明库根目录的源码路径按所属库定位。未明确根目录时先从工程入口定位。生成的客户端主题溯源见 references/source.json，专项资料按所列契约与当前代码核对。
+领域、库及 SDK 契约按需从目标工程取得。专题中未另标所属仓库的规范路径相对于工程采用的 unif-platform-architecture 规范根目录；标明组织标准仓或库根目录的路径按该仓定位。它们是外部依据入口，不表示完整契约随技能分发；未明确根目录时先从工程入口定位。生成的客户端主题溯源见 references/source.json，专项资料按所列契约与当前代码核对。
 
 ## 应用
 
