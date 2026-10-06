@@ -7,7 +7,8 @@
 | 内容 | 使用与维护位置 |
 |---|---|
 | 基础按钮、输入、列表原子、主题、颜色 token、图标等设计系统内容 | 通过 `@unif/react-native-design` 的公开入口使用，版本由工程依赖锁定 |
-| Portal 自有、可跨场景使用的布局、列表组合、弹层、图片预览等 | `components/` 中的对应单元 |
+| 通用图片预览、Sheet 内容布局、动作菜单内容与受控编辑／短信输入 | 直接使用 Design 的 ImagePreview、Sheet、ActionMenuContent、TextEntryContent、SmsField；应用宿主、业务值与资源持有留 Portal |
+| Portal 自有、可跨场景使用的页面布局、列表组合及键盘交互 | `components/` 中的对应单元 |
 | 消息气泡、附件展示、输入区、确认展示等聊天 UI | 通过独立 `@unif/react-native-chat` 的公开入口使用；库基于 design 开发，Portal 保留场景组合与数据／事件适配 |
 | 消息 Markdown 渲染 | 复用第三方渲染库，chat 维护必要的主题与交互薄适配；分包条件见库设计（规范源相对路径：`libraries/react-native-chat.md#5-分包建议与维护成本`） |
 | 键盘容器、输入区域避让和关联 hook | `components/keyboard/`；状态只服务于键盘布局与交互 |
@@ -24,7 +25,7 @@ SDK、组件库及版本按新工程已确认的需要选择，旧工程使用�
 
 导航相关的页面布局与弹层保留其视觉和交互用途，路由参数、页面注册与具体导航动作由入口适配。主题和键盘 Provider、Toast 等应用所需宿主由应用组装；单个组件测试只提供它实际需要的轻量宿主。
 
-尚需独立接入的公共内容单元采用Sheet 契约（规范源相对路径：`components/sheet.md`）、键盘视口（规范源相对路径：`components/keyboard.md`）和图片预览（规范源相对路径：`components/image-preview.md`）。已有 ScreenLayout、HtmlContent、SmsField 等按目标工程当前公开契约使用；相近展示直接组合 Design 足够时，不为目录示例再创建一层组件。
+公共内容采用 Design 的 Sheet（规范源相对路径：`components/sheet.md`）和图片预览（规范源相对路径：`components/image-preview.md`），键盘处理采用 Portal 的键盘视口（规范源相对路径：`components/keyboard.md`）。ScreenLayout、HtmlContent 等按所属工程契约使用；相近展示直接组合 Design 足够时，不为目录示例再创建一层组件。紧凑进度文案与其文字动效由 Chat 的 ProcessingProgress 提供，进度来源和结束时机仍由原场景控制。
 
 组件库已有同等功能时直接复用。确需新增 Portal 组件时，说明它补充的交互或组合职责；不将只被一个场景使用的卡片提前提升为全局基础组件。新实现验证已确认的中文展示、主题和可访问性行为；行为改变由对应需求与验收定义。
 

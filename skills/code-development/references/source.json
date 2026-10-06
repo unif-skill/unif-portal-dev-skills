@@ -9,7 +9,7 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "994cbfa1a9ae6768c60fe2053ade012f5141f1195f83486cb841910a4e89d63e",
+      "sha256": "27f3f25140280e02910bf552f8135c125e0acace404490987b51b626378b5445",
       "lines": 219
     }
   },
@@ -100,11 +100,11 @@
           "heading": "1. 目标目录",
           "lines": [
             9,
-            99
+            98
           ]
         }
       ],
-      "sha256": "e3909d90d3ec473cc8f417fc5ee10d74760bb5ffcbcebf7e703f2fddb4740ab3"
+      "sha256": "716118fe42a94e7daf5af5b50edd024496794a9b164f4c663c503430593b20be"
     },
     "ui.md": {
       "sections": [
@@ -112,12 +112,12 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "2. 基础组件与 UI 复用",
           "lines": [
-            100,
+            99,
             139
           ]
         }
       ],
-      "sha256": "c78bddadc27c68881753a373f4884bf6c432d96932ed548f79de5f3a19937231"
+      "sha256": "f81b4738a04b8caf45f00fa236e05ea267e7bc72d6bac7b2a9ae4a5d08292077"
     },
     "utilities-config.md": {
       "sections": [
