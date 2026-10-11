@@ -42,6 +42,23 @@ class SnapshotTests(unittest.TestCase):
         shutil.copy2(SCRIPT, self.script)
         self.reference = self.root / 'package/skills/architecture-design/references'
 
+    def test_backend_topics_have_independent_provenance_and_detect_drift(self):
+        headings = ["1. 适用范围与实施", "2. 目录与文件归属", "3. 公共入口与依赖", "4. 运行与资源生命周期", "5. 契约与任务指令", "6. 验证与交付"]
+        source = self.sources / "BACKEND_DEVELOPMENT.md"
+        source.write_text("# 后端工程规范\n\n引言。\n\n" + "".join(f"## {heading}\n\n内容。\n\n" for heading in headings))
+        args = [sys.executable, str(self.script), "--source", str(self.sources), "--skill", "backend-development"]
+        generated = subprocess.run(args, capture_output=True, text=True)
+        self.assertEqual(generated.returncode, 0, generated.stderr)
+        reference = self.root / "package/skills/backend-development/references"
+        record = json.loads((reference / "source.json").read_text())
+        self.assertEqual(set(record["sources"]), {"BACKEND_DEVELOPMENT.md"})
+        self.assertEqual(set(record["files"]), {"scope.md", "structure.md", "lifecycle.md", "validation.md"})
+        checked = subprocess.run([*args, "--check"], capture_output=True, text=True)
+        self.assertEqual(checked.returncode, 0, checked.stderr)
+        source.write_text(source.read_text() + "新增约束。\n")
+        drift = subprocess.run([*args, "--check"], capture_output=True, text=True)
+        self.assertEqual(drift.returncode, 1, drift.stderr)
+
     def run_sync(self, *args, portal=False):
         arguments = ['--source', str(self.sources if portal else self.source)]
         if portal:

@@ -1,0 +1,89 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-text-portable-links-v3",
+  "sources": {
+    "BACKEND_DEVELOPMENT.md": {
+      "source": "unif-platform-architecture/BACKEND_DEVELOPMENT.md",
+      "sha256": "e21e461e51facde9b0c79ae2a85e315f3fa26f57b0f0b57494c56c895f8a306c",
+      "lines": 68
+    }
+  },
+  "files": {
+    "scope.md": {
+      "sections": [
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "1. 适用范围与实施",
+          "lines": [
+            5,
+            11
+          ]
+        }
+      ],
+      "sha256": "8a24a5456bcd228bffc27d5a3e7d6fced311218c30ca81c5cb7e07296064f478"
+    },
+    "structure.md": {
+      "sections": [
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "2. 目录与文件归属",
+          "lines": [
+            12,
+            33
+          ]
+        },
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "3. 公共入口与依赖",
+          "lines": [
+            34,
+            42
+          ]
+        }
+      ],
+      "sha256": "bb8af2887ec8179bc00c1093a2f3c901cb2f2d1ebcef190219842f4b0842c31d"
+    },
+    "lifecycle.md": {
+      "sections": [
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "4. 运行与资源生命周期",
+          "lines": [
+            43,
+            51
+          ]
+        }
+      ],
+      "sha256": "9b4c348a31a151fc4e0ffa265fc9da72bfc02d89d4518530699a2ba54234dcef"
+    },
+    "validation.md": {
+      "sections": [
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "5. 契约与任务指令",
+          "lines": [
+            52,
+            59
+          ]
+        },
+        {
+          "source": "BACKEND_DEVELOPMENT.md",
+          "heading": "6. 验证与交付",
+          "lines": [
+            60,
+            68
+          ]
+        }
+      ],
+      "sha256": "59d2971e6f7efc672d7fac1c03760be0219e3091b5f996a80ed2220d6048e8f8"
+    }
+  }
+}

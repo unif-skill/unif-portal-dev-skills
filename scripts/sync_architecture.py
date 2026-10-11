@@ -32,6 +32,14 @@ TOPICS = {
             'documentation.md': ['9. 领域与模块文档'],
         },
     },
+    'backend-development': {
+        'BACKEND_DEVELOPMENT.md': {
+            'scope.md': ['', '1. 适用范围与实施'],
+            'structure.md': ['2. 目录与文件归属', '3. 公共入口与依赖'],
+            'lifecycle.md': ['4. 运行与资源生命周期'],
+            'validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
+        },
+    },
     'code-development': {
         'PORTAL_DEVELOPMENT.md': {
             'scope.md': ['', '1. 文件变更入口', '2. 各类代码的开发规则'],
@@ -48,6 +56,7 @@ TOPICS = {
     },
 }
 LEGACY = {
+    'backend-development': set(),
     'architecture-design': {'platform-architecture.md'},
     'code-development': {'portal-development.md', 'portal-structure.md'},
 }
@@ -213,7 +222,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', required=True, type=Path)
     parser.add_argument('--skill', choices=tuple(TOPICS), default='architecture-design',
-                        help='architecture-design 接受规范文件；code-development 接受规范目录')
+                        help='architecture-design 接受规范文件；开发技能接受规范目录')
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     destination = Path(__file__).resolve().parents[1] / 'skills' / args.skill / 'references'

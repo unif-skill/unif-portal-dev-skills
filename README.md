@@ -6,6 +6,7 @@ Unif 产品的研发技能集合，适用于 Portal 客户端、相关 Agent／C
 
 - [architecture-design](skills/architecture-design/SKILL.md)：平台职责、契约、状态及验证规范，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
 - [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、[新库接入](skills/code-development/references/library-onboarding.md)、Chat UI、Design 系统、[文档站开发](skills/code-development/references/documentation-site.md)和 H5 桥接专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [backend-development](skills/backend-development/SKILL.md)：Python 后端的目录归属、模块依赖、运行生命周期及契约验证规范。
 - [code-testing](skills/code-testing/SKILL.md)：测试步骤的企业规范入口，定位测试质量、消费者与平台验证要求。
 - [code-review](skills/code-review/SKILL.md)：审查步骤的企业规范入口，定位文件规则和架构契约。
 - [code-delivery](skills/code-delivery/SKILL.md)：交付步骤的企业规范入口，定位工程门禁、版本及验收要求。
@@ -14,7 +15,7 @@ Unif 产品的研发技能集合，适用于 Portal 客户端、相关 Agent／C
 
 专题是 `code-development` 的按需资料，不增加独立技能入口。文档站、组件 Web 示例与 LiveDemo 从该入口触发，具体标准见文档站专题。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部专题。完整模块、组件及协议契约仍由工程采用的规范源和当前代码维护。
 
-阶段入口使用本插件的架构与客户端规范资料，默认分发完整插件；选择单独安装时一并提供所需的规范技能，不把阶段入口当作独立的通用流程工具。
+阶段入口使用本插件的架构、客户端与后端规范资料，默认分发完整插件；选择单独安装时一并提供所需的规范技能，不把阶段入口当作独立的通用流程工具。
 
 `code-development` 是原 `portal-development` 的新名称，工程中的技能引用和同步命令使用新名称；更新单独安装的技能时替换原目录，避免两个入口并存。历史评测保留原名称与输入，不回写为新版本结果。
 
