@@ -6,7 +6,8 @@
 
 | 内容 | 使用与维护位置 |
 |---|---|
-| 基础按钮、输入、列表原子、主题、颜色 token、图标等设计系统内容 | 通过 `@unif/react-native-design` 的公开入口使用，版本由工程依赖锁定 |
+| 基础按钮、输入、列表原子、主题、颜色与图标尺寸 token | 通过 `@unif/react-native-design` 的公开入口使用，版本由工程依赖锁定 |
+| 图标组件及 IconProps 类型 | 通过独立 `@unif/react-native-icons` 的公开入口使用，主题、尺寸和交互由控件或实际消费者提供；具体边界见Icons 契约（规范源相对路径：`libraries/react-native-icons.md`） |
 | 通用图片预览、Sheet 内容布局、动作菜单内容与受控编辑／短信输入 | 直接使用 Design 的 ImagePreview、Sheet、ActionMenuContent、TextEntryContent、SmsField；应用宿主、业务值与资源持有留 Portal |
 | Portal 自有、可跨场景使用的页面布局、列表组合及键盘交互 | `components/` 中的对应单元 |
 | 消息气泡、附件展示、输入区、确认展示等聊天 UI | 通过独立 `@unif/react-native-chat` 的公开入口使用；库基于 design 开发，Portal 保留场景组合与数据／事件适配 |

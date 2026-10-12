@@ -1,6 +1,6 @@
 ---
 name: code-development
-description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Native 库新建工程、实现或调整代码、接入能力、定位实现缺陷，或开发库文档站、组件 Web 示例与 LiveDemo 时使用。单纯查询版本、解释已有接口或读取状态不触发。
+description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Native 库新建工程、实现或调整代码、接入能力、定位实现缺陷、进行 iOS 真机安装与调试，或开发库文档站、组件 Web 示例与 LiveDemo 时使用。单纯查询版本、解释已有接口或读取状态不触发。
 ---
 
 # 代码开发规范
@@ -29,6 +29,7 @@ description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Nati
 - 使用或修改 Design 组件、主题字体、组件族与 UI 宿主：[Design 系统](references/design-system.md)。
 - 开发库文档站、组件 Web 示例、公开演示或 LiveDemo：[文档站开发](references/documentation-site.md)。组件附带 Web 示例也进入此专题；仅改组件内部或原生能力且不影响网站时不加载。
 - 开发或排查 H5 容器、设备消息、文档与授权交接：[H5 桥接](references/h5-bridge.md)。
+- iOS 真机安装、Metro 热刷新或设备调试连接恢复：[真机调试](references/ios-device-debugging.md)。仅需准备用户手测时也可读取；组件内部修改或版本查询不因此启动设备流程。
 
 需要确定或实质调整模块职责、公共契约、调用交接或状态归属时，使用本插件 architecture-design。按已有契约实现、排查或整理时沿用有效设计；仅为核对已有规则，不重启架构设计。缺少技能入口时可采用工程指定的同一规范源；缺少必需依据时明确影响，不用通用流程或旧工程惯例替代。
 

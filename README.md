@@ -5,7 +5,7 @@ Unif 产品的研发技能集合，适用于 Portal 客户端、相关 Agent／C
 当前提供：
 
 - [architecture-design](skills/architecture-design/SKILL.md)：平台职责、契约、状态及验证规范，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、[新库接入](skills/code-development/references/library-onboarding.md)、Chat UI、Design 系统、[文档站开发](skills/code-development/references/documentation-site.md)和 H5 桥接专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、[新库接入](skills/code-development/references/library-onboarding.md)、Chat UI、Design 系统、[文档站开发](skills/code-development/references/documentation-site.md)、H5 桥接和 [iOS 真机调试](skills/code-development/references/ios-device-debugging.md)专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
 - [backend-development](skills/backend-development/SKILL.md)：Python 后端的目录归属、模块依赖、运行生命周期及契约验证规范。
 - [code-testing](skills/code-testing/SKILL.md)：测试步骤的企业规范入口，定位测试质量、消费者与平台验证要求。
 - [code-review](skills/code-review/SKILL.md)：审查步骤的企业规范入口，定位文件规则和架构契约。
