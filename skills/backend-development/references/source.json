@@ -4,7 +4,7 @@
   "sources": {
     "BACKEND_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/BACKEND_DEVELOPMENT.md",
-      "sha256": "e21e461e51facde9b0c79ae2a85e315f3fa26f57b0f0b57494c56c895f8a306c",
+      "sha256": "6cdcf76cba8ecc7980c6eedacc36fff015257c844c7889c950261f87c2c7502a",
       "lines": 68
     }
   },
@@ -49,7 +49,7 @@
           ]
         }
       ],
-      "sha256": "bb8af2887ec8179bc00c1093a2f3c901cb2f2d1ebcef190219842f4b0842c31d"
+      "sha256": "7d305eff82cacfc5eb4696f1919a9e80ba848a19628b1fa537717258dd65524e"
     },
     "lifecycle.md": {
       "sections": [

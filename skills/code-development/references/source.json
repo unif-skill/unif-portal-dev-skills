@@ -9,8 +9,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "32922816bd5b294e6c0c278d298ecbf43908e33acccd6a56b042991df3dba101",
-      "lines": 220
+      "sha256": "c403a658494438fd6bb1bc007dfe90be0c593b7d7460ff8ec7823ff7cf372adc",
+      "lines": 221
     }
   },
   "files": {
@@ -78,8 +78,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            199,
-            220
+            200,
+            221
           ]
         }
       ],
@@ -100,11 +100,11 @@
           "heading": "1. 目标目录",
           "lines": [
             9,
-            98
+            99
           ]
         }
       ],
-      "sha256": "716118fe42a94e7daf5af5b50edd024496794a9b164f4c663c503430593b20be"
+      "sha256": "e9b3b332af7f520c4caac2b8d25cddb596ad6ea453eebded8546103794ff98cf"
     },
     "ui.md": {
       "sections": [
@@ -112,12 +112,12 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "2. 基础组件与 UI 复用",
           "lines": [
-            99,
-            140
+            100,
+            141
           ]
         }
       ],
-      "sha256": "ea5495087137920de77a1da0f25f1f0a06bac71f2e89da076ac60a7f4f9d25c8"
+      "sha256": "78d5ee09000b07b3a06396c17521b4cf541412cdc9346a0f2cb0beee4c18e8ca"
     },
     "utilities-config.md": {
       "sections": [
@@ -125,8 +125,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "3. 工具、常量、类型及其他文件的归属",
           "lines": [
-            141,
-            166
+            142,
+            167
           ]
         }
       ],
@@ -138,16 +138,16 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "4. 公共入口与依赖方向",
           "lines": [
-            167,
-            190
+            168,
+            191
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            191,
-            198
+            192,
+            199
           ]
         }
       ],

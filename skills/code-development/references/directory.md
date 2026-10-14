@@ -28,6 +28,7 @@ Portal/
 │   │   ├── qrCode/            # 明确内容的通用二维码展示与返回
 │   │   └── chat/              # 对话入口、客户端交互及业务结果接线
 │   ├── components/            # 可复用的展示与交互组件
+│   │   ├── ScreenHeader/
 │   │   ├── ScreenLayout/
 │   │   ├── CellList/
 │   │   └── keyboard/          # 键盘交互组件、hook 与必要运行状态

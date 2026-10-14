@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "316d9178e98831cf2aeb09bff6a81ae338425818deafc566299ee02237e9d8f3",
+      "sha256": "c7ecde994f7243af21cabd95d09df5a83be154c8a49d7665cddaf5a1ad71bfe8",
       "lines": 432
     }
   },
@@ -41,7 +41,7 @@
           ]
         }
       ],
-      "sha256": "aef6638a1c351fc245cb0f3683df8f2607f0cb49a3f7aa1b09fc58cbac4ff232"
+      "sha256": "f1ba6c8b8a58b54008208c8374d61e1a82917b63fd44b53af9f651f7aeac7305"
     },
     "composition.md": {
       "sections": [
@@ -80,7 +80,7 @@
           ]
         }
       ],
-      "sha256": "9772fe131d964d759351c37828f7a91347e426c616324be16c75b8f04580757a"
+      "sha256": "dedcd28241d4e8ea03bcd96048dab1d6f62abbf9952e7724cef55f8b5cafc93d"
     },
     "contracts.md": {
       "sections": [
