@@ -92,7 +92,7 @@ Portal/
 
 | 内容 | 位置与职责 |
 |---|---|
-| 依赖与版本锁定 | 根 `package.json` 与工程采用的锁文件；只加入实际接入代码需要的包和运行依赖 |
+| 依赖与版本锁定 | 根 `package.json` 与工程采用的锁文件；只加入实际接入代码需要的包和运行依赖；自有库消费范围使用 `^`，锁文件记录实际安装版本 |
 | TypeScript、编译与模块解析 | 根 `tsconfig.json`、`babel.config.js`、`metro.config.js`；`@/` 对应 `src/`，实际使用该别名的编译和测试入口保持一致 |
 | 导入与代码检查 | 根 ESLint 配置及需要的 `scripts/` 检查；按本文的单元边界配置 |
 | Jest 配置与运行环境 | 根 `jest.config.js`、`jest.setup.ts` 等实际需要的配置文件；平台替身只留在测试环境 |

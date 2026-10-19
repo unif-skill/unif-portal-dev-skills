@@ -9,8 +9,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "c403a658494438fd6bb1bc007dfe90be0c593b7d7460ff8ec7823ff7cf372adc",
-      "lines": 221
+      "sha256": "8f5a6b762ba898c885e7fa4b3fd88d08eff4670ff489501d6aecaa7fb8291724",
+      "lines": 229
     }
   },
   "files": {
@@ -78,8 +78,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            200,
-            221
+            208,
+            229
           ]
         }
       ],
@@ -104,7 +104,7 @@
           ]
         }
       ],
-      "sha256": "e9b3b332af7f520c4caac2b8d25cddb596ad6ea453eebded8546103794ff98cf"
+      "sha256": "666137bab37979a514dbe29e9a0e93eb4dc3fd303d71fe7a2ad801385fe8902f"
     },
     "ui.md": {
       "sections": [
@@ -113,11 +113,11 @@
           "heading": "2. 基础组件与 UI 复用",
           "lines": [
             100,
-            141
+            149
           ]
         }
       ],
-      "sha256": "78d5ee09000b07b3a06396c17521b4cf541412cdc9346a0f2cb0beee4c18e8ca"
+      "sha256": "42a007b53748977bfe0b39a51ff89e2e8f59f0663fcdc3c0ca5b83f86f0ec842"
     },
     "utilities-config.md": {
       "sections": [
@@ -125,8 +125,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "3. 工具、常量、类型及其他文件的归属",
           "lines": [
-            142,
-            167
+            150,
+            175
           ]
         }
       ],
@@ -138,16 +138,16 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "4. 公共入口与依赖方向",
           "lines": [
-            168,
-            191
+            176,
+            199
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            192,
-            199
+            200,
+            207
           ]
         }
       ],
