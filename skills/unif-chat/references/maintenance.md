@@ -1,6 +1,6 @@
 # Chat UI 开发与接入
 
-实现或使用 @unif/react-native-chat 的消息、列表、输入、附件、确认和过程展示时读取。库源码维护同时读取code-development 的“库开发”；Portal 只组合已提供组件时，沿用客户端规则。
+实现或使用 @unif/react-native-chat 的消息、列表、输入、附件、确认和过程展示时读取。源码维护采用库内 docs/DEVELOPMENT.md 指定的工程规范；工程已配置 code-development 时可读取其“库开发”。应用只组合已提供组件时，沿用应用自己的规则。
 
 ## 按变化定位契约
 
@@ -14,7 +14,7 @@
 | 来源、引用与反馈 | 同目录 `sources.md`、`citation.md`、`feedback.md` |
 | 可选 Chat 组合、主聊天／抽屉及宿主接线 | 同目录 `chat.md`、`composition.md` |
 
-表中省略目录的文件均位于 `libraries/react-native-chat/`。只读取本次单元及实际依赖的契约；涉及 Design 公开接口时再读取unif-design对应条目。
+以上路径相对于工程采用的规范根目录，不是其他技能的私有文件，也未随本技能分发；省略目录的文件均位于 `libraries/react-native-chat/`。只读取本次单元及实际依赖的契约；涉及 Design 公开接口时核对其公开资料，已安装 unif-design 时可按其入口定位。
 
 ## 开发边界
 
