@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unif Camera"
+  short_description: "接入与维护 Unif 相机，处理拍摄、取消及媒体文件交接"
+  default_prompt: "使用 $unif-camera，按当前采用版本处理本库的接入、维护或排障任务。"

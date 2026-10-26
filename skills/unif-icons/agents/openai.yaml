@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unif Icons"
+  short_description: "消费与维护 Unif 图标，核对 SVG 源、生成及公开出口"
+  default_prompt: "使用 $unif-icons，按当前采用版本处理本库的接入、维护或排障任务。"
