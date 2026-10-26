@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-portal-dev-skills",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "description": "Unif 共用研发规范与自有库能力技能，覆盖 Portal、相关服务及六个 React Native 库的使用和维护。",
   "extensions": {
     "com.openai": {
