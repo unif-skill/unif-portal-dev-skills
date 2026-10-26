@@ -4,9 +4,7 @@ import unittest
 from pathlib import Path
 
 import yaml
-from skills_ref import validate as validate_skill
-
-from scripts.validate_repository import check_markdown
+from scripts.validate_repository import check_skills
 
 
 LIBRARIES = {
@@ -25,15 +23,13 @@ class LibrarySkillDistributionTests(unittest.TestCase):
         for name, package in LIBRARIES.items():
             with self.subTest(skill=name), tempfile.TemporaryDirectory() as temporary:
                 self.assertTrue((source / name).is_dir(), f'Missing library entry: {name}')
-                isolated = Path(temporary) / name
-                shutil.copytree(source / name, isolated)
-                self.assertEqual(validate_skill(isolated), [])
+                isolated = Path(temporary) / 'skills' / name
+                shutil.copytree(source / name, isolated, symlinks=True)
+                self.assertEqual(check_skills(Path(temporary)), 1)
                 frontmatter = yaml.safe_load(
                     (isolated / 'SKILL.md').read_text(encoding='utf-8').split('---', 2)[1]
                 )
                 self.assertEqual(frontmatter['metadata']['package'], package)
-                for document in isolated.rglob('*.md'):
-                    check_markdown(isolated, document)
 
 
 if __name__ == '__main__':

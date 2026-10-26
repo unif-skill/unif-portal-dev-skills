@@ -1,6 +1,6 @@
 # 工程技能入口
 
-采用目标架构的 Portal 或 @unif React Native 库工程，可在已有 AGENTS.md 中合入以下入口，并随工程所选技能版本维护：
+采用本插件共用研发规范的 Portal 或 @unif React Native 库工程，可在已有 AGENTS.md 中合入以下入口，并随工程所选技能版本维护。只安装单个库能力技能的工程沿用自己的规范，无需合入整套阶段入口：
 
 ```markdown
 ## 技能使用

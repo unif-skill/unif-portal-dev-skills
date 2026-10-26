@@ -28,30 +28,30 @@ Unif 产品的研发技能集合，适用于 Portal 客户端、相关 Agent／C
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
-默认分发完整插件。库能力技能的完整目录可以单独安装，应用消费可从公开文档取得依据；库源码维护另采用工程指定的共用规范。阶段入口使用本插件的架构、客户端与后端规范资料，单独安装阶段入口时一并提供所需规范，不把阶段入口当作独立的通用流程工具。
+六个库能力技能均可单独安装，只需对应的完整目录，无需安装整个插件或其他技能。应用消费从公开文档取得依据；库源码维护采用工程指定的规范，工程已配置共用阶段技能时按需使用。需要整套研发规范与库能力时，也可安装完整插件。阶段入口使用本插件的架构、客户端与后端规范资料，单独安装阶段入口时一并提供所需规范，不把阶段入口当作独立的通用流程工具。
 
 `code-development` 是原 `portal-development` 的新名称，工程中的技能引用和同步命令使用新名称；更新单独安装的技能时替换原目录，避免两个入口并存。历史评测保留原名称与输入，不回写为新版本结果。
 
 ## 安装与使用
 
-技能采用 Agent Skills 格式，可安装到支持该格式的工具中。本仓库为私有仓库，需要本仓访问权限及可用的 Git 认证。
+技能采用 Agent Skills 格式，可安装到支持该格式的工具中。下面先以单独安装 `unif-design` 为例，完整插件是另一种可选分发方式。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
 
 ### 使用 Skills CLI
 
-准备 Node.js（含 npm/npx）和 Git，在目标项目目录运行：
+准备符合 [Skills CLI 要求](https://github.com/vercel-labs/skills#readme)的 Node.js（含 npm/npx）和 Git，在目标项目目录运行：
 
 ```sh
-npx skills add unif-skill/unif-portal-dev-skills --skill architecture-design
+npx skills add unif-skill/unif-portal-dev-skills --skill unif-design
 ```
 
-安装其他技能时将 `--skill` 的值替换为上面的技能名称；手动分发时同样复制对应的完整技能目录。
+安装其他库能力时将 `--skill` 的值替换为 `unif-chat`、`unif-camera`、`unif-hms-scan`、`unif-umeng` 或 `unif-icons`；命令只安装所选技能。共用研发规范也可按需选择，保留上文说明的规范依据。
 
 按提示选择目标工具，例如 Claude Code、Cursor 或 Codex。默认安装到当前项目；需要用户级安装时，在命令后添加 `--global`。支持的工具、安装位置和认证方式见 [Skills CLI 文档](https://github.com/vercel-labs/skills#readme)。
 
 通过 Skills CLI 安装的技能，可运行以下命令选择安装范围并更新：
 
 ```sh
-npx skills update architecture-design
+npx skills update unif-design
 ```
 
 ### 手动安装
@@ -62,7 +62,7 @@ npx skills update architecture-design
 git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 ```
 
-将所需的 `skills/<技能名>/` 完整复制到目标工具支持的技能目录，保留其文件与相对引用；具体安装目录以目标工具文档为准。
+将所需的 `skills/<技能名>/` 完整复制到目标工具支持的技能目录，包括 `SKILL.md`、`references/`、`agents/` 及该目录已有的其他文件；不要只复制 `SKILL.md`。具体安装目录以目标工具文档为准。
 
 更新时，在克隆的仓库中运行 `git pull --ff-only`，再替换已安装的完整技能目录。如有本地修改，先将旧目录备份到技能扫描目录之外。
 
@@ -86,7 +86,7 @@ codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
 按目标工具的方式加载技能，并在任务中指定，例如：
 
 ```text
-使用 architecture-design 技能，依据本项目的架构规范审查这个模块的职责、接口交接和验证范围。
+使用 unif-design 技能，按本项目采用的包版本检查主题与字体接入。
 ```
 
 技能识别、调用语法和图标显示由目标工具决定。

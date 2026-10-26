@@ -1,10 +1,10 @@
 # Design 系统开发与接入
 
-使用或修改 @unif/react-native-design 的基础 UI、主题字体、组件族或 UI 宿主时读取。维护库源码同时读取code-development 的“库开发”；单个组件的使用先核对其当前公开类型和文档。
+使用或修改 @unif/react-native-design 的基础 UI、主题字体、组件族或 UI 宿主时读取。源码维护采用库内 docs/DEVELOPMENT.md 指定的工程规范；工程已配置 code-development 时可读取其“库开发”。单个组件的使用先核对其当前公开类型和文档。
 
 ## 按变化定位契约
 
-规范根入口为 `libraries/react-native-design.md`，下列文件均位于 `libraries/react-native-design/`：
+以下路径相对于工程采用的规范根目录，不是其他技能的私有文件，也未随本技能分发。规范入口为 `libraries/react-native-design.md`，下列文件均位于 `libraries/react-native-design/`：
 
 | 本次变化 | 文件 |
 |---|---|
