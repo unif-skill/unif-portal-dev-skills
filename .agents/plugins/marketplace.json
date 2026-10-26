@@ -1,7 +1,7 @@
 {
   "name": "unif-portal-dev-skills",
   "interface": {
-    "displayName": "Unif Portal 研发技能"
+    "displayName": "Unif 研发与库能力技能"
   },
   "plugins": [
     {

@@ -1,6 +1,6 @@
 # Design 系统开发与接入
 
-使用或修改 @unif/react-native-design 的基础 UI、主题字体、组件族或 UI 宿主时读取。维护库源码同时读取[库开发](library-development.md)；单个组件的使用先核对其当前公开类型和文档。
+使用或修改 @unif/react-native-design 的基础 UI、主题字体、组件族或 UI 宿主时读取。维护库源码同时读取code-development 的“库开发”；单个组件的使用先核对其当前公开类型和文档。
 
 ## 按变化定位契约
 
