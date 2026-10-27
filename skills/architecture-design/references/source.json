@@ -1,11 +1,11 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-portable-links-v3",
+  "transformation": "section-text-portable-links-v5",
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "be6425714a65125876de9956979763d31202774b95391282345d9ce861679356",
-      "lines": 449
+      "sha256": "cf4465e2124a55d5e8c868725ff3005bc64002c2f29ed9de7e964484b08d0b72",
+      "lines": 451
     }
   },
   "files": {
@@ -28,7 +28,7 @@
           ]
         }
       ],
-      "sha256": "b38a7bcbad43dab709fd4706adf8e8745d3aa9243a498a152b0808c2907ea8dd"
+      "sha256": "a745722531d46b5580e6aa10b5b2f18d08796e9cb7bb1e5903eee26c76788025"
     },
     "responsibilities.md": {
       "sections": [
@@ -41,7 +41,7 @@
           ]
         }
       ],
-      "sha256": "9f8ec0eba49c91078c83e7f27ff527cf608eb8fe02ee650944bd524559d891e1"
+      "sha256": "06463c21ef8dd8fbb262b2f10be9b2045666f76336f56a0318bd2382a1ad965d"
     },
     "composition.md": {
       "sections": [
@@ -54,7 +54,7 @@
           ]
         }
       ],
-      "sha256": "ce2fbdf04d4aca4bbacbe00459ba37182ec956181f821f9dcabca1d51a76bcbe"
+      "sha256": "ca8d5cbbfeba1ed447c987cb61f1ef87e2e102a60a31455a2783503d4adb4589"
     },
     "state.md": {
       "sections": [
@@ -67,7 +67,7 @@
           ]
         }
       ],
-      "sha256": "312cb59b22ee7b6497d2fe01d38a309de70f4122fd8fb0b601588abcf355b164"
+      "sha256": "63d62acf72d08aea563a873c14a5fc40174b534cf123a668e9246c8dc4b63a07"
     },
     "agent-context.md": {
       "sections": [
@@ -80,7 +80,7 @@
           ]
         }
       ],
-      "sha256": "a78bc60692addf03834026264f342e891e048b3579bcc0e76f1c461d7d619653"
+      "sha256": "dcfe233cefdfe766e0dfa484bb57f43b6bf9e5f72cf084700910eb12f9121926"
     },
     "contracts.md": {
       "sections": [
@@ -93,7 +93,7 @@
           ]
         }
       ],
-      "sha256": "8013cebaad532c9af22335a425f591e15f5e04aef8212c1f192624c8c64eb54f"
+      "sha256": "21a9d2333e4e408116800e983d321012192248a908afb7f5215575897badb27c"
     },
     "verification.md": {
       "sections": [
@@ -102,11 +102,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             318,
-            386
+            388
           ]
         }
       ],
-      "sha256": "0a2507b3c679c8158973c3cf835b0b1da0b6e0cd4bec92dfe8e0346d92c9d5b0"
+      "sha256": "cab17fc017869e80dfe3ca9cab10ae84eac7f2c333ce30476b7656962c08dc0e"
     },
     "cost.md": {
       "sections": [
@@ -114,12 +114,12 @@
           "source": "ARCHITECTURE.md",
           "heading": "8. 成本与效果验证",
           "lines": [
-            387,
-            402
+            389,
+            404
           ]
         }
       ],
-      "sha256": "bf2ff75f80e2d16d2a867706c429d396301dea3987e333cf2801dea508bf9f84"
+      "sha256": "117a3dd4076daad2088d67f4b35eae69ffb5ebf2f7558fe0a5f3bcf1ad742c74"
     },
     "documentation.md": {
       "sections": [
@@ -127,8 +127,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "9. 领域与模块文档",
           "lines": [
-            403,
-            449
+            405,
+            451
           ]
         }
       ],

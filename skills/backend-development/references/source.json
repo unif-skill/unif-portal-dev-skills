@@ -1,6 +1,6 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-portable-links-v3",
+  "transformation": "section-text-portable-links-v5",
   "sources": {
     "BACKEND_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/BACKEND_DEVELOPMENT.md",

@@ -1,37 +1,65 @@
 ---
 name: code-development
-description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Native 库新建工程、实现或调整代码、接入能力、定位实现缺陷、进行 iOS 真机安装与调试，或开发库文档站、组件 Web 示例与 LiveDemo 时使用。单纯查询版本、解释已有接口或读取状态不触发。
+description: 在 Unif 的 RN／原生鸿蒙客户端、对应 @unif 库或共享核心中新建工程、实现、调整或排查代码，进行 iOS 真机调试，或开发库文档站与示例时使用。单纯查询版本、解释已有接口或读取状态不触发。
 ---
 
 # 代码开发规范
 
-先区分客户端接入与库源码维护，再按当前单元、契约与消费者取得实现依据。测试、审查和交付使用各自入口；它们可以按需取得本技能的工程规范，不因此启动开发工作。
+先确定目标平台及应用消费、库源码维护或共享核心，再按当前单元、契约与消费者取得实现依据。测试、审查和交付使用各自入口；它们可以按需取得本技能的工程规范，不因此启动开发工作。
 
 ## 依据
 
 优先采用任务或工程指定的规则版本。同一上下文中已读、版本适用且覆盖当前判断的规则和契约直接复用；范围或来源变化时只补相关部分。以下资料按需选择，不因属于同一技能而全部加载。
 
-客户端工程规则：
+目标由任务与实际工程确定，不因工作区同时包含多个平台而扩大修改。RN 与原生鸿蒙共同功能对齐契约、资源和案例；各自使用框架适用的接口与工程组织。
+
+持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：取得 architecture-design 的“状态归属”主题，核对权威来源、唯一性、执行归属及对应验证；读取共同规则不重启架构设计。
+
+原生 ArkTS／ArkUI 应用与 `@unif/harmony-*` HAR 库：
+
+- 新建或确定范围：[鸿蒙适用范围](references/harmony-scope.md)；仅在初始化或核对归属时读[工程目录](references/harmony-directory.md)。
+- 实现、公开导出、纯 TS 与资源共享：[文件与公共入口](references/harmony-files.md)。
+- UI 状态、Context、身份与资源收尾：[状态与生命周期](references/harmony-state.md)。
+- 组件、主题、字号与玻璃效果：[原生 UI](references/harmony-ui.md)。
+- 设备、SDK、HTTP／SSE／H5 与共同契约：[原生接入](references/harmony-integration.md)。
+- 库文档与真实 ArkUI 示例：[公开入口与文档](references/harmony-files.md)，按实际原生库和站点标准组织。
+- 测试、打包、宿主与设备证据：[鸿蒙测试与验收](references/harmony-testing.md)。
+
+原生六库按当前能力选读同源专题；应用消费核对采用版本的公开入口和宿主，HAR 维护同时核对库契约、实际消费者与产物，共享核心核对完整依赖和各目标运行环境：
+
+| 原生目标库 | 规范入口 |
+|---|---|
+| @unif/harmony-icons | [图标同源生成、公开入口与消费](references/harmony-icons.md) |
+| @unif/harmony-design | [主题、字体、玻璃与 UI 宿主](references/harmony-design.md) |
+| @unif/harmony-chat | [消息、输入、附件与受控交接](references/harmony-chat.md) |
+| @unif/harmony-camera | [拍摄、选用、取消与媒体所有权](references/harmony-camera.md) |
+| @unif/harmony-hms-scan | [识别、图片借用与结果交付](references/harmony-hms-scan.md) |
+| @unif/harmony-umeng | [同意后初始化、统计与真实分享回执](references/harmony-umeng.md) |
+
+这些规范定义目标行为和验收，不证明已有原生包或导出。具体 API 从当前原生库公开源码、文档及目标 SDK 取得；没有出口时明确待实现，不把 RN 示例改包名充当 ArkUI 用法。地图／POI 使用高德，统计与分享使用友盟，平台示例不改变提供方。外部技能按工程采用清单选读，不自动恢复归档项。
+
+应用按业务职责组合，HAR 按自身能力组织。比较 RN 行为可读取对应资料，但不能据此调用 RN API。共享纯 TS 先检查完整依赖及运行环境，再按各采用目标验证产物和消费者；无框架导入或 Node 测试通过不证明通用兼容。资源与逻辑维护单一来源，不为零散函数新建泛化 utils。
+
+React Native 客户端工程规则：
 
 - 单元划分、文件组织、作用域、类型与命名：[文件规则](references/file-rules.md)。
 - SDK 与公共能力选用、组件和样式复用：[复用规则](references/ui.md)。
 - 工具、配置及资源文件：[归属规则](references/utilities-config.md)。
 - 公共入口、依赖、基础能力与宿主接线：[依赖规则](references/dependencies.md)。
 - 任务范围、状态表定位与实现边界：[开发范围](references/scope.md)。
-- 持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：取得 architecture-design 的“状态归属”主题，核对权威来源、唯一性、执行归属及对应验证；读取共同规则不重启架构设计。
 - 初始化工程与代码归属：[目标目录](references/directory.md)。
 - 测试组织、质量、变更影响与交付证据：[测试与验收](references/testing.md)。
 
 库与专项接入：
 
 - 新建或维护 @unif React Native 库的源码、公开接口、依赖或发布产物：[库开发](references/library-development.md)。应用仅消费一个库时不加载库维护流程。
-- 新库、工程标准尚未接入，或首次／恢复发布准备：[新库接入](references/library-onboarding.md)。成熟工程的小改动沿用有效接入依据。
-- 具体库的公开能力、接入与排障，按下表取得对应能力技能；源码维护同时读取“库开发”，不加载无关库资料。
-- 开发库文档站、组件 Web 示例、公开演示或 LiveDemo：[文档站开发](references/documentation-site.md)。组件附带 Web 示例也进入此专题；仅改组件内部或原生能力且不影响网站时不加载。
+- RN 新库、工程标准尚未接入，或首次／恢复发布准备：[新库接入](references/library-onboarding.md)。成熟工程的小改动沿用有效接入依据。
+- RN 库的公开能力、接入与排障，按下表取得对应能力技能；源码维护同时读取“库开发”，不加载无关库资料。
+- 开发 RN 库文档站、组件 Web 示例、公开演示或 LiveDemo：[文档站开发](references/documentation-site.md)。组件附带 Web 示例也进入此专题；仅改组件内部或原生能力且不影响网站时不加载。
 - 开发或排查 H5 容器、设备消息、文档与授权交接：[H5 桥接](references/h5-bridge.md)。
 - iOS 真机安装、Metro 热刷新或设备调试连接恢复：[真机调试](references/ios-device-debugging.md)。仅需准备用户手测时也可读取；组件内部修改或版本查询不因此启动设备流程。
 
-| 涉及的库能力 | 技能 |
+| 涉及的 React Native 库能力 | 技能 |
 |---|---|
 | 基础组件、主题、字体与 UI 宿主 | unif-design |
 | 消息、输入、附件和聊天组合 | unif-chat |
@@ -40,7 +68,7 @@ description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Nati
 | 初始化、统计与第三方分享 | unif-umeng |
 | 图标消费、SVG 源与生成 | unif-icons |
 
-能力技能提供当前任务的资料入口与操作边界，共同工程规则仍由本技能提供。组合任务只取得实际涉及的能力；已明确接口的局部修改直接复用有效依据。单纯接口说明可直接使用能力技能，不因此进入开发阶段。能力技能未安装时从本库公开文档和工程指定规范取得同一依据，不因入口缺失自行安装或停止已具备依据的工作。
+这六个能力技能对应当前 RN 包，不声明原生鸿蒙支持。能力技能提供当前任务的资料入口与操作边界，共同工程规则仍由本技能提供。组合任务只取得实际涉及的能力；已明确接口的局部修改直接复用有效依据。单纯接口说明可直接使用能力技能，不因此进入开发阶段。能力技能未安装时从本库公开文档和工程指定规范取得同一依据，不因入口缺失自行安装或停止已具备依据的工作。
 
 需要确定或实质调整模块职责、公共契约、调用交接或状态归属时，使用本插件 architecture-design。按已有契约实现、排查或整理时沿用有效设计；仅为核对已有规则，不重启架构设计。缺少技能入口时可采用工程指定的同一规范源；缺少必需依据时明确影响，不用通用流程或旧工程惯例替代。
 

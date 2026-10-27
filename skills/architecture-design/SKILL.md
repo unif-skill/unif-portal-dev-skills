@@ -1,6 +1,6 @@
 ---
 name: architecture-design
-description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Native 库设计或评审模块职责、场景组合、状态归属和公共契约时使用。单纯查阅现有接口不触发架构设计。
+description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif RN／原生鸿蒙库设计或评审模块职责、场景组合、状态归属和公共契约时使用。单纯查阅现有接口不触发架构设计。
 ---
 
 # 架构与模块设计
@@ -20,7 +20,7 @@ description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif React Nati
 
 主题保留规范源文，溯源时读取 references/source.json。
 
-模块契约确定公共名称与语义；未定部分标明草案及影响范围。资料缺口只限制依赖它的设计。
+模块契约确定公共名称与语义；RN／原生鸿蒙的应用、库与共享核心分别确认职责、消费者和运行边界，不以同名推定接口或实现兼容。平台工程规则按 code-development 的 RN／鸿蒙专题选择。未定部分标明草案及影响范围。资料缺口只限制依赖它的设计。
 
 ## 应用
 

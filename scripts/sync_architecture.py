@@ -41,6 +41,27 @@ TOPICS = {
         },
     },
     'code-development': {
+        'HARMONY_DEVELOPMENT.md': {
+            'harmony-scope.md': ['', '1. 适用范围与实施'],
+            'harmony-files.md': ['2. ArkTS 文件与公共入口'],
+            'harmony-state.md': ['3. ArkUI 状态与生命周期'],
+            'harmony-integration.md': ['4. 原生能力与协议接入'],
+            'harmony-testing.md': ['5. 验证与交付'],
+        },
+        'HARMONY_STRUCTURE.md': {
+            'harmony-directory.md': ['', '1. 工程目录与依赖'],
+            'harmony-ui.md': ['2. 组件、主题与玻璃材质'],
+            'harmony-integration.md': ['3. 契约与资源归属'],
+        },
+        **{
+            f'libraries/harmony-{name}.md': {
+                f'harmony-{name}.md': [
+                    '', '1. 职责与依赖', '2. 公开契约与对齐',
+                    '3. 状态、资源与结束', '4. 验证与采用',
+                ],
+            }
+            for name in ('icons', 'design', 'chat', 'camera', 'hms-scan', 'umeng')
+        },
         'PORTAL_DEVELOPMENT.md': {
             'scope.md': ['', '1. 文件变更入口', '2. 各类代码的开发规则'],
             'file-rules.md': ['3. 常量、类型、变量与文件拆分', '4. 命名与公开出口'],
@@ -133,7 +154,7 @@ def portable_text(body, source_name, anchors):
         source = (posixpath.normpath(posixpath.join(posixpath.dirname(source_name), unquote(url.path)))
                   if url.path else source_name)
         if source not in anchors or url.query:
-            return f'{label}（规范源相对路径：`{target}`）'
+            return f'{label}（规范源相对路径：`{url._replace(path=source).geturl()}`）'
         if not url.fragment:
             return f'[{label}](../SKILL.md)'
         fragment = unquote(url.fragment)
@@ -156,7 +177,7 @@ def portable_text(body, source_name, anchors):
 
 def render(sources, skill):
     outputs, records = {}, {}
-    provenance = {'formatVersion': 2, 'transformation': 'section-text-portable-links-v3',
+    provenance = {'formatVersion': 2, 'transformation': 'section-text-portable-links-v5',
                   'sources': {}, 'files': records}
     parsed = {name: split_sections(content.decode('utf-8')) for name, content in sources.items()}
     anchors, output_anchors = {}, {}
@@ -186,6 +207,7 @@ def render(sources, skill):
                     'source': source_name, 'heading': heading, 'lines': [start, end],
                 })
     for filename, content in outputs.items():
+        outputs[filename] = content = content.rstrip('\n') + '\n'
         records[filename]['sha256'] = hashlib.sha256(content.encode('utf-8')).hexdigest()
     outputs['source.json'] = json.dumps(provenance, ensure_ascii=False, indent=2) + '\n'
     return outputs

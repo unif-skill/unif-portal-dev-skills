@@ -1,19 +1,444 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-portable-links-v3",
+  "transformation": "section-text-portable-links-v5",
   "sources": {
+    "HARMONY_DEVELOPMENT.md": {
+      "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
+      "sha256": "4afb445ed3cb4c95d16c0c836fe87336f069b0597db6bd2007ccfb6239ce0928",
+      "lines": 77
+    },
+    "HARMONY_STRUCTURE.md": {
+      "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
+      "sha256": "a90f3759fc2ad09412b5b925a931fd453f907c4a65a7c990883e2b6408ab675d",
+      "lines": 55
+    },
+    "libraries/harmony-icons.md": {
+      "source": "unif-platform-architecture/libraries/harmony-icons.md",
+      "sha256": "4a3b6e1b9d556a5dd53ccc07ccd87bf8c41360f2f3d68f1ceeb2220b934ea1cb",
+      "lines": 40
+    },
+    "libraries/harmony-design.md": {
+      "source": "unif-platform-architecture/libraries/harmony-design.md",
+      "sha256": "1e0f87f76dd4fe16599b28dbd7bf55c9159c8aeb56964429577e6e1007650fb0",
+      "lines": 56
+    },
+    "libraries/harmony-chat.md": {
+      "source": "unif-platform-architecture/libraries/harmony-chat.md",
+      "sha256": "a1a77f8d91c486d3494b227503a00a26d7aa97322716e5a1c170b1ee47c673a8",
+      "lines": 35
+    },
+    "libraries/harmony-camera.md": {
+      "source": "unif-platform-architecture/libraries/harmony-camera.md",
+      "sha256": "3c1bdefd012f21dc82400399d205b620b0e9a26a2e501e9dbca655fd8e035307",
+      "lines": 41
+    },
+    "libraries/harmony-hms-scan.md": {
+      "source": "unif-platform-architecture/libraries/harmony-hms-scan.md",
+      "sha256": "c70b1336e35f6b9674522e48e18c0935c935486a8c8881110eddac1772b30e61",
+      "lines": 33
+    },
+    "libraries/harmony-umeng.md": {
+      "source": "unif-platform-architecture/libraries/harmony-umeng.md",
+      "sha256": "339174fe7d123d11dcad8550f1cca9762e0e953054c113820c740b40f6149614",
+      "lines": 41
+    },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "e0e5ae2b47dfb48f49deb00bdd0f1596bd3da0a108b6f3b83dd889f18b267db4",
+      "sha256": "72cbb0abd335d68762863d16130b5009f644540378816a3b85547e2e3fe41bcb",
       "lines": 108
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "8f5a6b762ba898c885e7fa4b3fd88d08eff4670ff489501d6aecaa7fb8291724",
+      "sha256": "deeab10219ae6eba63c97689dbef11d9e90cbb62a5948430507a6c042718f289",
       "lines": 229
     }
   },
   "files": {
+    "harmony-scope.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "1. 适用范围与实施",
+          "lines": [
+            5,
+            24
+          ]
+        }
+      ],
+      "sha256": "c4676dfab5028e3c77f3ea86cffb589714db0250479189a80400cc2e03da3669"
+    },
+    "harmony-files.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "2. ArkTS 文件与公共入口",
+          "lines": [
+            25,
+            36
+          ]
+        }
+      ],
+      "sha256": "6880f03205b38eeb7da6f33052e7811e4207ecb1433853beb26a3eb06fd58b9f"
+    },
+    "harmony-state.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "3. ArkUI 状态与生命周期",
+          "lines": [
+            37,
+            46
+          ]
+        }
+      ],
+      "sha256": "c41313f857219ee4c22531b1481ef53e641d4cf0b88ea34b0c342dc8d9a617f8"
+    },
+    "harmony-integration.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "4. 原生能力与协议接入",
+          "lines": [
+            47,
+            60
+          ]
+        },
+        {
+          "source": "HARMONY_STRUCTURE.md",
+          "heading": "3. 契约与资源归属",
+          "lines": [
+            47,
+            55
+          ]
+        }
+      ],
+      "sha256": "90a473a6662591b437e140b265099415f08dfcdeaf6249cc8c90d5847d5b427c"
+    },
+    "harmony-testing.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "5. 验证与交付",
+          "lines": [
+            61,
+            77
+          ]
+        }
+      ],
+      "sha256": "16f340ab8f67b36d32db1f872ac3c668c20414352bc00fe7c3fbd693c687d0e4"
+    },
+    "harmony-directory.md": {
+      "sections": [
+        {
+          "source": "HARMONY_STRUCTURE.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "HARMONY_STRUCTURE.md",
+          "heading": "1. 工程目录与依赖",
+          "lines": [
+            5,
+            23
+          ]
+        }
+      ],
+      "sha256": "9bad7eba4bc32c98a4aff0ca31f67111ef9b8eaa13604cf6209b8b0a6ec61b24"
+    },
+    "harmony-ui.md": {
+      "sections": [
+        {
+          "source": "HARMONY_STRUCTURE.md",
+          "heading": "2. 组件、主题与玻璃材质",
+          "lines": [
+            24,
+            46
+          ]
+        }
+      ],
+      "sha256": "040aa2e222357626d58c2216f05fa77462812dcf3f8aa14c685f3a2aa28dd1fb"
+    },
+    "harmony-icons.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-icons.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-icons.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-icons.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            22
+          ]
+        },
+        {
+          "source": "libraries/harmony-icons.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            23,
+            28
+          ]
+        },
+        {
+          "source": "libraries/harmony-icons.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            29,
+            40
+          ]
+        }
+      ],
+      "sha256": "21dc09f317c664a38910601852dbda3f114216a2ce972feb8407f889ce02c454"
+    },
+    "harmony-design.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            34
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            35,
+            44
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            45,
+            56
+          ]
+        }
+      ],
+      "sha256": "1222f9f145c4a9ad4dae064a7e67d8568d9c4798b3f881a9e23fab9fc7021d48"
+    },
+    "harmony-chat.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-chat.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-chat.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-chat.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            22
+          ]
+        },
+        {
+          "source": "libraries/harmony-chat.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            23,
+            30
+          ]
+        },
+        {
+          "source": "libraries/harmony-chat.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            31,
+            35
+          ]
+        }
+      ],
+      "sha256": "a2097d2f342c9bace65a1fc5ff2e2f7eebf1d98e0698637975cf9e8f066ab245"
+    },
+    "harmony-camera.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            18
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            19,
+            36
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            37,
+            41
+          ]
+        }
+      ],
+      "sha256": "e7fcdc3479bd3a3bd0f044fef81acc8a74ed20ee7e7271d3a51c34d19faeaedb"
+    },
+    "harmony-hms-scan.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            18
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            19,
+            28
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            29,
+            33
+          ]
+        }
+      ],
+      "sha256": "c4b8b32cf596b485e69ddba4da4c263c0eee67db3d1c87bef0c2eb7714a767f9"
+    },
+    "harmony-umeng.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            12
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            13,
+            24
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            25,
+            34
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            35,
+            41
+          ]
+        }
+      ],
+      "sha256": "531f827b64cc7fec1421a011879fc553e092714e07cb8656cf5ff4a459fba853"
+    },
     "scope.md": {
       "sections": [
         {
@@ -41,7 +466,7 @@
           ]
         }
       ],
-      "sha256": "30ff2f95a45535a9b097e7f202756e3a397dbaba386c3091891836fb6f011e3d"
+      "sha256": "83ed02ae3ac94fa3aff8a328b2dbe1ab57c1383ba89a7fe6513c352343fa5cf5"
     },
     "file-rules.md": {
       "sections": [
@@ -62,7 +487,7 @@
           ]
         }
       ],
-      "sha256": "cfee526335a1d435c8306dbdaa7e4976bbcd3dbdd8990f4eec2f290035012f7c"
+      "sha256": "6f5cdc157bce05466f9ba75aa50727894bdfd249a5abc96e4e317b7685c1c0e8"
     },
     "testing.md": {
       "sections": [
@@ -104,7 +529,7 @@
           ]
         }
       ],
-      "sha256": "666137bab37979a514dbe29e9a0e93eb4dc3fd303d71fe7a2ad801385fe8902f"
+      "sha256": "241a784f6e58236cdbebb2dba6f5367cac730baa0dd95d184e9e7577ec078232"
     },
     "ui.md": {
       "sections": [
@@ -117,7 +542,7 @@
           ]
         }
       ],
-      "sha256": "42a007b53748977bfe0b39a51ff89e2e8f59f0663fcdc3c0ca5b83f86f0ec842"
+      "sha256": "646b32b8fdf90c9b92fc1401bd9a436b6d4138a5c4c253dc149e6016332f8d39"
     },
     "utilities-config.md": {
       "sections": [
@@ -130,7 +555,7 @@
           ]
         }
       ],
-      "sha256": "17aea1a1e7e1b3565b452245f7620e0505bd42a2ac7b5424f973bc7b3a46ebb8"
+      "sha256": "ac132fcbc9e37a4ad1cb1c0f110a42c094c3d0929e3ef052d1b8f033cfd53cae"
     },
     "dependencies.md": {
       "sections": [
@@ -151,7 +576,7 @@
           ]
         }
       ],
-      "sha256": "5e1b4505d4259d715a7541657c038f7568d7a2d1767de091f93021ad6e4c6ae8"
+      "sha256": "8f6e5c369e725c3f3d0f3251d281b23bee302a8958fc1c0eaf6f59da027155bc"
     }
   }
 }

@@ -1,4 +1,6 @@
-# 库文档站与组件 Web 示例
+# React Native 库文档站与组件 Web 示例
+
+本专题用于 RN 库。原生鸿蒙库文档与 ArkUI 运行示例采用[鸿蒙公开入口与文档规则](harmony-files.md)及[鸿蒙测试与验收](harmony-testing.md)，不套用下述 RN Web、Snack 或 iOS／Android 宿主要求。
 
 ## 依据与入口
 

@@ -14,6 +14,13 @@ HEADINGS = {
         '5. 自然语言任务与上下文', '6. 跨边界交接与业务结果', '7. 独立开发与验证',
         '8. 成本与效果验证', '9. 领域与模块文档',
     ],
+    'HARMONY_DEVELOPMENT.md': [
+        '1. 适用范围与实施', '2. ArkTS 文件与公共入口', '3. ArkUI 状态与生命周期',
+        '4. 原生能力与协议接入', '5. 验证与交付',
+    ],
+    'HARMONY_STRUCTURE.md': [
+        '1. 工程目录与依赖', '2. 组件、主题与玻璃材质', '3. 契约与资源归属',
+    ],
     'PORTAL_DEVELOPMENT.md': [
         '1. 文件变更入口', '2. 各类代码的开发规则', '3. 常量、类型、变量与文件拆分',
         '4. 命名与公开出口', '5. 规则执行与定向验证',
@@ -23,6 +30,11 @@ HEADINGS = {
         '4. 公共入口与依赖方向', '5. 基础能力与资源归属', '6. 分批重写与定向验证',
     ],
 }
+HARMONY_LIBRARIES = ('icons', 'design', 'chat', 'camera', 'hms-scan', 'umeng')
+for library in HARMONY_LIBRARIES:
+    HEADINGS[f'libraries/harmony-{library}.md'] = [
+        '1. 职责与依赖', '2. 公开契约与对齐', '3. 状态、资源与结束', '4. 验证与采用',
+    ]
 
 
 class SnapshotTests(unittest.TestCase):
@@ -35,6 +47,7 @@ class SnapshotTests(unittest.TestCase):
         for name, headings in HEADINGS.items():
             text = f'# {name}\n\n引言。\n\n' + ''.join(
                 f'## {heading}\n\n保留 {name}/{heading}。\n\n' for heading in headings)
+            (self.sources / name).parent.mkdir(parents=True, exist_ok=True)
             (self.sources / name).write_text(text, encoding='utf-8')
         self.source = self.sources / 'ARCHITECTURE.md'
         self.script = self.root / 'package/scripts/sync_architecture.py'
@@ -91,12 +104,102 @@ class SnapshotTests(unittest.TestCase):
                         lines = (self.sources / source).read_text().splitlines(keepends=True)
                         covered[source].extend(range(start, end + 1))
                         parts.append(''.join(lines[start - 1:end]))
-                    self.assertEqual(content.decode().split('-->\n\n', 1)[1], '\n'.join(parts))
+                    self.assertEqual(content.decode().split('-->\n\n', 1)[1], '\n'.join(parts).rstrip('\n') + '\n')
                 for name in expected_sources:
                     source = (self.sources / name).read_bytes()
                     self.assertEqual(sorted(covered[name]), list(range(1, len(source.splitlines()) + 1)))
                     self.assertEqual(record['sources'][name]['sha256'], hashlib.sha256(source).hexdigest())
                 self.assertEqual(self.run_sync('--check', portal=portal).returncode, 0)
+
+    def test_harmony_topics_have_independent_provenance(self):
+        source = self.sources / 'HARMONY_STRUCTURE.md'
+        source.write_text(source.read_text() +
+                          '[状态](HARMONY_DEVELOPMENT.md#3-arkui-状态与生命周期)\n')
+        result = self.run_sync(portal=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        reference = self.root / 'package/skills/code-development/references'
+        record = json.loads((reference / 'source.json').read_text())
+        expected = {
+            'harmony-scope.md': {'HARMONY_DEVELOPMENT.md'},
+            'harmony-files.md': {'HARMONY_DEVELOPMENT.md'},
+            'harmony-state.md': {'HARMONY_DEVELOPMENT.md'},
+            'harmony-integration.md': {'HARMONY_DEVELOPMENT.md', 'HARMONY_STRUCTURE.md'},
+            'harmony-testing.md': {'HARMONY_DEVELOPMENT.md'},
+            'harmony-directory.md': {'HARMONY_STRUCTURE.md'},
+            'harmony-ui.md': {'HARMONY_STRUCTURE.md'},
+        }
+        expected.update({f'harmony-{name}.md': {f'libraries/harmony-{name}.md'}
+                         for name in HARMONY_LIBRARIES})
+        self.assertEqual({name for name in record['files'] if name.startswith('harmony-')}, set(expected))
+        for name, sources in expected.items():
+            self.assertEqual({part['source'] for part in record['files'][name]['sections']}, sources)
+        for name, topic in record['files'].items():
+            if not name.startswith('harmony-'):
+                self.assertTrue(all(part['source'].startswith('PORTAL_') for part in topic['sections']))
+        self.assertIn('[状态](harmony-state.md#3-arkui-状态与生命周期)',
+                      (reference / 'harmony-integration.md').read_text())
+
+    def test_harmony_missing_source_does_not_partially_generate(self):
+        self.assertEqual(self.run_sync(portal=True).returncode, 0)
+        reference = self.root / 'package/skills/code-development/references'
+        before = {p.name: p.read_bytes() for p in reference.iterdir()}
+        for name in ('HARMONY_DEVELOPMENT.md', 'HARMONY_STRUCTURE.md',
+                     *(f'libraries/harmony-{name}.md' for name in HARMONY_LIBRARIES)):
+            with self.subTest(source=name):
+                source = self.sources / name
+                content = source.read_bytes()
+                source.unlink()
+                result = self.run_sync(portal=True)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn(name, result.stderr)
+                self.assertEqual({p.name: p.read_bytes() for p in reference.iterdir()}, before)
+                source.write_bytes(content)
+
+    def test_harmony_source_drift_is_detected_without_writes(self):
+        self.assertEqual(self.run_sync(portal=True).returncode, 0)
+        reference = self.root / 'package/skills/code-development/references'
+        for target in (self.sources / 'HARMONY_DEVELOPMENT.md',
+                       self.sources / 'HARMONY_STRUCTURE.md',
+                       reference / 'harmony-state.md', reference / 'source.json',
+                       *(self.sources / f'libraries/harmony-{name}.md' for name in HARMONY_LIBRARIES),
+                       *(reference / f'harmony-{name}.md' for name in HARMONY_LIBRARIES)):
+            with self.subTest(target=target.name):
+                self.assertTrue(target.is_file(), str(target))
+                original = target.read_bytes()
+                target.write_bytes(original + b'\n')
+                before = {p.name: p.read_bytes() for p in reference.iterdir()}
+                result = self.run_sync('--check', portal=True)
+                self.assertEqual(result.returncode, 1, result.stderr)
+                self.assertEqual({p.name: p.read_bytes() for p in reference.iterdir()}, before)
+                self.assertEqual(target.read_bytes(), original + b'\n')
+                target.write_bytes(original)
+
+    def test_harmony_library_nested_links_stay_portable(self):
+        source = self.sources / 'libraries/harmony-icons.md'
+        source.write_text(source.read_text() +
+                          '[Design](harmony-design.md#1-职责与依赖) '
+                          '[字体](../HARMONY_STRUCTURE.md#2-组件主题与玻璃材质) '
+                          '[RN](react-native-icons.md#公开输入) '
+                          '[架构](../ARCHITECTURE.md#4-状态归属)\n')
+        result = self.run_sync(portal=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        reference = self.root / 'package/skills/code-development/references'
+        topic = reference / 'harmony-icons.md'
+        self.assertTrue(topic.is_file(), '六库专题应随 code-development 分发')
+        text = topic.read_text()
+        self.assertIn('[Design](harmony-design.md#1-职责与依赖)', text)
+        self.assertIn('[字体](harmony-ui.md#2-组件主题与玻璃材质)', text)
+        self.assertIn('RN（规范源相对路径：`libraries/react-native-icons.md#公开输入`）', text)
+        self.assertIn('架构（规范源相对路径：`ARCHITECTURE.md#4-状态归属`）', text)
+        self.assertEqual(self.run_sync('--check', portal=True).returncode, 0)
+
+    def test_generated_topics_end_with_one_newline(self):
+        self.assertEqual(self.run_sync(portal=True).returncode, 0)
+        reference = self.root / 'package/skills/code-development/references'
+        for topic in reference.glob('*.md'):
+            with self.subTest(topic=topic.name):
+                self.assertTrue(topic.read_bytes().endswith(b'\n'))
+                self.assertFalse(topic.read_bytes().endswith(b'\n\n'))
 
     def test_preserves_code_and_external_links_with_source_relative_hints(self):
         self.source.write_text(self.source.read_text() +
