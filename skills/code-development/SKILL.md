@@ -18,6 +18,7 @@ description: 在采用 Unif 目标架构的 Portal 客户端或 @unif React Nati
 - 工具、配置及资源文件：[归属规则](references/utilities-config.md)。
 - 公共入口、依赖、基础能力与宿主接线：[依赖规则](references/dependencies.md)。
 - 任务范围、状态表定位与实现边界：[开发范围](references/scope.md)。
+- 持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：取得 architecture-design 的“状态归属”主题，核对权威来源、唯一性、执行归属及对应验证；读取共同规则不重启架构设计。
 - 初始化工程与代码归属：[目标目录](references/directory.md)。
 - 测试组织、质量、变更影响与交付证据：[测试与验收](references/testing.md)。
 
