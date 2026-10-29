@@ -4,8 +4,8 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "7fb014b14516352b2a9cd5e3a747983d2d3a06242fd5c42dac16df1571f7ae97",
-      "lines": 461
+      "sha256": "1ce2a5c2d36e32f1ea4b1247373f18775fd28941de0b76cd8f62df1c6e9a59c9",
+      "lines": 467
     }
   },
   "files": {
@@ -102,11 +102,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             318,
-            398
+            404
           ]
         }
       ],
-      "sha256": "8525a371dacc8f2c2e78fea4ba7d88d511d8519724094997daa3dc8355bc6a33"
+      "sha256": "8fbd3124365671909e980f60b2fcbf6c0910eb4b330f6394dffa09c8e6074bf6"
     },
     "cost.md": {
       "sections": [
@@ -114,8 +114,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "8. 成本与效果验证",
           "lines": [
-            399,
-            414
+            405,
+            420
           ]
         }
       ],
@@ -127,8 +127,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "9. 领域与模块文档",
           "lines": [
-            415,
-            461
+            421,
+            467
           ]
         }
       ],
