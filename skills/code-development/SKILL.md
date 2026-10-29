@@ -15,6 +15,8 @@ description: 在 Unif 的 RN／原生鸿蒙客户端、对应 @unif 库或共享
 
 持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：取得 architecture-design 的“状态归属”主题，核对权威来源、唯一性、执行归属及对应验证；读取共同规则不重启架构设计。
 
+涉及外部依赖、持久化、异常转换、异步收尾、降级或恢复时，同时取得 architecture-design 的“独立验证”主题中的日志与故障诊断要求，核对本次调用链的记录责任及对应测试。
+
 原生 ArkTS／ArkUI 应用与 `@unif/harmony-*` HAR 库：
 
 - 新建或确定范围：[鸿蒙适用范围](references/harmony-scope.md)；仅在初始化或核对归属时读[工程目录](references/harmony-directory.md)。

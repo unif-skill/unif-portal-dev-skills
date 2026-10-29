@@ -4,8 +4,8 @@
   "sources": {
     "BACKEND_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/BACKEND_DEVELOPMENT.md",
-      "sha256": "6cdcf76cba8ecc7980c6eedacc36fff015257c844c7889c950261f87c2c7502a",
-      "lines": 68
+      "sha256": "fb15443acd12ef1aa3d999bf5adad6e6832bfeeec1880ed865148227505a197e",
+      "lines": 70
     }
   },
   "files": {
@@ -79,11 +79,11 @@
           "heading": "6. 验证与交付",
           "lines": [
             60,
-            68
+            70
           ]
         }
       ],
-      "sha256": "59d2971e6f7efc672d7fac1c03760be0219e3091b5f996a80ed2220d6048e8f8"
+      "sha256": "2c4cc7bb998f7bb4ab1d91ccca6de5bcf52429c973744459cff5fe5603c3db46"
     }
   }
 }
