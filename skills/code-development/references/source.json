@@ -44,13 +44,13 @@
     },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "30209472f6ab5249525c8dde6919350d1a166c6b38f25f106e6d14fa37300d23",
-      "lines": 110
+      "sha256": "151c37b038eadde683c0013d5df171b1bd77140aff3a1d10fed24e78f1fdecd4",
+      "lines": 64
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "deeab10219ae6eba63c97689dbef11d9e90cbb62a5948430507a6c042718f289",
-      "lines": 229
+      "sha256": "7fb8ee860c59fda24624ac25e9aca15dee74732022124184fc3d5aca053abf5f",
+      "lines": 203
     }
   },
   "files": {
@@ -466,7 +466,7 @@
           ]
         }
       ],
-      "sha256": "83ed02ae3ac94fa3aff8a328b2dbe1ab57c1383ba89a7fe6513c352343fa5cf5"
+      "sha256": "0c3de86f4f1bb81a4151e65097dca2d5cb9c23870b6b4ac39dcd1f95f2605b79"
     },
     "file-rules.md": {
       "sections": [
@@ -475,19 +475,19 @@
           "heading": "3. 常量、类型、变量与文件拆分",
           "lines": [
             34,
-            74
+            49
           ]
         },
         {
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "4. 命名与公开出口",
           "lines": [
-            75,
-            93
+            50,
+            53
           ]
         }
       ],
-      "sha256": "6f5cdc157bce05466f9ba75aa50727894bdfd249a5abc96e4e317b7685c1c0e8"
+      "sha256": "8e019d40d3ac0e34ccbb458aed2ac5d35e5aec818c1e099667746209a8de6d62"
     },
     "testing.md": {
       "sections": [
@@ -495,20 +495,20 @@
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "5. 规则执行与定向验证",
           "lines": [
-            94,
-            110
+            54,
+            64
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            208,
-            229
+            182,
+            203
           ]
         }
       ],
-      "sha256": "ad4d4fefa94c44f0e34dd3fa7ffb01e0a9f4db3201ace88e85aa2fbd45d7ce24"
+      "sha256": "ab7a908bcf666f50be87e510e39cff26a778ab687e6add8f40745b70b7ba9aaa"
     },
     "directory.md": {
       "sections": [
@@ -529,7 +529,7 @@
           ]
         }
       ],
-      "sha256": "241a784f6e58236cdbebb2dba6f5367cac730baa0dd95d184e9e7577ec078232"
+      "sha256": "75e37d1f46f92cd99949549f558551ac3be84eafa20b9470330708eccadfc2b0"
     },
     "ui.md": {
       "sections": [
@@ -551,11 +551,11 @@
           "heading": "3. 工具、常量、类型及其他文件的归属",
           "lines": [
             150,
-            175
+            165
           ]
         }
       ],
-      "sha256": "ac132fcbc9e37a4ad1cb1c0f110a42c094c3d0929e3ef052d1b8f033cfd53cae"
+      "sha256": "fa1df829aa0073480e26417a6fd74793a11f779d84c185a27d96c5028da615d3"
     },
     "dependencies.md": {
       "sections": [
@@ -563,20 +563,20 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "4. 公共入口与依赖方向",
           "lines": [
-            176,
-            199
+            166,
+            173
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            200,
-            207
+            174,
+            181
           ]
         }
       ],
-      "sha256": "8f6e5c369e725c3f3d0f3251d281b23bee302a8958fc1c0eaf6f59da027155bc"
+      "sha256": "f50a31d8fa9dcb3d35dda65210d22e5dcb75e998f9dbbfdf316e1c9aea5951d3"
     }
   }
 }

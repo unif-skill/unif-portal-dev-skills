@@ -2,10 +2,12 @@
 
 Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端、相关 Agent／Channel／CLI 及对应 @unif 库工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
-共用研发规范：
+通用代码组织、RN 实现、库工程和文档分别由独立 `uni-skills` 的 `code-organization`、`react-native-development`、`react-native-library`、`documentation` 维护。本仓保留 Unif 企业规则及能力契约，采用工程提供所需完整技能目录或可访问的规范源。
+
+企业研发规范：
 
 - [architecture-design](skills/architecture-design/SKILL.md)：平台职责、契约、状态及验证规范，职责与验收见 [spec](docs/specs/2026-09-07-architecture-design-skill.md)。
-- [code-development](skills/code-development/SKILL.md)：客户端与库的文件、依赖、接线及验收规范，按需读取库开发、[新库接入](skills/code-development/references/library-onboarding.md)、[RN 文档站开发](skills/code-development/references/documentation-site.md)、H5 桥接和 [iOS 真机调试](skills/code-development/references/ios-device-debugging.md)专题；客户端规则的 spec 由架构项目的 `docs/specs/2026-09-10-portal-development-skill.md` 维护。
+- [code-development](skills/code-development/SKILL.md)：RN／原生鸿蒙客户端与库的项目约定，按需读取 [RN 项目采用](skills/code-development/references/rn-project.md)、H5 桥接、[iOS 真机调试](skills/code-development/references/ios-device-debugging.md)及鸿蒙专题；客户端技能 spec 由架构仓维护。
 - [backend-development](skills/backend-development/SKILL.md)：Python 后端的目录归属、模块依赖、运行生命周期及契约验证规范。
 - [code-testing](skills/code-testing/SKILL.md)：测试步骤的企业规范入口，定位测试质量、消费者与平台验证要求。
 - [code-review](skills/code-review/SKILL.md)：审查步骤的企业规范入口，定位文件规则和架构契约。
@@ -26,7 +28,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 工程调用方式见[接入说明](docs/code-development-integration.md)。本插件按当前任务提供企业规范入口；事实查询不因涉及源码就自动进入工程审查。进入实际工程阶段时取得对应依据，同一上下文已读且仍适用的内容直接复用；通用流程与企业规则用于同一次工作，不另开重复流程，也不强制依赖某个流程插件。
 
-按任务组合研发阶段与库能力。接口查询可直接使用对应库能力技能；实际开发同时取得开发规则，测试、审查和交付按实际阶段取得。文档站、组件 Web 示例与 LiveDemo 继续从 code-development 的文档站专题进入。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部技能。
+按任务组合研发阶段与库能力。接口查询可直接使用对应库能力技能；实际开发同时取得开发规则，测试、审查和交付按实际阶段取得。文档内容、文档站与页面预览使用 documentation，可运行原生示例使用 react-native-library；组织要求从 code-development 的 RN 项目采用取得。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部技能。
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
@@ -119,7 +121,7 @@ python3 -m unittest discover -s tests
 
 `--check` 只比较规范源、主题资料和来源记录的一致性，不修改文件。生成时要求源章节完整分配且不重复；章节新增或改名后需更新脚本中的主题映射。输出文件末尾统一保留一个换行，源章节及行段覆盖不变。同步会清理旧的生成资料，手工文件不参与清理。
 
-code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md`、`PORTAL_STRUCTURE.md`、`HARMONY_DEVELOPMENT.md`、`HARMONY_STRUCTURE.md` 及 `libraries/harmony-{icons,design,chat,camera,hms-scan,umeng}.md`，分别生成 RN／鸿蒙工程主题和六库原生专题。十份源均需存在，来源摘要和覆盖独立记录，检查失败不写入；子目录契约的未打包链接转换为相对规范根目录的路径提示。原生专题是行为和验收依据，不宣称原生包／API 已存在。库共同开发、RN 文档站和 H5 桥接资料保留在该技能；RN Design/Chat 的领域资料位于对应库能力技能，其余四个 RN 库各有任务指引。手工资料只维护必要路由与边界，按需定位 `libraries/`、`integrations/h5/` 契约及所属库文档，不由客户端同步模式覆盖。RN 新库接入引用组织标准仓 `unif-design/.github` 的接入与发布依据，模板及其回归继续由该仓维护。
+code-development 使用同一脚本的独立模式，从规范目录读取 `PORTAL_DEVELOPMENT.md`、`PORTAL_STRUCTURE.md`、`HARMONY_DEVELOPMENT.md`、`HARMONY_STRUCTURE.md` 及 `libraries/harmony-{icons,design,chat,camera,hms-scan,umeng}.md`，分别生成 RN／鸿蒙工程主题和六库原生专题。十份源均需存在，来源摘要和覆盖独立记录，检查失败不写入；子目录契约的未打包链接转换为相对规范根目录的路径提示。原生专题是行为和验收依据，不宣称原生包／API 已存在。通用库开发和 RN 文档站流程已移至 uni-skills；RN 项目采用与 H5 桥接资料保留在本技能；RN Design/Chat 的领域资料位于对应库能力技能，其余四个 RN 库各有任务指引。手工资料只维护必要路由与边界，按需定位 `libraries/`、`integrations/h5/` 契约及所属库文档，不由客户端同步模式覆盖。RN 项目采用引用组织标准仓 `unif-design/.github` 的接入与发布依据，模板及其回归继续由该仓维护。
 
 两个技能的入口按任务定位资料，完整目录仅在初始化或核对代码归属时读取。平台原则由 architecture-design 维护；业务结果、状态、确认及必要设计按职责调用，或读取目标工程指定的架构规范，不跨技能目录引用私有文件：
 
