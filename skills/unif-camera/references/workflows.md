@@ -9,7 +9,7 @@
 
 ## 维护库
 
-从库内 docs/DEVELOPMENT.md、package.json、src/index.tsx 与实际实现定位职责。目标设计在任务选定规范根的 libraries/react-native-camera.md；目标设计不能证明当前安装包已提供接口。维护、测试与交付采用工程指定规范；已配置 code-development 时可读取其“库开发”。
+从库内 docs/DEVELOPMENT.md、package.json、src/index.tsx 与实际实现定位职责。目标设计在任务选定规范根的 libraries/react-native-camera.md；目标设计不能证明当前安装包已提供接口。维护、测试与交付采用工程指定规范；已配置相应技能时，可用 react-native-library 取得通用库规则，从 code-development 的“RN 项目采用”取得组织约定。
 
 按问题追踪调用控制、session、recording、image 及原生文件处理；公共配置、类型或媒体语义变化时检查 example、文档和真实消费者。公共类型从本库唯一出口取得，派生产物由现有构建链生成。UI 材质依赖 Design 的公开能力，不改变照片像素处理和文件归属。
 
