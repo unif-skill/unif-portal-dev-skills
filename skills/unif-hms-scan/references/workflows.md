@@ -14,7 +14,7 @@
 
 ## 源码维护与验证
 
-从 docs/DEVELOPMENT.md、src/index.tsx、package.json 和实际权限/解码/Scanner 实现定位变更；目标设计是所采用规范根的 libraries/react-native-hms-scan.md。维护采用工程指定规范；已配置相应技能时，可用 react-native-library 取得通用库规则，从 code-development 的“RN 项目采用”取得组织约定。
+从 docs/DEVELOPMENT.md、src/index.tsx、package.json 和实际权限/解码/Scanner 实现定位变更；目标设计是所采用规范根的 libraries/react-native-hms-scan.md。维护采用工程指定规范。
 
 验证实际消费者的无结果、多结果、错误、取消、文件借用及视图重挂载；原生图片方向、角点坐标、解码预算、并发队列和权限变化分别核对所属实现。需要改这些行为时先保留现有输入校验和资源释放。
 

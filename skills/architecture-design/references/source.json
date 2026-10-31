@@ -1,6 +1,6 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-portable-links-v5",
+  "transformation": "section-text-selected-relative-links-v6",
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",

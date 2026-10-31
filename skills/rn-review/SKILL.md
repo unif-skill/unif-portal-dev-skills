@@ -1,0 +1,26 @@
+---
+name: rn-review
+description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共享核心中对明确代码变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
+---
+
+# RN 审查规范
+
+对照有效需求、契约、实际实现与消费者审查本次变化。本目录携带必需的共同与 RN 规范，不要求安装其他技能。独立审查需取得自身尚未具有的依据；同一上下文已读且仍适用的内容直接复用。
+
+## 按变化读取
+
+| 本次变化 | 本技能资料 |
+|---|---|
+| 授权范围、职责与场景交接 | [设计依据](references/common/scope.md)、[职责](references/common/responsibilities.md)、[调用与组合](references/common/composition.md) |
+| 状态、身份、异步收尾和资源 | [状态归属](references/common/state.md) |
+| 公共输入输出、协议与业务结果 | [交接契约](references/common/contracts.md) |
+| 验证范围、日志与失败诊断 | [验证与诊断](references/common/verification.md) |
+| RN 应用与库 | [范围](references/rn/scope.md)、[文件](references/rn/file-rules.md)、[UI](references/rn/ui.md)、[依赖](references/rn/dependencies.md)、[验证](references/rn/testing.md)；归属不清时补[目录](references/rn/directory.md)与[配置](references/rn/utilities-config.md) |
+
+工程指定了规则修订时采用该修订。具体业务、库 API 与 SDK 契约从工程入口和实际公开资料取得，不把模板、评测样例或偏好当成新增需求。RN 的组件、适配、实际消费者与所影响的 iOS、Android 或 Web 接线分别核对。
+
+## 输出
+
+核对新增或改变的失败路径是否可诊断，原因是否在包装或抑制时丢失、敏感数据是否泄露，原权限、身份、取消、事务和资源保护是否有效。共享源码检查真实产物和消费者；单端验证不替代其他目标。
+
+只报告有证据的问题，说明位置、触发条件、实际影响及对应契约。区分需要修复的实现缺陷与已授权设计变化；审查不自动授权修复、提交或发布评论。资料溯源见 references/source.json。

@@ -1,11 +1,39 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-portable-links-v5",
+  "transformation": "section-text-selected-relative-links-v6",
   "sources": {
     "BACKEND_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/BACKEND_DEVELOPMENT.md",
-      "sha256": "fb15443acd12ef1aa3d999bf5adad6e6832bfeeec1880ed865148227505a197e",
+      "sha256": "8cf6a58e6367a89fed34fe039fe4fda8aa71b3de43a8203c2579e4888f350bbb",
       "lines": 70
+    },
+    "ARCHITECTURE.md": {
+      "source": "unif-platform-architecture/ARCHITECTURE.md",
+      "sha256": "1ce2a5c2d36e32f1ea4b1247373f18775fd28941de0b76cd8f62df1c6e9a59c9",
+      "lines": 467,
+      "selectedSections": [
+        {
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        },
+        {
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            317
+          ]
+        },
+        {
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            318,
+            404
+          ]
+        }
+      ]
     }
   },
   "files": {
@@ -62,7 +90,7 @@
           ]
         }
       ],
-      "sha256": "9b4c348a31a151fc4e0ffa265fc9da72bfc02d89d4518530699a2ba54234dcef"
+      "sha256": "eaef13860b052a0be9bec9b2ce11d3a1ca9d671b546aafc43e7a1ff0b67404f8"
     },
     "validation.md": {
       "sections": [
@@ -83,7 +111,46 @@
           ]
         }
       ],
-      "sha256": "2c4cc7bb998f7bb4ab1d91ccca6de5bcf52429c973744459cff5fe5603c3db46"
+      "sha256": "1feb7c6b61198e404ad72244ece9fed27f0194f1fffd6f395e2207b17850b339"
+    },
+    "common/state.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        }
+      ],
+      "sha256": "495f632a0341b4a2100ee3e2cce8fa6e3d483c910641315d8da7f81a36a0c9ae"
+    },
+    "common/contracts.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            317
+          ]
+        }
+      ],
+      "sha256": "8f2dc9666f7ad7eabc4ea3ca8acf4543fb294b09b3cd2e6456ba628fb9b9c273"
+    },
+    "common/verification.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            318,
+            404
+          ]
+        }
+      ],
+      "sha256": "abbdf2082270a4671699682d6ad82654557919f4d46c3eb6db17b46d36f24901"
     }
   }
 }

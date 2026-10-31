@@ -45,7 +45,7 @@ jobs:
           fi
 
   release:
-    name: Release 0.x.x
+    name: Release skills
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -70,10 +70,10 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-      - name: Prepare and validate 0.x.x version
+      - name: Prepare and validate authorized version
         id: prepare
         run: python -m scripts.prepare_release
-      - name: Publish prepared 0.x.x version
+      - name: Publish prepared version
         if: steps.prepare.outputs.ready == 'true'
         env:
           GH_TOKEN: ${{ github.token }}

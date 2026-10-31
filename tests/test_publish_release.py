@@ -80,6 +80,11 @@ class PublishTests(unittest.TestCase):
         ])
         self.assertEqual(self.manifest.read_bytes(), before)
 
+    def test_one_major_release_uses_validated_commit(self):
+        self.version('1.0.0')
+        result = publish(self.root, CONTEXT, FakeGitHub())
+        self.assertEqual(result['tag'], 'v1.0.0')
+
     def test_repeat_run_does_not_publish_again(self):
         api = FakeGitHub()
         publish(self.root, CONTEXT, api)
@@ -95,12 +100,12 @@ class PublishTests(unittest.TestCase):
                 self.assertEqual(publish(self.root, {**CONTEXT, field: value}, api)['status'], 'not-main-push')
                 self.assertEqual(api.calls, [])
 
-    def test_one_major_and_later_are_rejected_without_api_access(self):
-        for version in ('1.0.0', '1.0.1', '1.2.0', '2.0.0'):
+    def test_unapproved_major_is_rejected_without_api_access(self):
+        for version in ('2.0.0', '3.0.1'):
             with self.subTest(version=version):
                 self.version(version)
                 api = FakeGitHub()
-                with self.assertRaisesRegex(ValueError, '0.x.x'):
+                with self.assertRaisesRegex(ValueError, '主版本'):
                     publish(self.root, CONTEXT, api)
                 self.assertEqual(api.calls, [])
 

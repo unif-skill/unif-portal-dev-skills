@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""为已验证的 main 提交准备 0.x.x 发布，只回写 plugin.json 的补丁版本。"""
+"""为已验证的 main 提交准备已授权主版本内的发布，只回写 plugin.json 的补丁版本。"""
 
 import json
 import os
@@ -22,8 +22,8 @@ class Git:
 
 
 def version_parts(value):
-    if not isinstance(value, str) or not re.fullmatch(r'0\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', value):
-        raise ValueError('版本仅允许无前导零的 0.x.x')
+    if not isinstance(value, str) or not re.fullmatch(r'[01]\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', value):
+        raise ValueError('主版本仅允许已授权的 0 或 1，版本不得有前导零')
     return tuple(map(int, value.split('.')))
 
 

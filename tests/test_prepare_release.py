@@ -102,14 +102,32 @@ class PrepareReleaseTests(unittest.TestCase):
         result = self.run_prepare()
         self.assertEqual(result, {'status': 'ready', 'version': '0.4.0', 'commit': source})
 
+    def test_explicit_unreleased_one_major_version_is_preserved(self):
+        self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '1.0.0'}) + '\n')
+        source = self.commit('prepare authorized major')
+        self.git('push', 'origin', 'main')
+        self.context['GITHUB_SHA'] = source
+        result = self.run_prepare()
+        self.assertEqual(result, {'status': 'ready', 'version': '1.0.0', 'commit': source})
+
     def test_patch_increment_does_not_roll_over_to_minor_or_major(self):
-        self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '0.99.99'}) + '\n')
+        self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '1.99.99'}) + '\n')
         self.commit('release previous version')
-        self.git('tag', 'v0.99.99')
+        self.git('tag', 'v1.99.99')
         (self.root / 'skill.md').write_text('next improvement\n')
         self.context['GITHUB_SHA'] = self.commit('fix: next improvement')
         self.git('push', 'origin', 'main', '--tags')
-        self.assertEqual(self.run_prepare()['version'], '0.99.100')
+        self.assertEqual(self.run_prepare()['version'], '1.99.100')
+
+    def test_unapproved_major_is_rejected_before_writeback(self):
+        self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '2.0.0'}) + '\n')
+        self.context['GITHUB_SHA'] = self.commit('unapproved major')
+        self.git('push', 'origin', 'main')
+        before = self.remote_head()
+        with self.assertRaisesRegex(ValueError, '主版本'):
+            self.run_prepare()
+        self.assertEqual(self.remote_head(), before)
+        self.assertEqual(self.validated, [])
 
     def test_superseded_source_does_not_change_files_or_remote(self):
         (self.root / 'skill.md').write_text('concurrent improvement\n')
