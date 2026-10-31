@@ -60,12 +60,12 @@
     },
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "4afb445ed3cb4c95d16c0c836fe87336f069b0597db6bd2007ccfb6239ce0928",
-      "lines": 77
+      "sha256": "b330ce1c88291feb70f11563d7214d3180ff947c2f807380c8847d6bd1205c1c",
+      "lines": 69
     },
     "HARMONY_STRUCTURE.md": {
       "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
-      "sha256": "a90f3759fc2ad09412b5b925a931fd453f907c4a65a7c990883e2b6408ab675d",
+      "sha256": "24a69ff5372c0ba2857365de68dbe6bf5c3118b10843b9050d93360ac8ec2637",
       "lines": 55
     }
   },
@@ -175,7 +175,7 @@
           ]
         }
       ],
-      "sha256": "97da6fbcca87971cd3d291ec3eb4b66e8c66c52b2b029e6acb97bf13bd069fd0"
+      "sha256": "f679b2ef8d97c9a9b52eeaeb5435b38c93df0f81add7f04672907f6f11d34bba"
     },
     "harmony/files.md": {
       "sections": [
@@ -184,11 +184,11 @@
           "heading": "2. ArkTS 文件与公共入口",
           "lines": [
             25,
-            36
+            34
           ]
         }
       ],
-      "sha256": "9a3c7b1f0a333608d0eade2d29630cd40be9dc2854c34063aaaa55914c36caca"
+      "sha256": "221d7bf834cae080bc66fa3f89a58f880211ed6c0e621020bebd5230f7507e61"
     },
     "harmony/state.md": {
       "sections": [
@@ -196,12 +196,12 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "3. ArkUI 状态与生命周期",
           "lines": [
-            37,
-            46
+            35,
+            44
           ]
         }
       ],
-      "sha256": "b62fe80b19de2447ecfab03513f8f7a4cd3169c208a177448b7bd354b514b4e1"
+      "sha256": "1386af5908924b560c7512ec849b42888fb7119a478326fbde641826d5085d31"
     },
     "harmony/integration.md": {
       "sections": [
@@ -209,8 +209,8 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "4. 原生能力与协议接入",
           "lines": [
-            47,
-            60
+            45,
+            56
           ]
         },
         {
@@ -222,7 +222,7 @@
           ]
         }
       ],
-      "sha256": "d5eba21ebca6a71aad84170943b36efa7cd2b9f04d5e3448af4d50eb6d263937"
+      "sha256": "030928c08f4759033340da2ce113ba99947145ebf9baaa1ea75b052f76724a96"
     },
     "harmony/testing.md": {
       "sections": [
@@ -230,12 +230,12 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "5. 验证与交付",
           "lines": [
-            61,
-            77
+            57,
+            69
           ]
         }
       ],
-      "sha256": "45efba1ccd22e257e95e310376334cde1c8aba32d33511c5e69bc4ea5b09c496"
+      "sha256": "19c5e023b9fc68438f35d14bdddf9663ae8be3575f669fbd79a5b798fdde612a"
     },
     "harmony/directory.md": {
       "sections": [
@@ -256,7 +256,7 @@
           ]
         }
       ],
-      "sha256": "23596d3eeea8887dd747c8bcc2c577471dcb5ffb91835088780b311110b03577"
+      "sha256": "a26c3f3dc09f3aaa574777372b98b4c1658aba12ee339ccd341e421426b1ddaf"
     },
     "harmony/ui.md": {
       "sections": [
@@ -269,7 +269,7 @@
           ]
         }
       ],
-      "sha256": "e581b000cc43c4029d3b57d93f9203227aa95751642aa0df6a08af955a57d1fc"
+      "sha256": "c2a6dc9480c525fba279d50b4f1d7266572b5668d4cee5ee46aee6b4bea2f29a"
     }
   }
 }

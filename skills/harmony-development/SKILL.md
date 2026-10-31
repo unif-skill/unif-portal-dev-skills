@@ -3,7 +3,7 @@ name: harmony-development
 description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR 库或其共享核心中实现、调整或排查源码和运行示例时使用。单纯版本、已有接口、文档维护或 RN 开发不触发。
 ---
 
-# 鸿蒙代码开发规范
+# Unif 鸿蒙代码开发规范
 
 本技能维护 Unif 原生鸿蒙项目约定。先确定应用消费、HAR 库维护或共享核心，再按当前单元、契约与消费者取得实现依据。本目录携带开发必需规范，独立使用不要求安装其他技能。
 
@@ -18,8 +18,8 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 原生 ArkTS／ArkUI 应用与 `@unif/harmony-*` HAR 库：
 
 - 新建或确定范围：[鸿蒙适用范围](references/harmony/scope.md)；仅在初始化或核对归属时读[工程目录](references/harmony/directory.md)。
-- 实现、公开导出、纯 TS 与资源共享：[文件与公共入口](references/harmony/files.md)。
-- UI 状态、Context、身份与资源收尾：[状态与生命周期](references/harmony/state.md)。
+- 项目源码归属、六库公开导出与同源资料：[文件与公共入口](references/harmony/files.md)。
+- V2 采用、身份、宿主与媒体资源交接：[状态与生命周期](references/harmony/state.md)。
 - 组件、主题、字号与玻璃效果：[原生 UI](references/harmony/ui.md)。
 - 设备、SDK、HTTP／SSE／H5 与共同契约：[原生接入](references/harmony/integration.md)。
 - 库文档与真实 ArkUI 示例：[公开入口与文档](references/harmony/files.md)，按实际原生库和站点标准组织。
@@ -36,9 +36,9 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 | @unif/harmony-hms-scan | [识别、图片借用与结果交付](references/harmony/hms-scan.md) |
 | @unif/harmony-umeng | [同意后初始化、统计与真实分享回执](references/harmony/umeng.md) |
 
-这些规范定义目标行为和验收，不证明已有原生包或导出。具体 API 从当前原生库公开源码、文档及目标 SDK 取得；没有出口时明确待实现，不把 RN 示例改包名充当 ArkUI 用法。地图／POI 使用高德，统计与分享使用友盟，平台示例不改变提供方。外部技能按工程采用清单选读，不自动恢复归档项。
+这些规范定义 Unif 目标行为和验收，不证明已有原生包或导出。具体 API 从当前原生库公开源码、文档及目标 SDK 取得；没有出口时明确待实现，不把 RN 示例改包名充当 ArkUI 用法。提供方与协议采用按原生接入专题执行，平台示例不改变项目选型。
 
-应用按业务职责组合，HAR 按自身能力组织。比较 RN 行为可读取对应资料，但不能据此调用 RN API。共享纯 TS 先检查完整依赖及运行环境，再按各采用目标验证产物和消费者；无框架导入或 Node 测试通过不证明通用兼容。资源与逻辑维护单一来源，不为零散函数新建泛化 utils。
+应用按业务职责组合，HAR 按自身能力组织。比较 RN 行为可读取对应资料，但不能据此调用 RN API。共同功能按同一契约与案例核对两端真实消费者，源修订、产物及运行证据分别登记。
 
 公共名称、输入输出、取消和业务成功按[交接契约](references/common/contracts.md)及所属模块契约核对。需要实质调整职责、调用或状态归属时先取得相应设计依据；按已有契约实现、排查或整理时不重启设计。实际业务契约缺失只限制依赖该缺口的工作。
 
