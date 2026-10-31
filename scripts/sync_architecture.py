@@ -19,7 +19,7 @@ MARKER = '<!-- 此文件由 scripts/sync_architecture.py 生成'
 HEADER = MARKER + '，请修改规范源后重新同步。来源与章节见 source.json。 -->\n\n'
 # 每个源章节仅分配一次；空标题表示首个二级标题之前的引言。
 TOPICS = {
-    'architecture-design': {
+    'unif-architecture-design': {
         'ARCHITECTURE.md': {
             'scope.md': ['', '1. 架构目标'],
             'responsibilities.md': ['2. 系统边界与职责'],
@@ -32,15 +32,15 @@ TOPICS = {
             'documentation.md': ['9. 领域与模块文档'],
         },
     },
-    'backend-development': {
-        'BACKEND_DEVELOPMENT.md': {
+    'unif-python-dev': {
+        'PYTHON_DEVELOPMENT.md': {
             'scope.md': ['', '1. 适用范围与实施'],
             'structure.md': ['2. 目录与文件归属', '3. 公共入口与依赖'],
             'lifecycle.md': ['4. 运行与资源生命周期'],
             'validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
         },
     },
-    'harmony-development': {
+    'unif-harmony-dev': {
         'HARMONY_DEVELOPMENT.md': {
             'harmony-scope.md': ['', '1. 适用范围与实施'],
             'harmony-files.md': ['2. ArkTS 文件与公共入口'],
@@ -63,7 +63,7 @@ TOPICS = {
             for name in ('icons', 'design', 'chat', 'camera', 'hms-scan', 'umeng')
         },
     },
-    'rn-development': {
+    'unif-rn-dev': {
         'PORTAL_DEVELOPMENT.md': {
             'scope.md': ['', '1. 文件变更入口', '2. 各类代码的开发规则'],
             'file-rules.md': ['3. 常量、类型、变量与文件拆分', '4. 命名与公开出口'],
@@ -83,7 +83,7 @@ FULL_SECTIONS = {
     source: [heading for selected in topics.values() for heading in selected]
     for sources in TOPICS.values() for source, topics in sources.items()
 }
-ARCHITECTURE = TOPICS['architecture-design']['ARCHITECTURE.md']
+ARCHITECTURE = TOPICS['unif-architecture-design']['ARCHITECTURE.md']
 
 
 def architecture_topics(*names):
@@ -91,7 +91,7 @@ def architecture_topics(*names):
 
 
 for platform in ('rn', 'harmony'):
-    skill = f'{platform}-development'
+    skill = f'unif-{platform}-dev'
     TOPICS[skill] = {
         source: {
             f'{platform}/' + filename.removeprefix('harmony-'): selected
@@ -100,7 +100,7 @@ for platform in ('rn', 'harmony'):
         for source, topics in TOPICS[skill].items()
     }
     TOPICS[skill]['ARCHITECTURE.md'] = architecture_topics('state', 'contracts', 'verification')
-TOPICS['backend-development']['ARCHITECTURE.md'] = architecture_topics('state', 'contracts', 'verification')
+TOPICS['unif-python-dev']['ARCHITECTURE.md'] = architecture_topics('state', 'contracts', 'verification')
 
 for platform, sources in {
     'rn': {
@@ -121,46 +121,46 @@ for platform, sources in {
             'harmony/integration.md': ['3. 契约与资源归属'],
         },
     },
-    'backend': {
-        'BACKEND_DEVELOPMENT.md': {
-            'backend/lifecycle.md': ['4. 运行与资源生命周期'],
-            'backend/validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
+    'python': {
+        'PYTHON_DEVELOPMENT.md': {
+            'python/lifecycle.md': ['4. 运行与资源生命周期'],
+            'python/validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
         },
     },
 }.items():
-    TOPICS[f'{platform}-testing'] = {
+    TOPICS[f'unif-{platform}-test'] = {
         'ARCHITECTURE.md': architecture_topics('composition', 'state', 'contracts', 'verification'),
         **sources,
     }
 
 for platform, sources in {
-    'rn': {source: topics for source, topics in TOPICS['rn-development'].items()
+    'rn': {source: topics for source, topics in TOPICS['unif-rn-dev'].items()
            if source.startswith('PORTAL_')},
-    'harmony': {source: topics for source, topics in TOPICS['harmony-development'].items()
+    'harmony': {source: topics for source, topics in TOPICS['unif-harmony-dev'].items()
                 if source.startswith('HARMONY_')},
-    'backend': {
-        'BACKEND_DEVELOPMENT.md': {
-            'backend/structure.md': ['2. 目录与文件归属', '3. 公共入口与依赖'],
-            'backend/lifecycle.md': ['4. 运行与资源生命周期'],
-            'backend/validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
+    'python': {
+        'PYTHON_DEVELOPMENT.md': {
+            'python/structure.md': ['2. 目录与文件归属', '3. 公共入口与依赖'],
+            'python/lifecycle.md': ['4. 运行与资源生命周期'],
+            'python/validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
         },
     },
 }.items():
-    TOPICS[f'{platform}-review'] = {
+    TOPICS[f'unif-{platform}-review'] = {
         'ARCHITECTURE.md': architecture_topics('scope', 'responsibilities', 'composition', 'state', 'contracts', 'verification'),
         **sources,
     }
-TOPICS['code-delivery'] = {
+TOPICS['unif-code-delivery'] = {
     'ARCHITECTURE.md': architecture_topics('contracts', 'verification'),
     'PORTAL_DEVELOPMENT.md': {'rn/testing.md': ['5. 规则执行与定向验证']},
     'PORTAL_STRUCTURE.md': {'rn/testing.md': ['6. 分批重写与定向验证']},
     'HARMONY_DEVELOPMENT.md': {'harmony/testing.md': ['5. 验证与交付']},
-    'BACKEND_DEVELOPMENT.md': {'backend/validation.md': ['6. 验证与交付']},
+    'PYTHON_DEVELOPMENT.md': {'python/validation.md': ['6. 验证与交付']},
 }
 
 LEGACY = {
-    'backend-development': set(),
-    'architecture-design': {'platform-architecture.md'},
+    'unif-python-dev': set(),
+    'unif-architecture-design': {'platform-architecture.md'},
 }
 
 
@@ -353,13 +353,13 @@ def obsolete_files(destination, skill, outputs):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', required=True, type=Path)
-    parser.add_argument('--skill', choices=tuple(TOPICS), default='architecture-design',
-                        help='architecture-design 接受规范文件；其他工程技能接受规范目录')
+    parser.add_argument('--skill', choices=tuple(TOPICS), default='unif-architecture-design',
+                        help='unif-architecture-design 接受规范文件；其他工程技能接受规范目录')
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     destination = Path(__file__).resolve().parents[1] / 'skills' / args.skill / 'references'
     try:
-        sources = {name: (args.source if args.skill == 'architecture-design' else args.source / name).read_bytes()
+        sources = {name: (args.source if args.skill == 'unif-architecture-design' else args.source / name).read_bytes()
                    for name in TOPICS[args.skill]}
         outputs = render(sources, args.skill)
         if destination.is_symlink() or destination.parent.is_symlink():

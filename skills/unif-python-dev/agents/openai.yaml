@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif Python代码开发"
+  short_description: "按 Unif 后端职责、运行生命周期和实际消费者完成 Python 开发"
+  default_prompt: "使用 $unif-python-dev，按本工程的当前契约处理本次任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

@@ -9,12 +9,12 @@ from scripts.validate_repository import check_skills
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLATFORMS = ('rn', 'harmony', 'backend')
-STAGES = ('development', 'testing', 'review')
+PLATFORMS = ('rn', 'harmony', 'python')
+STAGES = ('dev', 'test', 'review')
 EXPECTED_SKILLS = {
-    'architecture-design', 'code-delivery',
+    'unif-architecture-design', 'unif-code-delivery',
     'unif-icons', 'unif-design', 'unif-chat', 'unif-camera', 'unif-hms-scan', 'unif-umeng',
-    *(f'{platform}-{stage}' for platform in PLATFORMS for stage in STAGES),
+    *(f'unif-{platform}-{stage}' for platform in PLATFORMS for stage in STAGES),
 }
 
 
@@ -26,11 +26,11 @@ class IndependentSkillTests(unittest.TestCase):
         source_prefixes = {
             'rn': ('PORTAL_',),
             'harmony': ('HARMONY_', 'libraries/harmony-'),
-            'backend': ('BACKEND_',),
+            'python': ('PYTHON_',),
         }
         for platform in PLATFORMS:
             for stage in STAGES:
-                name = f'{platform}-{stage}'
+                name = f'unif-{platform}-{stage}'
                 with self.subTest(skill=name):
                     reference = ROOT / 'skills' / name / 'references'
                     data = json.loads((reference / 'source.json').read_text())
@@ -56,16 +56,16 @@ class IndependentSkillTests(unittest.TestCase):
 
     def test_stage_rules_are_bundled_with_verifiable_canonical_selections(self):
         required = {
-            'rn-development': ('common/state.md', 'common/contracts.md', 'common/verification.md', 'rn/testing.md'),
-            'harmony-development': ('common/state.md', 'common/contracts.md', 'common/verification.md', 'harmony/testing.md'),
-            'backend-development': ('common/state.md', 'common/verification.md'),
-            'rn-testing': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'rn/testing.md'),
-            'harmony-testing': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'harmony/testing.md'),
-            'backend-testing': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'backend/validation.md'),
-            'rn-review': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'rn/ui.md'),
-            'harmony-review': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'harmony/state.md'),
-            'backend-review': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'backend/lifecycle.md'),
-            'code-delivery': ('common/contracts.md', 'common/verification.md', 'rn/testing.md', 'harmony/testing.md', 'backend/validation.md'),
+            'unif-rn-dev': ('common/state.md', 'common/contracts.md', 'common/verification.md', 'rn/testing.md'),
+            'unif-harmony-dev': ('common/state.md', 'common/contracts.md', 'common/verification.md', 'harmony/testing.md'),
+            'unif-python-dev': ('common/state.md', 'common/verification.md'),
+            'unif-rn-test': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'rn/testing.md'),
+            'unif-harmony-test': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'harmony/testing.md'),
+            'unif-python-test': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'python/validation.md'),
+            'unif-rn-review': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'rn/ui.md'),
+            'unif-harmony-review': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'harmony/state.md'),
+            'unif-python-review': ('common/composition.md', 'common/state.md', 'common/contracts.md', 'common/verification.md', 'python/lifecycle.md'),
+            'unif-code-delivery': ('common/contracts.md', 'common/verification.md', 'rn/testing.md', 'harmony/testing.md', 'python/validation.md'),
         }
         common_hashes = set()
         for name, topics in required.items():
@@ -82,8 +82,8 @@ class IndependentSkillTests(unittest.TestCase):
     def test_organization_profile_is_available_to_standalone_delivery(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            target = root / 'skills/code-delivery'
-            shutil.copytree(ROOT / 'skills/code-delivery', target)
+            target = root / 'skills/unif-code-delivery'
+            shutil.copytree(ROOT / 'skills/unif-code-delivery', target)
             profile = target / 'assets/organization.json'
             data = json.loads(profile.read_text())
             self.assertEqual(data['releaseAppId'], 3890760)
@@ -105,8 +105,8 @@ class IndependentSkillTests(unittest.TestCase):
         ):
             with self.subTest(field=field), tempfile.TemporaryDirectory() as temporary:
                 root = Path(temporary)
-                target = root / 'skills/code-delivery'
-                shutil.copytree(ROOT / 'skills/code-delivery', target)
+                target = root / 'skills/unif-code-delivery'
+                shutil.copytree(ROOT / 'skills/unif-code-delivery', target)
                 profile = target / 'assets/organization.json'
                 data = json.loads(profile.read_text())
                 data[field] = value

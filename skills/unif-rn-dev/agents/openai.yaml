@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif RN 代码开发"
+  short_description: "按 Unif 企业契约开发 RN 客户端与库，核对平台接线和真实消费者"
+  default_prompt: "使用 $unif-rn-dev，按本工程的当前契约处理本次任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

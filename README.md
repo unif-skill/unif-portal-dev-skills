@@ -8,13 +8,13 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 | 目标 | 开发 | 测试 | 审查 |
 |---|---|---|---|
-| RN 客户端与库 | [rn-development](skills/rn-development/SKILL.md) | [rn-testing](skills/rn-testing/SKILL.md) | [rn-review](skills/rn-review/SKILL.md) |
-| 原生鸿蒙客户端与 HAR | [harmony-development](skills/harmony-development/SKILL.md) | [harmony-testing](skills/harmony-testing/SKILL.md) | [harmony-review](skills/harmony-review/SKILL.md) |
-| Python 后端 | [backend-development](skills/backend-development/SKILL.md) | [backend-testing](skills/backend-testing/SKILL.md) | [backend-review](skills/backend-review/SKILL.md) |
+| RN 客户端与库 | [unif-rn-dev](skills/unif-rn-dev/SKILL.md) | [unif-rn-test](skills/unif-rn-test/SKILL.md) | [unif-rn-review](skills/unif-rn-review/SKILL.md) |
+| 原生鸿蒙客户端与 HAR | [unif-harmony-dev](skills/unif-harmony-dev/SKILL.md) | [unif-harmony-test](skills/unif-harmony-test/SKILL.md) | [unif-harmony-review](skills/unif-harmony-review/SKILL.md) |
+| Python 后端 | [unif-python-dev](skills/unif-python-dev/SKILL.md) | [unif-python-test](skills/unif-python-test/SKILL.md) | [unif-python-review](skills/unif-python-review/SKILL.md) |
 
-跨平台共用 [architecture-design](skills/architecture-design/SKILL.md) 处理职责、契约与状态设计，[code-delivery](skills/code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。每个测试和审查技能都携带本阶段需要的规范，独立使用不要求安装开发技能。
+跨平台共用 [unif-architecture-design](skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。每个测试和审查技能都携带本阶段需要的规范，独立使用不要求安装开发技能。
 
-库能力技能（当前六个入口只对应 RN 包；原生鸿蒙使用 harmony-development、harmony-testing、harmony-review 及实际原生库文档）：
+库能力技能（当前六个入口只对应 RN 包；原生鸿蒙使用 unif-harmony-dev、unif-harmony-test、unif-harmony-review 及实际原生库文档）：
 
 | 技能 | 对应包与任务 |
 |---|---|
@@ -25,28 +25,48 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 | [unif-umeng](skills/unif-umeng/SKILL.md) | @unif/react-native-umeng：初始化、统计、第三方分享与实例面板 |
 | [unif-icons](skills/unif-icons/SKILL.md) | @unif/react-native-icons：图标消费、SVG 源与生成 |
 
-原生开发从 harmony-development 的[鸿蒙适用范围](skills/harmony-development/references/harmony/scope.md)进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
+原生开发从 unif-harmony-dev 的[鸿蒙适用范围](skills/unif-harmony-dev/references/harmony/scope.md)进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
 
 工程调用方式见[接入说明](docs/code-development-integration.md)。本插件按当前任务提供企业规范入口；事实查询不因涉及源码就自动进入工程审查。进入实际工程阶段时取得对应依据，同一上下文已读且仍适用的内容直接复用；通用流程与企业规则用于同一次工作，不另开重复流程，也不强制依赖某个流程插件。
 
-按任务组合研发阶段与库能力。接口查询可直接使用对应库能力技能；实际开发同时取得开发规则，测试、审查和交付按实际阶段取得。文档、文档站和运行示例按本库采用的规范与构建入口维护；Unif 约定从 rn-development 的 [RN 项目采用](skills/rn-development/references/rn/project.md)取得。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部技能。
+按任务组合研发阶段与库能力。接口查询可直接使用对应库能力技能；实际开发同时取得开发规则，测试、审查和交付按实际阶段取得。文档、文档站和运行示例按本库采用的规范与构建入口维护；Unif 约定从 unif-rn-dev 的 [RN 项目采用](skills/unif-rn-dev/references/rn/project.md)取得。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部技能。
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
 全部 17 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时也可使用兼容插件入口。
 
-原 `code-development`、`code-testing`、`code-review` 已移除，按目标平台迁移到上表入口；更早的 `portal-development` 同样迁移至 `rn-development`。iOS 与 Android 仍由 RN 技能按实际影响选读，不再拆出平台技能。更新独立安装时替换原目录，避免旧入口继续被扫描；历史设计和冻结评测保留原名称与输入。
+原 `code-development`、`code-testing`、`code-review` 已移除，按目标平台迁移到上表入口；更早的 `portal-development` 同样迁移至 `unif-rn-dev`。iOS 与 Android 仍由 RN 技能按实际影响选读，不再拆出平台技能。更新独立安装时替换原目录，避免旧入口继续被扫描；历史设计和冻结评测保留原名称与输入。
+
+## 1.1.0 名称迁移
+
+全部技能以 `unif-` 开头；原有六个 `unif-*` 库能力名称保持。Python 系列只改变技能与资料入口的命名，职责和行为契约不变。
+
+| 原名称 | 当前名称 |
+|---|---|
+| `architecture-design` | `unif-architecture-design` |
+| `code-delivery` | `unif-code-delivery` |
+| `rn-development` | `unif-rn-dev` |
+| `rn-testing` | `unif-rn-test` |
+| `rn-review` | `unif-rn-review` |
+| `harmony-development` | `unif-harmony-dev` |
+| `harmony-testing` | `unif-harmony-test` |
+| `harmony-review` | `unif-harmony-review` |
+| `backend-development` | `unif-python-dev` |
+| `backend-testing` | `unif-python-test` |
+| `backend-review` | `unif-python-review` |
+
+后端规范源改为 `PYTHON_DEVELOPMENT.md`，阶段资料使用 `references/python/`；生成器仅接受当前技能名称。旧名称不再分发，工程入口和同步命令按上表更新。独立安装时先取得完整新目录，再移除对应旧目录，避免重复发现；历史计划和冻结评测保留原命名语境。
 
 ## 安装与使用
 
-技能采用 Agent Skills 格式，可安装到支持该格式的工具中。推荐使用 Vercel Skills 按需安装，下面以独立安装 `code-delivery` 为例；完整插件仍可兼容分发。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
+技能采用 Agent Skills 格式，可安装到支持该格式的工具中。推荐使用 Vercel Skills 按需安装，下面以独立安装 `unif-code-delivery` 为例；完整插件仍可兼容分发。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
 
 ### 使用 Vercel Skills
 
 准备符合 [Skills CLI 要求](https://github.com/vercel-labs/skills#readme)的 Node.js（含 npm/npx）和 Git，在目标项目目录运行：
 
 ```sh
-npx skills add unif-skill/unif-portal-dev-skills --skill code-delivery
+npx skills add unif-skill/unif-portal-dev-skills --skill unif-code-delivery
 ```
 
 安装其他技能时将 `--skill` 替换为上方列出的名称；命令只安装所选技能。测试、审查或交付技能自身包含必需规范，不需要额外安装开发或架构技能。
@@ -56,7 +76,7 @@ npx skills add unif-skill/unif-portal-dev-skills --skill code-delivery
 通过 Skills CLI 安装的技能，可运行以下命令选择安装范围并更新：
 
 ```sh
-npx skills update code-delivery
+npx skills update unif-code-delivery
 ```
 
 ### 手动安装
@@ -110,11 +130,11 @@ evals 中沿用的旧目录名是评测主题与历史档案位置，不是可�
 
 ## 规范来源
 
-RN 技能维护 Unif 的采用关系、职责和企业契约，不复制通用 react-native-development 的组件、Hook 或平台实现规则，也不要求安装 uni-skills。通用工程规则由目标工程明确其有效来源。
+RN 技能维护 Unif 的采用关系、职责和企业契约，不复制通用 uni-rn-dev 的组件、Hook 或平台实现规则，也不要求安装 uni-skills。通用工程规则由目标工程明确其有效来源。
 
-共同规则由 unif-platform-architecture 的 ARCHITECTURE、PORTAL、HARMONY、BACKEND 规范及六库原生契约维护。先改规范源，再运行根同步器；各技能的 references/source.json 记录源摘要、章节原始行段与生成摘要。完整源逐章覆盖，阶段技能显式记录 selectedSections；缺失、重复或新增未登记章节都会失败。
+共同规则由 unif-platform-architecture 的 ARCHITECTURE、PORTAL、HARMONY、PYTHON 规范及六库原生契约维护。先改规范源，再运行根同步器；各技能的 references/source.json 记录源摘要、章节原始行段与生成摘要。完整源逐章覆盖，阶段技能显式记录 selectedSections；缺失、重复或新增未登记章节都会失败。
 
-RN、鸿蒙和后端各阶段目录分别携带自身平台主题，共同状态、契约和验证在各自 references/common/ 中。rn-development 的专项资料位于 references/rn/，harmony-development 的原生六库与工程专题位于 references/harmony/；code-delivery 按交付对象携带所需验收主题。包外业务契约保留规范源相对路径作为定位线索，不假装已随包提供。
+RN、鸿蒙和后端各阶段目录分别携带自身平台主题，共同状态、契约和验证在各自 references/common/ 中。unif-rn-dev 的专项资料位于 references/rn/，unif-harmony-dev 的原生六库与工程专题位于 references/harmony/；unif-code-delivery 按交付对象携带所需验收主题。包外业务契约保留规范源相对路径作为定位线索，不假装已随包提供。
 
 SKILL.md、手工任务指引、组织资产、spec 与 evals 单独维护。同步只清理已登记且带生成标记的旧文件，不覆盖手工文件或穿过符号链接。根工具不作为独立技能的运行依赖。
 
@@ -122,21 +142,21 @@ SKILL.md、手工任务指引、组织资产、spec 与 evals 单独维护。同
 
 ```sh
 python scripts/sync_architecture.py --source /path/to/unif-platform-architecture/ARCHITECTURE.md
-python scripts/sync_architecture.py --skill rn-development --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill harmony-development --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill backend-development --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill rn-testing --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill harmony-testing --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill backend-testing --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill rn-review --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill harmony-review --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill backend-review --source /path/to/unif-platform-architecture
-python scripts/sync_architecture.py --skill code-delivery --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-rn-dev --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-harmony-dev --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-python-dev --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-rn-test --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-harmony-test --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-python-test --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-rn-review --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-harmony-review --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-python-review --source /path/to/unif-platform-architecture
+python scripts/sync_architecture.py --skill unif-code-delivery --source /path/to/unif-platform-architecture
 ```
 
 每条命令加 `--check` 只比较，不写文件。模型行为、安装生效与真实工程验证另行取得证据，不从来源一致性推断。
 
-Unif RN 库的组织约定及非敏感值由 code-delivery 的[组织资产](skills/code-delivery/assets/organization.json)维护，接入时复制到目标工程 `.github/organization.json`；GitHub 采用和发布说明随该技能分发。此资产不适用于原生鸿蒙或后端，密钥仍由平台管理。
+Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产](skills/unif-code-delivery/assets/organization.json)维护，接入时复制到目标工程 `.github/organization.json`；GitHub 采用和发布说明随该技能分发。此资产不适用于原生鸿蒙或后端，密钥仍由平台管理。
 
 ## 版本与发布
 

@@ -30,7 +30,7 @@ HEADINGS = {
         '4. 公共入口与依赖方向', '5. 基础能力与资源归属', '6. 分批重写与定向验证',
     ],
 }
-HEADINGS['BACKEND_DEVELOPMENT.md'] = ['1. 适用范围与实施', '2. 目录与文件归属', '3. 公共入口与依赖', '4. 运行与资源生命周期', '5. 契约与任务指令', '6. 验证与交付']
+HEADINGS['PYTHON_DEVELOPMENT.md'] = ['1. 适用范围与实施', '2. 目录与文件归属', '3. 公共入口与依赖', '4. 运行与资源生命周期', '5. 契约与任务指令', '6. 验证与交付']
 HARMONY_LIBRARIES = ('icons', 'design', 'chat', 'camera', 'hms-scan', 'umeng')
 for library in HARMONY_LIBRARIES:
     HEADINGS[f'libraries/harmony-{library}.md'] = [
@@ -58,18 +58,18 @@ class SnapshotTests(unittest.TestCase):
         self.script = self.root / 'package/scripts/sync_architecture.py'
         self.script.parent.mkdir(parents=True)
         shutil.copy2(SCRIPT, self.script)
-        self.reference = self.root / 'package/skills/architecture-design/references'
+        self.reference = self.root / 'package/skills/unif-architecture-design/references'
 
     def test_backend_topics_have_independent_provenance_and_detect_drift(self):
         headings = ["1. 适用范围与实施", "2. 目录与文件归属", "3. 公共入口与依赖", "4. 运行与资源生命周期", "5. 契约与任务指令", "6. 验证与交付"]
-        source = self.sources / "BACKEND_DEVELOPMENT.md"
+        source = self.sources / "PYTHON_DEVELOPMENT.md"
         source.write_text("# 后端工程规范\n\n引言。\n\n" + "".join(f"## {heading}\n\n内容。\n\n" for heading in headings))
-        args = [sys.executable, str(self.script), "--source", str(self.sources), "--skill", "backend-development"]
+        args = [sys.executable, str(self.script), "--source", str(self.sources), "--skill", "unif-python-dev"]
         generated = subprocess.run(args, capture_output=True, text=True)
         self.assertEqual(generated.returncode, 0, generated.stderr)
-        reference = self.root / "package/skills/backend-development/references"
+        reference = self.root / "package/skills/unif-python-dev/references"
         record = json.loads((reference / "source.json").read_text())
-        self.assertEqual(set(record["sources"]), {"BACKEND_DEVELOPMENT.md", "ARCHITECTURE.md"})
+        self.assertEqual(set(record["sources"]), {"PYTHON_DEVELOPMENT.md", "ARCHITECTURE.md"})
         self.assertEqual(set(record["files"]), {"scope.md", "structure.md", "lifecycle.md", "validation.md", "common/state.md", "common/contracts.md", "common/verification.md"})
         checked = subprocess.run([*args, "--check"], capture_output=True, text=True)
         self.assertEqual(checked.returncode, 0, checked.stderr)
@@ -77,8 +77,8 @@ class SnapshotTests(unittest.TestCase):
         drift = subprocess.run([*args, "--check"], capture_output=True, text=True)
         self.assertEqual(drift.returncode, 1, drift.stderr)
 
-    def run_sync(self, *args, skill='architecture-design'):
-        arguments = ['--source', str(self.source if skill == 'architecture-design' else self.sources), '--skill', skill]
+    def run_sync(self, *args, skill='unif-architecture-design'):
+        arguments = ['--source', str(self.source if skill == 'unif-architecture-design' else self.sources), '--skill', skill]
         return subprocess.run([sys.executable, str(self.script), *arguments, *args],
                               capture_output=True, text=True)
 
@@ -87,11 +87,11 @@ class SnapshotTests(unittest.TestCase):
 
     def test_partitions_every_source_line_once_with_verifiable_provenance(self):
         for skill, expected_sources in {
-            'architecture-design': {'ARCHITECTURE.md'},
-            'rn-development': {'ARCHITECTURE.md', 'PORTAL_DEVELOPMENT.md', 'PORTAL_STRUCTURE.md'},
-            'harmony-development': {'ARCHITECTURE.md', 'HARMONY_DEVELOPMENT.md', 'HARMONY_STRUCTURE.md',
+            'unif-architecture-design': {'ARCHITECTURE.md'},
+            'unif-rn-dev': {'ARCHITECTURE.md', 'PORTAL_DEVELOPMENT.md', 'PORTAL_STRUCTURE.md'},
+            'unif-harmony-dev': {'ARCHITECTURE.md', 'HARMONY_DEVELOPMENT.md', 'HARMONY_STRUCTURE.md',
                                     *(f'libraries/harmony-{name}.md' for name in HARMONY_LIBRARIES)},
-            'backend-development': {'ARCHITECTURE.md', 'BACKEND_DEVELOPMENT.md'},
+            'unif-python-dev': {'ARCHITECTURE.md', 'PYTHON_DEVELOPMENT.md'},
         }.items():
             with self.subTest(skill=skill):
                 result = self.run_sync(skill=skill)
@@ -125,9 +125,9 @@ class SnapshotTests(unittest.TestCase):
         source = self.sources / 'HARMONY_STRUCTURE.md'
         source.write_text(source.read_text() +
                           '[状态](HARMONY_DEVELOPMENT.md#3-arkui-状态与生命周期)\n')
-        result = self.run_sync(skill='harmony-development')
+        result = self.run_sync(skill='unif-harmony-dev')
         self.assertEqual(result.returncode, 0, result.stderr)
-        reference = self.root / 'package/skills/harmony-development/references'
+        reference = self.root / 'package/skills/unif-harmony-dev/references'
         record = json.loads((reference / 'source.json').read_text())
         expected = {
             'harmony/scope.md': {'HARMONY_DEVELOPMENT.md'},
@@ -148,8 +148,8 @@ class SnapshotTests(unittest.TestCase):
                       (reference / 'harmony/integration.md').read_text())
 
     def test_harmony_missing_source_does_not_partially_generate(self):
-        self.assertEqual(self.run_sync(skill='harmony-development').returncode, 0)
-        reference = self.root / 'package/skills/harmony-development/references'
+        self.assertEqual(self.run_sync(skill='unif-harmony-dev').returncode, 0)
+        reference = self.root / 'package/skills/unif-harmony-dev/references'
         before = snapshot(reference)
         for name in ('HARMONY_DEVELOPMENT.md', 'HARMONY_STRUCTURE.md',
                      *(f'libraries/harmony-{name}.md' for name in HARMONY_LIBRARIES)):
@@ -157,15 +157,15 @@ class SnapshotTests(unittest.TestCase):
                 source = self.sources / name
                 content = source.read_bytes()
                 source.unlink()
-                result = self.run_sync(skill='harmony-development')
+                result = self.run_sync(skill='unif-harmony-dev')
                 self.assertEqual(result.returncode, 2, result.stderr)
                 self.assertIn(name, result.stderr)
                 self.assertEqual(snapshot(reference), before)
                 source.write_bytes(content)
 
     def test_harmony_source_drift_is_detected_without_writes(self):
-        self.assertEqual(self.run_sync(skill='harmony-development').returncode, 0)
-        reference = self.root / 'package/skills/harmony-development/references'
+        self.assertEqual(self.run_sync(skill='unif-harmony-dev').returncode, 0)
+        reference = self.root / 'package/skills/unif-harmony-dev/references'
         for target in (self.sources / 'HARMONY_DEVELOPMENT.md',
                        self.sources / 'HARMONY_STRUCTURE.md',
                        reference / 'harmony/state.md', reference / 'source.json',
@@ -176,7 +176,7 @@ class SnapshotTests(unittest.TestCase):
                 original = target.read_bytes()
                 target.write_bytes(original + b'\n')
                 before = snapshot(reference)
-                result = self.run_sync('--check', skill='harmony-development')
+                result = self.run_sync('--check', skill='unif-harmony-dev')
                 self.assertEqual(result.returncode, 1, result.stderr)
                 self.assertEqual(snapshot(reference), before)
                 self.assertEqual(target.read_bytes(), original + b'\n')
@@ -189,21 +189,21 @@ class SnapshotTests(unittest.TestCase):
                           '[字体](../HARMONY_STRUCTURE.md#2-组件主题与玻璃材质) '
                           '[RN](react-native-icons.md#公开输入) '
                           '[架构](../ARCHITECTURE.md#4-状态归属)\n')
-        result = self.run_sync(skill='harmony-development')
+        result = self.run_sync(skill='unif-harmony-dev')
         self.assertEqual(result.returncode, 0, result.stderr)
-        reference = self.root / 'package/skills/harmony-development/references'
+        reference = self.root / 'package/skills/unif-harmony-dev/references'
         topic = reference / 'harmony/icons.md'
-        self.assertTrue(topic.is_file(), '六库专题应随 harmony-development 分发')
+        self.assertTrue(topic.is_file(), '六库专题应随 unif-harmony-dev 分发')
         text = topic.read_text()
         self.assertIn('[Design](design.md#1-职责与依赖)', text)
         self.assertIn('[字体](ui.md#2-组件主题与玻璃材质)', text)
         self.assertIn('RN（规范源相对路径：`libraries/react-native-icons.md#公开输入`）', text)
         self.assertIn('[架构](../common/state.md#4-状态归属)', text)
-        self.assertEqual(self.run_sync('--check', skill='harmony-development').returncode, 0)
+        self.assertEqual(self.run_sync('--check', skill='unif-harmony-dev').returncode, 0)
 
     def test_generated_topics_end_with_one_newline(self):
-        self.assertEqual(self.run_sync(skill='rn-development').returncode, 0)
-        reference = self.root / 'package/skills/rn-development/references'
+        self.assertEqual(self.run_sync(skill='unif-rn-dev').returncode, 0)
+        reference = self.root / 'package/skills/unif-rn-dev/references'
         for topic in reference.rglob('*.md'):
             with self.subTest(topic=topic.name):
                 self.assertTrue(topic.read_bytes().endswith(b'\n'))
@@ -276,14 +276,14 @@ class SnapshotTests(unittest.TestCase):
                           '[文件角色](PORTAL_DEVELOPMENT.md#3-常量类型变量与文件拆分) '
                           '[完整规则](PORTAL_DEVELOPMENT.md) '
                           '[状态](ARCHITECTURE.md#4-状态归属)\n')
-        result = self.run_sync(skill='rn-development')
+        result = self.run_sync(skill='unif-rn-dev')
         self.assertEqual(result.returncode, 0, result.stderr)
-        reference = self.root / 'package/skills/rn-development/references'
+        reference = self.root / 'package/skills/unif-rn-dev/references'
         text = (reference / 'rn/testing.md').read_text()
         self.assertIn('[文件角色](file-rules.md#3-常量类型变量与文件拆分)', text)
         self.assertIn('[完整规则](../../SKILL.md)', text)
         self.assertIn('[状态](../common/state.md#4-状态归属)', text)
-        self.assertEqual(self.run_sync('--check', skill='rn-development').returncode, 0)
+        self.assertEqual(self.run_sync('--check', skill='unif-rn-dev').returncode, 0)
 
     def test_missing_bundled_anchor_fails_before_writing(self):
         self.assertEqual(self.run_sync().returncode, 0)
@@ -308,9 +308,9 @@ class SnapshotTests(unittest.TestCase):
             path = self.sources / name
             source = path.read_text().replace(f'## {heading}\n', f'## {heading}\n\n### 验证对象\n')
             path.write_text(source + '[本规范的验证对象](#验证对象)\n')
-        result = self.run_sync(skill='rn-development')
+        result = self.run_sync(skill='unif-rn-dev')
         self.assertEqual(result.returncode, 0, result.stderr)
-        text = (self.root / 'package/skills/rn-development/references/rn/testing.md').read_text()
+        text = (self.root / 'package/skills/unif-rn-dev/references/rn/testing.md').read_text()
         self.assertIn('[本规范的验证对象](testing.md#验证对象)', text)
         self.assertIn('[本规范的验证对象](testing.md#验证对象-1)', text)
 
@@ -323,9 +323,9 @@ class SnapshotTests(unittest.TestCase):
         names = source[fourth:fifth] + '### 输入\n\n[名称部分输入](#输入)\n\n'
         types = source[third:fourth] + '### 输入\n\n[类型部分输入](#输入-1)\n\n'
         path.write_text(source[:third] + names + types + source[fifth:])
-        result = self.run_sync(skill='rn-development')
+        result = self.run_sync(skill='unif-rn-dev')
         self.assertEqual(result.returncode, 0, result.stderr)
-        text = (self.root / 'package/skills/rn-development/references/rn/file-rules.md').read_text()
+        text = (self.root / 'package/skills/unif-rn-dev/references/rn/file-rules.md').read_text()
         self.assertIn('[类型部分输入](file-rules.md#输入)', text)
         self.assertIn('[名称部分输入](file-rules.md#输入-1)', text)
 
@@ -365,8 +365,8 @@ class SnapshotTests(unittest.TestCase):
 
     def test_missing_second_source_does_not_partially_generate(self):
         (self.sources / 'PORTAL_STRUCTURE.md').unlink()
-        self.assertEqual(self.run_sync(skill='rn-development').returncode, 2)
-        self.assertFalse((self.root / 'package/skills/rn-development').exists())
+        self.assertEqual(self.run_sync(skill='unif-rn-dev').returncode, 2)
+        self.assertFalse((self.root / 'package/skills/unif-rn-dev').exists())
 
     def test_removes_only_obsolete_generated_files_and_check_is_read_only(self):
         self.reference.mkdir(parents=True)
@@ -412,9 +412,9 @@ class SnapshotTests(unittest.TestCase):
 
 
     def test_stage_selection_bundles_rules_and_rejects_new_source_chapters(self):
-        for platform in ('rn', 'harmony', 'backend'):
-            for stage in ('testing', 'review'):
-                skill = f'{platform}-{stage}'
+        for platform in ('rn', 'harmony', 'python'):
+            for stage in ('test', 'review'):
+                skill = f'unif-{platform}-{stage}'
                 with self.subTest(skill=skill):
                     original = self.source.read_text()
                     result = self.run_sync(skill=skill)
@@ -441,7 +441,7 @@ class SnapshotTests(unittest.TestCase):
         for platform, prefixes in {
             'rn': ('PORTAL_',),
             'harmony': ('HARMONY_', 'libraries/harmony-'),
-            'backend': ('BACKEND_',),
+            'python': ('PYTHON_',),
         }.items():
             removed = {}
             for path in self.sources.rglob('*.md'):
@@ -449,9 +449,9 @@ class SnapshotTests(unittest.TestCase):
                 if name != 'ARCHITECTURE.md' and not name.startswith(prefixes):
                     removed[path] = path.read_bytes()
                     path.unlink()
-            for stage in ('development', 'testing', 'review'):
+            for stage in ('dev', 'test', 'review'):
                 with self.subTest(platform=platform, stage=stage):
-                    result = self.run_sync(skill=f'{platform}-{stage}')
+                    result = self.run_sync(skill=f'unif-{platform}-{stage}')
                     self.assertEqual(result.returncode, 0, result.stderr)
             for path, content in removed.items():
                 path.write_bytes(content)
@@ -459,35 +459,35 @@ class SnapshotTests(unittest.TestCase):
     def test_unselected_known_anchor_keeps_source_location(self):
         self.source.write_text(self.source.read_text().replace('## 4. 状态归属\n',
             '## 4. 状态归属\n\n[成本](#8-成本与效果验证)\n'))
-        result = self.run_sync(skill='rn-development')
+        result = self.run_sync(skill='unif-rn-dev')
         self.assertEqual(result.returncode, 0, result.stderr)
-        topic = self.root / 'package/skills/rn-development/references/common/state.md'
+        topic = self.root / 'package/skills/unif-rn-dev/references/common/state.md'
         self.assertIn('成本（规范源相对路径：`ARCHITECTURE.md#8-成本与效果验证`）', topic.read_text())
 
     def test_nested_output_directory_cannot_be_a_symlink(self):
-        reference = self.root / 'package/skills/rn-development/references'
+        reference = self.root / 'package/skills/unif-rn-dev/references'
         reference.mkdir(parents=True)
         outside = self.root / 'outside'
         outside.mkdir()
         (outside / 'preserve.md').write_text('preserve')
         (reference / 'rn').symlink_to(outside, target_is_directory=True)
-        result = self.run_sync(skill='rn-development')
+        result = self.run_sync(skill='unif-rn-dev')
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(snapshot(outside), {'preserve.md': b'preserve'})
         self.assertFalse((reference / 'source.json').exists())
 
     def test_layout_migration_removes_only_registered_old_files(self):
-        self.assertEqual(self.run_sync(skill='rn-development').returncode, 0)
-        reference = self.root / 'package/skills/rn-development/references'
+        self.assertEqual(self.run_sync(skill='unif-rn-dev').returncode, 0)
+        reference = self.root / 'package/skills/unif-rn-dev/references'
         (reference / 'rn/scope.md').rename(reference / 'scope.md')
         record = json.loads((reference / 'source.json').read_text())
         record['files']['scope.md'] = record['files'].pop('rn/scope.md')
         (reference / 'source.json').write_text(json.dumps(record))
         (reference / 'manual.md').write_text('manual')
         before = snapshot(reference)
-        self.assertEqual(self.run_sync('--check', skill='rn-development').returncode, 1)
+        self.assertEqual(self.run_sync('--check', skill='unif-rn-dev').returncode, 1)
         self.assertEqual(snapshot(reference), before)
-        self.assertEqual(self.run_sync(skill='rn-development').returncode, 0)
+        self.assertEqual(self.run_sync(skill='unif-rn-dev').returncode, 0)
         self.assertFalse((reference / 'scope.md').exists())
         self.assertTrue((reference / 'rn/scope.md').is_file())
         self.assertEqual((reference / 'manual.md').read_text(), 'manual')
