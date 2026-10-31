@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M9.25 1.35H4.1a1.35 1.35 0 0 0-1.35 1.35v10.6a1.35 1.35 0 0 0 1.35 1.35h7.8a1.35 1.35 0 0 0 1.35-1.35V5.35L9.25 1.35Z"/>
-  <path d="M9.25 1.35V4.3a1.05 1.05 0 0 0 1.05 1.05h2.95M5.8 7.65 4.25 9.2l1.55 1.55M10.2 7.65l1.55 1.55-1.55 1.55M8.55 7.3l-1.1 3.8"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
+  <title>RN 代码开发</title>
+  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
+  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="3.4"/><ellipse cx="12" cy="12" rx="9" ry="3.4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" fill="#C44E08" stroke="none"/></g>
 </svg>

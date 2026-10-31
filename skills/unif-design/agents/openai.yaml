@@ -2,3 +2,5 @@ interface:
   display_name: "Unif Design"
   short_description: "使用与维护 Unif 基础组件、主题、字体及 UI 宿主"
   default_prompt: "使用 $unif-design，按当前采用版本处理本库的接入、维护或排障任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

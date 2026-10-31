@@ -2,3 +2,5 @@ interface:
   display_name: "Unif Umeng"
   short_description: "接入与维护 Unif 初始化、统计、第三方分享及实例面板"
   default_prompt: "使用 $unif-umeng，按当前采用版本处理本库的接入、维护或排障任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

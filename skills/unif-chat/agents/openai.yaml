@@ -2,3 +2,5 @@ interface:
   display_name: "Unif Chat"
   short_description: "使用与维护 Unif 消息、输入、附件及聊天组件组合"
   default_prompt: "使用 $unif-chat，按当前采用版本处理本库的接入、维护或排障任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
