@@ -137,17 +137,17 @@ class RepositoryValidationTests(unittest.TestCase):
                 self.edit_json('plugin.json', lambda d: d.update({'version': version}))
                 self.assert_invalid('version')
 
-    def test_accepts_zero_major_upgrades(self):
-        for version in ('0.0.2', '0.1.0', '0.12.34'):
+    def test_accepts_authorized_major_versions(self):
+        for version in ('0.0.2', '0.1.0', '0.12.34', '1.0.0', '1.2.3'):
             with self.subTest(version=version):
                 self.edit_json('plugin.json', lambda d: d.update({'version': version}))
                 validate_repository(self.root)
 
-    def test_rejects_one_major_and_later_versions(self):
-        for version in ('1.0.0', '1.2.3', '2.0.0'):
+    def test_rejects_unapproved_major_versions(self):
+        for version in ('2.0.0', '3.2.1'):
             with self.subTest(version=version):
                 self.edit_json('plugin.json', lambda d: d.update({'version': version}))
-                self.assert_invalid('0.x.x')
+                self.assert_invalid('主版本')
 
     def test_accepts_release_tag_matching_manifest(self):
         validate_repository(self.root, release_tag='v0.0.1')
@@ -218,6 +218,43 @@ class RepositoryValidationTests(unittest.TestCase):
             }},
         })
         self.assert_invalid('logo.png', include_evals=True)
+
+
+    def selected_references(self):
+        self.generated_references()
+        self.edit_json('skills/example/references/source.json',
+                       lambda d: d['sources']['SOURCE.md'].update({
+                           'lines': 10,
+                           'selectedSections': [{'heading': '', 'lines': [1, 3]}],
+                       }))
+
+    def test_declared_selection_does_not_require_unrelated_source_sections(self):
+        self.selected_references()
+        validate_repository(self.root)
+
+    def test_missing_selected_section_is_rejected(self):
+        self.selected_references()
+        self.edit_json('skills/example/references/source.json',
+                       lambda d: d['sources']['SOURCE.md']['selectedSections'].append(
+                           {'heading': 'Required', 'lines': [5, 7]}))
+        self.assert_invalid('SOURCE.md')
+
+    def test_generated_record_cannot_claim_a_file_outside_references(self):
+        self.generated_references()
+        self.write('skills/example/references/guide.md', '# Hand maintained guide\n')
+        skill_content = (self.root / 'skills/example/SKILL.md').read_bytes()
+        def claim_entrypoint(data):
+            record = data['files'].pop('guide.md')
+            record['sha256'] = hashlib.sha256(skill_content).hexdigest()
+            data['files']['../SKILL.md'] = record
+        self.edit_json('skills/example/references/source.json', claim_entrypoint)
+        self.assert_invalid('越出')
+
+    def test_nested_unregistered_generation_is_rejected(self):
+        self.generated_references()
+        self.write('skills/example/references/rn/unknown.md',
+                   '<!-- 此文件由 scripts/sync_architecture.py 生成 -->\nUnknown\n')
+        self.assert_invalid('unknown.md')
 
 
 if __name__ == '__main__':

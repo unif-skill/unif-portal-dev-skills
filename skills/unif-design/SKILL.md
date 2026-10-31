@@ -30,6 +30,6 @@ metadata:
 
 ## 维护与验证
 
-本技能可单独使用。需要源码维护或核对目标职责时读取[维护与契约](references/maintenance.md)，从库内 docs/DEVELOPMENT.md 取得工程指定的规范；工程已配置 code-development、code-testing、code-review 或 code-delivery 时按实际阶段使用。应用只消费组件时采用公开资料，无需架构仓或其他技能。
+本技能可单独使用。需要源码维护或核对目标职责时读取[维护与契约](references/maintenance.md)，从库内 docs/DEVELOPMENT.md 取得工程指定的规范。应用只消费组件时采用公开资料，无需架构仓或其他技能。
 
 验证真实组件、事件、受控数据及本次消费者。布局与交互变化在可比条件下检查主题、大字号、键盘、触达与可访问性；类型、Mock、Web、原生和设备证据分别报告。检查命令从当前 package.json/CI 取得，只查询接口或版本时不启动开发和发布。

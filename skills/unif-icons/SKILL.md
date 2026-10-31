@@ -9,7 +9,7 @@ metadata:
 
 先核对应用锁文件、实际安装包或本次维护修订的 package.json、exports 与公开类型。[官网索引](https://unif-design.github.io/react-native-icons/llms.txt) 标明文档构建版本；版本不一致时从对应安装包或已核实发布修订取得接口，不能直接采用最新文档的新增能力。
 
-原生鸿蒙组件接入与手写实现使用 code-development 的 harmony-icons 专题；本技能在跨端任务中负责取得共享图形源和生成依据。
+原生鸿蒙组件接入与手写实现使用所属工程的原生契约与 SDK 资料；本技能在跨端任务中负责取得共享图形源和生成依据。
 
 ## 按任务读取
 

@@ -50,8 +50,8 @@ def check_plugin(root, validator):
         raise ValueError(f'{path}: {errors[0].message}')
     if not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', manifest.get('version', '')):
         raise ValueError(f'{path}: version 必须是无前缀、无前导零的 X.Y.Z 版本号')
-    if not manifest['version'].startswith('0.'):
-        raise ValueError(f'{path}: version 仅允许 0.x.x')
+    if int(manifest['version'].split('.')[0]) not in (0, 1):
+        raise ValueError(f'{path}: 主版本仅允许已授权的 0 或 1')
     interface = manifest.get('extensions', {}).get('com.openai', {}).get('interface', {})
     check_assets(root, interface, ('composerIcon', 'logo', 'logoDark'))
     for screenshot in interface.get('screenshots', []):
@@ -105,7 +105,7 @@ def check_markdown(root, path):
 
 def check_generated_references(skill):
     directory = skill / 'references'
-    generated = {p.name for p in directory.glob('*.md')
+    generated = {str(p.relative_to(directory)) for p in directory.rglob('*.md')
                  if p.read_text(encoding='utf-8').startswith('<!-- 此文件由 scripts/sync_architecture.py 生成')}
     manifest = directory / 'source.json'
     if not generated and not manifest.exists():
@@ -120,13 +120,14 @@ def check_generated_references(skill):
     if generated - files.keys():
         raise ValueError(f'{manifest}: 未登记的生成资料 {sorted(generated - files.keys())}')
     covered = {name: [] for name in sources}
+    selected = {name: [] for name in sources}
     for name, source in sources.items():
         if (not isinstance(source, dict) or not isinstance(source.get('source'), str)
                 or not re.fullmatch(r'[0-9a-f]{64}', str(source.get('sha256', '')))
                 or type(source.get('lines')) is not int or source['lines'] < 1):
             raise ValueError(f'{manifest}: {name} 来源或摘要无效')
     for name, record in files.items():
-        path = contained_path(skill, directory, name)
+        path = contained_path(directory, directory, name)
         if (not isinstance(record, dict)
                 or hashlib.sha256(path.read_bytes()).hexdigest() != record.get('sha256')):
             raise ValueError(f'{manifest}: {name} SHA-256 不匹配')
@@ -144,7 +145,26 @@ def check_generated_references(skill):
                     or not 1 <= lines[0] <= lines[1] <= sources[source]['lines']):
                 raise ValueError(f'{manifest}: {name} 非法源行段 {lines!r}')
             covered[source].append(lines)
+            selected[source].append((section['heading'], *lines))
     for source, spans in covered.items():
+        if 'selectedSections' in sources[source]:
+            expected = sources[source]['selectedSections']
+            if not isinstance(expected, list) or not expected:
+                raise ValueError(f'{manifest}: {source} 选取范围无效')
+            declarations = []
+            for section in expected:
+                if (not isinstance(section, dict) or not isinstance(section.get('heading'), str)
+                        or not isinstance(section.get('lines'), list) or len(section['lines']) != 2
+                        or any(type(n) is not int for n in section['lines'])
+                        or not 1 <= section['lines'][0] <= section['lines'][1] <= sources[source]['lines']):
+                    raise ValueError(f'{manifest}: {source} 选取章节无效')
+                declarations.append((section['heading'], *section['lines']))
+            ordered = sorted((start, end) for _, start, end in declarations)
+            if (sorted(selected[source]) != sorted(declarations)
+                    or len({title for title, _, _ in declarations}) != len(declarations)
+                    or any(start <= previous[1] for previous, (start, _) in zip(ordered, ordered[1:]))):
+                raise ValueError(f'{manifest}: {source} 选取章节重复或缺失')
+            continue
         next_line = 1
         for start, end in sorted(spans):
             if start != next_line:
@@ -152,6 +172,43 @@ def check_generated_references(skill):
             next_line = end + 1
         if next_line != sources[source]['lines'] + 1:
             raise ValueError(f'{manifest}: {source} 源章节缺失')
+
+
+def check_organization_profile(skill):
+    path = skill / 'assets/organization.json'
+    if not path.exists():
+        return
+    contained_path(skill, skill, 'assets/organization.json')
+    data = read_json(path)
+    required = {'schemaVersion', 'owner', 'namePattern', 'pagesURL', 'releaseAppId',
+                'repositorySettings', 'security', 'obsoleteFiles'}
+    if not isinstance(data, dict) or set(data) != required or type(data['schemaVersion']) is not int or data['schemaVersion'] != 1:
+        raise ValueError(f'{path}: organization 字段或版本无效')
+    if (data['owner'] != 'unif-design'
+            or data['namePattern'] != r'^@unif/react-native-[a-z0-9]+(?:-[a-z0-9]+)*$'
+            or data['pagesURL'] != 'https://unif-design.github.io/{repo}/'
+            or type(data['releaseAppId']) is not int or data['releaseAppId'] <= 0):
+        raise ValueError(f'{path}: organization 身份、命名或 Pages 配置无效')
+    settings = data['repositorySettings']
+    flags = {'allow_merge_commit', 'allow_squash_merge', 'allow_rebase_merge',
+             'allow_auto_merge', 'delete_branch_on_merge', 'has_issues'}
+    if (not isinstance(settings, dict) or set(settings) != flags | {'security_and_analysis'}
+            or any(type(settings[key]) is not bool for key in flags)):
+        raise ValueError(f'{path}: organization 仓库设置字段无效')
+    analysis = settings['security_and_analysis']
+    if (not isinstance(analysis, dict) or set(analysis) != {'secret_scanning', 'secret_scanning_push_protection'}
+            or any(value != {'status': 'enabled'} for value in analysis.values())):
+        raise ValueError(f'{path}: organization 安全扫描配置无效')
+    if (data['security'] != {'codeqlDefaultSetup': 'not-configured', 'dependabotSecurityUpdates': 'disabled',
+                            'privateVulnerabilityReporting': True}
+            or type(data['security']['privateVulnerabilityReporting']) is not bool):
+        raise ValueError(f'{path}: organization 安全策略无效')
+    obsolete = data['obsoleteFiles']
+    expected = {'.github/dependabot.yaml', '.github/workflows/dependabot-auto-merge.yml',
+                '.github/workflows/dependabot-automerge.yml'}
+    if (not isinstance(obsolete, list) or any(not isinstance(name, str) for name in obsolete)
+            or len(obsolete) != len(expected) or set(obsolete) != expected):
+        raise ValueError(f'{path}: organization 停用文件清单无效')
 
 
 def check_skills(root):
@@ -168,6 +225,7 @@ def check_skills(root):
             contained_path(skill, skill, str(path.relative_to(skill)))
             check_markdown(skill, path)
         check_generated_references(skill)
+        check_organization_profile(skill)
         metadata = skill / 'agents/openai.yaml'
         if metadata.exists():
             contained_path(skill, skill, 'agents/openai.yaml')

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""发布准备步骤验证后的 0.x.x 提交；不覆盖标签或自动重试写请求。"""
+"""发布准备步骤验证后的已授权版本提交；不覆盖标签或自动重试写请求。"""
 
 import json
 import os
@@ -52,8 +52,8 @@ def publish(root, context, api):
     version = manifest.get('version')
     if not isinstance(version, str) or not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', version):
         raise ValueError('version 必须是无前缀、无前导零的 X.Y.Z')
-    if not version.startswith('0.'):
-        raise ValueError('发布版本仅允许 0.x.x')
+    if int(version.split('.')[0]) not in (0, 1):
+        raise ValueError('发布主版本仅允许已授权的 0 或 1')
     commit = context.get('RELEASE_SHA', context.get('GITHUB_SHA', ''))
     if not re.fullmatch(r'[0-9a-f]{40}', commit):
         raise ValueError('GITHUB_SHA 必须是本次已验证提交的完整 SHA')
