@@ -2,7 +2,7 @@
 
 # @unif/harmony-icons 实施规范
 
-本文定义 API 26 纯 ArkTS／ArkUI 图标库的职责与验收，不声明包已发布或原生 API 已存在。行为对照见 RN Icons 契约（规范源相对路径：`libraries/react-native-icons.md`），实际导出、参数类型和资源入口由所采用原生库的公开源码与文档确认。共用工程规则见[文件与公共入口](files.md#2-arkts-文件与公共入口)。
+本文定义 API 26 纯 ArkTS／ArkUI 图标库的职责与验收，不声明包已发布或原生 API 已存在。行为对照见 RN Icons 契约（规范源相对路径：`libraries/react-native-icons.md`），实际导出、参数类型和资源入口由所采用原生库的公开源码与文档确认。Unif 项目入口约定见[文件与公共入口](files.md#2-arkts-文件与公共入口)。
 
 
 ## 1. 职责与依赖
