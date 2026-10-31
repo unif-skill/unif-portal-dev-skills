@@ -60,13 +60,13 @@
     },
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "b330ce1c88291feb70f11563d7214d3180ff947c2f807380c8847d6bd1205c1c",
-      "lines": 69
+      "sha256": "7650632d1f8e3d5a8a47e08d61acf7dceccd1d2a82a2440cea0b46f3c2a583a2",
+      "lines": 64
     },
     "HARMONY_STRUCTURE.md": {
       "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
-      "sha256": "24a69ff5372c0ba2857365de68dbe6bf5c3118b10843b9050d93360ac8ec2637",
-      "lines": 55
+      "sha256": "2a8978c1dfa99dbd33f64daada365cec261cec234aff341897202b2e74ee9cf1",
+      "lines": 41
     }
   },
   "files": {
@@ -171,11 +171,11 @@
           "heading": "1. 适用范围与实施",
           "lines": [
             5,
-            24
+            20
           ]
         }
       ],
-      "sha256": "f679b2ef8d97c9a9b52eeaeb5435b38c93df0f81add7f04672907f6f11d34bba"
+      "sha256": "80fa973bf27372ea1af5e0b711b721f12a560804ab844aa42c0205b16e6c8f04"
     },
     "harmony/files.md": {
       "sections": [
@@ -183,12 +183,12 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "2. ArkTS 文件与公共入口",
           "lines": [
-            25,
-            34
+            21,
+            28
           ]
         }
       ],
-      "sha256": "221d7bf834cae080bc66fa3f89a58f880211ed6c0e621020bebd5230f7507e61"
+      "sha256": "6281e442bd262b5de71a592dba4cbae617a4ca136b27ac02da863451e5781944"
     },
     "harmony/state.md": {
       "sections": [
@@ -196,12 +196,12 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "3. ArkUI 状态与生命周期",
           "lines": [
-            35,
-            44
+            29,
+            42
           ]
         }
       ],
-      "sha256": "1386af5908924b560c7512ec849b42888fb7119a478326fbde641826d5085d31"
+      "sha256": "1584fb0da6e805f98b78e78bb29876c0d4f1da52d254965100de89c05efff2f3"
     },
     "harmony/integration.md": {
       "sections": [
@@ -209,20 +209,20 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "4. 原生能力与协议接入",
           "lines": [
-            45,
-            56
+            43,
+            50
           ]
         },
         {
           "source": "HARMONY_STRUCTURE.md",
           "heading": "3. 契约与资源归属",
           "lines": [
-            47,
-            55
+            33,
+            41
           ]
         }
       ],
-      "sha256": "030928c08f4759033340da2ce113ba99947145ebf9baaa1ea75b052f76724a96"
+      "sha256": "f56d3ec5f047c486fb92ec927f559234944525b71c6a35ffbfa672dcc59f6986"
     },
     "harmony/testing.md": {
       "sections": [
@@ -230,12 +230,12 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "5. 验证与交付",
           "lines": [
-            57,
-            69
+            51,
+            64
           ]
         }
       ],
-      "sha256": "19c5e023b9fc68438f35d14bdddf9663ae8be3575f669fbd79a5b798fdde612a"
+      "sha256": "1f08c27005c2e569e37b2b70998c33f1c07ef2b7b4acfaa49ca1e4d12f3fecc2"
     },
     "harmony/directory.md": {
       "sections": [
@@ -252,11 +252,11 @@
           "heading": "1. 工程目录与依赖",
           "lines": [
             5,
-            23
+            22
           ]
         }
       ],
-      "sha256": "a26c3f3dc09f3aaa574777372b98b4c1658aba12ee339ccd341e421426b1ddaf"
+      "sha256": "8087a86642d91dc53f4b535c534cb77b1b712197623d672b7d6a41f4999e8b09"
     },
     "harmony/ui.md": {
       "sections": [
@@ -264,12 +264,12 @@
           "source": "HARMONY_STRUCTURE.md",
           "heading": "2. 组件、主题与玻璃材质",
           "lines": [
-            24,
-            46
+            23,
+            32
           ]
         }
       ],
-      "sha256": "c2a6dc9480c525fba279d50b4f1d7266572b5668d4cee5ee46aee6b4bea2f29a"
+      "sha256": "7c2dca0a42fabe036f9860dc73e4fdf7a959b378b01d2195a6dfdd7acc625053"
     }
   }
 }

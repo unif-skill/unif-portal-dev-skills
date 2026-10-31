@@ -2,7 +2,7 @@
 
 # @unif/harmony-chat 实施规范
 
-本文是 API 26 原生聊天 UI 的规划契约与验收依据；真实 ArkUI 公开入口由采用库确认，不把 RN 的组件／Hook 当作原生 API。行为来自 RN Chat（规范源相对路径：`libraries/react-native-chat.md`）及其逐组件契约，公共工程规则见[原生开发](scope.md#1-适用范围与实施)。
+本文是 API 26 原生聊天 UI 的规划契约与验收依据；真实 ArkUI 公开入口由采用库确认，不把 RN 的组件／Hook 当作原生 API。行为来自 RN Chat（规范源相对路径：`libraries/react-native-chat.md`）及其逐组件契约，Unif 项目采用见[原生开发](scope.md#1-适用范围与实施)。
 
 
 ## 1. 职责与依赖
