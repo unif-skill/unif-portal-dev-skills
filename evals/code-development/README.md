@@ -1,6 +1,6 @@
 # 客户端开发技能评测
 
-本目录沿用历史评测主题名；当前 RN 开发使用 rn-development，鸿蒙开发使用 harmony-development，测试与审查按平台选择对应入口。目录名不表示旧 code-development 仍可安装，冻结 runs 保留当时名称和输入。
+本目录沿用历史评测主题名；当前 RN 开发使用 unif-rn-dev，鸿蒙开发使用 unif-harmony-dev，测试与审查按平台选择对应入口。目录名不表示旧 code-development 仍可安装，冻结 runs 保留当时名称和输入。
 
 评测依据题设工程已采用的通用规范与 Unif 契约，发现目录只提供实际可用的技能。历史基线输出保持原文，不回写为新版本结果。
 

@@ -10,6 +10,6 @@
 | D4 | C 按 squash 合并记录及内容等价证据处理 done，不仅看祖先关系；检查当前 tip 和占用，保留有独有提交且被使用的 active，核对远端删除结果。 |
 | D5 | 三个场景不混用授权或结果；只给决策时不宣称执行，实际交付以用户授权阶段及对应证据为终点。 |
 
-发现阶段另用 discovery.md，仅提供当前技能的名称和 description：第 1—5 项分别以 rn-development、rn-review、architecture-design、code-delivery、code-delivery 为首要入口；第 7 项执行工程测试使用 rn-testing，第 6/8 项不硬套客户端规则。不因选中技能就推断取得写入授权，不能仅从描述证明宿主加载或跨插件依赖。
+发现阶段另用 discovery.md，仅提供当前技能的名称和 description：第 1—5 项分别以 unif-rn-dev、unif-rn-review、unif-architecture-design、unif-code-delivery、unif-code-delivery 为首要入口；第 7 项执行工程测试使用 unif-rn-test，第 6/8 项不硬套客户端规则。不因选中技能就推断取得写入授权，不能仅从描述证明宿主加载或跨插件依赖。
 
 对照使用相同题目，分别提供工程规则、工程规则与候选技能；保留原始输出。本题只验证决策与命令建议，不执行真实 Git 或外部系统操作，也不证明真实 CI 已通过。
