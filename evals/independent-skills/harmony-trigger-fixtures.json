@@ -1,0 +1,48 @@
+{
+  "P1": {
+    "PROJECT.md": "本题工程采用既有 Unif 项目契约。材料只用于当前任务；没有连接真实账号、设备或业务系统。\n目标为原生 HarmonyOS API 26；UploadSession.ts 是真实页面使用的共享实现。契约：旧登录生命周期的结果不能写入新生命周期，账号标识再次相同也不恢复旧操作资格。页面在切换时调用 setOwner，上传依赖返回的 Promise 可以迟到。\n",
+    "src/UploadSession.ts": "export interface Reply { uri: string; }\nexport type Upload = (ownerId: string) => Promise<Reply>;\nexport class UploadSession {\n  ownerId: string = '';\n  resultUri: string = '';\n  setOwner(ownerId: string): void { this.ownerId = ownerId; this.resultUri = ''; }\n  async send(upload: Upload): Promise<void> {\n    const reply = await upload(this.ownerId);\n    this.resultUri = reply.uri;\n  }\n}\n"
+  },
+  "P2": {
+    "PROJECT.md": "本题工程采用既有 Unif 项目契约。材料只用于当前任务；没有连接真实账号、设备或业务系统。\nContext 和监听被保存在模块实例中，关闭 A 后再打开 B，队列里的 A 回调可能随后到达。契约要求 A 回调不得写 B，A 收尾不得释放 B 的资源；原生注销不能撤回已经排队的回调。当前只有 Node 替身结果，没有 HAR 宿主或设备证据。\n",
+    "tests/current.test.mjs": "import test from 'node:test';\nimport assert from 'node:assert/strict';\ntest('listener', () => { const component = { listen: () => 'ok' }; assert.equal(component.listen(), 'ok'); });\n"
+  },
+  "P3": {
+    "review.diff": "--- a/src/scan-session.ts\n+++ b/src/scan-session.ts\n@@ -5,7 +5,6 @@ export function openScan(sdk: NativeSdk, path: string): Session {\n     result: task.result,\n     async cancel(): Promise<void> {\n       task.requestCancel();\n-      await task.released;\n     }\n   };\n }\n",
+    "PROJECT.md": "本题工程采用既有 Unif 项目契约。材料只用于当前任务；没有连接真实账号、设备或业务系统。\n原生 SDK start 返回 result 与 released 两个 Promise。requestCancel 只提出取消请求；released 结束才保证 SDK 不再读取源路径。公开 Session.cancel 的契约是返回后调用方可以删除原输入。现有消费者先 await session.cancel()，随后删除自己的源文件。相关信息是本题已给定的契约，无需查厂商 API。\n",
+    "src/scan-session.ts": "export function openScan(sdk: NativeSdk, path: string): Session {\n  const task = sdk.start(path);\n  return {\n    result: task.result,\n    async cancel(): Promise<void> {\n      task.requestCancel();\n    }\n  };\n}\n"
+  },
+  "P4": {
+    "PROJECT.md": "本题工程采用既有 Unif 项目契约。材料只用于当前任务；没有连接真实账号、设备或业务系统。\nsrc/counter.mjs 是这个合成工程的生产纯逻辑入口，tests/counter.test.mjs 为现有 Node 单测；该命令不编译 ArkTS，也不构建 HAR 或连接设备。仅允许执行指定 Node 测试。\n",
+    "tests/counter.test.mjs": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport { nextRevision } from '../src/counter.mjs';\ntest('next revision', () => { assert.equal(nextRevision(2), 3); });\n",
+    "src/counter.mjs": "export function nextRevision(value) { return value + 1; }\n"
+  },
+  "N1": {
+    "build-profile.json5": "{ \"products\": [{ \"name\": \"default\", \"targetSdkVersion\": \"26.0.0\", \"compatibleSdkVersion\": \"26.0.0\" }] }\n"
+  },
+  "N2": {
+    "api.md": "# 已采用版本的公开接口\n\n`Subscription.close(): void` 立即返回，停止接收之后产生的新事件；已经排队的回调仍可能到达。重复 close 不产生额外影响。它不提供等待队列排空的 Promise。\n"
+  },
+  "N3": {
+    "usage.md": "# 使用说明\n\n先由调用方提供已获得授权的图片路径，再调用 `decodeImage`。调用方必须等到 `released` 回调后才能清理仍归自己所有的文件；取消等待不能替代这个释放通知。\n"
+  },
+  "N4": {
+    "PROJECT.md": "本题工程采用既有 Unif 项目契约。材料只用于当前任务；没有连接真实账号、设备或业务系统。\n本次目标为 React Native 页面采用的 UploadSession.ts。旧请求完成前 setOwner 会切换当前账号；契约要求保持原登录生命周期隔离。\n",
+    "harmony/README.md": "此处是另一个原生鸿蒙目标，本次 RN 功能没有依赖它。\n",
+    "rn/src/UploadSession.ts": "export interface Reply { uri: string; }\nexport type Upload = (ownerId: string) => Promise<Reply>;\nexport class UploadSession {\n  ownerId: string = '';\n  resultUri: string = '';\n  setOwner(ownerId: string): void { this.ownerId = ownerId; this.resultUri = ''; }\n  async send(upload: Upload): Promise<void> {\n    const reply = await upload(this.ownerId);\n    this.resultUri = reply.uri;\n  }\n}\n"
+  },
+  "N5": {
+    "change.diff": "--- a/query.py\n+++ b/query.py\n@@ -1 +1 @@\n-logger.error('query_failed', extra={'error_id': error_id})\n+logger.error('query_failed', extra={'error_id': error_id, 'sql': 'FAKE_SQL', 'params': {'sample': 'FAKE_VALUE'}})\n",
+    "PROJECT.md": "本题工程采用既有 Unif 项目契约。材料只用于当前任务；没有连接真实账号、设备或业务系统。\n诊断日志只允许 error_id、类别与操作阶段；不得包含 SQL、参数、凭据或异常原文。下方代码全部为合成占位内容，没有真实用户数据。\n"
+  },
+  "N6": {
+    "CONTEXT.md": "本任务没有已连接业务账号、客户、任务或设备，仅讨论这次业务请求的必要下一步。\n"
+  },
+  "N7": {
+    "PROJECT.md": "目标是独立的原生 HarmonyOS API 26 记事应用。契约：某次打开笔记本的加载结果只能更新那次打开的界面；A→B→A 后旧 A 结果仍无效。没有 Unif、React Native 或其他企业契约依赖。\n",
+    "src/NotebookSession.ts": "export type Load = (id: string) => Promise<string>;\nexport class NotebookSession {\n  notebookId: string = '';\n  text: string = '';\n  open(id: string): void { this.notebookId = id; this.text = ''; }\n  async refresh(load: Load): Promise<void> {\n    const value = await load(this.notebookId);\n    this.text = value;\n  }\n}\n"
+  },
+  "N8": {
+    "PROJECT.md": "应用聊天场景拥有草稿、上传和已接收的业务附件；UI 库只展示输入并交付操作意图。外部上传服务可能在客户端取消等待后继续处理，不提供远端撤销；可以按原请求关联查询结果。需要区分取消等待与服务端终态，不能引入第二套业务事实所有者。两端对齐共同语义，平台 API 表达可以不同。本题仅授权设计这些边界。\n"
+  }
+}
