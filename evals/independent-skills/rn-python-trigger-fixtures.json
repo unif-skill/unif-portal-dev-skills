@@ -1,0 +1,69 @@
+{
+  "P1": {
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n采用 Unif 项目契约：旧登录生命周期的结果不能写入新生命周期；setOwner 表示切换生命周期。上传完成可以迟到；没有要求改变同一生命周期内的并发语义。\n",
+    "src/UploadSession.ts": "export interface Reply { uri: string; }\nexport type Upload = (ownerId: string) => Promise<Reply>;\nexport class UploadSession {\n  ownerId: string = '';\n  resultUri: string = '';\n  setOwner(ownerId: string): void { this.ownerId = ownerId; this.resultUri = ''; }\n  async send(upload: Upload): Promise<void> {\n    const reply = await upload(this.ownerId);\n    this.resultUri = reply.uri;\n  }\n}\n"
+  },
+  "P2": {
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n真实查询接收 ownerId 和登录生命周期，外部响应返回后才更新调用方。契约：退出后再次登录同一 ownerId，旧响应不得更新新会话。现有测试把整个查询函数替换为固定成功；没有组件或设备记录。\n",
+    "tests/current.test.mjs": "import test from 'node:test';\nimport assert from 'node:assert/strict';\ntest('query', async () => { const query = async () => ({ ok: true }); assert.equal((await query()).ok, true); });\n"
+  },
+  "P3": {
+    "change.diff": "--- a/EditPage.tsx\n+++ b/EditPage.tsx\n@@ -1 +1 @@\n-<Editor onCancel={close} onSubmit={save} />\n+<Editor onCancel={save} onSubmit={save} />\n",
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n用户取消编辑必须保持服务端原值，只有确认提交才能调用 save。共享 Editor 的 onCancel 只交付取消事件，不会自行保存；本次只修改页面接线。正常提交用例通过，取消测试被删除。\n",
+    "EditPage.tsx": "// 已有 Editor 接收 onCancel 和 onSubmit；此片段为变更后的页面接线。\n<Editor onCancel={save} onSubmit={save} />\n"
+  },
+  "P4": {
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\nsrc/counter.mjs 是题内生产入口，Node 测试仅验证纯逻辑，不渲染 RN，也不连接 iOS、Android 或 Web。命令无需安装依赖，不写文件或联网。\n",
+    "tests/counter.test.mjs": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport { nextRevision } from '../src/counter.mjs';\ntest('next revision', () => { assert.equal(nextRevision(2), 3); });\n",
+    "src/counter.mjs": "export function nextRevision(value) { return value + 1; }\n"
+  },
+  "P5": {
+    "service.py": "async def save_entry(pool, payload):\n    tx = await pool.begin()\n    await tx.write(payload)\n    await tx.commit()\n    await tx.close()\n    return {\"saved\": True}\n",
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\nbegin 返回当前调用独占的事务。write 或 commit 可以抛异常，也可以在等待时被取消；只有 commit 正常返回才算已确认提交。已创建但未确认提交的事务必须尝试 rollback，所有已创建事务必须 close；不能重试业务写入，原取消或业务异常不应被清理异常覆盖。rollback 和 close 均为异步方法，清理失败仍须保证另一项必要清理有机会执行。\n"
+  },
+  "P6": {
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n契约要求完整身份与日期下至多一条默认记录；普通记录可多条。实际服务有两个工作进程，用各自进程内锁查后插入，数据库仅有随机主键。当前测试只用单个内存字典且替换了整个创建函数。已有真实数据不允许删除或合并。\n",
+    "tests/current_test.py": "def test_create():\n    create_default = lambda owner, day: \"fixed-id\"\n    assert create_default(\"sample\", \"2030-01-01\") == \"fixed-id\"\n"
+  },
+  "P7": {
+    "change.diff": "--- a/query.py\n+++ b/query.py\n@@ -1 +1 @@\n-logger.error('query_failed', extra={'error_id': error_id})\n+logger.error('query_failed', extra={'error_id': error_id, 'sql': 'FAKE_SQL', 'params': {'sample': 'FAKE_VALUE'}})\n",
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n日志只允许 error_id、类别和阶段；禁止 SQL、参数、凭据和异常原文。代码中的 FAKE_SQL、FAKE_VALUE 为合成值，不是生产数据。本次只改这一日志语句。\n"
+  },
+  "P8": {
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n该命令仅使用 Python 标准库，-B 禁止写入字节码；没有数据库、网络或外部连接。生产逻辑在 counter.py，本题只有一个既有用例。\n",
+    "counter.py": "def next_revision(value):\n    return value + 1\n",
+    "tests/test_counter.py": "import unittest\nfrom counter import next_revision\n\nclass CounterTest(unittest.TestCase):\n    def test_next(self):\n        self.assertEqual(next_revision(2), 3)\n"
+  },
+  "N1": {
+    "api.md": "`close(): void` 立即返回，停止接收之后产生的新事件；已经排队的回调可能继续。重复调用不额外产生影响。\n",
+    "package.json": "{\"name\":\"@unif/react-native-sample\",\"version\":\"0.8.2\"}\n"
+  },
+  "N2": {
+    "api.md": "`cancel_wait(request_id) -> None` 只停止客户端等待，不保证远端工作停止，也不代表业务已失败。\n",
+    "settings.json": "{\"version\":\"2.4.0\",\"timeout_seconds\":30}\n"
+  },
+  "N3": {
+    "usage.md": "调用方提供已授权的本地图片路径，再调用 `decodeImage`。必须收到 `released` 才能清理仍归自己的源文件，取消等待不能替代释放通知。\n"
+  },
+  "N4": {
+    "usage.md": "调用 `submit` 需要提供本次请求的业务参数。调用 `cancel_wait` 只结束等待；没有最终回执时结果仍未确认，不能当作远端已撤销。\n"
+  },
+  "N5": {
+    "Notebook.ts": "export class Notebook {\n  id = ''; text = '';\n  open(id: string) { this.id = id; this.text = ''; }\n  async refresh(load: (id: string) => Promise<string>) { this.text = await load(this.id); }\n}\n",
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n每次 open 表示一次新打开，旧打开的结果不得写入新界面。A→B→A 仍然是不同生命周期。\n"
+  },
+  "N6": {
+    "service.py": "async def save_entry(pool, payload):\n    tx = await pool.begin()\n    await tx.write(payload)\n    await tx.commit()\n    await tx.close()\n    return {\"saved\": True}\n",
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n事务由本次调用持有。写入失败时需要回滚，创建后的事务始终需要关闭；接口均为 async，无自动上下文管理。没有自动重试要求。\n"
+  },
+  "N7": {
+    "change.diff": "--- a/scan.ets\n+++ b/scan.ets\n@@ -1,2 +1 @@\n task.requestCancel();\n-await task.released;\n",
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\nrequestCancel 只请求取消；released 完成才保证 SDK 不再读取文件。公开 cancel 返回后调用方可删除源文件。\n"
+  },
+  "N8": {
+    "CONTEXT.md": "没有可调用业务服务或已选任务，本题只判断准备条件。\n"
+  },
+  "N9": {
+    "PROJECT.md": "本题是合成工程材料，没有真实账号、设备、服务连接或用户数据。\n客户端场景拥有草稿、等待和附件采用，服务拥有上传权威结果。停止客户端等待不能撤销远端处理，可以按原请求关联查询。现有接口不提供远端撤销；不能新增第二套业务事实。这里只设计这些边界。\n"
+  }
+}

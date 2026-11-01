@@ -172,6 +172,7 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 - [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查版本、技能格式、标准插件清单、本仓市场入口、包内文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。官方 Schema、`skills-ref validate` 的环境与复跑命令见[格式验证记录](docs/validation/2026-09-07-agent-standards.md)。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。鸿蒙开发、测试与审查的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖实际任务和平台／阶段排除场景。
+- RN 与 Python 六个阶段技能的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)分别说明独立消费、阶段选择及排除边界。
 - 全部 17 技能的完整目录隔离分发、主题溯源及组织资产由脚本测试验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
 
 本地复现 CI（Python 3.12）：

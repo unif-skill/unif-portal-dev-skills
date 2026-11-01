@@ -15,4 +15,6 @@
 
 鸿蒙开发、测试与审查的宿主隐式加载另用[自动触发题干](harmony-trigger-cases.md)、[工程素材](harmony-trigger-fixtures.json)及[独立判据](harmony-trigger-rubric.md)。该组不点名技能，核对实际正文读取，与本文件的显式独立消费和 I 题描述选择分别记录。
 
+RN 与 Python 六个阶段技能按[独立行为组](rn-python-behavior-cases.md)、[自动触发题干](rn-python-trigger-cases.md)及[专项判据](rn-python-rubric.md)执行。独立题复用本文件及状态归属题的现行来源；触发题使用单题素材和明确的只读边界，不把加载记录与任务完成混为一项。
+
 保存实际使用的目录快照、原始输出和读取记录到仓库外或忽略的本地 runs。分别报告资料可达、判断正确性、实际安装与工程效果；单次书面场景不证明稳定触发率或真实业务完成。
