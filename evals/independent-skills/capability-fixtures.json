@@ -1,0 +1,386 @@
+{
+  "formatVersion": 1,
+  "sources": {
+    "design": {
+      "repository": "https://github.com/unif-design/react-native-design.git",
+      "commit": "6537ea567bfaf74e789b5e252841d36493160aa1",
+      "directory": "react-native-design",
+      "version": "1.13.8",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json",
+              ".svg"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 373,
+      "snapshotSha256": "457f39397c3c91d43a1ce132e1c535542667cc25d223d068eb36c3c28db7a74c"
+    },
+    "chat": {
+      "repository": "https://github.com/unif-design/react-native-chat.git",
+      "commit": "79a8b091b37e66a52ba0c59bb11fcd4a4d5f554b",
+      "directory": "react-native-chat",
+      "version": "4.6.1",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json",
+              ".svg"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 141,
+      "snapshotSha256": "f2a8b5508d5bc385ad485bd77ab1f92b716e962d6c2a3d361089bfbf69b467a2"
+    },
+    "icons": {
+      "repository": "https://github.com/unif-design/react-native-icons.git",
+      "commit": "57c6c535a42805e501b5805ee5751de3d1418792",
+      "directory": "react-native-icons",
+      "version": "0.5.5",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md",
+          "scripts/build-harmony-icons.cjs",
+          "scripts/build-icons.cjs",
+          "scripts/check-icon-targets.cjs",
+          "scripts/icon-manifest.json",
+          "scripts/svg-parser.cjs",
+          "scripts/verify-package.cjs"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json",
+              ".svg"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 309,
+      "snapshotSha256": "012a5777c9b0988844768d9154c5b7017532ddef7ac2f4b177a8ccdefa5e743f"
+    },
+    "camera": {
+      "repository": "https://github.com/unif-design/react-native-camera.git",
+      "commit": "7326b0fb1d7fb496f932759bb484c53ba0e47e09",
+      "directory": "react-native-camera",
+      "version": "6.1.5",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json",
+              ".svg"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 191,
+      "snapshotSha256": "74e94b4e9e018448ba8ccea4ada27e040653c973da191c726ffcca1d4fb68546"
+    },
+    "hms-scan": {
+      "repository": "https://github.com/unif-design/react-native-hms-scan.git",
+      "commit": "e552191ef947c08e357e11df84a33d20509093ff",
+      "directory": "react-native-hms-scan",
+      "version": "3.1.5",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json",
+              ".svg"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 61,
+      "snapshotSha256": "79828d49e97644c37ace07eecde69937a2d4c729d3e6b8520de87df2bc36e0d3"
+    },
+    "umeng": {
+      "repository": "https://github.com/unif-design/react-native-umeng.git",
+      "commit": "b89c8734535ed7d5dbca9624d4bb691296e40554",
+      "directory": "react-native-umeng",
+      "version": "2.6.0",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json",
+              ".svg"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 68,
+      "snapshotSha256": "79c3f4f6c5a826c95366d00cdfe095a5f1619cf8c5d81c75758f44d78cce6c47"
+    },
+    "native-icons": {
+      "repository": "https://github.com/unif-design/harmony-icons.git",
+      "commit": "3227e2ef5dcf23ade838a24779fe086107f6e382",
+      "directory": "harmony-icons",
+      "version": null,
+      "selection": {
+        "paths": [
+          "docs/API.md",
+          "library/Index.ets",
+          "library/oh-package.json5",
+          "library/src/main/ets/UnifIcon.ets"
+        ],
+        "trees": []
+      },
+      "fileCount": 4,
+      "snapshotSha256": "ed6e0659dfe8b5640aa9374ad31fc7b17d0aa9f4408e02aa569a2629d884f354"
+    }
+  },
+  "cases": {
+    "P1": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n应用场景拥有草稿、等待和附件采用；服务拥有上传权威结果。客户端停止等待不能撤销远端处理，可通过现有请求关联查询结果。没有远端撤销接口，不新增第二套业务事实。\n"
+      },
+      "sources": []
+    },
+    "P2": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n工作区 main 有本次 src/query.ts、tests/query.test.ts，另有同事未提交 src/theme.ts。当前采用功能分支，npm run check 是完整门禁，定向测试通过但完整门禁未跑。有人建议 git add -A 后提交并 push main。\n"
+      },
+      "sources": []
+    },
+    "P3": {
+      "files": {
+        "STATE.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\ndone 已经 squash 合并，服务器确认当前 tip 已合并，与 main 内容等价，工作区干净且无其他工作树占用，远端 tip 已核对。active 新增未合并提交且被另一工作树使用。branch --merged 未列出 done。\n"
+      },
+      "sources": []
+    },
+    "P4": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-design：@unif/react-native-design；版本 1.13.8；修订 6537ea567bfaf74e789b5e252841d36493160aa1。\n"
+      },
+      "sources": [
+        "design"
+      ]
+    },
+    "P5": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-chat：@unif/react-native-chat；版本 4.6.1；修订 79a8b091b37e66a52ba0c59bb11fcd4a4d5f554b。\n"
+      },
+      "sources": [
+        "chat"
+      ]
+    },
+    "P6": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-icons：@unif/react-native-icons；版本 0.5.5；修订 57c6c535a42805e501b5805ee5751de3d1418792。\n"
+      },
+      "sources": [
+        "icons"
+      ]
+    },
+    "P7": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-camera：@unif/react-native-camera；版本 6.1.5；修订 7326b0fb1d7fb496f932759bb484c53ba0e47e09。\n"
+      },
+      "sources": [
+        "camera"
+      ]
+    },
+    "P8": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-hms-scan：@unif/react-native-hms-scan；版本 3.1.5；修订 e552191ef947c08e357e11df84a33d20509093ff。\n"
+      },
+      "sources": [
+        "hms-scan"
+      ]
+    },
+    "P9": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-umeng：@unif/react-native-umeng；版本 2.6.0；修订 b89c8734535ed7d5dbca9624d4bb691296e40554。\n"
+      },
+      "sources": [
+        "umeng"
+      ]
+    },
+    "P10": {
+      "files": {
+        "APP.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n应用现有草稿、上传、发送、文件保存与释放能力；本次仅使用 Chat 输入及 Camera 拍摄公开能力，不要求重新实现这些业务单元。\n",
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-chat：@unif/react-native-chat；版本 4.6.1；修订 79a8b091b37e66a52ba0c59bb11fcd4a4d5f554b。\n- project/react-native-camera：@unif/react-native-camera；版本 6.1.5；修订 7326b0fb1d7fb496f932759bb484c53ba0e47e09。\n"
+      },
+      "sources": [
+        "chat",
+        "camera"
+      ]
+    },
+    "P11": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/react-native-icons：@unif/react-native-icons；版本 0.5.5；修订 57c6c535a42805e501b5805ee5751de3d1418792。\n"
+      },
+      "sources": [
+        "icons"
+      ]
+    },
+    "N1": {
+      "files": {
+        "api.md": "queryItems 输入 page 是本次要读取的正整数页号；返回 nextPage 表示下一页号，可缺省。该调用只查询指定页，不提交业务变更。\n"
+      },
+      "sources": []
+    },
+    "N2": {
+      "files": {
+        "jobs.json": "{\"build\":{\"status\":\"completed\",\"conclusion\":\"success\"},\"tests\":{\"status\":\"in_progress\",\"conclusion\":null}}\n"
+      },
+      "sources": []
+    },
+    "N3": {
+      "files": {
+        "View.tsx": "import { View } from 'react-native';\nconst backgroundColor = '#eeeeee';\nexport function Panel() { return <View style={{ backgroundColor }} />; }\n"
+      },
+      "sources": []
+    },
+    "N4": {
+      "files": {
+        "REQUIREMENTS.md": "存储模块保存笔记；日志模块只接收已脱敏的诊断事件，不持有笔记正文。外部接口尚未确定。\n"
+      },
+      "sources": []
+    },
+    "N5": {
+      "files": {
+        "example.ts": "// 本题采用 Expo Camera 的项目说明：takePictureAsync 返回照片对象，页面调用既有 savePhoto 保存。\nasync function takePhoto(camera, savePhoto) { const photo = await camera.takePictureAsync(); return savePhoto(photo); }\n"
+      },
+      "sources": []
+    },
+    "N6": {
+      "files": {
+        "API.md": "本题项目接口 scanOnce 返回 success、cancelled 或 failed 三种互斥结果；cancelled 表示用户未选用识别结果，不应作为成功使用，也不弹失败错误。本说明仅定义题内项目契约，不声明某个真实厂商 SDK 的签名。\n"
+      },
+      "sources": []
+    },
+    "N7": {
+      "files": {
+        "API.md": "本题 Flutter 页面把 color 传给内置 Icon；图形和颜色均由页面明确选择，没有业务请求或生成步骤。\n"
+      },
+      "sources": []
+    },
+    "N8": {
+      "files": {
+        "CONTEXT.md": "只拟写一条普通消息，没有连接收件人或分享服务。\n"
+      },
+      "sources": []
+    },
+    "N9": {
+      "files": {
+        "config.json": "{\"version\":\"2.4.0\"}\n"
+      },
+      "sources": []
+    },
+    "N10": {
+      "files": {
+        "PROJECT.md": "本题仅使用已给定材料。没有真实账号、服务、设备或远端连接，不执行实际业务或交付操作。\n题内采用以下固定公开文档和源码修订，只提供 package/源码/使用文档相关文件，不包含完整原生运行环境。\n- project/harmony-icons：@unif/harmony-icons；版本 以提供清单为准；修订 3227e2ef5dcf23ade838a24779fe086107f6e382。\n"
+      },
+      "sources": [
+        "native-icons"
+      ]
+    },
+    "N11": {
+      "files": {
+        "CONTEXT.md": "没有业务连接、已选客户或拜访任务，仅确认准备条件。\n"
+      },
+      "sources": []
+    },
+    "N12": {
+      "files": {
+        "Input.tsx": "// 本题页面使用 Material UI 提供的 theme，不是 RN 或 Unif Design。\nfunction inputColor(theme) { return theme.palette.text.primary; }\n"
+      },
+      "sources": []
+    }
+  }
+}

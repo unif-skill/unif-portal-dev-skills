@@ -17,4 +17,6 @@
 
 RN 与 Python 六个阶段技能按[独立行为组](rn-python-behavior-cases.md)、[自动触发题干](rn-python-trigger-cases.md)及[专项判据](rn-python-rubric.md)执行。独立题复用本文件及状态归属题的现行来源；触发题使用单题素材和明确的只读边界，不把加载记录与任务完成混为一项。
 
+架构、交付和六库能力按[独立行为组](capability-behavior-cases.md)、[自动触发组](capability-trigger-cases.md)及[专项判据](capability-rubric.md)执行。两组使用相同的版本化库材料来源，现行公共判据继续保留；显式提供技能与自然请求下实际加载分别记录。
+
 保存实际使用的目录快照、原始输出和读取记录到仓库外或忽略的本地 runs。分别报告资料可达、判断正确性、实际安装与工程效果；单次书面场景不证明稳定触发率或真实业务完成。
