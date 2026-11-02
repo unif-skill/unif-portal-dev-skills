@@ -1,6 +1,6 @@
 ---
 name: unif-python-dev
-description: 在 Unif Agent、Marketing 等 Python 后端实现或调整代码、组织模块、接入外部服务或定位实现缺陷时使用。单纯查询状态、版本或解释接口不触发。
+description: 在 Unif Agent、Marketing 等 Python 后端实现或调整代码、维护服务配置与环境变体、组织模块、接入外部服务或定位实现缺陷时使用。单纯查询状态、版本或解释接口不触发。
 ---
 
 # 后端代码开发
@@ -9,6 +9,7 @@ description: 在 Unif Agent、Marketing 等 Python 后端实现或调整代码�
 
 - 修改范围、现有行为和依赖选用：[实施范围](references/scope.md)。
 - 文件拆分、提示词归属、包公共入口与调用方向：[目录与依赖](references/structure.md)。
+- 服务配置、环境变体及启动接线：[目录与依赖](references/structure.md)、[契约与验证](references/validation.md)。
 - 异步执行、取消、收尾、事务及调用预算：[运行与资源](references/lifecycle.md)。
 - 持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：读取[状态归属](references/common/state.md)，核对权威来源、唯一性、执行归属及对应验证；读取共同规则不重启架构设计。
 - 同源契约、任务指令、消费者接线和验证证据：[契约与验证](references/validation.md)。

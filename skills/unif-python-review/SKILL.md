@@ -1,6 +1,6 @@
 ---
 name: unif-python-review
-description: 在 Unif Agent、Marketing 等 Python 后端中对明确代码变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
+description: 在 Unif Agent、Marketing 等 Python 后端中对明确代码或服务配置变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
 ---
 
 # 后端审查规范
@@ -15,6 +15,7 @@ description: 在 Unif Agent、Marketing 等 Python 后端中对明确代码变�
 | 状态、身份、异步收尾和资源 | [状态归属](references/common/state.md) |
 | 公共输入输出、协议与业务结果 | [交接契约](references/common/contracts.md) |
 | 验证范围、日志与失败诊断 | [验证与诊断](references/common/verification.md) |
+| 服务配置归属、环境变体与任务池隔离 | [工程组织](references/python/structure.md)、[后端验证](references/python/validation.md) |
 | Python 后端 | [工程组织](references/python/structure.md)、[运行与事务](references/python/lifecycle.md)、[契约与验证](references/python/validation.md) |
 
 工程指定了规则修订时采用该修订。具体业务、库 API 与 SDK 契约从工程入口和实际公开资料取得，不把模板、评测样例或偏好当成新增需求。后端的任务、事务、进程与持久化证据按实际执行层级核对；内存替身不能证明数据库或多进程约束成立。

@@ -15,6 +15,7 @@ description: 在 Unif Agent、Marketing 等 Python 后端中设计、编写、�
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |
 | 协议输入、取消、业务成功及未确认结果 | [交接契约](references/common/contracts.md) |
+| 环境切换、API／Worker 与数据／任务池隔离 | [后端验证](references/python/validation.md) |
 | Python 后端、事务和真实进程 | [后端验证](references/python/validation.md)、[运行与资源](references/python/lifecycle.md) |
 
 只读取实际涉及的资料，不因取得共同规则进入其他阶段。服务接口、业务模块契约、命令和运行条件从目标工程取得；后端的任务、事务、进程与持久化证据按实际执行层级核对；内存替身不能证明数据库或多进程约束成立。

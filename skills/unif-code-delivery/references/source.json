@@ -67,14 +67,14 @@
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "ea68495c3369572b03d1718bc122d1d312623325b5526c9c896ccc0d2878c73d",
-      "lines": 70,
+      "sha256": "daa16c0a549c9eded7bf07d6c79ff5684b7986a8b9fb6fcb8bc3010a50a1124b",
+      "lines": 74,
       "selectedSections": [
         {
           "heading": "6. 验证与交付",
           "lines": [
-            60,
-            70
+            62,
+            74
           ]
         }
       ]
@@ -147,12 +147,12 @@
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "6. 验证与交付",
           "lines": [
-            60,
-            70
+            62,
+            74
           ]
         }
       ],
-      "sha256": "ecf09cd9028c21aae9bfbd5740ff2aeac24198c8674b7c1dec9c2494a1ef47d9"
+      "sha256": "0d5c3b9494bec7774f29f859e0a29c924204c2e1ddb275a3fdb20040a781a473"
     }
   }
 }
