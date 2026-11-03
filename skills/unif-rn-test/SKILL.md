@@ -15,6 +15,7 @@ description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |
 | 协议输入、取消、业务成功及未确认结果 | [交接契约](references/common/contracts.md) |
+| 环境配置选择与加载副本 | [RN 验证](references/rn/testing.md) |
 | RN 测试组织、实际消费者与 UI 组合 | [RN 验证](references/rn/testing.md)、[Portal UI](references/rn/ui.md) |
 
 只读取实际涉及的资料，不因取得共同规则进入其他阶段。库 API、业务模块契约、命令和设备条件从目标工程取得；RN 的组件、适配、实际消费者与所影响的 iOS、Android 或 Web 接线分别核对。

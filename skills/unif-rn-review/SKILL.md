@@ -1,6 +1,6 @@
 ---
 name: unif-rn-review
-description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共享核心中对明确代码变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
+description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共享核心中对明确代码或构建配置变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
 ---
 
 # RN 审查规范
@@ -15,6 +15,7 @@ description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共
 | 状态、身份、异步收尾和资源 | [状态归属](references/common/state.md) |
 | 公共输入输出、协议与业务结果 | [交接契约](references/common/contracts.md) |
 | 验证范围、日志与失败诊断 | [验证与诊断](references/common/verification.md) |
+| 环境文件复用、构建选择与加载一致性 | [文件规则](references/rn/file-rules.md)、[验证](references/rn/testing.md) |
 | RN 应用与库 | [范围](references/rn/scope.md)、[文件](references/rn/file-rules.md)、[UI](references/rn/ui.md)、[依赖](references/rn/dependencies.md)、[验证](references/rn/testing.md)；归属不清时补[目录](references/rn/directory.md)与[配置](references/rn/utilities-config.md) |
 
 工程指定了规则修订时采用该修订。具体业务、库 API 与 SDK 契约从工程入口和实际公开资料取得，不把模板、评测样例或偏好当成新增需求。RN 的组件、适配、实际消费者与所影响的 iOS、Android 或 Web 接线分别核对。

@@ -39,14 +39,14 @@
     },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "9aa2877771b97ce72658ab35315ff18ee3f45f0c919272e359d35cc70aa55c2d",
-      "lines": 64,
+      "sha256": "2cf83b8e5141fb02a7de37aa0920985a98de74a08b9acb12790d979101be9e0e",
+      "lines": 70,
       "selectedSections": [
         {
           "heading": "5. 规则执行与定向验证",
           "lines": [
-            54,
-            64
+            58,
+            70
           ]
         }
       ]
@@ -132,8 +132,8 @@
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "5. 规则执行与定向验证",
           "lines": [
-            54,
-            64
+            58,
+            70
           ]
         },
         {
@@ -145,7 +145,7 @@
           ]
         }
       ],
-      "sha256": "8f86d63a27dc9cc0221c0ec1b02d11a4b7e09d7b037d91a287322022768818ee"
+      "sha256": "4461f5f7d4633e3b4871d1143275f3df644026ffa24127ffcee4b85d34d57869"
     },
     "rn/ui.md": {
       "sections": [
