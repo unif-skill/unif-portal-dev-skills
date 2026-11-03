@@ -14,8 +14,8 @@
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
-      "lines": 465,
+      "sha256": "fcf73f1d6db929f18206b1f1f50271b1c780bb8a02054d50021019413b0d97e8",
+      "lines": 467,
       "selectedSections": [
         {
           "heading": "4. 状态归属",
@@ -35,7 +35,7 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            402
+            404
           ]
         }
       ]
@@ -214,11 +214,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            402
+            404
           ]
         }
       ],
-      "sha256": "abbdf2082270a4671699682d6ad82654557919f4d46c3eb6db17b46d36f24901"
+      "sha256": "a00881ea152ca93f179ff9689ff452cd68e580189b2b9e0707c8bf1dc256e98d"
     }
   }
 }

@@ -13,7 +13,7 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：读取[状态归属](references/common/state.md)，核对权威来源、唯一性、执行归属及对应验证；取得共同规则不重启架构设计。
 
-涉及外部依赖、持久化、异常转换、异步收尾、降级或恢复时，同时读取[验证与故障诊断](references/common/verification.md#721-日志与故障诊断)，核对本次调用链的记录责任及对应测试。
+第三方库、框架或 SDK 的设计、接入、封装与排障，按[依赖治理](references/common/verification.md#71-依赖治理)核对官方依据与项目采用条件。涉及外部依赖、持久化、异常转换、异步收尾、降级或恢复时，同时读取[验证与故障诊断](references/common/verification.md#721-日志与故障诊断)，核对本次调用链的记录责任及对应测试。
 
 原生 ArkTS／ArkUI 应用与 `@unif/harmony-*` HAR 库：
 

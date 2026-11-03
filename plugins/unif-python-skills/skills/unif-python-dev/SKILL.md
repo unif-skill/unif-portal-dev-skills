@@ -7,7 +7,7 @@ description: 在 Unif Agent、Marketing 等 Python 后端实现或调整代码�
 
 按已确认职责和实际消费者完成后端实现。优先采用目标工程指定的规范修订；同一上下文中已读且仍适用的内容直接复用，按本次范围选择资料：
 
-- 修改范围、现有行为和依赖选用：[实施范围](references/scope.md)。
+- 修改范围与现有行为：[实施范围](references/scope.md)；第三方库、框架或 SDK 的设计、接入、封装与排障：[依赖治理](references/common/verification.md#71-依赖治理)，核对官方依据与项目采用条件。
 - 文件拆分、提示词归属、包公共入口与调用方向：[目录与依赖](references/structure.md)。
 - 服务配置、环境变体及启动接线：[目录与依赖](references/structure.md)、[契约与验证](references/validation.md)。
 - 异步执行、取消、收尾、事务及调用预算：[运行与资源](references/lifecycle.md)。
