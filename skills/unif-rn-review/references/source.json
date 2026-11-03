@@ -65,8 +65,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "e16d97fadde3019663e3f0a50e126b9f3da8242b5c8c0dbe475a5efe911fc7e9",
-      "lines": 201
+      "sha256": "c6d094b457080ca4b4b5f4a7c1a01c765b9f96d4d4e0d9bcb664b53848728f1c",
+      "lines": 191
     }
   },
   "files": {
@@ -220,12 +220,12 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            180,
-            201
+            172,
+            191
           ]
         }
       ],
-      "sha256": "4461f5f7d4633e3b4871d1143275f3df644026ffa24127ffcee4b85d34d57869"
+      "sha256": "b537101c56c4f0153d9ae7e5682093ff56d9ceaa63489cfb38da08676b8c894b"
     },
     "rn/directory.md": {
       "sections": [
@@ -242,11 +242,11 @@
           "heading": "1. 目标目录",
           "lines": [
             9,
-            99
+            95
           ]
         }
       ],
-      "sha256": "797de6e179afb0130418c9b9efcb929c20a25ee86d73f54d8c62de084c74e605"
+      "sha256": "70543c55c3ac88f0ef85fec5e502d53ce359874faf6bb53384c7cec64da9a625"
     },
     "rn/ui.md": {
       "sections": [
@@ -254,12 +254,12 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "2. 基础组件与 UI 复用",
           "lines": [
-            100,
-            147
+            96,
+            141
           ]
         }
       ],
-      "sha256": "af764ad726c58ba875cd14c485fd327962f1f0d24526c258d346e5b85a4cc937"
+      "sha256": "7be66f9f5cb0c92e3eb7dca7885af483d45bb23aac2a2da6c9d208cd48705700"
     },
     "rn/utilities-config.md": {
       "sections": [
@@ -267,8 +267,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "3. 工具、常量、类型及其他文件的归属",
           "lines": [
-            148,
-            163
+            142,
+            157
           ]
         }
       ],
@@ -280,20 +280,20 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "4. 公共入口与依赖方向",
           "lines": [
-            164,
-            171
+            158,
+            165
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            172,
-            179
+            166,
+            171
           ]
         }
       ],
-      "sha256": "c9bdff2d5a65813cc6b5b4d2b7be20cea4e3cb94d7aeaaef4234fd6322315c36"
+      "sha256": "9a0aec4ecdc7455219999439383a0f2509235ad931234787e06de8ce5e03da17"
     }
   }
 }

@@ -39,14 +39,14 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "e16d97fadde3019663e3f0a50e126b9f3da8242b5c8c0dbe475a5efe911fc7e9",
-      "lines": 201,
+      "sha256": "c6d094b457080ca4b4b5f4a7c1a01c765b9f96d4d4e0d9bcb664b53848728f1c",
+      "lines": 191,
       "selectedSections": [
         {
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            180,
-            201
+            172,
+            191
           ]
         }
       ]
@@ -121,12 +121,12 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            180,
-            201
+            172,
+            191
           ]
         }
       ],
-      "sha256": "4461f5f7d4633e3b4871d1143275f3df644026ffa24127ffcee4b85d34d57869"
+      "sha256": "b537101c56c4f0153d9ae7e5682093ff56d9ceaa63489cfb38da08676b8c894b"
     },
     "harmony/testing.md": {
       "sections": [
