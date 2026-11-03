@@ -1,6 +1,6 @@
 # 库能力技能评测
 
-覆盖 11 个库能力技能的公开消费、源码维护、必要组合与排除场景，Logger 包含 RN 与鸿蒙。共用研发规范和库能力属于同一次任务，不按加载技能的数量判断好坏。
+覆盖 11 个库能力技能的公开消费、源码维护、必要组合与排除场景；Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 按 RN／鸿蒙分别核对。共用研发规范和库能力属于同一次任务，不按加载技能的数量判断好坏。
 
 ## 输入与记录
 
@@ -9,6 +9,8 @@
 题目见 [cases.md](cases.md)，判据见 [rubric.md](rubric.md)。Icons 的双端源维护、单端授权、普通消费与原生行为核对见 J 组。先固定基线包和候选包，再分别在独立上下文提供相同用户请求、允许的资料范围和代码修订；不把预期答案、基线结论或作者解释交给执行者。仅发现测试只提供名称、description 和用户请求。
 
 AMap、Files、Logger、OSS、Speech 及鸿蒙 Logger 使用单独的[新增库题目](additional-library-cases.md)、[判据](additional-library-rubric.md)和[来源清单](additional-library-fixtures.json)。清单固定库修订和读取范围；题目引用真实公开实现与 example 消费者，不暗示 Portal 已完成依赖迁移。扩展题与原 A–J 及专项冻结题并存，历史结果不回写。
+
+六个原有库的鸿蒙入口使用[鸿蒙库题目](harmony-library-cases.md)、[判据](harmony-library-rubric.md)和[来源清单](harmony-library-fixtures.json)，区分真实 Icons 消费与其他库的目标契约、空出口。旧专项 N10 的排除判据适用于原 RN 范围；双平台候选改用 HN1 的真实材料与当前判据，旧题和历史运行保留。
 
 记录所用包摘要、代码版本、原始回答、实际读取文件、未取得依据和工具失败。每题只进行题设授权的行为。仅使用套餐内额度，不例行查询，也不因额度未知自行停止。出现额度耗尽或积分提示时做必要核查；无法确认可用套餐额度，或确认需要消耗积分时停止，不调用付费 API 补评测。
 

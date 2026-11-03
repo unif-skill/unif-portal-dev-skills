@@ -1,0 +1,140 @@
+{
+  "formatVersion": 1,
+  "sources": {
+    "icons": {
+      "repository": "https://github.com/unif-design/harmony-icons.git",
+      "directory": "harmony-icons",
+      "commit": "3227e2ef5dcf23ade838a24779fe086107f6e382",
+      "selection": {
+        "paths": [
+          "README.md",
+          "AGENTS.md",
+          "library/oh-package.json5",
+          "library/Index.ets",
+          "docs/API.md",
+          "library/README.md"
+        ],
+        "trees": [
+          {
+            "prefix": "library/src/main/ets/",
+            "suffixes": [
+              ".ets"
+            ]
+          },
+          {
+            "prefix": "example/src/main/ets/",
+            "suffixes": [
+              ".ets"
+            ]
+          }
+        ]
+      },
+      "fileCount": 157,
+      "snapshotSha256": "0a2d613a605c5af7ba84721444ace2bab956806a1e77390d22cf2b1fe4d769bd",
+      "version": "0.5.5"
+    },
+    "design": {
+      "repository": "https://github.com/unif-design/harmony-design.git",
+      "directory": "harmony-design",
+      "commit": "83e9f0149f5e99e86eae2a7e923db45e4ee7c182",
+      "selection": {
+        "paths": [
+          "README.md",
+          "AGENTS.md",
+          "library/oh-package.json5",
+          "library/Index.ts"
+        ],
+        "trees": []
+      },
+      "fileCount": 4,
+      "snapshotSha256": "85ed4caf6ecbdaf69b27a03347da489e3b25c6dc30d607d8ba3bee3ed6a30e5d",
+      "version": "0.0.0"
+    },
+    "chat": {
+      "repository": "https://github.com/unif-design/harmony-chat.git",
+      "directory": "harmony-chat",
+      "commit": "12ea634226f10cc3728a7a1f9558fa3fefe94573",
+      "selection": {
+        "paths": [
+          "README.md",
+          "AGENTS.md",
+          "library/oh-package.json5",
+          "library/Index.ts"
+        ],
+        "trees": []
+      },
+      "fileCount": 4,
+      "snapshotSha256": "80a8d1fb4e44ffe375ddd05df6107e139348da77d5b85ce9b1d3b6986a601282",
+      "version": "0.0.0"
+    },
+    "camera": {
+      "repository": "https://github.com/unif-design/harmony-camera.git",
+      "directory": "harmony-camera",
+      "commit": "5a290983ca0d241d2e8e49b70d832242d4b7b688",
+      "selection": {
+        "paths": [
+          "README.md",
+          "AGENTS.md",
+          "library/oh-package.json5",
+          "library/Index.ts"
+        ],
+        "trees": []
+      },
+      "fileCount": 4,
+      "snapshotSha256": "d157460735bd59427035ecb4717b816426d0938a4f786a189f9fd30540c4bc62",
+      "version": "0.0.0"
+    },
+    "scan": {
+      "repository": "https://github.com/unif-design/harmony-hms-scan.git",
+      "directory": "harmony-hms-scan",
+      "commit": "fc0c7e19d271debd239ec183b3925f676308fe05",
+      "selection": {
+        "paths": [
+          "README.md",
+          "AGENTS.md",
+          "library/oh-package.json5",
+          "library/Index.ts"
+        ],
+        "trees": []
+      },
+      "fileCount": 4,
+      "snapshotSha256": "0d7229b2260c79d3ed291eb25077aea212fbcb6850fdc3b3f95728e111f882ca",
+      "version": "0.0.0"
+    },
+    "umeng": {
+      "repository": "https://github.com/unif-design/harmony-umeng.git",
+      "directory": "harmony-umeng",
+      "commit": "f9447fce35a4c7146630a842a68eb64712263c64",
+      "selection": {
+        "paths": [
+          "README.md",
+          "AGENTS.md",
+          "library/oh-package.json5",
+          "library/Index.ts"
+        ],
+        "trees": []
+      },
+      "fileCount": 4,
+      "snapshotSha256": "831cec59a27ce149ed6806591f877d9fbe56d3a5737293ac68aa7953c758d22e",
+      "version": "0.0.0"
+    },
+    "contracts": {
+      "repository": "https://github.com/unif-design/unif-platform-architecture.git",
+      "directory": "unif-platform-architecture",
+      "commit": "4f9f49dd61d77462720dd21e5bbb74525e3790b3",
+      "selection": {
+        "paths": [
+          "libraries/harmony-icons.md",
+          "libraries/harmony-design.md",
+          "libraries/harmony-chat.md",
+          "libraries/harmony-camera.md",
+          "libraries/harmony-hms-scan.md",
+          "libraries/harmony-umeng.md"
+        ],
+        "trees": []
+      },
+      "fileCount": 6,
+      "snapshotSha256": "5017bb9638e64e76a739533173928f8fcf2f87dc9ac3cfd5d10747a8c6c3802a"
+    }
+  }
+}

@@ -14,16 +14,16 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 跨平台共用 [unif-architecture-design](skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。每个测试和审查技能都携带本阶段需要的规范，独立使用不要求安装开发技能。
 
-库能力技能共 11 个。Logger 同时覆盖 RN 与原生鸿蒙；Icons 的源维护包含两端同源产物，其余库入口对应 RN 包。原生鸿蒙开发、测试与审查按实际任务使用对应阶段技能和原生库资料：
+库能力技能共 11 个。Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 在同一入口内区分 RN 与原生鸿蒙；其余四项当前对应 RN 包。鸿蒙资料按实际库区分公开 API、目标契约与空 HAR，不因技能覆盖而声明功能已实现或已发布；开发、测试与审查仍按实际任务使用对应阶段技能。
 
 | 技能 | 对应包与任务 |
 |---|---|
-| [unif-design](skills/unif-design/SKILL.md) | @unif/react-native-design：基础组件、主题、字体和 UI 宿主 |
-| [unif-chat](skills/unif-chat/SKILL.md) | @unif/react-native-chat：消息、输入、附件和聊天组合 |
-| [unif-camera](skills/unif-camera/SKILL.md) | @unif/react-native-camera：拍照、录像、水印、取消与媒体交接 |
-| [unif-hms-scan](skills/unif-hms-scan/SKILL.md) | @unif/react-native-hms-scan：实时扫码、图片解码、权限和手电 |
-| [unif-umeng](skills/unif-umeng/SKILL.md) | @unif/react-native-umeng：初始化、统计、第三方分享与实例面板 |
-| [unif-icons](skills/unif-icons/SKILL.md) | @unif/react-native-icons：图标消费、SVG 源与生成 |
+| [unif-design](skills/unif-design/SKILL.md) | @unif/react-native-design、@unif/harmony-design：基础组件、主题、字体和 UI 宿主 |
+| [unif-chat](skills/unif-chat/SKILL.md) | @unif/react-native-chat、@unif/harmony-chat：消息、输入、附件和聊天组合 |
+| [unif-camera](skills/unif-camera/SKILL.md) | @unif/react-native-camera、@unif/harmony-camera：拍照、录像、水印、取消与媒体交接 |
+| [unif-hms-scan](skills/unif-hms-scan/SKILL.md) | @unif/react-native-hms-scan、@unif/harmony-hms-scan：实时扫码、图片解码、权限和手电 |
+| [unif-umeng](skills/unif-umeng/SKILL.md) | @unif/react-native-umeng、@unif/harmony-umeng：初始化、统计、第三方分享与实例面板 |
+| [unif-icons](skills/unif-icons/SKILL.md) | @unif/react-native-icons、@unif/harmony-icons：图标消费、SVG 源与生成 |
 | [unif-amap](skills/unif-amap/SKILL.md) | @unif/react-native-amap：地图选点、定位、地点查询与高德唤起 |
 | [unif-files](skills/unif-files/SKILL.md) | @unif/react-native-files：文件操作、下载、生命周期与本地 HTTP 资源 |
 | [unif-logger](skills/unif-logger/SKILL.md) | @unif/react-native-logger、@unif/harmony-logger：结构化日志、身份隔离、诊断快照与共享核心 |
@@ -31,6 +31,8 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 | [unif-speech](skills/unif-speech/SKILL.md) | @unif/react-native-speech：音频采集、临时凭证、实时识别与语音输入 |
 
 原生开发从 unif-harmony-dev 的[鸿蒙适用范围](skills/unif-harmony-dev/references/harmony/scope.md)进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
+
+库能力技能的鸿蒙资料页直接定位所属库和规范源，可独立查询接口或核对目标契约，不要求安装鸿蒙阶段技能。实际入口为空时只说明缺口；有明确开发授权后才进入实现。相关模型题与来源选择见[鸿蒙库覆盖检查](evals/library-skills/harmony-library-cases.md)。
 
 工程调用方式见[接入说明](docs/code-development-integration.md)。本插件按当前任务提供企业规范入口；事实查询不因涉及源码就自动进入工程审查。进入实际工程阶段时取得对应依据，同一上下文已读且仍适用的内容直接复用；通用流程与企业规则用于同一次工作，不另开重复流程，也不强制依赖某个流程插件。
 

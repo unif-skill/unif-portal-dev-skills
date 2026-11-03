@@ -24,6 +24,8 @@ RN 技能只补充 Unif 企业约定，不复制通用 uni-rn-dev；目标工程
 
 包内快照提供通用的 Unif 契约和验收规则；目标工程仍提供实际业务契约、采用版本、代码、命令与验证证据。状态表按本次范围读取，不随技能打包成固定状态。平台正文不把 RN 接口套到 ArkUI，库不套 Portal 业务目录。
 
+Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 的库能力技能按平台选读；RN 使用公开文档与类型，鸿蒙先核对所属 HAR 的真实入口，再区分已实现 API 与目标契约。纯接口查询不因读取源码启动开发，空 HAR 不提供可调用能力，取得规范不授权恢复暂停的实现。
+
 Unif RN 库组织接入使用 unif-code-delivery 随附的非敏感组织资产，复制为工程 `.github/organization.json` 后落实到实际配置。已有 `.github/delivery.json` 和 `.github/scripts/check-delivery.cjs` 时按本库定义检查；CI 只读取工程文件，无需安装技能。该组织资产不用于鸿蒙 HAR 或后端，私钥与令牌保留在平台。
 
 源码修改、同源生成、格式与脚本校验、模型实际消费、安装及真实工程验收分别验证。技能维护不自动授权提交、推送、发布、安装或设备任务。

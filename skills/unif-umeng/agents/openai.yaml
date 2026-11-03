@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif Umeng"
-  short_description: "接入与维护 Unif 初始化、统计、第三方分享及实例面板"
-  default_prompt: "使用 $unif-umeng，按当前采用版本处理本库的接入、维护或排障任务。"
+  short_description: "核对 Unif RN／鸿蒙友盟的隐私初始化、统计及分享契约"
+  default_prompt: "使用 $unif-umeng，先区分 RN 与原生鸿蒙，再按实际版本、实现状态和任务范围取得对应资料。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

@@ -20,6 +20,10 @@ LIBRARIES = {
     'unif-oss': '@unif/react-native-oss',
     'unif-speech': '@unif/react-native-speech',
 }
+HARMONY_LIBRARIES = {
+    f'unif-{name}': f'@unif/harmony-{name}'
+    for name in ('icons', 'design', 'chat', 'camera', 'hms-scan', 'umeng', 'logger')
+}
 
 
 class LibrarySkillDistributionTests(unittest.TestCase):
@@ -35,8 +39,9 @@ class LibrarySkillDistributionTests(unittest.TestCase):
                     (isolated / 'SKILL.md').read_text(encoding='utf-8').split('---', 2)[1]
                 )
                 self.assertEqual(frontmatter['metadata']['package'], package)
-                if name == 'unif-logger':
-                    self.assertEqual(frontmatter['metadata']['harmony_package'], '@unif/harmony-logger')
+                if name in HARMONY_LIBRARIES:
+                    self.assertEqual(frontmatter['metadata']['harmony_package'], HARMONY_LIBRARIES[name])
+                    self.assertTrue((isolated / 'references/harmony.md').is_file())
 
 
 if __name__ == '__main__':
