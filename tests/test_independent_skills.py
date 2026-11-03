@@ -14,6 +14,7 @@ STAGES = ('dev', 'test', 'review')
 EXPECTED_SKILLS = {
     'unif-architecture-design', 'unif-code-delivery',
     'unif-icons', 'unif-design', 'unif-chat', 'unif-camera', 'unif-hms-scan', 'unif-umeng',
+    'unif-amap', 'unif-files', 'unif-logger', 'unif-oss', 'unif-speech',
     *(f'unif-{platform}-{stage}' for platform in PLATFORMS for stage in STAGES),
 }
 

@@ -1,0 +1,238 @@
+{
+  "formatVersion": 1,
+  "sources": {
+    "amap": {
+      "repository": "https://github.com/unif-design/react-native-amap.git",
+      "commit": "3226d95ddd7ce722abc6fc58a975c63ccb8333db",
+      "directory": "react-native-amap",
+      "version": "0.2.1",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json"
+            ]
+          },
+          {
+            "prefix": "website/docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          },
+          {
+            "prefix": "example/",
+            "suffixes": [
+              ".ts",
+              ".tsx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 119,
+      "snapshotSha256": "4800adc2895114b45a025d741d244e3e37d46bf17668b8ffedd52a36909e48ef"
+    },
+    "files": {
+      "repository": "https://github.com/unif-design/react-native-files.git",
+      "commit": "2f4a074d1b8716d21ca291b04bf36c63807baa28",
+      "directory": "react-native-files",
+      "version": "0.2.0",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json"
+            ]
+          },
+          {
+            "prefix": "docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          },
+          {
+            "prefix": "example/",
+            "suffixes": [
+              ".ts",
+              ".tsx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 44,
+      "snapshotSha256": "15525a77bce22e85e28a7c09bd371a06d6ca522f12aef1c45503534b705da158"
+    },
+    "logger": {
+      "repository": "https://github.com/unif-design/react-native-logger.git",
+      "commit": "340e23130d59a791c94e3e81efb96e229df67bcf",
+      "directory": "react-native-logger",
+      "version": "0.2.0",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json"
+            ]
+          },
+          {
+            "prefix": "docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          },
+          {
+            "prefix": "example/",
+            "suffixes": [
+              ".ts",
+              ".tsx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 59,
+      "snapshotSha256": "254cfdf0cf125173dafbc4c6849ee1a85dc31026d35b0838474ce3d749f9e8e5"
+    },
+    "oss": {
+      "repository": "https://github.com/unif-design/react-native-oss.git",
+      "commit": "14277845783969a64e099c36af698a25a00e5dcb",
+      "directory": "react-native-oss",
+      "version": "0.2.0",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json"
+            ]
+          },
+          {
+            "prefix": "docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          },
+          {
+            "prefix": "example/",
+            "suffixes": [
+              ".ts",
+              ".tsx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 37,
+      "snapshotSha256": "fb0ce972f7ad120b06c24f73e0a9485088cbe96d97bd9b57d5a3786e18342fef"
+    },
+    "speech": {
+      "repository": "https://github.com/unif-design/react-native-speech.git",
+      "commit": "b4289ac997d7f74ddc7a92b7c90dc0de340ebe05",
+      "directory": "react-native-speech",
+      "version": "0.3.0",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md"
+        ],
+        "trees": [
+          {
+            "prefix": "src/",
+            "suffixes": [
+              ".ts",
+              ".tsx",
+              ".json"
+            ]
+          },
+          {
+            "prefix": "docs/",
+            "suffixes": [
+              ".md",
+              ".mdx"
+            ]
+          },
+          {
+            "prefix": "example/",
+            "suffixes": [
+              ".ts",
+              ".tsx"
+            ]
+          }
+        ]
+      },
+      "fileCount": 42,
+      "snapshotSha256": "9834b9aba29f4bf56e84d41dca5139a3ea3ba196171b1694267ca1caab829289"
+    },
+    "harmonyLogger": {
+      "repository": "https://github.com/unif-design/harmony-logger.git",
+      "commit": "b09ef6b080925af56427d68a774bdf6e15817244",
+      "directory": "harmony-logger",
+      "version": "0.1.3",
+      "selection": {
+        "paths": [
+          "README.md",
+          "package.json",
+          "docs/DEVELOPMENT.md",
+          "logger-source.json",
+          "library/oh-package.json5",
+          "library/Index.ts",
+          "library/Files.ts",
+          "library/README.md",
+          "library/FORMAT.md",
+          "scripts/sync-core.cjs",
+          "scripts/verify-har-consumer.py"
+        ],
+        "trees": [
+          {
+            "prefix": "library/src/main/ts/",
+            "suffixes": [
+              ".ts"
+            ]
+          },
+          {
+            "prefix": "example/src/",
+            "suffixes": [
+              ".ts",
+              ".ets"
+            ]
+          }
+        ]
+      },
+      "fileCount": 70,
+      "snapshotSha256": "df957493e705d790fcf9cacbd0acd62c23d4c7693420268699dd4840099f9b2b"
+    }
+  }
+}

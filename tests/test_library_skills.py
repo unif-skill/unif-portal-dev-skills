@@ -14,6 +14,11 @@ LIBRARIES = {
     'unif-hms-scan': '@unif/react-native-hms-scan',
     'unif-umeng': '@unif/react-native-umeng',
     'unif-icons': '@unif/react-native-icons',
+    'unif-amap': '@unif/react-native-amap',
+    'unif-files': '@unif/react-native-files',
+    'unif-logger': '@unif/react-native-logger',
+    'unif-oss': '@unif/react-native-oss',
+    'unif-speech': '@unif/react-native-speech',
 }
 
 
@@ -30,6 +35,8 @@ class LibrarySkillDistributionTests(unittest.TestCase):
                     (isolated / 'SKILL.md').read_text(encoding='utf-8').split('---', 2)[1]
                 )
                 self.assertEqual(frontmatter['metadata']['package'], package)
+                if name == 'unif-logger':
+                    self.assertEqual(frontmatter['metadata']['harmony_package'], '@unif/harmony-logger')
 
 
 if __name__ == '__main__':

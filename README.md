@@ -14,7 +14,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 跨平台共用 [unif-architecture-design](skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。每个测试和审查技能都携带本阶段需要的规范，独立使用不要求安装开发技能。
 
-库能力技能（当前六个入口只对应 RN 包；原生鸿蒙使用 unif-harmony-dev、unif-harmony-test、unif-harmony-review 及实际原生库文档）：
+库能力技能共 11 个。Logger 同时覆盖 RN 与原生鸿蒙；Icons 的源维护包含两端同源产物，其余库入口对应 RN 包。原生鸿蒙开发、测试与审查按实际任务使用对应阶段技能和原生库资料：
 
 | 技能 | 对应包与任务 |
 |---|---|
@@ -24,6 +24,11 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 | [unif-hms-scan](skills/unif-hms-scan/SKILL.md) | @unif/react-native-hms-scan：实时扫码、图片解码、权限和手电 |
 | [unif-umeng](skills/unif-umeng/SKILL.md) | @unif/react-native-umeng：初始化、统计、第三方分享与实例面板 |
 | [unif-icons](skills/unif-icons/SKILL.md) | @unif/react-native-icons：图标消费、SVG 源与生成 |
+| [unif-amap](skills/unif-amap/SKILL.md) | @unif/react-native-amap：地图选点、定位、地点查询与高德唤起 |
+| [unif-files](skills/unif-files/SKILL.md) | @unif/react-native-files：文件操作、下载、生命周期与本地 HTTP 资源 |
+| [unif-logger](skills/unif-logger/SKILL.md) | @unif/react-native-logger、@unif/harmony-logger：结构化日志、身份隔离、诊断快照与共享核心 |
+| [unif-oss](skills/unif-oss/SKILL.md) | @unif/react-native-oss：临时凭证、上传、转存与源文件释放 |
+| [unif-speech](skills/unif-speech/SKILL.md) | @unif/react-native-speech：音频采集、临时凭证、实时识别与语音输入 |
 
 原生开发从 unif-harmony-dev 的[鸿蒙适用范围](skills/unif-harmony-dev/references/harmony/scope.md)进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
 
@@ -33,7 +38,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
-全部 17 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时也可使用兼容插件入口。
+全部 22 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时也可使用兼容插件入口。
 
 原 `code-development`、`code-testing`、`code-review` 已移除，按目标平台迁移到上表入口；更早的 `portal-development` 同样迁移至 `unif-rn-dev`。iOS 与 Android 仍由 RN 技能按实际影响选读，不再拆出平台技能。更新独立安装时替换原目录，避免旧入口继续被扫描；历史设计和冻结评测保留原名称与输入。
 
@@ -174,7 +179,7 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。鸿蒙开发、测试与审查的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖实际任务和平台／阶段排除场景。
 - RN 与 Python 六个阶段技能的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)分别说明独立消费、阶段选择及排除边界。
 - 架构、交付及六库能力的[九题独立行为组](evals/independent-skills/capability-behavior-cases.md)、[23 项自动触发场景](evals/independent-skills/capability-trigger-cases.md)与[专项判据](evals/independent-skills/capability-rubric.md)覆盖资料应用、组合与排除边界；库材料按固定 Git 修订和摘要组装，不复制 API 正文或原始运行日志。
-- 全部 17 技能的完整目录隔离分发、主题溯源及组织资产由脚本测试验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
+- 全部 22 个技能的完整目录隔离分发、主题溯源及组织资产由脚本测试验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。新增 AMap、Files、Logger、OSS、Speech 与鸿蒙 Logger 的定向题见[新增库案例](evals/library-skills/additional-library-cases.md)，不改写原六库的冻结输入。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
 
 本地复现 CI（Python 3.12）：
 

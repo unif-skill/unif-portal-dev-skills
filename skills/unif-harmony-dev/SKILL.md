@@ -38,6 +38,8 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 这些规范定义 Unif 目标行为和验收，不证明已有原生包或导出。具体 API 从当前原生库公开源码、文档及目标 SDK 取得；没有出口时明确待实现，不把 RN 示例改包名充当 ArkUI 用法。提供方与协议采用按原生接入专题执行，平台示例不改变项目选型。
 
+原生 Logger 的现有 API、`Files` 入口与 HAR 消费见 [harmony-logger 包文档](https://github.com/unif-design/harmony-logger/blob/main/library/README.md)。维护共享核心时核对该库 logger-source.json 的固定 RN 修订及生成器；采用版本、OHPM 发布和实际设备证据分别确认。已安装 unif-logger 时可按任务读取其鸿蒙资料，不是本技能的前置依赖。
+
 应用按业务职责组合，HAR 按自身能力组织。比较 RN 行为可读取对应资料，但不能据此调用 RN API。共同功能按同一契约与案例核对两端真实消费者，源修订、产物及运行证据分别登记。
 
 公共名称、输入输出、取消和业务成功按[交接契约](references/common/contracts.md)及所属模块契约核对。需要实质调整职责、调用或状态归属时先取得相应设计依据；按已有契约实现、排查或整理时不重启设计。实际业务契约缺失只限制依赖该缺口的工作。

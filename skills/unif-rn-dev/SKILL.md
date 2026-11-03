@@ -46,6 +46,11 @@ React Native 的 Portal 项目约定：
 | 实时扫码、图片识别和手电 | [HMS Scan](https://unif-design.github.io/react-native-hms-scan/llms.txt) |
 | 初始化、统计与第三方分享 | [Umeng](https://unif-design.github.io/react-native-umeng/llms.txt) |
 | 图标消费、SVG 源与生成 | [Icons](https://unif-design.github.io/react-native-icons/llms.txt) |
+| 地图选点、定位、地点查询与高德唤起 | [AMap](https://unif-design.github.io/react-native-amap/llms.txt) |
+| 文件操作、下载、生命周期与本地资源 | [Files](https://unif-design.github.io/react-native-files/llms.txt) |
+| 结构化日志、身份隔离与诊断快照 | [Logger](https://unif-design.github.io/react-native-logger/llms.txt) |
+| 临时凭证、上传、转存与源文件释放 | [OSS](https://unif-design.github.io/react-native-oss/llms.txt) |
+| 音频采集、实时识别与语音输入 | [Speech](https://unif-design.github.io/react-native-speech/llms.txt) |
 
 这些入口对应 RN 包，不声明原生鸿蒙支持；官网版本与当前依赖不一致时，改用本库对应修订的文档与公开类型。组合任务只取得实际涉及的能力；已安装的库能力技能可辅助定位，不是前置依赖。
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif Speech"
+  short_description: "接入与维护 Unif 音频采集、实时识别及语音输入生命周期"
+  default_prompt: "使用 $unif-speech，按当前采用版本处理本库的接入、维护或排障任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
