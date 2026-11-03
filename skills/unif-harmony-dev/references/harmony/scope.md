@@ -9,7 +9,7 @@
 
 Unif 原生产品目标为 HarmonyOS 7.0.0／API 26；新目标、最低版本变化或切换 RNOH 须来自明确任务。业务登录继续使用既有账号、角色与设备校验，开发工具的华为账号不替代业务身份。
 
-六库对应关系为 `react-native-icons/design/chat/camera/hms-scan/umeng` 与同后缀的 `harmony-*`。这是 Unif 建设范围，不代表原生包、导出或版本已经存在。RN 契约提供行为与资源对照，具体原生能力以所属库当前公开资料为准。
+本文“六库”指 `react-native-icons/design/chat/camera/hms-scan/umeng` 与同后缀的 `harmony-*`，用于界定下述规范范围，不是全部 Unif 原生库的清单。其他库入口见库索引（规范源相对路径：`libraries/README.md#原生鸿蒙库`），其中 Harmony Logger 按自身公开契约与固定 RN 来源维护。六库规范不代表原生包、导出或版本已经存在；RN 契约提供行为与资源对照，具体原生能力以所属库当前公开资料为准。
 
 | 本次对象 | Unif 采用依据 |
 |---|---|
