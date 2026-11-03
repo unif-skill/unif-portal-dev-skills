@@ -60,13 +60,13 @@
     },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "2cf83b8e5141fb02a7de37aa0920985a98de74a08b9acb12790d979101be9e0e",
+      "sha256": "53e8efc799cff942b35dcd598c0bff9dde64d729c19221e0c3e26d7608135b64",
       "lines": 70
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "c6d094b457080ca4b4b5f4a7c1a01c765b9f96d4d4e0d9bcb664b53848728f1c",
-      "lines": 191
+      "sha256": "bea75c0930c5ddce8bc93487af458b448c38499f4a6384fabe449e9f74ac4440",
+      "lines": 211
     }
   },
   "files": {
@@ -204,7 +204,7 @@
           ]
         }
       ],
-      "sha256": "258ea2c3dbc76ad9738cb75d92ee88bdb139ed2fcc25ea2742ee44926061dedc"
+      "sha256": "811332b7603c7bced70fcac6bc380862d10fcec008343caed2688672b64f58f0"
     },
     "rn/testing.md": {
       "sections": [
@@ -220,8 +220,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            172,
-            191
+            192,
+            211
           ]
         }
       ],
@@ -242,11 +242,11 @@
           "heading": "1. 目标目录",
           "lines": [
             9,
-            95
+            101
           ]
         }
       ],
-      "sha256": "70543c55c3ac88f0ef85fec5e502d53ce359874faf6bb53384c7cec64da9a625"
+      "sha256": "4846244cae806471ee77d19dc3e796e6bd455ab5e958e4d80fbc39d93c73ba68"
     },
     "rn/ui.md": {
       "sections": [
@@ -254,8 +254,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "2. 基础组件与 UI 复用",
           "lines": [
-            96,
-            141
+            102,
+            147
           ]
         }
       ],
@@ -267,8 +267,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "3. 工具、常量、类型及其他文件的归属",
           "lines": [
-            142,
-            157
+            148,
+            163
           ]
         }
       ],
@@ -280,20 +280,20 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "4. 公共入口与依赖方向",
           "lines": [
-            158,
-            165
+            164,
+            185
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            166,
-            171
+            186,
+            191
           ]
         }
       ],
-      "sha256": "9a0aec4ecdc7455219999439383a0f2509235ad931234787e06de8ce5e03da17"
+      "sha256": "b8993985be50df26a38ef052a0940d2047794798d05242c33678910ccbe69e5d"
     }
   }
 }

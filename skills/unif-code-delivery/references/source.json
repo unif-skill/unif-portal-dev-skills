@@ -25,7 +25,7 @@
     },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "2cf83b8e5141fb02a7de37aa0920985a98de74a08b9acb12790d979101be9e0e",
+      "sha256": "53e8efc799cff942b35dcd598c0bff9dde64d729c19221e0c3e26d7608135b64",
       "lines": 70,
       "selectedSections": [
         {
@@ -39,14 +39,14 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "c6d094b457080ca4b4b5f4a7c1a01c765b9f96d4d4e0d9bcb664b53848728f1c",
-      "lines": 191,
+      "sha256": "bea75c0930c5ddce8bc93487af458b448c38499f4a6384fabe449e9f74ac4440",
+      "lines": 211,
       "selectedSections": [
         {
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            172,
-            191
+            192,
+            211
           ]
         }
       ]
@@ -121,8 +121,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            172,
-            191
+            192,
+            211
           ]
         }
       ],
