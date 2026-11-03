@@ -37,6 +37,11 @@ on:
         type: choice
         options: [auto, smoke, full]
         default: auto
+      scope:
+        description: '评测范围；affected 仅受影响题目，all 显式全题库'
+        type: choice
+        options: [affected, all]
+        default: affected
       base_ref:
         description: '基线 Git ref 或 SHA；留空使用 HEAD^，不可解析时报告证据不足'
         type: string
@@ -82,6 +87,7 @@ jobs:
           EVAL_PUSH_BASE: ${{ github.event.before }}
           EVAL_INPUT_BASE: ${{ inputs.base_ref }}
           EVAL_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          EVAL_SCOPE: ${{ inputs.scope || 'affected' }}
           EVAL_MODE: ${{ inputs.mode || 'auto' }}
         run: |
           if [ "$EVAL_EVENT" = pull_request ]; then
@@ -94,7 +100,7 @@ jobs:
           eval_exit_code=0
           python scripts/behavior_eval.py plan --repo . \
             --base="$eval_base" --head="$EVAL_HEAD" \
-            --mode="$EVAL_MODE" --event="$EVAL_EVENT" --output eval-plan.json || eval_exit_code=$?
+            --scope="$EVAL_SCOPE" --mode="$EVAL_MODE" --event="$EVAL_EVENT" --output eval-plan.json || eval_exit_code=$?
           printf 'exit_code=%s\n' "$eval_exit_code" >> "$GITHUB_OUTPUT"
           exit "$eval_exit_code"
       - name: Compare baseline and candidate behavior

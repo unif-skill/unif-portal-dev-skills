@@ -68,10 +68,10 @@ class RepositoryTests(unittest.TestCase):
         return subprocess.run([sys.executable, str(SCRIPT), *args], cwd=self.root,
                               env={} if env is None else env, capture_output=True, text=True)
 
-    def plan(self, mode='auto', event='pull_request'):
+    def plan(self, mode='auto', event='pull_request', scope='affected'):
         target = self.root / 'plan.json'
         result = self.cli('plan', '--repo', str(self.root), '--base', self.base,
-                          '--head', 'HEAD', '--mode', mode, '--event', event,
+                          '--head', 'HEAD', '--mode', mode, '--event', event, '--scope', scope,
                           '--output', str(target))
         self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
         return json.loads(target.read_text())
@@ -135,33 +135,79 @@ class RepositoryTests(unittest.TestCase):
         self.assertEqual(plan['case_ids'], [])
         self.assertTrue(plan['skip_reason'])
 
-    def test_distribution_changes_select_full_suite_in_smoke_mode(self):
-        paths = ('plugins/sample/plugin.json', 'scripts/sync_plugins.py',
-                 '.agents/plugins/marketplace.json')
-        for index, path in enumerate(paths):
-            with self.subTest(path=path):
-                self.base = self.git('rev-parse', 'HEAD')
-                self.write(path, 'distribution change')
-                self.commit('fix: distribution ' + str(index))
-                plan = self.plan()
-                self.assertEqual(plan['mode'], 'smoke')
-                self.assertEqual(set(plan['case_ids']), {case['id'] for case in self.cases})
+    def test_generated_copy_and_root_select_same_skill(self):
+        self.write('plugins/one/skills/sample/SKILL.md', (self.root / 'skills/sample/SKILL.md').read_text())
+        self.write('skills/sample/references/details.md', 'changed')
+        self.commit('fix: sample')
+        self.assertEqual(self.plan()['case_ids'], [c['id'] for c in self.cases[:3]])
 
-    def test_push_feat_anywhere_in_range_selects_full_suite(self):
+    def test_package_metadata_only_selects_package(self):
+        self.write('plugins/one/skills/sample/SKILL.md', 'body')
+        self.write('plugins/one/plugin.json', '{"version":"0.1.0","name":"one"}')
+        self.base = self.commit('chore: package')
+        self.write('plugins/one/plugin.json', '{"version":"0.1.0","name":"new"}')
+        self.commit('fix: metadata')
+        self.assertEqual(len(self.plan()['case_ids']), 3)
+
+    def test_discovery_association_requires_metadata_change(self):
+        self.cases[4]['required_skills'].append('sample')
+        self.cases[3]['required_skills'].append('sample')
+        self.write_suite()
+        self.base = self.commit('chore: association')
+        original = (self.root / 'skills/sample/SKILL.md').read_text()
+        self.write('skills/sample/SKILL.md', original + 'Body change')
+        self.commit('fix: body')
+        self.assertEqual(len(self.plan()['case_ids']), 3)
+        self.write('skills/sample/SKILL.md', original.replace('Use for sample.', 'Use when selected.'))
+        self.commit('fix: description')
+        self.assertEqual(set(self.plan()['case_ids']), {c['id'] for c in self.cases[:3]} | {self.cases[4]['id']})
+
+    def test_marketplace_local_change_selects_its_members(self):
+        for package, skill in (('one', 'sample'), ('two', 'second')):
+            self.write(f'plugins/{package}/skills/{skill}/SKILL.md',
+                       (self.root / f'skills/{skill}/SKILL.md').read_text())
+        market = {'plugins': [{'name': name, 'source': {'source': 'local', 'path': './plugins/' + name}}
+                              for name in ('one', 'two')]}
+        self.write('.agents/plugins/marketplace.json', json.dumps(market))
+        self.base = self.commit('chore: packages')
+        market['plugins'][0]['category'] = 'Productivity'
+        self.write('.agents/plugins/marketplace.json', json.dumps(market))
+        self.commit('fix: package listing')
+        self.assertEqual(len(self.plan()['case_ids']), 3)
+
+    def test_all_manifests_version_only_and_provenance_skip(self):
+        for index in range(5):
+            self.write(f'plugins/p{index}/plugin.json', '{"version":"0.1.0"}')
+        self.write('skills/sample/references/source.json', '{"sha256":"old","lines":[1,2],"source":"x"}')
+        self.base = self.commit('chore: baseline manifests')
+        for index in range(5):
+            self.write(f'plugins/p{index}/plugin.json', '{"version":"0.1.1"}')
+        self.write('plugin.json', '{"name":"example","version":"0.1.1"}')
+        self.write('skills/sample/references/source.json', '{"sha256":"new","lines":[3,4],"source":"x"}')
+        self.commit('chore: versions and provenance')
+        self.assertEqual(self.plan()['case_ids'], [])
+
+    def test_one_case_change_selects_only_that_case(self):
+        self.cases[0]['prompt'] += ' Extra.'
+        self.write_suite()
+        self.commit('fix: case')
+        self.assertEqual(self.plan()['case_ids'], [self.cases[0]['id']])
+
+    def test_push_feat_selects_full_repeats_with_affected_scope(self):
         self.write('skills/sample/references/details.md', 'New instructions')
         self.commit('feat(sample): new instruction')
         self.write('README.md', 'Final commit is not feat')
         self.commit('docs: explain')
         plan = self.plan(event='push')
         self.assertEqual((plan['mode'], plan['repeats']), ('full', 10))
-        self.assertEqual(len(plan['case_ids']), 6)
+        self.assertEqual(len(plan['case_ids']), 3)
 
     def test_minor_manifest_bump_selects_full_on_push_but_smoke_on_pr(self):
         self.write('plugin.json', json.dumps({'name': 'example', 'version': '0.2.0'}))
         self.commit('chore: release candidate')
         self.assertEqual(self.plan(event='push')['mode'], 'full')
         self.assertEqual(self.plan(event='pull_request')['mode'], 'smoke')
-        self.assertEqual(len(self.plan(event='pull_request')['case_ids']), 6)
+        self.assertEqual(self.plan(event='pull_request')['case_ids'], [])
 
     def test_invalid_baseline_still_writes_plan_and_insufficient_run_artifact(self):
         target = self.root / 'invalid-plan.json'
@@ -190,7 +236,7 @@ class RepositoryTests(unittest.TestCase):
         self.assertTrue(json.loads(target.read_text())['plan_error'])
 
     def test_eval_or_runner_or_workflow_change_selects_all_smoke_cases(self):
-        for filename in ('evals/legacy.md', 'scripts/behavior_eval.py', '.github/workflows/eval.yml'):
+        for filename in ('scripts/behavior_eval.py', '.github/workflows/behavior-eval.yml'):
             with self.subTest(filename=filename):
                 self.write(filename, 'changed')
                 self.commit('chore: evaluation')
@@ -199,11 +245,69 @@ class RepositoryTests(unittest.TestCase):
 
     def test_explicit_modes_evaluate_all_cases_without_changes(self):
         for mode, repeats in (('smoke', 1), ('full', 10)):
-            plan = self.plan(mode=mode, event='workflow_dispatch')
+            plan = self.plan(mode=mode, event='workflow_dispatch', scope='all')
             self.assertEqual((len(plan['case_ids']), plan['repeats']), (6, repeats))
 
+    def test_full_mode_does_not_expand_scope(self):
+        self.assertEqual(self.plan(mode='full')['case_ids'], [])
+
+    def test_unrelated_generators_and_history_skip(self):
+        for path in ('scripts/sync_plugins.py', 'evals/history.md', '.github/workflows/ci.yml'):
+            self.write(path, 'change')
+        self.commit('chore: maintenance')
+        self.assertEqual(self.plan()['case_ids'], [])
+
+    def test_unselected_skills_do_not_invalidate_selected_results(self):
+        plan = self.plan(mode='full', scope='all')
+        plan['case_ids'] = ['sample-application']
+        with patch.dict(os.environ, dict(ENV, SKILL_EVAL_MAX_WORKERS='1'), clear=True), patch(
+                'urllib.request.urlopen', side_effect=fake_http(application_responses(True, True), [])):
+            self.assertEqual(evaluator.run_plan(plan, self.root / 'selected'), 0)
+        report = json.loads((self.root / 'selected/summary.json').read_text())
+        self.assertEqual(report['status'], 'unchanged')
+        self.assertEqual(report['skills']['second']['status'], 'skipped')
+        self.assertEqual(report['skills']['sample']['selected_cases'], 1)
+        self.assertEqual(report['skills']['sample']['total_cases'], 3)
+
+    def test_referenced_source_selects_cases_but_inline_fixture_paths_are_not_dependencies(self):
+        self.write('evals/existing.md', 'Source change')
+        self.commit('fix: source')
+        self.assertEqual(len(self.plan()['case_ids']), 6)
+        self.base = self.git('rev-parse', 'HEAD')
+        self.cases[0]['fixtures'] = {'sample.txt': 'Example'}
+        self.write_suite()
+        self.base = self.commit('chore: fixture mapping')
+        self.write('sample.txt', 'Fixture change')
+        self.commit('fix: fixture')
+        self.assertEqual(self.plan()['case_ids'], [])
+
+    def test_marketplace_rejects_traversal_and_symlink(self):
+        self.write('.agents/plugins/marketplace.json', json.dumps({'plugins': [
+            {'name': 'one', 'source': {'source': 'local', 'path': './plugins/../outside'}}]}))
+        self.commit('fix: invalid mapping')
+        with self.assertRaises(evaluator.EvalError):
+            evaluator.create_plan(self.root, self.base, 'HEAD', 'smoke', 'push')
+        (self.root / 'plugins').mkdir(exist_ok=True)
+        (self.root / 'plugins/one').symlink_to('/etc')
+        self.write('.agents/plugins/marketplace.json', json.dumps({'plugins': [
+            {'name': 'one', 'source': {'source': 'local', 'path': './plugins/one'}}]}))
+        self.commit('fix: symlink mapping')
+        with self.assertRaises(evaluator.EvalError):
+            evaluator.create_plan(self.root, self.base, 'HEAD', 'smoke', 'push')
+
+    def test_invalid_marketplace_source_writes_plan_error(self):
+        self.write('.agents/plugins/marketplace.json', json.dumps({'plugins': [
+            {'name': 'bad', 'source': 'invalid'}]}))
+        self.commit('fix: malformed market')
+        target = self.root / 'bad-market.json'
+        result = self.cli('plan', '--base', self.base, '--head', 'HEAD',
+                          '--event', 'push', '--output', str(target))
+        self.assertEqual(result.returncode, 2)
+        self.assertTrue(json.loads(target.read_text())['plan_error'])
+        self.assertNotIn('Traceback', result.stderr)
+
     def test_missing_configuration_writes_insufficient_report_without_network(self):
-        self.plan(mode='full', event='workflow_dispatch')
+        self.plan(mode='full', event='workflow_dispatch', scope='all')
         result = self.cli('run', '--plan', str(self.root / 'plan.json'),
                           '--output-dir', str(self.root / 'artifacts'))
         self.assertEqual(result.returncode, 2)
@@ -220,7 +324,7 @@ class RepositoryTests(unittest.TestCase):
                    '---\nname: sample\ndescription: Use for sample.\n---\nCandidate instructions\n')
         self.write_suite()
         self.commit('fix: sample instructions')
-        return self.plan(mode='full', event='workflow_dispatch')
+        return self.plan(mode='full', event='workflow_dispatch', scope='all')
 
     def test_full_run_alternates_order_keeps_failures_and_writes_provenance(self):
         plan = self.prepare_single_skill()
@@ -297,7 +401,7 @@ class RepositoryTests(unittest.TestCase):
         self.assertEqual(len(report['cases'][0]['failures']), 20)
 
     def test_cases_run_concurrently_with_at_most_three_in_flight_requests(self):
-        plan = self.plan(mode='smoke', event='workflow_dispatch')
+        plan = self.plan(mode='smoke', event='workflow_dispatch', scope='all')
         barrier, lock = threading.Barrier(3), threading.Lock()
         active = peak = first = 0
 
@@ -359,10 +463,10 @@ class RepositoryTests(unittest.TestCase):
                 env = dict(ENV, SKILL_EVAL_MAX_WORKERS='1', SKILL_EVAL_MAX_REQUESTS='60')
                 with patch.dict(os.environ, env, clear=True), patch('urllib.request.urlopen',
                         side_effect=fake_http(application_responses(True, False), requests)):
-                    self.assertEqual(evaluator.run_plan(plan, destination), 2)
+                    self.assertEqual(evaluator.run_plan(plan, destination), 1 if partial_selection else 2)
                 report = json.loads((destination / 'summary.json').read_text())
-                self.assertEqual(report['status'], 'insufficient')
-                self.assertEqual(report['skills']['sample']['status'], 'insufficient')
+                self.assertEqual(report['status'], 'regressed' if partial_selection else 'insufficient')
+                self.assertEqual(report['skills']['sample']['status'], 'regressed' if partial_selection else 'insufficient')
                 self.assertEqual(report['cases'][0]['status'], 'regressed')
                 self.assertEqual(report['cases'][0]['completed_pairs'], 10)
                 self.assertEqual(len(requests), 60)

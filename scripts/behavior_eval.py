@@ -169,7 +169,121 @@ def validate(root):
     return parse_suite((root / SUITE_PATH).read_bytes(), skills)
 
 
-def create_plan(repo, base, head, mode, event):
+def optional_json(snapshot, path):
+    return json.loads(snapshot.read(path)) if path in snapshot.entries else None
+
+
+def provenance_content(value):
+    """Ignore only recorded digests and source line positions, retaining actual mappings."""
+    if isinstance(value, dict):
+        return {key: provenance_content(item) for key, item in value.items()
+                if key not in ('sha256', 'lines')}
+    if isinstance(value, list):
+        return [provenance_content(item) for item in value]
+    return value
+
+
+def package_skills(snapshot, prefix):
+    if prefix:
+        safe_path(prefix)
+    if prefix and prefix in snapshot.entries:
+        snapshot.read(prefix)
+        raise EvalError('插件路径必须为目录：' + prefix)
+    directory = prefix + '/skills/' if prefix else 'skills/'
+    names = set()
+    for path in snapshot.entries:
+        if path.startswith(directory) and path.endswith('/SKILL.md'):
+            relative = path[len(directory):]
+            if re.fullmatch(r'[a-z0-9][a-z0-9-]*/SKILL\.md', relative):
+                snapshot.read(path)  # Reject symlink skill entrypoints.
+                names.add(relative.split('/')[0])
+    return names
+
+
+def marketplace_entries(snapshot):
+    market = optional_json(snapshot, '.agents/plugins/marketplace.json')
+    if market is None:
+        return {}
+    if not isinstance(market, dict) or not isinstance(market.get('plugins'), list):
+        raise EvalError('marketplace plugins 必须为数组')
+    result = {}
+    for item in market['plugins']:
+        if not isinstance(item, dict) or not isinstance(item.get('name'), str):
+            raise EvalError('marketplace 插件必须具有名称')
+        name = item['name']
+        if name in result:
+            raise EvalError('marketplace 插件名重复')
+        source = item.get('source', {})
+        path = source.get('path', '') if isinstance(source, dict) else ''
+        if (not isinstance(source, dict) or source.get('source') != 'local'
+                or not isinstance(path, str) or not path.startswith('./')):
+            raise EvalError('评测仅支持仓内 local marketplace 路径')
+        prefix = path[2:].rstrip('/')
+        if prefix:
+            safe_path(prefix)
+        result[name] = (item, package_skills(snapshot, prefix))
+    return result
+
+
+def affected_cases(before, after, cases, changed):
+    skills, discovery_skills, identifiers, reasons = set(), set(), set(), []
+    global_paths = {'scripts/behavior_eval.py', 'tests/test_behavior_eval.py',
+                    '.github/workflows/behavior-eval.yml'}
+    if global_paths.intersection(changed):
+        return {case['id'] for case in cases}, ['共享评测器或评测工作流变更']
+    for path in changed:
+        match = re.fullmatch(r'(?:plugins/[^/]+/)?skills/([^/]+)/(.+)', path)
+        if match:
+            if match[2] == 'references/source.json':
+                old, new = (provenance_content(optional_json(snapshot, path))
+                            for snapshot in (before, after))
+                if old == new:
+                    continue
+            skills.add(match[1])
+            if match[2] == 'SKILL.md':
+                metadata = [skill_metadata(snapshot.read(path).decode(), match[1])
+                            if path in snapshot.entries else None for snapshot in (before, after)]
+                if metadata[0] != metadata[1]:
+                    discovery_skills.add(match[1])
+            reasons.append('技能内容：' + match[1])
+        if path == 'plugin.json' or re.fullmatch(r'plugins/[^/]+/plugin\.json', path):
+            manifests = [optional_json(snapshot, path) for snapshot in (before, after)]
+            if any(item is not None and not isinstance(item, dict) for item in manifests):
+                raise EvalError('plugin.json 必须是对象')
+            normalized = [{key: value for key, value in item.items() if key != 'version'}
+                          if item is not None else None for item in manifests]
+            if normalized[0] != normalized[1]:
+                prefix = path.rsplit('/', 1)[0] if '/' in path else ''
+                for snapshot in (before, after):
+                    members = package_skills(snapshot, prefix)
+                    skills.update(members)
+                    discovery_skills.update(members)
+                reasons.append('插件元数据：' + path)
+    if '.agents/plugins/marketplace.json' in changed:
+        old, new = marketplace_entries(before), marketplace_entries(after)
+        for name in old.keys() | new.keys():
+            if old.get(name) != new.get(name):
+                for entries in (old, new):
+                    members = entries.get(name, ({}, set()))[1]
+                    skills.update(members)
+                    discovery_skills.update(members)
+                reasons.append('市场映射：' + name)
+    old_cases = {case['id']: case for case in parse_suite(
+        before.read(SUITE_PATH, MAX_SUITE_BYTES), before.skill_names())}
+    for case in cases:
+        associated = {case['skill'], *case['required_skills'], *case['forbidden_skills']}
+        source = case['source'].split('#', 1)[0]
+        if (case['skill'] in skills
+                or (case['mode'] != 'application' and discovery_skills.intersection(associated))
+                or old_cases.get(case['id']) != case
+                or source in changed):
+            identifiers.add(case['id'])
+            if not skills.intersection(associated):
+                reasons.append('题目或来源：' + case['id'])
+    return identifiers, sorted(set(reasons))
+
+
+def create_plan(repo, base, head, mode, event, scope='affected'):
     before, after = Snapshot(repo, base), Snapshot(repo, head)
     raw = after.read(SUITE_PATH, MAX_SUITE_BYTES)
     cases = parse_suite(raw, after.skill_names())
@@ -191,16 +305,16 @@ def create_plan(repo, base, head, mode, event):
                 versions.append(tuple(map(int, value.split('.'))))
             release = versions[1][:2] > versions[0][:2]
         selected_mode = 'full' if event != 'pull_request' and (feature or release) else 'smoke'
-    all_cases = mode != 'auto' or selected_mode == 'full' or any(
-        path.startswith(('evals/', '.github/workflows/', 'plugins/')) or path in (
-            'scripts/behavior_eval.py', 'tests/test_behavior_eval.py', 'scripts/sync_evaluation_tools.py',
-            'tests/test_sync_evaluation_tools.py', 'scripts/evaluation-tools.json', 'plugin.json',
-            'scripts/sync_plugins.py', '.agents/plugins/marketplace.json') for path in changed)
-    changed_skills = {path.split('/')[1] for path in changed if path.startswith('skills/') and len(path.split('/')) > 2}
-    selected = [case['id'] for case in cases if all_cases or changed_skills.intersection(
-        [case['skill'], *case['required_skills'], *case['forbidden_skills']])]
+    if scope not in ('affected', 'all'):
+        raise EvalError('评测范围必须为 affected 或 all')
+    identifiers, reasons = affected_cases(before, after, cases, changed)
+    if scope == 'all':
+        identifiers = {case['id'] for case in cases}
+        reasons = ['显式选择全题库']
+    selected = [case['id'] for case in cases if case['id'] in identifiers]
     plan = {'formatVersion': 1, 'repo': str(after.repo), 'base': before.commit, 'head': after.commit,
-            'mode': selected_mode, 'event': event, 'case_ids': selected,
+            'mode': selected_mode, 'scope': scope, 'selection_reasons': reasons,
+            'event': event, 'case_ids': selected,
             'repeats': 10 if selected_mode == 'full' else 1, 'suite_sha256': digest(raw)}
     if not selected:
         plan['skip_reason'] = '固定提交范围没有相关技能或评测变更'
@@ -604,11 +718,12 @@ def write_report(output_dir, report):
         lines += [f"运行设置：{encode(report['config'])}"]
     if isinstance(report.get('plan'), dict):
         plan = report['plan']
-        lines += [f"基线：{plan.get('base')}；候选：{plan.get('head')}；题库 SHA-256：{plan.get('suite_sha256')}"]
+        lines += [f"范围：{plan.get('scope', 'affected')}；选题：{len(plan.get('case_ids', []))}；依据：{encode(plan.get('selection_reasons', []))}",
+                  '未选题目与技能未评测；结论仅汇总本次选中结果。', f"基线：{plan.get('base')}；候选：{plan.get('head')}；题库 SHA-256：{plan.get('suite_sha256')}"]
     if report.get('skills'):
         lines += ['', '| 技能 | 结论 | 本次题数 / 全部题数 |', '|---|---|---|']
         for name, item in report['skills'].items():
-            lines.append(f"| {name} | {LABELS[item['status']]} | {item['selected_cases']} / {item['total_cases']} |")
+            lines.append(f"| {name} | {('未评测' if item['status'] == 'skipped' else LABELS[item['status']])} | {item['selected_cases']} / {item['total_cases']} |")
     if report.get('cases'):
         lines += ['', '| 题目 | 结论 | 完成配对 | 观察上升 / 下降 |', '|---|---|---|---|']
         for case in report['cases']:
@@ -716,6 +831,9 @@ def run_plan(plan, output_dir):
     try:
         snapshots, all_cases = load_plan(plan)
         if not plan['case_ids']:
+            report['skills'] = {skill: {'status': 'skipped', 'selected_cases': 0,
+                'total_cases': sum(case['skill'] == skill for case in all_cases)}
+                for skill in sorted({case['skill'] for case in all_cases})}
             report.update(status='skipped', reason=plan['skip_reason'])
             write_report(output_dir, report)
             return 0
@@ -758,11 +876,11 @@ def run_plan(plan, output_dir):
         case_reports = [case for case in report['cases'] if case['skill'] == skill]
         total = sum(case['skill'] == skill for case in all_cases)
         status = aggregate(case_reports)
-        if len(case_reports) != total:
-            status = 'insufficient'
+        if not case_reports:
+            status = 'skipped'
         report['skills'][skill] = {'status': status, 'selected_cases': len(case_reports), 'total_cases': total}
     if report['skills'] and report['status'] != 'insufficient':
-        report['status'] = aggregate(report['skills'].values())
+        report['status'] = aggregate(item for item in report['skills'].values() if item['selected_cases'])
     write_report(output_dir, report)
     print('技能行为评测：' + LABELS[report['status']] + '；产物：' + str(output_dir))
     return 1 if report['status'] == 'regressed' else (0 if report['status'] in ('unchanged', 'improved') else 2)
@@ -778,6 +896,7 @@ def main(argv=None):
     plan.add_argument('--base', required=True)
     plan.add_argument('--head', required=True)
     plan.add_argument('--mode', choices=('auto', 'smoke', 'full'), default='auto')
+    plan.add_argument('--scope', choices=('affected', 'all'), default='affected')
     plan.add_argument('--event', choices=('pull_request', 'push', 'workflow_dispatch'), required=True)
     plan.add_argument('--output', required=True)
     run = subcommands.add_parser('run')
@@ -789,7 +908,7 @@ def main(argv=None):
             print(f'行为题库有效：{len(validate(args.root))} 题')
             return 0
         if args.command == 'plan':
-            write_json(args.output, create_plan(args.repo, args.base, args.head, args.mode, args.event))
+            write_json(args.output, create_plan(args.repo, args.base, args.head, args.mode, args.event, args.scope))
             return 0
         return run_plan(json.loads(Path(args.plan).read_text(encoding='utf-8')), args.output_dir)
     except (ValueError, OSError, subprocess.SubprocessError) as exc:

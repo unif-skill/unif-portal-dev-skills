@@ -215,7 +215,11 @@ python3.12 -m venv .venv
 
 ### 行为评测 CI
 
-独立的[行为评测工作流](.github/workflows/behavior-eval.yml)在 PR、main 的技能、题库、插件版本或评测工具变更时运行，也支持手动选择 `auto`、`smoke`、`full` 和基线 `base_ref`。PR 的 `auto` 使用定向 `smoke`；main 推送及手动 `auto` 遇到比较范围中的 `feat` 提交或 `plugin.json` 的 major／minor 提升时选择 `full`，其余变更定向 `smoke`；每题在基线和候选侧分别重复 10 次或 1 次。CI 的 `full` 使用独立的 10 次重复协议，与既有本地大评测的 5 次重复分开保留，不合并样本或比较结果。PR 使用目标分支的 `base.sha`，main 推送使用 `before`，手动未填基线时使用 `HEAD^`；历史缺失或基线不可解析会报告证据不足，不回退到候选自比。
+独立的[行为评测工作流](.github/workflows/behavior-eval.yml)在 PR、main 的技能、题库、分发入口或评测工具变化时运行。默认 `scope=affected` 按变更技能、插件及实际发现关联选题；技能源与生成副本去重，纯版本和溯源记录变化不触发模型评测。共享评测机制变化或显式 `scope=all` 才覆盖全库，详细规则见[选题范围](evals/behavior/README.md#本次选题范围)。
+
+`mode` 只决定重复次数：`smoke` 为每题旧版、候选各 1 次，`full` 为各 10 次，不再决定选题范围。PR 的 `auto` 使用 `smoke`；main 推送及手动 `auto` 遇到比较范围中的 `feat` 提交或根清单 major／minor 提升时使用 `full`，其余使用 `smoke`。无受影响题目时直接跳过，不因版本提升制造评测任务。10 对是当前统计比较协议，不能与历史 5 次重复或其他模型样本混合。
+
+手动运行可分别选择 `scope`、`mode` 和基线 `base_ref`。PR 使用目标分支的 `base.sha`，main 推送使用 `before`，手动未填基线时使用 `HEAD^`；历史缺失或基线不可解析会报告证据不足，不回退到候选自比。
 
 工作流先离线核对题库与受管文件，再在同一次运行中使用同一题库、模型和判据比较固定基线与候选。模型只读固定题设和允许的技能资料，不执行 shell、写文件或调用业务系统。机器题库及覆盖范围见[行为评测说明](evals/behavior/README.md)；现有题库、人工判据和本地专项回归继续保留，首版 CI 只执行自包含题，不代表已迁移全部历史案例。应用题由独立模型调用按冻结判据评阅，保留理由并需人工抽查。
 
@@ -239,7 +243,7 @@ python3.12 -m venv .venv
 ```sh
 python scripts/sync_evaluation_tools.py --verify
 python scripts/behavior_eval.py validate --root .
-python scripts/behavior_eval.py plan --repo . --base "$BASE_SHA" --head "$HEAD_SHA" --mode smoke --event workflow_dispatch --output /tmp/skill-eval-plan.json
+python scripts/behavior_eval.py plan --repo . --base "$BASE_SHA" --head "$HEAD_SHA" --scope affected --mode smoke --event workflow_dispatch --output /tmp/skill-eval-plan.json
 python scripts/behavior_eval.py run --plan /tmp/skill-eval-plan.json --output-dir /tmp/skill-eval-artifacts
 ```
 
