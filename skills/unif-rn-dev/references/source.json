@@ -9,8 +9,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "7260ef2e12c622adb2c92545a4e0830e17b7562f6be165c2b6eac69c1401cfbe",
-      "lines": 211
+      "sha256": "02e2639d73b101d6f2132619061fe0be544b79d039a3c9886f6d21c7bdd0497f",
+      "lines": 215
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
@@ -106,8 +106,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            192,
-            211
+            196,
+            215
           ]
         }
       ],
@@ -167,19 +167,19 @@
           "heading": "4. 公共入口与依赖方向",
           "lines": [
             164,
-            185
+            189
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            186,
-            191
+            190,
+            195
           ]
         }
       ],
-      "sha256": "b8993985be50df26a38ef052a0940d2047794798d05242c33678910ccbe69e5d"
+      "sha256": "7679e5af55eaab5a186ad124a98f0327bb34355e75c4bf6103481ab86287f4d7"
     },
     "common/state.md": {
       "sections": [

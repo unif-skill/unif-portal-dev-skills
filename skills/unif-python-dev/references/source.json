@@ -4,7 +4,7 @@
   "sources": {
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "bf3979b714b4c86182e480e4a7db495e27192b5d040970733a6e293a7436c457",
+      "sha256": "4cf60c1c3b9a8185a4a8e23a4dc548e40c713c7994548f297d3b63cb691e57bd",
       "lines": 74
     },
     "ARCHITECTURE.md": {
@@ -56,7 +56,7 @@
           ]
         }
       ],
-      "sha256": "76e1e80d1a4eda142133b3fc99e49f74d3f00f3de16f4c98a7bd5af4fde2b8b6"
+      "sha256": "efb68f3289d72f01a80716adf6c5f60e577a0318ad07765437056648514eb1fd"
     },
     "structure.md": {
       "sections": [

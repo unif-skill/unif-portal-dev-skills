@@ -12,11 +12,15 @@ Portal 的应用组装连接各能力和协议实现，页面及对话入口调�
 
 公开入口保留加载边界：`app/voice` 只提供服务构造，采集 Hook 由 `app/voice/input` 提供；纯存储组合归 `app/settings/storage`，原生应用目录接线归 `app/settings/storage/app`。营销问题展示选择器和拜访历史投影分别归 `app/marketing/questions`、`app/marketing/visit/orderHistory`，只读展示不因入口汇总而提前加载会话工厂。
 
+首页公告目录、预览、列表、详情与公共格式处理归 `app/home/notices`；公告根入口保留目录工厂，组件与页面通过各自目录接入。设置的日志、存储、记忆及主题字体页面分别随 `app/settings/logs`、`storage`、`memory`、`preferences` 维护，系统权限与关于页面仍在 `app/settings/screens`；功能根入口不重导出页面，原状态、实例与原生加载边界保持。
+
+拜访照片预览组件统一命名为 `app/marketing/visit/VisitPhotoPreview`，同时服务当前与历史照片；历史问卷 Hook 归 `historyQuestionnaires`。领域出发卡内容归 `domains/marketing/visit/plan/VisitDepartureContent`，应用 `VisitDepartureCard` 保留聚焦、日期与实例接线。订单数量输入 key 的构造与校验归 `order/flow/orderQuantityInputKey.ts`，不改变数量草稿状态与恢复字段。
+
 独立组件与供其他单元消费的功能提供小型 `index.ts`，显式导出实际使用的能力和类型。源码跨单元使用 `@/` 引用目标公开目录，测试跨目录辅助使用 `@tests/`；同单元及所属私有子实现保留相对导入，不从内部绕回自己的入口。`product` 等分类父目录不重复汇总子单元，已登记的私有工厂、共享样式、内部状态和底层适配保持原边界。平台专属测试、生成器内部引用及根配置资源沿用实际解析规则，不合并导出不同平台实现。
 
 计划、任务及到店判断共享的坐标校验与距离计算归 `domains/marketing/visit/location`。计划和任务各自通过该公开入口复用，纯位置计算不反向加载计划或任务工厂。
 
-源码注释只补充不直观的状态归属、身份隔离、异步竞争和资源收尾原因，不复述语句或承载开发过程记录。
+Portal 源码文档沿用工程已采用的语言与注释规范；账号、会话、媒体及业务交接的说明以所属契约为准，核对调用语义和资源责任，不在注释中另设业务规则。
 
 日志的常规调用与全局捕获安装、文件存取分别提供入口，组件记录日志只依赖常规调用入口。Sheet 与键盘 UI 等同层单元按所属契约形成必要的无循环依赖。
 

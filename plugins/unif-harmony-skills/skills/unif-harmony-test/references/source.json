@@ -1,0 +1,204 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-text-selected-relative-links-v6",
+  "sources": {
+    "ARCHITECTURE.md": {
+      "source": "unif-platform-architecture/ARCHITECTURE.md",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
+      "lines": 465,
+      "selectedSections": [
+        {
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            110,
+            146
+          ]
+        },
+        {
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        },
+        {
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        },
+        {
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ]
+    },
+    "HARMONY_DEVELOPMENT.md": {
+      "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
+      "sha256": "dcdb20eafdae014a872f162a40a38480bb7e305853cee09aec859e1eff648264",
+      "lines": 64,
+      "selectedSections": [
+        {
+          "heading": "3. ArkUI 状态与生命周期",
+          "lines": [
+            29,
+            42
+          ]
+        },
+        {
+          "heading": "4. 原生能力与协议接入",
+          "lines": [
+            43,
+            50
+          ]
+        },
+        {
+          "heading": "5. 验证与交付",
+          "lines": [
+            51,
+            64
+          ]
+        }
+      ]
+    },
+    "HARMONY_STRUCTURE.md": {
+      "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
+      "sha256": "670df7a3078e9a153e83e2467b8ad33bb7e85997a799eeb7c83ad01d1337ae08",
+      "lines": 41,
+      "selectedSections": [
+        {
+          "heading": "2. 组件、主题与玻璃材质",
+          "lines": [
+            23,
+            32
+          ]
+        },
+        {
+          "heading": "3. 契约与资源归属",
+          "lines": [
+            33,
+            41
+          ]
+        }
+      ]
+    }
+  },
+  "files": {
+    "common/composition.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            110,
+            146
+          ]
+        }
+      ],
+      "sha256": "c057ed422f31e07ad14bebeb8305d3a7b31af454653f4a401802a10fa33db7bc"
+    },
+    "common/state.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        }
+      ],
+      "sha256": "495f632a0341b4a2100ee3e2cce8fa6e3d483c910641315d8da7f81a36a0c9ae"
+    },
+    "common/contracts.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        }
+      ],
+      "sha256": "2e012702d3c251a4813ec6a1873b299cc8d48a9dafa7d403960b3d62f1386a2f"
+    },
+    "common/verification.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ],
+      "sha256": "abbdf2082270a4671699682d6ad82654557919f4d46c3eb6db17b46d36f24901"
+    },
+    "harmony/state.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "3. ArkUI 状态与生命周期",
+          "lines": [
+            29,
+            42
+          ]
+        }
+      ],
+      "sha256": "1584fb0da6e805f98b78e78bb29876c0d4f1da52d254965100de89c05efff2f3"
+    },
+    "harmony/integration.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "4. 原生能力与协议接入",
+          "lines": [
+            43,
+            50
+          ]
+        },
+        {
+          "source": "HARMONY_STRUCTURE.md",
+          "heading": "3. 契约与资源归属",
+          "lines": [
+            33,
+            41
+          ]
+        }
+      ],
+      "sha256": "f56d3ec5f047c486fb92ec927f559234944525b71c6a35ffbfa672dcc59f6986"
+    },
+    "harmony/testing.md": {
+      "sections": [
+        {
+          "source": "HARMONY_DEVELOPMENT.md",
+          "heading": "5. 验证与交付",
+          "lines": [
+            51,
+            64
+          ]
+        }
+      ],
+      "sha256": "1f08c27005c2e569e37b2b70998c33f1c07ef2b7b4acfaa49ca1e4d12f3fecc2"
+    },
+    "harmony/ui.md": {
+      "sections": [
+        {
+          "source": "HARMONY_STRUCTURE.md",
+          "heading": "2. 组件、主题与玻璃材质",
+          "lines": [
+            23,
+            32
+          ]
+        }
+      ],
+      "sha256": "7c2dca0a42fabe036f9860dc73e4fdf7a959b378b01d2195a6dfdd7acc625053"
+    }
+  }
+}

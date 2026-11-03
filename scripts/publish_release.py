@@ -9,6 +9,12 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 
+if __package__:
+    from .prepare_release import release_manifests
+else:
+    from prepare_release import release_manifests
+
+
 class GitHub:
     def __init__(self, repository, token):
         self.repository = repository
@@ -48,7 +54,7 @@ def publish(root, context, api):
     if (context.get('GITHUB_ACTIONS') != 'true' or context.get('GITHUB_EVENT_NAME') != 'push'
             or context.get('GITHUB_REF') != 'refs/heads/main'):
         return {'status': 'not-main-push'}
-    manifest = json.loads((Path(root) / 'plugin.json').read_text(encoding='utf-8'))
+    manifest = release_manifests(root)['plugin.json']
     version = manifest.get('version')
     if not isinstance(version, str) or not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', version):
         raise ValueError('version 必须是无前缀、无前导零的 X.Y.Z')

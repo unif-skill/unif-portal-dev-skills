@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif RN 代码审查"
+  short_description: "审查 Unif RN 变更的契约、状态与实际影响，保留证据和授权边界"
+  default_prompt: "使用 $unif-rn-review，按本工程的当前契约处理本次任务。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

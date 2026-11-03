@@ -53,8 +53,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "7260ef2e12c622adb2c92545a4e0830e17b7562f6be165c2b6eac69c1401cfbe",
-      "lines": 211,
+      "sha256": "02e2639d73b101d6f2132619061fe0be544b79d039a3c9886f6d21c7bdd0497f",
+      "lines": 215,
       "selectedSections": [
         {
           "heading": "2. 基础组件与 UI 复用",
@@ -66,8 +66,8 @@
         {
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            192,
-            211
+            196,
+            215
           ]
         }
       ]
@@ -140,8 +140,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 分批重写与定向验证",
           "lines": [
-            192,
-            211
+            196,
+            215
           ]
         }
       ],

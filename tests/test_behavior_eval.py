@@ -135,6 +135,18 @@ class RepositoryTests(unittest.TestCase):
         self.assertEqual(plan['case_ids'], [])
         self.assertTrue(plan['skip_reason'])
 
+    def test_distribution_changes_select_full_suite_in_smoke_mode(self):
+        paths = ('plugins/sample/plugin.json', 'scripts/sync_plugins.py',
+                 '.agents/plugins/marketplace.json')
+        for index, path in enumerate(paths):
+            with self.subTest(path=path):
+                self.base = self.git('rev-parse', 'HEAD')
+                self.write(path, 'distribution change')
+                self.commit('fix: distribution ' + str(index))
+                plan = self.plan()
+                self.assertEqual(plan['mode'], 'smoke')
+                self.assertEqual(set(plan['case_ids']), {case['id'] for case in self.cases})
+
     def test_push_feat_anywhere_in_range_selects_full_suite(self):
         self.write('skills/sample/references/details.md', 'New instructions')
         self.commit('feat(sample): new instruction')

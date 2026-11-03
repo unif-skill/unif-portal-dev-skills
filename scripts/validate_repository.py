@@ -271,6 +271,20 @@ def validate_repository(root, release_tag=None, include_evals=False):
     if release_tag is not None and release_tag != f'v{plugin["version"]}':
         raise ValueError(f'发布 tag {release_tag!r} 与 plugin.json version {plugin["version"]!r} 不一致')
     check_marketplace(root, validator)
+    if (root / 'plugins').exists() or plugin['name'] == 'unif-portal-dev-skills':
+        try:
+            from scripts.sync_plugins import GROUPS, sync_plugins
+        except ModuleNotFoundError:
+            from sync_plugins import GROUPS, sync_plugins
+        sync_plugins(root, check=True)
+        entries = read_json(root / '.agents/plugins/marketplace.json')['plugins']
+        if {entry['name']: entry['source']['path'] for entry in entries} != {
+                name: './plugins/' + name for name in GROUPS}:
+            raise ValueError('市场必须恰好引用五个分组插件根目录')
+        for name in GROUPS:
+            package = root / 'plugins' / name
+            check_plugin(package, validator)
+            check_skills(package)
     skill_count = check_skills(root)
     run_count, file_count = check_evaluations(root) if include_evals else (0, 0)
     return skill_count, run_count, file_count

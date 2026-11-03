@@ -1,0 +1,164 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-text-selected-relative-links-v6",
+  "sources": {
+    "ARCHITECTURE.md": {
+      "source": "unif-platform-architecture/ARCHITECTURE.md",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
+      "lines": 465,
+      "selectedSections": [
+        {
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            110,
+            146
+          ]
+        },
+        {
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        },
+        {
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        },
+        {
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ]
+    },
+    "PORTAL_DEVELOPMENT.md": {
+      "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
+      "sha256": "11fddbd7a7c57c16d2ae36f70fbd3fe6e43ba6edbfce3773915eed3b6e47108f",
+      "lines": 70,
+      "selectedSections": [
+        {
+          "heading": "5. 规则执行与定向验证",
+          "lines": [
+            58,
+            70
+          ]
+        }
+      ]
+    },
+    "PORTAL_STRUCTURE.md": {
+      "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
+      "sha256": "02e2639d73b101d6f2132619061fe0be544b79d039a3c9886f6d21c7bdd0497f",
+      "lines": 215,
+      "selectedSections": [
+        {
+          "heading": "2. 基础组件与 UI 复用",
+          "lines": [
+            102,
+            147
+          ]
+        },
+        {
+          "heading": "6. 分批重写与定向验证",
+          "lines": [
+            196,
+            215
+          ]
+        }
+      ]
+    }
+  },
+  "files": {
+    "common/composition.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            110,
+            146
+          ]
+        }
+      ],
+      "sha256": "c057ed422f31e07ad14bebeb8305d3a7b31af454653f4a401802a10fa33db7bc"
+    },
+    "common/state.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        }
+      ],
+      "sha256": "495f632a0341b4a2100ee3e2cce8fa6e3d483c910641315d8da7f81a36a0c9ae"
+    },
+    "common/contracts.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        }
+      ],
+      "sha256": "2e012702d3c251a4813ec6a1873b299cc8d48a9dafa7d403960b3d62f1386a2f"
+    },
+    "common/verification.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ],
+      "sha256": "abbdf2082270a4671699682d6ad82654557919f4d46c3eb6db17b46d36f24901"
+    },
+    "rn/testing.md": {
+      "sections": [
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "5. 规则执行与定向验证",
+          "lines": [
+            58,
+            70
+          ]
+        },
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "6. 分批重写与定向验证",
+          "lines": [
+            196,
+            215
+          ]
+        }
+      ],
+      "sha256": "b537101c56c4f0153d9ae7e5682093ff56d9ceaa63489cfb38da08676b8c894b"
+    },
+    "rn/ui.md": {
+      "sections": [
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "2. 基础组件与 UI 复用",
+          "lines": [
+            102,
+            147
+          ]
+        }
+      ],
+      "sha256": "7be66f9f5cb0c92e3eb7dca7885af483d45bb23aac2a2da6c9d208cd48705700"
+    }
+  }
+}

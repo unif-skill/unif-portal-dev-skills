@@ -1,0 +1,138 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-text-selected-relative-links-v6",
+  "sources": {
+    "ARCHITECTURE.md": {
+      "source": "unif-platform-architecture/ARCHITECTURE.md",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
+      "lines": 465
+    }
+  },
+  "files": {
+    "scope.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "",
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "1. 架构目标",
+          "lines": [
+            7,
+            40
+          ]
+        }
+      ],
+      "sha256": "a745722531d46b5580e6aa10b5b2f18d08796e9cb7bb1e5903eee26c76788025"
+    },
+    "responsibilities.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "2. 系统边界与职责",
+          "lines": [
+            41,
+            109
+          ]
+        }
+      ],
+      "sha256": "4fa2854706a89cc14e53ed1ab7c9988ac635325e3126d4ed2559af102c9ac490"
+    },
+    "composition.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            110,
+            146
+          ]
+        }
+      ],
+      "sha256": "ca8d5cbbfeba1ed447c987cb61f1ef87e2e102a60a31455a2783503d4adb4589"
+    },
+    "state.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        }
+      ],
+      "sha256": "63d62acf72d08aea563a873c14a5fc40174b534cf123a668e9246c8dc4b63a07"
+    },
+    "agent-context.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "5. 自然语言任务与上下文",
+          "lines": [
+            183,
+            237
+          ]
+        }
+      ],
+      "sha256": "2341e3d7a1b7a84aee9efa828aae60976a98f18833a3cb64d856e110523d1036"
+    },
+    "contracts.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        }
+      ],
+      "sha256": "5e0daffb1119e65d5a9cb4b8e3ff486f11df74d967199ed74251439d307daf6e"
+    },
+    "verification.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ],
+      "sha256": "8fbd3124365671909e980f60b2fcbf6c0910eb4b330f6394dffa09c8e6074bf6"
+    },
+    "cost.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "8. 成本与效果验证",
+          "lines": [
+            403,
+            418
+          ]
+        }
+      ],
+      "sha256": "117a3dd4076daad2088d67f4b35eae69ffb5ebf2f7558fe0a5f3bcf1ad742c74"
+    },
+    "documentation.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "9. 领域与模块文档",
+          "lines": [
+            419,
+            465
+          ]
+        }
+      ],
+      "sha256": "7f48ce7f47fb4e95287c820338f366500718db12cd7ac643d25d1403d5e156f4"
+    }
+  }
+}

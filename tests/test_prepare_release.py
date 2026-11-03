@@ -252,6 +252,63 @@ class PrepareReleaseTests(unittest.TestCase):
         self.assertEqual(self.validated, [])
         self.assertEqual(self.remote_head(), self.source)
 
+    def add_market_plugins(self):
+        entries = []
+        for index in range(5):
+            name = f'group-{index}'
+            path = self.root / 'plugins' / name / 'plugin.json'
+            path.parent.mkdir(parents=True)
+            path.write_text(json.dumps({'name': name, 'version': '0.3.3', 'description': name}))
+            entries.append({'source': {'source': 'local', 'path': './plugins/' + name}})
+        market = self.root / '.agents/plugins/marketplace.json'
+        market.parent.mkdir(parents=True)
+        market.write_text(json.dumps({'plugins': entries}))
+        self.advance_source('feat: 拆分五插件')
+        return ['plugin.json'] + [f'plugins/group-{i}/plugin.json' for i in range(5)]
+
+    def test_five_plugins_bump_atomically_and_recover_same_commit(self):
+        names = self.add_market_plugins()
+        result = self.run_prepare()
+        self.assertEqual(result['version'], '0.4.0')
+        self.assertEqual(set(self.git('diff', '--name-only', self.source, result['commit']).splitlines()), set(names))
+        for name in names:
+            before = json.loads(self.git('show', f'{self.source}:{name}'))
+            after = json.loads((self.root / name).read_text())
+            self.assertEqual(after, {**before, 'version': '0.4.0'})
+        self.git('checkout', '--detach', self.source)
+        self.assertEqual(self.run_prepare(), result)
+
+    def test_recovery_rejects_non_version_changes_in_any_plugin(self):
+        names = self.add_market_plugins()
+        for name in names:
+            path = self.root / name
+            manifest = json.loads(path.read_text())
+            path.write_text(json.dumps({**manifest, 'version': '0.4.0'}))
+        path = self.root / names[-1]
+        path.write_text(json.dumps({**json.loads(path.read_text()), 'description': 'tampered'}))
+        self.commit(f'chore: 发布技能版本 0.4.0 [skip ci]\n\nRelease-Source: {self.source}')
+        self.git('push', 'origin', 'main')
+        self.git('checkout', '--detach', self.source)
+        with self.assertRaisesRegex(ValueError, '额外变化'):
+            self.run_prepare()
+
+    def test_divergent_plugin_version_stops_before_writeback(self):
+        names = self.add_market_plugins()
+        path = self.root / names[-1]
+        path.write_text(json.dumps({'version': '0.3.4'}))
+        self.advance_source('fix: 不一致清单')
+        with self.assertRaisesRegex(ValueError, '同一版本'):
+            self.run_prepare()
+        self.assertEqual(self.remote_head(), self.source)
+
+    def test_validator_failure_never_pushes_partial_plugin_versions(self):
+        self.add_market_plugins()
+        def reject(*args, **kwargs):
+            raise ValueError('candidate rejected')
+        with self.assertRaisesRegex(ValueError, 'candidate rejected'):
+            self.run_prepare(reject)
+        self.assertEqual(self.remote_head(), self.source)
+
 
 if __name__ == '__main__':
     unittest.main()

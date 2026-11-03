@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""为已验证的 main 提交准备同一主版本内的发布，版本写回只修改 plugin.json。"""
+"""为已验证的 main 提交准备同一主版本内的发布，版本写回只修改市场所引用清单的版本字段。"""
 
 import json
 import os
@@ -27,6 +27,29 @@ def version_parts(value):
     return tuple(map(int, value.split('.')))
 
 
+def release_manifests(root):
+    """根清单锚定版本；市场内插件必须使用同一版本，单包仓保持原行为。"""
+    root = Path(root).resolve()
+    paths = {'plugin.json'}
+    market = root / '.agents/plugins/marketplace.json'
+    if market.exists():
+        for entry in json.loads(market.read_text(encoding='utf-8'))['plugins']:
+            source = entry.get('source', {})
+            target = source.get('path')
+            if source.get('source') != 'local' or not isinstance(target, str) or Path(target).is_absolute():
+                raise ValueError('发布市场必须引用仓内插件')
+            path = root / target / 'plugin.json'
+            if not path.resolve().is_relative_to(root) or any(p.is_symlink() for p in [path, *path.parents] if p != root):
+                raise ValueError('发布清单不得越出仓库或使用符号链接')
+            paths.add(str(path.relative_to(root)))
+    manifests = {name: json.loads((root / name).read_text(encoding='utf-8')) for name in sorted(paths)}
+    version = manifests['plugin.json'].get('version')
+    version_parts(version)
+    if any(manifest.get('version') != version for manifest in manifests.values()):
+        raise ValueError('所有插件清单必须使用同一版本')
+    return manifests
+
+
 def release_message(version, source):
     return f'chore: 发布技能版本 {version} [skip ci]\n\nRelease-Source: {source}'
 
@@ -49,9 +72,9 @@ def is_release_commit(git, commit, source, original, next_version):
     if (git.run('show', '-s', '--format=%P', commit) != source
             or git.run('show', '-s', '--format=%B', commit) != release_message(next_version, source)):
         return False
-    manifest = json.loads(git.run('show', f'{commit}:plugin.json'))
-    if (git.run('diff', '--name-only', source, commit) != 'plugin.json'
-            or manifest != {**original, 'version': next_version}):
+    if (set(git.run('diff', '--name-only', source, commit).splitlines()) != set(original)
+            or any(json.loads(git.run('show', f'{commit}:{name}')) != {**manifest, 'version': next_version}
+                   for name, manifest in original.items())):
         raise ValueError('发布提交包含未经验证的额外变化')
     return True
 
@@ -64,8 +87,8 @@ def prepare(root, context, validate):
     if not re.fullmatch(r'[0-9a-f]{40}', source):
         raise ValueError('GITHUB_SHA 必须是已验证源提交的完整 SHA')
     root = Path(root)
-    manifest_path = root / 'plugin.json'
-    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    manifests = release_manifests(root)
+    manifest = manifests['plugin.json']
     version = manifest.get('version')
     major, minor, patch = version_parts(version)
     next_version = f'{major}.{minor}.{patch + 1}'
@@ -87,7 +110,7 @@ def prepare(root, context, validate):
     remote_head = remote[0]
     if remote_head != source:
         git.run('fetch', 'origin', 'main')
-        if not is_release_commit(git, remote_head, source, manifest, next_version):
+        if not is_release_commit(git, remote_head, source, manifests, next_version):
             return {'status': 'superseded', 'commit': source}
         check_existing_versions(git, next_version)
         # 原运行可能已完成写回，但尚未创建 Release；只恢复同一个已知发布提交。
@@ -100,15 +123,16 @@ def prepare(root, context, validate):
         validate(root, release_tag=f'v{version}')
         return {'status': 'ready', 'version': version, 'commit': source}
 
-    manifest_path.write_text(json.dumps({**manifest, 'version': next_version}, ensure_ascii=False, indent=2) + '\n',
-                             encoding='utf-8')
+    for name, original in manifests.items():
+        (root / name).write_text(json.dumps({**original, 'version': next_version}, ensure_ascii=False, indent=2) + '\n',
+                                 encoding='utf-8')
     validate(root, release_tag=f'v{next_version}')
-    if git.run('diff', '--name-only') != 'plugin.json':
+    if set(git.run('diff', '--name-only').splitlines()) != set(manifests):
         raise ValueError('发布工作区包含非版本变化')
-    git.run('add', '--', 'plugin.json')
+    git.run('add', '--', *manifests)
     git.run('commit', '-m', release_message(next_version, source))
     commit = git.run('rev-parse', 'HEAD')
-    if (not is_release_commit(git, commit, source, manifest, next_version)
+    if (not is_release_commit(git, commit, source, manifests, next_version)
             or git.run('status', '--porcelain')):
         raise ValueError('发布提交与已验证的版本变化不一致')
     # 不强推。验证期间 main 若前进，新提交与它分叉，Git 会拒绝覆盖。

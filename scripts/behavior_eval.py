@@ -192,9 +192,10 @@ def create_plan(repo, base, head, mode, event):
             release = versions[1][:2] > versions[0][:2]
         selected_mode = 'full' if event != 'pull_request' and (feature or release) else 'smoke'
     all_cases = mode != 'auto' or selected_mode == 'full' or any(
-        path.startswith(('evals/', '.github/workflows/')) or path in (
+        path.startswith(('evals/', '.github/workflows/', 'plugins/')) or path in (
             'scripts/behavior_eval.py', 'tests/test_behavior_eval.py', 'scripts/sync_evaluation_tools.py',
-            'tests/test_sync_evaluation_tools.py', 'scripts/evaluation-tools.json', 'plugin.json') for path in changed)
+            'tests/test_sync_evaluation_tools.py', 'scripts/evaluation-tools.json', 'plugin.json',
+            'scripts/sync_plugins.py', '.agents/plugins/marketplace.json') for path in changed)
     changed_skills = {path.split('/')[1] for path in changed if path.startswith('skills/') and len(path.split('/')) > 2}
     selected = [case['id'] for case in cases if all_cases or changed_skills.intersection(
         [case['skill'], *case['required_skills'], *case['forbidden_skills']])]

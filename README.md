@@ -2,7 +2,7 @@
 
 Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端、相关 Agent／Channel／CLI 及对应 @unif 库工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
-本仓维护 Unif 企业规则及能力契约，可按完整插件或独立技能使用。通用工程规则从目标工程的采用来源取得；工程按实际安装技能的描述选择入口，不要求另装其他技能集合。
+本仓维护 Unif 企业规则及能力契约，按五个职责插件或独立技能使用。通用工程规则从目标工程的采用来源取得；工程按实际安装技能的描述选择入口，不要求另装其他技能集合。
 
 企业研发规范共 11 个入口，按目标平台与当前阶段选择：
 
@@ -40,7 +40,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
-全部 22 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时也可使用兼容插件入口。
+全部 22 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时安装下方五个插件；根 `skills/` 继续供其他 Agent Skills 客户端按技能安装。
 
 原 `code-development`、`code-testing`、`code-review` 已移除，按目标平台迁移到上表入口；更早的 `portal-development` 同样迁移至 `unif-rn-dev`。iOS 与 Android 仍由 RN 技能按实际影响选读，不再拆出平台技能。更新独立安装时替换原目录，避免旧入口继续被扫描；历史设计和冻结评测保留原名称与输入。
 
@@ -66,7 +66,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 ## 安装与使用
 
-技能采用 Agent Skills 格式，可安装到支持该格式的工具中。推荐使用 Vercel Skills 按需安装，下面以独立安装 `unif-code-delivery` 为例；完整插件仍可兼容分发。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
+技能采用 Agent Skills 格式，可安装到支持该格式的工具中。推荐使用 Vercel Skills 按需安装，下面以独立安装 `unif-code-delivery` 为例；Codex 按下方五个职责插件安装。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
 
 ### 使用 Vercel Skills
 
@@ -100,18 +100,32 @@ git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 
 ### 插件市场（Codex，可选）
 
-在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills.git)，分支选择 `main`，不要使用 README 或技能子目录的链接。添加后选择 `unif-portal-dev-skills` 安装。
+在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills.git)，分支选择 `main`，不要使用 README 或技能子目录的链接。添加后按任务选择下表插件安装，全部安装仍为原有 22 个技能。技能名字保持不变，插件前缀按所选包显示。
+
+| 插件 ID | 技能范围 |
+|---|---|
+| `unif-engineering-skills` | 架构设计、代码交付（2 个） |
+| `unif-rn-skills` | RN 开发、测试、审查（3 个） |
+| `unif-harmony-skills` | 原生鸿蒙开发、测试、审查（3 个） |
+| `unif-python-skills` | Python 开发、测试、审查（3 个） |
+| `unif-library-skills` | 全部 11 个库能力；双平台资料不拆分 |
 
 也可使用 Codex CLI：
 
 ```sh
 codex plugin marketplace add unif-skill/unif-portal-dev-skills --ref main
-codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
+codex plugin add unif-engineering-skills@unif-portal-dev-skills
+codex plugin add unif-rn-skills@unif-portal-dev-skills
+codex plugin add unif-harmony-skills@unif-portal-dev-skills
+codex plugin add unif-python-skills@unif-portal-dev-skills
+codex plugin add unif-library-skills@unif-portal-dev-skills
 ```
 
 界面与 CLI 任选一种添加方式。已添加的市场直接打开使用；刷新市场内容时运行 `codex plugin marketplace upgrade unif-portal-dev-skills`，无需重复添加。
 
-仓库的 [marketplace.json](.agents/plugins/marketplace.json) 是市场入口，引用根 `plugin.json` 所定义的标准插件；清单格式见 [Codex 插件管理文档](https://learn.chatgpt.com/zh-Hans/docs/enterprise/plugin-management#支持的格式)。
+仓库的 [marketplace.json](.agents/plugins/marketplace.json) 是市场入口，仅引用 `plugins/<插件 ID>/` 内的五个标准插件，各目录都有自己的 `plugin.json`、图标及完整技能资料；清单格式见 [Codex 插件管理文档](https://learn.chatgpt.com/zh-Hans/docs/enterprise/plugin-management#支持的格式)。
+
+已安装旧 `unif-portal-dev-skills` 整包时，先安装需要的五包并核对技能发现，再在插件管理中停用旧整包，避免重复发现；独立技能安装不受影响。市场名及仓库地址保持不变。宿主中的显式插件限定引用须同步改为新插件 ID，技能名称仍用对应的 `unif-*` 名称。
 
 ### 使用
 
@@ -126,7 +140,8 @@ codex plugin add unif-portal-dev-skills@unif-portal-dev-skills
 ## 使用与分发
 
 - 独立技能：分发对应的完整技能目录，保留相对引用。
-- 标准插件：分发根 [plugin.json](plugin.json)、`assets/` 与完整的 `skills/` 目录。插件使用 `assets/logo.png`，已配置的技能图标随所属技能分发；Codex 的插件展示配置放在标准清单的 `extensions.com.openai` 中。
+- 标准插件：分发所选 `plugins/<插件 ID>/` 的完整目录。每包具有 `plugin.json`、`assets/`、自身完整 `skills/`，不依赖根维护脚本、其他插件或个人缓存。Codex 的插件展示配置在各清单的 `extensions.com.openai` 中。
+- 根 `skills/` 是唯一技能源；修改根技能或架构同步后运行 `python scripts/sync_plugins.py`，再以 `--check` 核对。生成目录不手改；检测到未知文件或符号链接时停止，先核对归属。根 `plugin.json` 保留其他客户端兼容入口并锚定统一版本，市场不再分发旧整包。
 - 使用时声明目标工程采用的规范及版本；共同规则默认使用技能内同源快照，工程明确指定修订时采用该修订；实际业务契约、工具命令和配置以目标工程为准。
 
 README、docs、evals、同步脚本和测试用于仓库维护，不进入技能默认上下文。
@@ -167,16 +182,16 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 
 ## 版本与发布
 
-插件版本由根 `plugin.json` 维护，Git tag 使用对应的 `vX.Y.Z`。常规发布允许 minor／patch，自动发布保持当前已发布的 major；清单改为另一 major 也会停止，须另行取得明确授权。历史独立分发约定保留在 [spec](docs/specs/2026-10-30-independent-skills-v1.md)，不作为后续主版本升级授权。
+五个插件与兼容根清单使用统一版本，由根 `plugin.json` 锚定，Git tag 使用对应的 `vX.Y.Z`。常规发布允许 minor／patch，自动发布保持当前已发布的 major；清单改为另一 major 也会停止，须另行取得明确授权。历史独立分发约定保留在 [spec](docs/specs/2026-10-30-independent-skills-v1.md)，不作为后续主版本升级授权。
 
 - `main` 的新提交通过完整校验后，CI 检查当前版本标签到本次已验证提交之间的提交标题：包含 `feat: ...`、`feat(scope): ...` 等 feat 类型时递增 minor 并将 patch 归零，例如 `1.1.12 → 1.2.0`；其余递增 patch，例如 `1.1.12 → 1.1.13`。提交正文提到 feat 不参与判断，`!` 标记不触发 major 升级。同一 major 内显式指定、尚未发布且不落后于已有标签的新版本继续直接使用。
-- 准备步骤只修改 `plugin.json` 的版本字段，对候选包再次执行带 tag 的完整包校验，再创建版本提交并以普通快进推送写回 `main`。发布步骤为该提交创建 tag 和 GitHub Release，发布说明由 GitHub 生成；main、tag 和清单版本保持一致。
+- 准备步骤只修改根及市场五个 `plugin.json` 的版本字段，六份清单在同一个版本提交中原子写回，对候选包再次执行带 tag 的完整包校验，再创建版本提交并以普通快进推送写回 `main`。发布步骤为该提交创建 tag 和 GitHub Release，发布说明由 GitHub 生成；main、tag 和清单版本保持一致。
 - 重跑同一次 main 推送可识别其版本提交，继续未完成的发布，不再次升版。已发布且 tag 指向同一提交时跳过；草稿、同名 tag 冲突或倒退版本均停止处理。远端 main 已有其他更新时旧运行停止发布；写回不强推，写请求失败不自动重试。
 - PR、tag 推送和手动触发仅校验。CI 使用 `GITHUB_TOKEN` 写回版本和创建标签，不会递归触发新的 push 工作流；版本提交也带有 `[skip ci]`。发布依据为原提交的完整检查、候选版本包校验及最终提交核对。Codex 的安装更新另行执行。
 
 ## 验证
 
-- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查版本、技能格式、标准插件清单、本仓市场入口、包内文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
+- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查统一版本、技能格式、五插件完整副本、本仓市场入口、隔离安装下的文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。官方 Schema、`skills-ref validate` 的环境与复跑命令见[格式验证记录](docs/validation/2026-09-07-agent-standards.md)。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。鸿蒙开发、测试与审查的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖实际任务和平台／阶段排除场景。
 - RN 与 Python 六个阶段技能的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)分别说明独立消费、阶段选择及排除边界。

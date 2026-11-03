@@ -228,6 +228,19 @@ class PublishTests(unittest.TestCase):
             publish(self.root, CONTEXT, ConflictingTag())
 
 
+    def test_divergent_market_plugin_stops_before_any_api_request(self):
+        path = self.root / 'plugins/group/plugin.json'
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({'version': '0.1.1'}))
+        market = self.root / '.agents/plugins/marketplace.json'
+        market.parent.mkdir(parents=True)
+        market.write_text(json.dumps({'plugins': [{'source': {'source': 'local', 'path': './plugins/group'}}]}))
+        api = FakeGitHub()
+        with self.assertRaises(ValueError):
+            publish(self.root, CONTEXT, api)
+        self.assertEqual(api.calls, [])
+
+
 class GitHubTransportTests(unittest.TestCase):
     @patch('scripts.publish_release.urlopen')
     def test_get_only_treats_optional_404_as_missing(self, opener):

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-engineering-skills",
+  "version": "1.3.0",
+  "description": "企业工程共用规范",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo.png"
+      }
+    }
+  }
+}

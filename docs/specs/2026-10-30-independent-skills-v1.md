@@ -51,3 +51,18 @@ backend-development、architecture-design、code-delivery 和六个 unif-* 能�
 ## 1.1.0 命名修订
 
 技能目录、frontmatter name、默认提示词及同步 CLI 统一采用 README 中的 `unif-*` 名称；原 backend 系列改为 `unif-python-*`。规范源为 `PYTHON_DEVELOPMENT.md`，阶段资料为 `references/python/`。原 1.0.0 的独立分发、职责与验收要求继续有效；旧技能目录不再保留为别名。
+
+
+## 五插件分发补充（2026-11-03）
+
+根 `skills/` 仍是唯一技能源，22 个当前 `unif-*` 技能名称不变，其他 Agent Skills 客户端继续从根目录安装。Codex 沿用同一市场 `unif-portal-dev-skills`，市场仅引用五个插件根：
+
+- `unif-engineering-skills`：架构设计与代码交付，共 2 个技能。
+- `unif-rn-skills`、`unif-harmony-skills`、`unif-python-skills`：各平台开发、测试与审查，各 3 个技能。
+- `unif-library-skills`：全部 11 个库能力，双平台技能保持完整，不按平台复制或拆分。
+
+`plugins/<插件 ID>/` 由 `scripts/sync_plugins.py` 从根清单、资产及所属技能完整生成。每包有自身清单、图标、技能正文、元数据、规范与资产，可脱离根维护脚本及兄弟插件安装。逐文件校验须核对完整副本，禁止符号链接或越界引用；未知目标文件先核对归属，不静默删除。根清单保留兼容入口，不再被市场引用。
+
+五包及根兼容清单使用统一版本、同一个 Git tag 与 Release。发布准备和恢复只接受六份清单的版本字段变化，六份版本必须一致；其他字段、技能正文、市场拓扑或额外文件变化不能伪装为发布写回。minor／patch、主版本授权、main 已验证源提交、并发快进及发布恢复门禁保持有效。
+
+验收分别核对五包市场映射、22 技能分组、整包隔离格式及资源引用、生成副本一致性、版本原子写回及恢复拒绝篡改。维护测试不替代模型行为、宿主发现、设备或真实工程验收。旧整包停用及显式插件限定引用的迁移见 README；不得将分包视为新增外部运行依赖。

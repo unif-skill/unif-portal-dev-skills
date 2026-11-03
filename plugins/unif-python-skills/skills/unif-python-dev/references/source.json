@@ -1,0 +1,156 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-text-selected-relative-links-v6",
+  "sources": {
+    "PYTHON_DEVELOPMENT.md": {
+      "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
+      "sha256": "4cf60c1c3b9a8185a4a8e23a4dc548e40c713c7994548f297d3b63cb691e57bd",
+      "lines": 74
+    },
+    "ARCHITECTURE.md": {
+      "source": "unif-platform-architecture/ARCHITECTURE.md",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
+      "lines": 465,
+      "selectedSections": [
+        {
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        },
+        {
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        },
+        {
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ]
+    }
+  },
+  "files": {
+    "scope.md": {
+      "sections": [
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "1. 适用范围与实施",
+          "lines": [
+            5,
+            11
+          ]
+        }
+      ],
+      "sha256": "efb68f3289d72f01a80716adf6c5f60e577a0318ad07765437056648514eb1fd"
+    },
+    "structure.md": {
+      "sections": [
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "2. 目录与文件归属",
+          "lines": [
+            12,
+            35
+          ]
+        },
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "3. 公共入口与依赖",
+          "lines": [
+            36,
+            44
+          ]
+        }
+      ],
+      "sha256": "a013ea9c2eae925414e9c48dfe269910a36a1302cd33aefa6161431281f96319"
+    },
+    "lifecycle.md": {
+      "sections": [
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "4. 运行与资源生命周期",
+          "lines": [
+            45,
+            53
+          ]
+        }
+      ],
+      "sha256": "eaef13860b052a0be9bec9b2ce11d3a1ca9d671b546aafc43e7a1ff0b67404f8"
+    },
+    "validation.md": {
+      "sections": [
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "5. 契约与任务指令",
+          "lines": [
+            54,
+            61
+          ]
+        },
+        {
+          "source": "PYTHON_DEVELOPMENT.md",
+          "heading": "6. 验证与交付",
+          "lines": [
+            62,
+            74
+          ]
+        }
+      ],
+      "sha256": "383e2a567914101992ad06d76e84636f614dd44563aa44637cb724256ffb07bc"
+    },
+    "common/state.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            147,
+            182
+          ]
+        }
+      ],
+      "sha256": "495f632a0341b4a2100ee3e2cce8fa6e3d483c910641315d8da7f81a36a0c9ae"
+    },
+    "common/contracts.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            238,
+            315
+          ]
+        }
+      ],
+      "sha256": "2e012702d3c251a4813ec6a1873b299cc8d48a9dafa7d403960b3d62f1386a2f"
+    },
+    "common/verification.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            316,
+            402
+          ]
+        }
+      ],
+      "sha256": "abbdf2082270a4671699682d6ad82654557919f4d46c3eb6db17b46d36f24901"
+    }
+  }
+}
