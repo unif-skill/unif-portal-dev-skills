@@ -55,6 +55,63 @@ class PrepareReleaseTests(unittest.TestCase):
     def run_prepare(self, validate=None):
         return prepare(self.root, self.context, validate or self.validate)
 
+    def advance_source(self, message):
+        path = self.root / 'skill.md'
+        path.write_text(path.read_text() + '\nnext change\n')
+        self.source = self.commit(message)
+        self.git('push', 'origin', 'main')
+        self.context['GITHUB_SHA'] = self.source
+
+    def assert_minor_release(self):
+        result = self.run_prepare()
+        self.assertEqual(result['version'], '0.4.0')
+        self.assertEqual(self.remote_head(), result['commit'])
+        self.assertEqual(self.git('diff', '--name-only', self.source, result['commit']), 'plugin.json')
+        self.assertEqual(self.validated, ['v0.4.0'])
+
+    def test_feat_increments_minor_and_resets_patch(self):
+        self.advance_source('feat: 新增能力')
+        self.assert_minor_release()
+
+    def test_scoped_feat_increments_minor(self):
+        self.advance_source('feat(release): 新增能力')
+        self.assert_minor_release()
+
+    def test_feat_breaking_marker_never_increments_major(self):
+        self.advance_source('feat!: 调整能力')
+        self.assert_minor_release()
+
+    def test_feat_earlier_in_unreleased_range_takes_precedence_over_final_fix(self):
+        self.advance_source('feat(api): 新增能力')
+        self.advance_source('fix: 修复边界')
+        self.assert_minor_release()
+
+    def test_feat_in_body_does_not_change_fix_bump(self):
+        self.advance_source('fix: 修复边界\n\nfeat: 正文中的示例')
+        self.assertEqual(self.run_prepare()['version'], '0.3.4')
+
+    def test_non_feat_type_with_similar_prefix_keeps_patch(self):
+        self.advance_source('feature: 不是 feat 类型')
+        self.assertEqual(self.run_prepare()['version'], '0.3.4')
+
+    def test_features_before_current_version_tag_are_not_released_twice(self):
+        self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '0.4.0'}) + '\n')
+        self.commit('feat: 已发布能力')
+        self.git('tag', 'v0.4.0')
+        self.git('push', 'origin', 'main', '--tags')
+        self.advance_source('fix: 新修复')
+        self.assertEqual(self.run_prepare()['version'], '0.4.1')
+
+    def test_minor_writeback_rerun_recovers_same_version_and_commit(self):
+        self.advance_source('feat(api): 新增能力')
+        first = self.run_prepare()
+        self.assertEqual(first['version'], '0.4.0')
+        self.git('checkout', '--detach', self.source)
+        second = self.run_prepare()
+        self.assertEqual(second, first)
+        self.assertEqual(self.remote_head(), first['commit'])
+        self.assertEqual(self.validated, ['v0.4.0', 'v0.4.0'])
+
     def test_published_version_is_incremented_validated_and_written_back_to_main(self):
         result = self.run_prepare()
         self.assertEqual(result['status'], 'ready')

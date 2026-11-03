@@ -74,6 +74,13 @@ def prepare(root, context, validate):
         raise ValueError('发布工作区必须干净')
     if git.run('rev-parse', 'HEAD') != source:
         raise ValueError('工作区 HEAD 与已验证源提交不一致')
+    previous = git.run('rev-parse', '--verify', '--quiet', f'refs/tags/v{version}^{{commit}}', missing_ok=True)
+    if previous is not None and previous != source:
+        if git.run('merge-base', '--is-ancestor', previous, source, missing_ok=True) is None:
+            raise ValueError('版本标签不属于当前 main 历史')
+        subjects = git.run('log', '--format=%s', f'{previous}..{source}').splitlines()
+        if any(re.match(r'^feat(?:\([^()\r\n]+\))?!?:[ \t]+\S', subject) for subject in subjects):
+            next_version = f'{major}.{minor + 1}.0'
     remote = git.run('ls-remote', 'origin', 'refs/heads/main').split()
     if len(remote) != 2 or remote[1] != 'refs/heads/main':
         raise ValueError('无法确认远端 main')
@@ -89,12 +96,9 @@ def prepare(root, context, validate):
         return {'status': 'ready', 'version': next_version, 'commit': remote_head}
 
     check_existing_versions(git, version)
-    previous = git.run('rev-parse', '--verify', '--quiet', f'refs/tags/v{version}^{{commit}}', missing_ok=True)
     if previous is None or previous == source:
         validate(root, release_tag=f'v{version}')
         return {'status': 'ready', 'version': version, 'commit': source}
-    if git.run('merge-base', '--is-ancestor', previous, source, missing_ok=True) is None:
-        raise ValueError('版本标签不属于当前 main 历史')
 
     manifest_path.write_text(json.dumps({**manifest, 'version': next_version}, ensure_ascii=False, indent=2) + '\n',
                              encoding='utf-8')
