@@ -1,6 +1,6 @@
 ---
 name: unif-harmony-review
-description: 在 Unif 原生鸿蒙客户端、@unif/harmony-* HAR 库或其共享核心中对明确代码变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
+description: 在 Unif 原生鸿蒙客户端、@unif/harmony-* HAR 库或其共享核心中对明确代码或工程配置变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。
 ---
 
 # Unif 鸿蒙审查规范

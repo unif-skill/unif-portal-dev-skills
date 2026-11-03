@@ -1,11 +1,11 @@
 ---
 name: unif-rn-dev
-description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共享核心中实现、调整或排查源码及运行示例，维护构建配置与环境变体时使用。单纯版本、已有接口、文档维护或原生鸿蒙开发不触发。
+description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共享核心中实现、调整或排查源码及运行示例，维护构建配置与环境变体时使用。仅查询版本或既有 API、纯文档维护及原生鸿蒙开发不触发。
 ---
 
 # RN 代码开发规范
 
-本技能维护 Unif RN 项目约定。先确定应用消费、库源码维护或共享核心，再按当前单元、契约与消费者取得实现依据。本目录携带 Unif 项目约定；平台通用规则不在此重复定义，不要求安装其他阶段或能力技能。
+本目录提供 Unif RN 项目约定，不重复定义平台通用规则，也不要求安装其他阶段或能力技能。先确定应用消费、库源码维护或共享核心，再按当前单元、契约与消费者取得实现依据。
 
 代码组织、RN 实现、库工程和文档遵循目标工程已采用的规范，从 AGENTS.md、开发说明和实际配置定位。纯文案任务按工程文档约定处理，不因此启动客户端开发。
 
@@ -21,14 +21,13 @@ description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共
 
 React Native 的 Portal 项目约定：
 
-- 通用文件规则的项目采用关系：[文件规则](references/rn/file-rules.md)。
+- 通用文件规则的项目采用、环境文件复用与构建选择：[文件规则](references/rn/file-rules.md)。
 - SDK 与公共能力选用、组件和样式复用：[复用规则](references/rn/ui.md)。
 - Portal 存储、配置及资源的具体归属：[归属规则](references/rn/utilities-config.md)。
-- 环境文件复用、构建选择与加载副本：[文件规则](references/rn/file-rules.md)、[验证](references/rn/testing.md)。
 - 公共入口、依赖、基础能力与宿主接线：[依赖规则](references/rn/dependencies.md)。
 - 任务范围、状态表定位与实现边界：[开发范围](references/rn/scope.md)。
 - 初始化工程与代码归属：[目标目录](references/rn/directory.md)。
-- 测试组织、质量、变更影响与交付证据：[测试与验收](references/rn/testing.md)。
+- 环境加载、测试组织、质量、变更影响与交付证据：[测试与验收](references/rn/testing.md)。
 
 库与专项接入：
 

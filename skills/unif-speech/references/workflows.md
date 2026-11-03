@@ -18,5 +18,5 @@
 
 - 凭证覆盖取消、忽略信号、迟到缓存、身份释放和错误凭证失效范围。
 - 以真实采集→会话→输入消费者验证准备期数据、实际格式、final 去重、终态互斥、停止／关闭及旧轮次迟到事件。
-- 核对草稿采用、confirmed／unconfirmed 与失败 finalText；text／failed 结果等待本轮必需的采集收尾。user／replaced 的 cancelled 通知可以先于释放，context_ended 静默结束；取消通知不证明设备已释放，新采集仍等待旧轮次的真实释放结果。
+- useVoiceInput 的 transcript 是本轮展示；核对草稿对 text 的 confirmed／unconfirmed、failed 的 finalText 及 cancelled 的采用。text／failed 结果等待本轮必需的采集收尾。user／replaced 的 cancelled 通知可以先于释放，context_ended 静默结束；取消通知不证明设备已释放，新采集仍等待旧轮次的真实释放结果。
 - 包消费使用实际 tarball 与完整公开类型夹具；设备另验权限、音频中断、PCM 与麦克风释放。没有厂商服务证据时不宣称真实识别成功。

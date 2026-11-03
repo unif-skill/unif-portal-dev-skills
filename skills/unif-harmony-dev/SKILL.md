@@ -1,11 +1,11 @@
 ---
 name: unif-harmony-dev
-description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR 库或其共享核心中实现、调整或排查源码和运行示例时使用。单纯版本、已有接口、文档维护或 RN 开发不触发。
+description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR 库或其共享核心中实现、调整或排查源码和运行示例时使用。仅查询版本或既有 API、纯文档维护及 RN 开发不触发。
 ---
 
 # Unif 鸿蒙代码开发规范
 
-本技能维护 Unif 原生鸿蒙项目约定。先确定应用消费、HAR 库维护或共享核心，再按当前单元、契约与消费者取得实现依据。本目录携带 Unif 项目约定；平台通用规则不在此重复定义，独立使用不要求安装其他技能。
+本目录提供 Unif 原生鸿蒙项目约定，不重复定义平台通用规则，独立使用不要求安装其他技能。先确定应用消费、HAR 库维护或共享核心，再按当前单元、契约与消费者取得实现依据。
 
 ## 依据
 
@@ -18,11 +18,10 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 原生 ArkTS／ArkUI 应用与 `@unif/harmony-*` HAR 库：
 
 - 新建或确定范围：[鸿蒙适用范围](references/harmony/scope.md)；仅在初始化或核对归属时读[工程目录](references/harmony/directory.md)。
-- 项目源码归属、六库公开导出与同源资料：[文件与公共入口](references/harmony/files.md)。
+- 项目源码归属、六库公开导出、同源资料、库文档与真实 ArkUI 示例：[文件与公共入口](references/harmony/files.md)，按实际原生库和站点标准组织。
 - 业务身份及六库状态与媒体交接：[状态与生命周期](references/harmony/state.md)。
 - 组件、主题、字号与玻璃效果：[原生 UI](references/harmony/ui.md)。
 - 设备、SDK、HTTP／SSE／H5 与共同契约：[原生接入](references/harmony/integration.md)。
-- 库文档与真实 ArkUI 示例：[公开入口与文档](references/harmony/files.md)，按实际原生库和站点标准组织。
 - 六库、共同功能与业务消费者验收：[鸿蒙测试与验收](references/harmony/testing.md)。
 
 原生六库按当前能力选读同源专题；应用消费核对采用版本的公开入口和宿主，HAR 维护同时核对库契约、实际消费者与产物，共享核心核对完整依赖和各目标运行环境：

@@ -1,0 +1,185 @@
+name: Evaluate skill behavior
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'evals/**'
+      - 'plugin.json'
+      - 'scripts/behavior_eval.py'
+      - 'scripts/sync_evaluation_tools.py'
+      - 'scripts/evaluation-tools.json'
+      - 'tests/test_behavior_eval.py'
+      - 'tests/test_sync_evaluation_tools.py'
+      - '.github/workflows/behavior-eval.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'evals/**'
+      - 'plugin.json'
+      - 'scripts/behavior_eval.py'
+      - 'scripts/sync_evaluation_tools.py'
+      - 'scripts/evaluation-tools.json'
+      - 'tests/test_behavior_eval.py'
+      - 'tests/test_sync_evaluation_tools.py'
+      - '.github/workflows/behavior-eval.yml'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '评测规模；auto 按提交范围选择'
+        type: choice
+        options: [auto, smoke, full]
+        default: auto
+      base_ref:
+        description: '基线 Git ref 或 SHA；留空使用 HEAD^，不可解析时报告证据不足'
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: behavior-eval-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evaluate:
+    name: Evaluate skill behavior
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Validate evaluation inputs and adopted tools offline
+        id: validate
+        run: |
+          eval_exit_code=0
+          python scripts/sync_evaluation_tools.py --verify || eval_exit_code=$?
+          if [ "$eval_exit_code" -eq 0 ]; then
+            python scripts/behavior_eval.py validate --root . || eval_exit_code=$?
+          fi
+          printf 'exit_code=%s\n' "$eval_exit_code" >> "$GITHUB_OUTPUT"
+          exit "$eval_exit_code"
+      - name: Select fixed baseline and evaluation cases
+        id: plan
+        env:
+          EVAL_EVENT: ${{ github.event_name }}
+          EVAL_PR_BASE: ${{ github.event.pull_request.base.sha }}
+          EVAL_PUSH_BASE: ${{ github.event.before }}
+          EVAL_INPUT_BASE: ${{ inputs.base_ref }}
+          EVAL_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          EVAL_MODE: ${{ inputs.mode || 'auto' }}
+        run: |
+          if [ "$EVAL_EVENT" = pull_request ]; then
+            eval_base="$EVAL_PR_BASE"
+          elif [ "$EVAL_EVENT" = push ]; then
+            eval_base="$EVAL_PUSH_BASE"
+          else
+            eval_base="${EVAL_INPUT_BASE:-HEAD^}"
+          fi
+          eval_exit_code=0
+          python scripts/behavior_eval.py plan --repo . \
+            --base="$eval_base" --head="$EVAL_HEAD" \
+            --mode="$EVAL_MODE" --event="$EVAL_EVENT" --output eval-plan.json || eval_exit_code=$?
+          printf 'exit_code=%s\n' "$eval_exit_code" >> "$GITHUB_OUTPUT"
+          exit "$eval_exit_code"
+      - name: Compare baseline and candidate behavior
+        id: evaluate
+        if: ${{ !cancelled() && steps.validate.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          SKILL_EVAL_ENABLED: ${{ vars.SKILL_EVAL_ENABLED }}
+          SKILL_EVAL_MODEL: ${{ vars.SKILL_EVAL_MODEL }}
+          SKILL_EVAL_JUDGE_MODEL: ${{ vars.SKILL_EVAL_JUDGE_MODEL }}
+          SKILL_EVAL_MAX_REQUESTS: ${{ vars.SKILL_EVAL_MAX_REQUESTS }}
+          UNIF_MODEL_BASE_URL: ${{ vars.UNIF_MODEL_BASE_URL }}
+          UNIF_MODEL_API_KEY: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.UNIF_MODEL_API_KEY || '' }}
+        run: |
+          eval_exit_code=2
+          if [ -f eval-plan.json ]; then
+            eval_exit_code=0
+            python scripts/behavior_eval.py run --plan eval-plan.json --output-dir artifacts/behavior-eval || eval_exit_code=$?
+          fi
+          printf 'exit_code=%s\n' "$eval_exit_code" >> "$GITHUB_OUTPUT"
+          exit "$eval_exit_code"
+      - name: Publish evaluation summary
+        if: always()
+        env:
+          EVAL_VALIDATE_OUTCOME: ${{ steps.validate.outcome }}
+          EVAL_PLAN_OUTCOME: ${{ steps.plan.outcome }}
+          EVAL_RUN_OUTCOME: ${{ steps.evaluate.outcome }}
+          EVAL_VALIDATE_EXIT_CODE: ${{ steps.validate.outputs.exit_code }}
+          EVAL_PLAN_EXIT_CODE: ${{ steps.plan.outputs.exit_code }}
+          EVAL_RUN_EXIT_CODE: ${{ steps.evaluate.outputs.exit_code }}
+          EVAL_IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          output = Path('artifacts/behavior-eval')
+          output.mkdir(parents=True, exist_ok=True)
+          summary = output / 'summary.md'
+          metadata = output / 'summary.json'
+          outcomes = {
+              name: os.environ.get(f'EVAL_{name.upper()}_OUTCOME', 'unknown')
+              for name in ('validate', 'plan', 'run')
+          }
+          exit_codes = {}
+          for name in outcomes:
+              value = os.environ.get(f'EVAL_{name.upper()}_EXIT_CODE', '')
+              exit_codes[name] = int(value) if value.isdecimal() else None
+          (output / 'workflow.json').write_text(json.dumps({
+              'formatVersion': 1,
+              'nonBlocking': True,
+              'steps': outcomes,
+              'exitCodes': exit_codes,
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          incomplete = not summary.is_file() or not metadata.is_file()
+          if incomplete:
+              reason = '工作流未生成完整评测产物；离线校验、基线规划或模型运行未完成。'
+              metadata.write_text(json.dumps({
+                  'formatVersion': 1,
+                  'status': 'insufficient',
+                  'source': 'workflow',
+                  'reason': reason,
+                  'steps': outcomes,
+                  'exitCodes': exit_codes,
+              }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+              summary.write_text(
+                  '# 行为评测：证据不足\n\n' + reason + '\n\n'
+                  + '\n'.join(f'- {name}: {outcome}' for name, outcome in outcomes.items())
+                  + '\n', encoding='utf-8',
+              )
+          report = summary.read_text(encoding='utf-8')
+          report += '\n本工作流仅供查看，不作为发布门禁。原始步骤结果与退出码：\n\n'
+          report += '\n'.join(
+              f'- {name}: {outcome}; exit_code={exit_codes[name] if exit_codes[name] is not None else "未记录"}'
+              for name, outcome in outcomes.items()
+          ) + '\n'
+          if os.environ.get('EVAL_IS_FORK') == 'true':
+              report += '\n外部 fork PR 不注入模型密钥；存在待评测题目时报告证据不足。\n'
+          summary.write_text(report, encoding='utf-8')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as stream:
+              stream.write(report)
+          raise SystemExit(2 if incomplete else 0)
+          PY
+      - name: Upload evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: behavior-eval-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/behavior-eval/
+            eval-plan.json
+          if-no-files-found: error
+          retention-days: 30

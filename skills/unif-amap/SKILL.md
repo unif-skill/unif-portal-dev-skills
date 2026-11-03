@@ -1,6 +1,6 @@
 ---
 name: unif-amap
-description: 在查询、接入、维护或排查 @unif/react-native-amap 的地图选点、定位、地点查询、高德应用唤起及宿主接线时使用。不用于其他地图库或原生鸿蒙地图接口。
+description: 在查询、接入、维护或排查 @unif/react-native-amap 的地图选点、定位、地点查询、高德应用唤起及宿主接入时使用。不用于其他地图库或原生鸿蒙地图接口。
 metadata:
   package: "@unif/react-native-amap"
 ---

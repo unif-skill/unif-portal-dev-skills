@@ -2,7 +2,7 @@
 
 先读 [harmony-design README](https://github.com/unif-design/harmony-design/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-design/blob/main/library/oh-package.json5)及其 main 指向的入口；[目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-design.md)说明职责与验收，不证明组件已经导出。本地按相同路径读取，并采用工程指定的有效规范修订。
 
-若工程仍为空 HAR、入口只有 `export {};`，只能核对目标与缺口，不能给出可运行的组件导入、OHPM 安装或接入完成结论。恢复功能开发须有明确授权；仅查询或补技能不启动实现。已有实现时，再按真实公开类型与消费者继续，不把技能中的规划判断固定成永久状态。
+若工程仍为空 HAR、入口只有 `export {};`，只能核对目标与缺口，不能给出可运行的组件导入、OHPM 安装或接入完成结论。功能实现按当前任务授权开展；仅查询或补技能不启动实现。已有实现时，再按真实公开类型与消费者继续，不把技能中的规划判断固定成永久状态。
 
 ## 按目标核对
 

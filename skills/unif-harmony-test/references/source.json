@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "c2a83953979732a681eb2856e15e25740e11b9a21db39d87b7db56877e770be2",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
       "lines": 465,
       "selectedSections": [
         {
@@ -39,7 +39,7 @@
     },
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "1af859290f0dcf863daf3cbc7ceb2d9fc3e110db93599bc0a86da8bbab0b33d7",
+      "sha256": "dcdb20eafdae014a872f162a40a38480bb7e305853cee09aec859e1eff648264",
       "lines": 64,
       "selectedSections": [
         {
@@ -67,7 +67,7 @@
     },
     "HARMONY_STRUCTURE.md": {
       "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
-      "sha256": "2a8978c1dfa99dbd33f64daada365cec261cec234aff341897202b2e74ee9cf1",
+      "sha256": "670df7a3078e9a153e83e2467b8ad33bb7e85997a799eeb7c83ad01d1337ae08",
       "lines": 41,
       "selectedSections": [
         {

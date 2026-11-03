@@ -192,8 +192,47 @@ python3.12 -m venv .venv
 .venv/bin/python scripts/validate_repository.py
 ```
 
-本地完成模型评测后，可加 `--include-evals` 校验运行目录中的 manifest 与原始文件摘要；默认校验及 CI 不读取这些目录。
+本地完成模型评测后，可加 `--include-evals` 校验运行目录中的 manifest 与原始文件摘要；默认分发包校验及 `validate.yml` 不读取这些目录。
 
-校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为评测按规范或判断引导的实际变化另行执行。
+校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为通过下方独立工作流和本地专项评测取得证据。
 
 格式校验、模型评测和实际宿主加载分别验证。
+
+### 行为评测 CI
+
+独立的[行为评测工作流](.github/workflows/behavior-eval.yml)在 PR、main 的技能、题库、插件版本或评测工具变更时运行，也支持手动选择 `auto`、`smoke`、`full` 和基线 `base_ref`。PR 的 `auto` 使用定向 `smoke`；main 推送及手动 `auto` 遇到比较范围中的 `feat` 提交或 `plugin.json` 的 major／minor 提升时选择 `full`，其余变更定向 `smoke`；每题在基线和候选侧分别重复 10 次或 1 次。CI 的 `full` 使用独立的 10 次重复协议，与既有本地大评测的 5 次重复分开保留，不合并样本或比较结果。PR 使用目标分支的 `base.sha`，main 推送使用 `before`，手动未填基线时使用 `HEAD^`；历史缺失或基线不可解析会报告证据不足，不回退到候选自比。
+
+工作流先离线核对题库与受管文件，再在同一次运行中使用同一题库、模型和判据比较固定基线与候选。模型只读固定题设和允许的技能资料，不执行 shell、写文件或调用业务系统。机器题库及覆盖范围见[行为评测说明](evals/behavior/README.md)；现有题库、人工判据和本地专项回归继续保留，首版 CI 只执行自包含题，不代表已迁移全部历史案例。应用题由独立模型调用按冻结判据评阅，保留理由并需人工抽查。
+
+通过百炼调用 DeepSeek 时，在仓库 Actions 配置以下变量和密钥；工作流不会自动配置密钥或开启模型调用。有待评测题目而缺配置、外部 fork PR 无密钥、预算耗尽或运行不完整时生成“证据不足”摘要；无相关变化时明确标记跳过。
+
+| 配置 | 类型 | 用途 |
+|---|---|---|
+| `SKILL_EVAL_ENABLED` | variable | 设为 `true` 才启用模型调用 |
+| `SKILL_EVAL_MODEL` | variable | 百炼答题模型标识，例如 `deepseek-v4-pro` |
+| `SKILL_EVAL_JUDGE_MODEL` | variable，可选 | 评阅模型；未填时用答题模型的独立上下文 |
+| `SKILL_EVAL_MAX_REQUESTS` | variable | 单次运行的总 API 请求次数上限，包含答题与评阅；不是美元预算 |
+| `UNIF_MODEL_BASE_URL` | variable | 百炼兼容接口地址：`https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| `UNIF_MODEL_API_KEY` | secret | 百炼 API Key；无需 OpenAI 或 DeepSeek 官网 Key，不使用本机 OAuth 或用户订阅鉴权 |
+
+模型示例的账号权限、服务可用性与兼容返回需在首次真实调用时核验；写入配置不代表已经验证。
+
+摘要展示改善、退化、持平（本样本未观察到差异）或证据不足；退出码 `0` 表示完成或无相关变化，`1` 表示有证据支持退化，`2` 表示证据不足。GitHub step summary 展示结论和原始退出码，artifact 保留 `summary.md`、`summary.json`、记录步骤结果与退出码的 `workflow.json`、逐题失败例、原始回答与读取轨迹 30 天。请求次数限制、180 分钟超时及同 ref 取消旧运行控制执行规模；它们不承诺实际费用。此工作流不写 PR 评论，仅供查看：job 和模型运行步骤允许失败，不纳入分支必需检查，也不成为现有校验或发布的依赖。密钥缺失、退化、证据不足及评测基础设施错误均不阻断原有发布流程；发布继续依据原有校验。报告保留真实四态与退出码，成功生成报告不等于模型通过。
+
+本地可先离线验证与规划；将 `BASE_SHA`、`HEAD_SHA` 设为实际比较修订。最后一条命令仅在显式启用并提供上述配置时调用模型，输出放在仓库外：
+
+```sh
+python scripts/sync_evaluation_tools.py --verify
+python scripts/behavior_eval.py validate --root .
+python scripts/behavior_eval.py plan --repo . --base "$BASE_SHA" --head "$HEAD_SHA" --mode smoke --event workflow_dispatch --output /tmp/skill-eval-plan.json
+python scripts/behavior_eval.py run --plan /tmp/skill-eval-plan.json --output-dir /tmp/skill-eval-artifacts
+```
+
+通用评测器、测试与工作流由 Uni 维护，Unif 通过 `scripts/sync_evaluation_tools.py` 显式采用同源副本；各仓 CI 只运行仓内文件，不访问其他私有仓。离线校验、模型样本结果、实际宿主加载、设备及业务验收分别提供证据，CI 结果不能保证模型对其他任务正确。
+
+升级共用评测工具时，在本仓显式指定本地 Uni 来源；先比较，再按本次授权同步并审查差异。已有受管文件与采用摘要不符时停止，保留本地修改：
+
+```sh
+python scripts/sync_evaluation_tools.py --source /path/to/uni-skills --check
+python scripts/sync_evaluation_tools.py --source /path/to/uni-skills
+```

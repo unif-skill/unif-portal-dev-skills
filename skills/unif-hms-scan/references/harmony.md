@@ -2,7 +2,7 @@
 
 先核对 [harmony-hms-scan README](https://github.com/unif-design/harmony-hms-scan/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-hms-scan/blob/main/library/oh-package.json5)和 main 入口；[目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-hms-scan.md)规定识别、交互与资源交接。本地按同一相对路径读取，真实 ArkTS 和 Scan Kit 签名按采用版本确认。
 
-若当前仍为空 HAR 或 `export {};`，没有可供接入的扫码组件或解码函数。只核对契约与缺口，不把 RN Scanner、HmsScanView、decodeImage 改包名作为原生 API，也不因技能覆盖而恢复暂停的功能开发。
+若当前仍为空 HAR 或 `export {};`，没有可供接入的扫码组件或解码函数。只核对契约与缺口，不把 RN Scanner、HmsScanView、decodeImage 改包名作为原生 API。仅查询契约或补充技能不启动功能实现。
 
 ## 目标边界
 

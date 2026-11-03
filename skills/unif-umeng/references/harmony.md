@@ -2,7 +2,7 @@
 
 先读 [harmony-umeng README](https://github.com/unif-design/harmony-umeng/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-umeng/blob/main/library/oh-package.json5)及 main 入口，再读取[原生目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-umeng.md)。本地按相同相对路径定位，采用版本、目标规范与实际公开 API 分别核对。
 
-若当前只有空 HAR 或 `export {};`，不能直接接入友盟初始化、统计或分享。只说明契约和缺口，不将 RN initializeUmeng、share、useShareSheet 或 iOS／Android 回调配置当作鸿蒙实现。技能查询不授权安装 SDK、配置凭据、执行分享或恢复原生开发。
+若当前只有空 HAR 或 `export {};`，不能直接接入友盟初始化、统计或分享。只说明契约和缺口，不将 RN initializeUmeng、share、useShareSheet 或 iOS／Android 回调配置当作鸿蒙实现。仅查询契约不安装 SDK、配置凭据、执行分享或启动功能实现。
 
 ## 目标职责
 

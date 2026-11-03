@@ -2,7 +2,7 @@
 
 # Portal 文件开发规则
 
-本文维护 Portal 客户端对通用工程规范的采用方式及项目专属约定。代码组织、RN 实现和技术文档遵循目标工程已采用的规范，来源由工程入口指明。目录归属见[工程组织](../../SKILL.md)，能力边界见基础能力架构（规范源相对路径：`capabilities/portal-foundation.md`），业务契约与状态原则见平台架构（规范源相对路径：`ARCHITECTURE.md`）。
+本文维护 Portal 客户端对通用工程规范的采用方式及项目专属约定。代码组织、RN 实现和技术文档遵循目标工程已采用的规范，来源由工程入口指明。目录归属见[目标目录](directory.md#1-目标目录)，能力边界见基础能力架构（规范源相对路径：`capabilities/portal-foundation.md`），业务契约与状态原则见平台架构（规范源相对路径：`ARCHITECTURE.md`）。
 
 本文是 React Native 客户端工程规则。原生 ArkTS／ArkUI 应用与库使用鸿蒙开发规则（规范源相对路径：`HARMONY_DEVELOPMENT.md`）和鸿蒙工程组织（规范源相对路径：`HARMONY_STRUCTURE.md`）；不把 TypeScript 文件名或 React Native 目录套用到这些工程或 Agent、Channel、CLI 的其他语言实现。新 Portal 按平台架构第 1.1 节（规范源相对路径：`ARCHITECTURE.md#11-设计依据与适用范围`）重写；旧源码用于核对行为与逻辑结果，不作为文件搬运来源。新工程已有代码的日常修改仍限定在本次功能及实际影响范围内，不自动全仓重排。
 
@@ -22,7 +22,7 @@
 
 ## 2. 各类代码的开发规则
 
-Portal 具体归属见[工程组织](../../SKILL.md)。在工程已采用的职责与依赖规则上补充以下项目约定：
+Portal 具体归属见[目标目录](directory.md#1-目标目录)。在工程已采用的职责与依赖规则上补充以下项目约定：
 
 | 单元 | Portal 约定 |
 |---|---|
@@ -31,6 +31,6 @@ Portal 具体归属见[工程组织](../../SKILL.md)。在工程已采用的职�
 | domains | 页面和对话复用所属领域链路；最终业务规则与事实由业务系统处理 |
 | integrations | 按所属协议及真实接口码表转换 DTO、请求和结果，不补造身份或业务成功 |
 | app | 账号、设置、对话各自维护状态；bootstrap 与导航负责真实组装 |
-| hooks、utils、config、types | 采用通用文件规则；Portal 配置、业务存储和资源的具体归属见工程组织第 3 节 |
+| hooks、utils、config、types | 采用通用文件规则；Portal 配置、业务存储和资源的具体归属见[工具与文件归属](utilities-config.md#3-工具常量类型及其他文件的归属) |
 
 测试、脚本与原生配置沿用实际工程工具，不套用手工 TypeScript 单元的文件名。

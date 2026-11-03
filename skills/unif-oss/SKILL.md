@@ -1,6 +1,6 @@
 ---
 name: unif-oss
-description: 在查询、接入、维护或排查 @unif/react-native-oss 的临时凭证、单文件上传、远程转存、顺序批量、上传回执及源文件释放时使用。不用于服务端 OSS SDK 或桶权限配置。
+description: 在查询、接入、维护或排查 @unif/react-native-oss 的临时凭证、单文件上传、远程转存、顺序批量上传、上传回执及源文件释放时使用。不用于服务端 OSS SDK 或桶权限配置。
 metadata:
   package: "@unif/react-native-oss"
 ---

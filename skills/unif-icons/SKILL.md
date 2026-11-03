@@ -1,6 +1,6 @@
 ---
 name: unif-icons
-description: 在查询、消费、维护或排查 @unif/react-native-icons 或 @unif/harmony-icons，以及维护其唯一 SVG／命名源与 RN／鸿蒙生成产物时使用。
+description: 在查询、使用、维护或排查 @unif/react-native-icons、@unif/harmony-icons 的图标，或调整唯一 SVG／命名源及两端生成产物时使用。
 metadata:
   package: "@unif/react-native-icons"
   harmony_package: "@unif/harmony-icons"
@@ -8,7 +8,7 @@ metadata:
 
 # Unif Icons
 
-先确定 RN 或原生鸿蒙，再核对采用版本、公开入口与实际实现。目标契约、空 HAR、已实现 API 和已发布产物分别判断；不把 RN 接口改包名当作鸿蒙用法。
+按下方入口选择 RN 或原生鸿蒙资料。目标契约不代表当前包已实现或发布；不把 RN 接口改包名当作鸿蒙用法。
 
 ## 按平台读取
 
@@ -17,7 +17,7 @@ metadata:
 | React Native | 下方 RN 资料与当前包公开类型 |
 | 原生鸿蒙 | [鸿蒙接入与契约](references/harmony.md)；先核对实际库，再按任务读取目标规范 |
 
-独立消费只需本技能完整目录及对应库资料，不要求安装另一平台或其他技能。技能资料本身不授权恢复暂停的产品开发。
+独立消费只需本技能完整目录及对应库资料，不要求安装另一平台或其他技能。
 
 ## RN 资料
 
@@ -35,7 +35,7 @@ metadata:
 
 应用消费已有图标时从实际版本的公开出口选择名称与风格，使用 size、color 等公开属性；颜色由消费者提供，图标不隐式读取 Design 主题。操作按钮的可访问名称由实际承载者提供，独立表达语义的图标按 API 设置。
 
-图形或命名变化从唯一 SVG 源和清单修改，按库文档识别已采用的 RN／鸿蒙生成目标，更新并校验实际产物。保留 SVG 校验、几何与绘制语义；实际存在的 Outlined/Filled 风格分别命名。平台参数、渲染或可访问性变化按各自契约核对，不能靠资源生成代替实现。应用消费已有图标无需运行生成器或引入 SVG transformer。
+图形或命名变化从唯一 SVG 源和清单修改，生成与校验流程见[任务指引](references/workflows.md)。平台参数、渲染及可访问性分别核验，资源生成不能替代行为迁移；普通消费无需运行生成器或引入 SVG transformer。
 
 ## RN 实施与验证
 

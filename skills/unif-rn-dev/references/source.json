@@ -4,17 +4,17 @@
   "sources": {
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "53e8efc799cff942b35dcd598c0bff9dde64d729c19221e0c3e26d7608135b64",
+      "sha256": "11fddbd7a7c57c16d2ae36f70fbd3fe6e43ba6edbfce3773915eed3b6e47108f",
       "lines": 70
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "bea75c0930c5ddce8bc93487af458b448c38499f4a6384fabe449e9f74ac4440",
+      "sha256": "7260ef2e12c622adb2c92545a4e0830e17b7562f6be165c2b6eac69c1401cfbe",
       "lines": 211
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "c2a83953979732a681eb2856e15e25740e11b9a21db39d87b7db56877e770be2",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
       "lines": 465,
       "selectedSections": [
         {
@@ -69,7 +69,7 @@
           ]
         }
       ],
-      "sha256": "f2b16f64cbc375c8e835c6dc69e4c11d6c47273a85058d676d9aaed4306149f9"
+      "sha256": "af7b53231c4c8e9b144fa3a1b7995bd239dc109345ce10b5b9240761b9e934f3"
     },
     "rn/file-rules.md": {
       "sections": [
@@ -90,7 +90,7 @@
           ]
         }
       ],
-      "sha256": "811332b7603c7bced70fcac6bc380862d10fcec008343caed2688672b64f58f0"
+      "sha256": "635e66d14488d7d1207076a7746ca275c737bfc99773ce3c3fcc29a18d2f90e4"
     },
     "rn/testing.md": {
       "sections": [
@@ -132,7 +132,7 @@
           ]
         }
       ],
-      "sha256": "4846244cae806471ee77d19dc3e796e6bd455ab5e958e4d80fbc39d93c73ba68"
+      "sha256": "c66586dca3335b2f88f746cd0124e17cb6126ada206e0361a6a7fcc17f8ca064"
     },
     "rn/ui.md": {
       "sections": [

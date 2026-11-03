@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "c2a83953979732a681eb2856e15e25740e11b9a21db39d87b7db56877e770be2",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
       "lines": 465,
       "selectedSections": [
         {
@@ -60,12 +60,12 @@
     },
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "1af859290f0dcf863daf3cbc7ceb2d9fc3e110db93599bc0a86da8bbab0b33d7",
+      "sha256": "dcdb20eafdae014a872f162a40a38480bb7e305853cee09aec859e1eff648264",
       "lines": 64
     },
     "HARMONY_STRUCTURE.md": {
       "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
-      "sha256": "2a8978c1dfa99dbd33f64daada365cec261cec234aff341897202b2e74ee9cf1",
+      "sha256": "670df7a3078e9a153e83e2467b8ad33bb7e85997a799eeb7c83ad01d1337ae08",
       "lines": 41
     }
   },
@@ -102,7 +102,7 @@
           ]
         }
       ],
-      "sha256": "b720fb9d5ef91e5190c28afe92093e80a622ef470f10b78404a426c49fd30cb5"
+      "sha256": "1fff50a3f96a955aeaa72a0e6ee99a6589eb5ba78b4a77dc65584ba9772b7a27"
     },
     "common/composition.md": {
       "sections": [
@@ -175,7 +175,7 @@
           ]
         }
       ],
-      "sha256": "8a3f992886cd0635c29d9ec45d557f489d36885bdb4144c47fbe836510d0a779"
+      "sha256": "22277724b7bac6e9d01c60eb7b3a4056e2b0114fef383e2b496776db8bd8c2b1"
     },
     "harmony/files.md": {
       "sections": [
@@ -256,7 +256,7 @@
           ]
         }
       ],
-      "sha256": "8087a86642d91dc53f4b535c534cb77b1b712197623d672b7d6a41f4999e8b09"
+      "sha256": "2b1a2f81312a68c9f745310bc2b55e7cfad4408607a037f816aced39a02397c6"
     },
     "harmony/ui.md": {
       "sections": [

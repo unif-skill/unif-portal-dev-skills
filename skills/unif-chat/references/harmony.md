@@ -2,7 +2,7 @@
 
 先核对 [harmony-chat README](https://github.com/unif-design/harmony-chat/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-chat/blob/main/library/oh-package.json5)及其 main 入口；再按需要读取[原生目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-chat.md)。本地按同一相对路径读取，具体接口采用实际修订，规划组件名不等于已有 ArkUI 导出。
 
-若当前仅有空 HAR 或 `export {};`，说明对应能力仍缺实现；不提供假定可运行的 Composer、消息列表、OHPM 安装或接入示例。仅核查契约不授权恢复开发。存在真实实现时，核对公开入口、依赖和消费者后再使用。
+若当前仅有空 HAR 或 `export {};`，说明对应能力仍缺实现；不提供假定可运行的 Composer、消息列表、OHPM 安装或接入示例。仅核查契约不启动功能实现。存在真实实现时，核对公开入口、依赖和消费者后再使用。
 
 ## 目标职责
 

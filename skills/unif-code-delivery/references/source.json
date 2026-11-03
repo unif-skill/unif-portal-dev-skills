@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "c2a83953979732a681eb2856e15e25740e11b9a21db39d87b7db56877e770be2",
+      "sha256": "5be056ed8d0d0cfc3327f50390dba698b7c382c104c0bc597aae3ae40e72782e",
       "lines": 465,
       "selectedSections": [
         {
@@ -25,7 +25,7 @@
     },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "53e8efc799cff942b35dcd598c0bff9dde64d729c19221e0c3e26d7608135b64",
+      "sha256": "11fddbd7a7c57c16d2ae36f70fbd3fe6e43ba6edbfce3773915eed3b6e47108f",
       "lines": 70,
       "selectedSections": [
         {
@@ -39,7 +39,7 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "bea75c0930c5ddce8bc93487af458b448c38499f4a6384fabe449e9f74ac4440",
+      "sha256": "7260ef2e12c622adb2c92545a4e0830e17b7562f6be165c2b6eac69c1401cfbe",
       "lines": 211,
       "selectedSections": [
         {
@@ -53,7 +53,7 @@
     },
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "1af859290f0dcf863daf3cbc7ceb2d9fc3e110db93599bc0a86da8bbab0b33d7",
+      "sha256": "dcdb20eafdae014a872f162a40a38480bb7e305853cee09aec859e1eff648264",
       "lines": 64,
       "selectedSections": [
         {

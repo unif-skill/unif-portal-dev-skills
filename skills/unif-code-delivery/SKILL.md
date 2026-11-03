@@ -9,10 +9,11 @@ description: 在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执
 
 ## 按交付对象读取
 
-| 本次对象 | 本技能资料 |
+| 本次对象 | 本技能资料与工程依据 |
 |---|---|
 | Unif RN 库的组织接入、命名与发布 | [包命名](references/package-naming.md)、[GitHub 采用](references/github.md)、[发布约定](references/publishing.md)；非敏感默认值见[组织资产](assets/organization.json) |
-| RN 客户端及库的技术证据 | [RN 验证](references/rn/testing.md) |
+| Portal RN 客户端的技术证据 | [Portal 验证](references/rn/testing.md) |
+| Unif RN 库的技术证据 | 本库采用的规范、检查脚本、产物与公开消费者记录；共同验证依据按下文选读 |
 | 原生鸿蒙、HAR 与共享核心 | [鸿蒙验证](references/harmony/testing.md)；按实际 OHPM／HAR 配置交付，不套 RN 组织资产或 npm 接线 |
 | Python 后端的进程、资源和部署证据 | [后端验证](references/python/validation.md)；不套 RN 包命名或发布身份 |
 | 跨仓契约、结果与消费者兼容 | [交接契约](references/common/contracts.md)、[依赖治理](references/common/verification.md#71-依赖治理)、[变更影响](references/common/verification.md#73-变更影响) |

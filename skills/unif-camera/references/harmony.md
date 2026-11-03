@@ -2,7 +2,7 @@
 
 从 [harmony-camera README](https://github.com/unif-design/harmony-camera/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-camera/blob/main/library/oh-package.json5)及实际 main 入口确认当前能力；[原生目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-camera.md)提供拍摄和资源要求。本地按相同路径读取，工程指定的规范修订优先。
 
-空 HAR 或 `export {};` 不提供可调用相机 API。此时只说明契约与实现前提，不改名套用 RN useCamera、holder、React 宿主或取消签名，不提供未经核实的安装命令。恢复原生实现需要明确开发授权。
+空 HAR 或 `export {};` 不提供可调用相机 API。此时只说明契约与实现前提，不改名套用 RN useCamera、holder、React 宿主或取消签名，不提供未经核实的安装命令。功能实现按当前任务授权开展。
 
 ## 目标交接
 

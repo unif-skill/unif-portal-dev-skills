@@ -19,10 +19,10 @@ description: 在 Unif Agent、Marketing 等 Python 后端中设计、编写、�
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |
 | 协议输入、取消、业务成功及未确认结果 | [交接契约](references/common/contracts.md) |
-| 环境切换、API／Worker 与数据／任务池隔离 | [后端验证](references/python/validation.md) |
-| Python 后端、事务和真实进程 | [后端验证](references/python/validation.md)、[运行与资源](references/python/lifecycle.md) |
+| 环境切换、API／Worker、数据／任务池隔离与真实进程 | [后端验证](references/python/validation.md) |
+| 异步任务、事务与资源收尾 | [运行与资源](references/python/lifecycle.md) |
 
-只读取实际涉及的资料，不因取得共同规则进入其他阶段。服务接口、业务模块契约、命令和运行条件从目标工程取得；后端的任务、事务、进程与持久化证据按实际执行层级核对；内存替身不能证明数据库或多进程约束成立。
+只读取实际涉及的资料，不因取得共同规则进入其他阶段。服务接口、业务模块契约、命令和运行条件从目标工程取得。
 
 ## 应用
 
@@ -30,4 +30,4 @@ description: 在 Unif Agent、Marketing 等 Python 后端中设计、编写、�
 
 失败、降级或恢复变化按诊断责任验证安全原因、关联、取消、迟到及日志自身失败，保留原业务控制。测试预期来自有效契约，不能通过复制实现、排除源码或弱化断言获得绿色结果。
 
-报告实际修订、命令和覆盖范围，区分源码检查、替身测试、进程、持久化和真实业务证据。资料溯源见 references/source.json；读取资料不授权修改无关实现或执行外部操作。
+报告实际修订、命令和覆盖范围，按实际执行层级区分源码检查、替身测试、进程、持久化和真实业务证据；内存替身不能证明数据库或多进程约束成立。资料溯源见 references/source.json；读取资料不授权修改无关实现或执行外部操作。
