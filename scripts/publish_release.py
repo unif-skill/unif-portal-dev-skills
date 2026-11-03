@@ -53,7 +53,7 @@ def publish(root, context, api):
     if not isinstance(version, str) or not re.fullmatch(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', version):
         raise ValueError('version 必须是无前缀、无前导零的 X.Y.Z')
     if int(version.split('.')[0]) not in (0, 1):
-        raise ValueError('发布主版本仅允许已授权的 0 或 1')
+        raise ValueError('自动发布仅支持现有 0.x／1.x 系列；主版本变化需单独授权')
     commit = context.get('RELEASE_SHA', context.get('GITHUB_SHA', ''))
     if not re.fullmatch(r'[0-9a-f]{40}', commit):
         raise ValueError('GITHUB_SHA 必须是本次已验证提交的完整 SHA')
@@ -63,8 +63,14 @@ def publish(root, context, api):
     tag = f'v{version}'
     # 按 tag 查询只返回已发布版本；列表还包含有写权限时可见的草稿。
     page = 1
+    published_versions = []
     while True:
         releases = api.get(f'releases?per_page=100&page={page}')
+        for item in releases:
+            released_tag = item.get('tag_name', '')
+            if (item.get('draft') is False
+                    and re.fullmatch(r'v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', released_tag)):
+                published_versions.append(tuple(map(int, released_tag[1:].split('.'))))
         existing = next((item for item in releases if item.get('tag_name') == tag), None)
         if existing is not None or len(releases) < 100:
             break
@@ -75,6 +81,12 @@ def publish(root, context, api):
         if api.get(f'commits/refs%2Ftags%2F{tag}')['sha'] != commit:
             raise ValueError(f'{tag} tag 与本次已验证提交不一致')
         return {'status': 'already-published', 'tag': tag, 'url': existing['html_url']}
+    if published_versions:
+        current, latest = tuple(map(int, version.split('.'))), max(published_versions)
+        if current[0] != latest[0]:
+            raise ValueError('主版本变化须单独明确授权，自动发布停止')
+        if current < latest:
+            raise ValueError('候选版本落后于已发布版本，自动发布停止')
     tag_ref = f'commits/refs%2Ftags%2F{tag}'
     # 不存在的 commit 查询返回 422；只有 refs 接口以 404 表达标签缺失。
     existing_tag = api.get(f'git/ref/tags/{tag}', missing_ok=True)

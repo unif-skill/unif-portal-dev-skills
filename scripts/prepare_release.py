@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""为已验证的 main 提交准备已授权主版本内的发布，只回写 plugin.json 的补丁版本。"""
+"""为已验证的 main 提交准备同一主版本内的发布，版本写回只修改 plugin.json。"""
 
 import json
 import os
@@ -23,7 +23,7 @@ class Git:
 
 def version_parts(value):
     if not isinstance(value, str) or not re.fullmatch(r'[01]\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', value):
-        raise ValueError('主版本仅允许已授权的 0 或 1，版本不得有前导零')
+        raise ValueError('自动发布仅支持现有 0.x／1.x 系列；主版本变化需单独授权，版本不得有前导零')
     return tuple(map(int, value.split('.')))
 
 
@@ -33,9 +33,15 @@ def release_message(version, source):
 
 def check_existing_versions(git, version):
     current = version_parts(version)
+    published = []
     for tag in git.run('tag', '--list', 'v*').splitlines():
-        if (re.fullmatch(r'v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', tag)
-                and tuple(map(int, tag[1:].split('.'))) > current):
+        if re.fullmatch(r'v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', tag):
+            published.append(tuple(map(int, tag[1:].split('.'))))
+    if published:
+        latest = max(published)
+        if current[0] != latest[0]:
+            raise ValueError('主版本变化须单独明确授权，自动发布停止')
+        if latest > current:
             raise ValueError('清单版本落后于已存在的版本标签')
 
 

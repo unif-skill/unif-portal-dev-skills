@@ -102,13 +102,15 @@ class PrepareReleaseTests(unittest.TestCase):
         result = self.run_prepare()
         self.assertEqual(result, {'status': 'ready', 'version': '0.4.0', 'commit': source})
 
-    def test_explicit_unreleased_one_major_version_is_preserved(self):
+    def test_manifest_major_change_requires_separate_authorization(self):
         self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '1.0.0'}) + '\n')
-        source = self.commit('prepare authorized major')
+        source = self.commit('change manifest major without release authorization')
         self.git('push', 'origin', 'main')
         self.context['GITHUB_SHA'] = source
-        result = self.run_prepare()
-        self.assertEqual(result, {'status': 'ready', 'version': '1.0.0', 'commit': source})
+        with self.assertRaisesRegex(ValueError, '主版本'):
+            self.run_prepare()
+        self.assertEqual(self.remote_head(), source)
+        self.assertEqual(self.validated, [])
 
     def test_patch_increment_does_not_roll_over_to_minor_or_major(self):
         self.manifest.write_text(json.dumps({'name': 'fixture', 'version': '1.99.99'}) + '\n')

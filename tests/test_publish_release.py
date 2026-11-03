@@ -62,6 +62,45 @@ class PublishTests(unittest.TestCase):
     def version(self, value):
         self.manifest.write_text(json.dumps({'version': value}))
 
+    def test_major_change_is_rejected_without_creating_release(self):
+        self.version('1.0.0')
+        api = FakeGitHub({'releases?per_page=100&page=1': [
+            {'tag_name': 'v0.9.2', 'draft': False},
+        ]})
+        with self.assertRaisesRegex(ValueError, '主版本'):
+            publish(self.root, CONTEXT, api)
+        self.assertFalse(any(call[0] == 'POST' for call in api.calls))
+
+    def test_minor_release_stays_within_published_major(self):
+        self.version('1.2.0')
+        api = FakeGitHub({'releases?per_page=100&page=1': [
+            {'tag_name': 'v1.1.9', 'draft': False},
+            {'tag_name': 'v0.9.2', 'draft': False},
+        ]})
+        self.assertEqual(publish(self.root, CONTEXT, api)['tag'], 'v1.2.0')
+
+    def test_newer_release_after_preparation_blocks_stale_candidate(self):
+        self.version('1.1.12')
+        api = FakeGitHub({'releases?per_page=100&page=1': [
+            {'tag_name': 'v1.2.0', 'draft': False},
+        ]})
+        with self.assertRaisesRegex(ValueError, '落后'):
+            publish(self.root, CONTEXT, api)
+        self.assertFalse(any(call[0] == 'POST' for call in api.calls))
+
+    def test_newer_release_on_later_page_also_blocks_stale_candidate(self):
+        self.version('1.1.12')
+        api = FakeGitHub({
+            'releases?per_page=100&page=1': [
+                {'tag_name': f'v1.0.{n}', 'draft': False} for n in range(100)
+            ],
+            'releases?per_page=100&page=2': [{'tag_name': 'v1.2.0', 'draft': False}],
+        })
+        with self.assertRaisesRegex(ValueError, '落后'):
+            publish(self.root, CONTEXT, api)
+        self.assertIn(('GET', 'releases?per_page=100&page=2'), api.calls)
+        self.assertFalse(any(call[0] == 'POST' for call in api.calls))
+
     def test_new_zero_major_release_targets_validated_commit_and_does_not_edit_manifest(self):
         api = FakeGitHub()
         before = self.manifest.read_bytes()
