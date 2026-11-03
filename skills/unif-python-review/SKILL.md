@@ -9,14 +9,18 @@ description: 在 Unif Agent、Marketing 等 Python 后端中对明确代码或�
 
 ## 按变化读取
 
+按表中主题与章节取得本次变化需要的依据。
+
 | 本次变化 | 本技能资料 |
 |---|---|
 | 授权范围、职责与场景交接 | [设计依据](references/common/scope.md)、[职责](references/common/responsibilities.md)、[调用与组合](references/common/composition.md) |
 | 状态、身份、异步收尾和资源 | [状态归属](references/common/state.md) |
 | 公共输入输出、协议与业务结果 | [交接契约](references/common/contracts.md) |
-| 验证范围、日志与失败诊断 | [验证与诊断](references/common/verification.md) |
-| 服务配置归属、环境变体与任务池隔离 | [工程组织](references/python/structure.md)、[后端验证](references/python/validation.md) |
-| Python 后端 | [工程组织](references/python/structure.md)、[运行与事务](references/python/lifecycle.md)、[契约与验证](references/python/validation.md) |
+| 测试证据、消费者与回归范围 | [测试责任](references/common/verification.md#72-测试责任)、[变更影响](references/common/verification.md#73-变更影响) |
+| 新增或改变的失败路径 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
+| 目录、公共入口与服务配置归属 | [工程组织](references/python/structure.md) |
+| 异步任务、事务与资源收尾 | [运行与事务](references/python/lifecycle.md) |
+| 同源契约、环境隔离及真实进程证据 | [契约与验证](references/python/validation.md) |
 
 工程指定了规则修订时采用该修订。具体业务、库 API 与 SDK 契约从工程入口和实际公开资料取得，不把模板、评测样例或偏好当成新增需求。后端的任务、事务、进程与持久化证据按实际执行层级核对；内存替身不能证明数据库或多进程约束成立。
 

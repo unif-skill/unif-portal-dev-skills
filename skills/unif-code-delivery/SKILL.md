@@ -15,9 +15,9 @@ description: 在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执
 | RN 客户端及库的技术证据 | [RN 验证](references/rn/testing.md) |
 | 原生鸿蒙、HAR 与共享核心 | [鸿蒙验证](references/harmony/testing.md)；按实际 OHPM／HAR 配置交付，不套 RN 组织资产或 npm 接线 |
 | Python 后端的进程、资源和部署证据 | [后端验证](references/python/validation.md)；不套 RN 包命名或发布身份 |
-| 跨仓契约、结果与消费者兼容 | [交接契约](references/common/contracts.md)、[验证范围](references/common/verification.md) |
+| 跨仓契约、结果与消费者兼容 | [交接契约](references/common/contracts.md)、[依赖治理](references/common/verification.md#71-依赖治理)、[变更影响](references/common/verification.md#73-变更影响) |
 
-已有且仍有效的依据直接复用；提交、配置或目标变化后只补受影响核对。定向验证不替代工程 required 门禁，所有证据对应本次提交与实际执行层级。
+共同验证资料按所链接章节选读，技术证据的证明范围见[测试责任](references/common/verification.md#72-测试责任)。已有且仍有效的依据直接复用；提交、配置或目标变化后只补受影响核对。定向验证不替代工程 required 门禁，所有证据对应本次提交与实际执行层级。
 
 ## 操作边界
 

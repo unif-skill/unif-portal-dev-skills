@@ -1,6 +1,6 @@
 # Chat UI 开发与接入
 
-实现或使用 @unif/react-native-chat 的消息、列表、输入、附件、确认和过程展示时读取。源码维护采用库内 docs/DEVELOPMENT.md 指定的工程规范。应用只组合已提供组件时，沿用应用自己的规则。
+维护 @unif/react-native-chat 源码或核对目标职责时读取，工程规范从库内 docs/DEVELOPMENT.md 取得。应用只组合已提供组件时，使用采用版本的公开资料及应用规则。
 
 ## 按变化定位契约
 

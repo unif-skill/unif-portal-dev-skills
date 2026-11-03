@@ -44,8 +44,8 @@
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "c02005ebad2e6576439a62f58bd87dfdbbceb4401f18b74aead6ab7284df9c5a",
-      "lines": 467,
+      "sha256": "c2a83953979732a681eb2856e15e25740e11b9a21db39d87b7db56877e770be2",
+      "lines": 465,
       "selectedSections": [
         {
           "heading": "4. 状态归属",
@@ -58,14 +58,14 @@
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
             238,
-            317
+            315
           ]
         },
         {
           "heading": "7. 独立开发与验证",
           "lines": [
-            318,
-            404
+            316,
+            402
           ]
         }
       ]
@@ -477,11 +477,11 @@
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
             238,
-            317
+            315
           ]
         }
       ],
-      "sha256": "8f2dc9666f7ad7eabc4ea3ca8acf4543fb294b09b3cd2e6456ba628fb9b9c273"
+      "sha256": "2e012702d3c251a4813ec6a1873b299cc8d48a9dafa7d403960b3d62f1386a2f"
     },
     "common/verification.md": {
       "sections": [
@@ -489,8 +489,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "7. 独立开发与验证",
           "lines": [
-            318,
-            404
+            316,
+            402
           ]
         }
       ],

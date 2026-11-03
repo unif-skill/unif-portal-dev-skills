@@ -9,9 +9,13 @@ description: 在 Unif Agent、Marketing 等 Python 后端中设计、编写、�
 
 ## 按测试问题读取
 
+按表中主题与章节选读，保留本次测试所需的完整契约。
+
 | 本次问题 | 本技能资料 |
 |---|---|
-| 真实对象、替身、覆盖和失败诊断 | [测试责任与诊断](references/common/verification.md) |
+| 真实对象、替身与覆盖证据 | [测试责任](references/common/verification.md#72-测试责任) |
+| 失败、降级、恢复及诊断断言 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
+| 消费者与回归范围选择 | [变更影响](references/common/verification.md#73-变更影响) |
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |
 | 协议输入、取消、业务成功及未确认结果 | [交接契约](references/common/contracts.md) |
