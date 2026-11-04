@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-portal-dev-skills",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Unif 企业研发规范与 11 个库能力技能，其中 7 个按 RN 与原生鸿蒙提供接口或目标契约指引；开发、测试、审查按平台分开，共 22 个独立入口。",
   "extensions": {
     "com.openai": {
