@@ -4,13 +4,13 @@
   "sources": {
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "4cf60c1c3b9a8185a4a8e23a4dc548e40c713c7994548f297d3b63cb691e57bd",
-      "lines": 74
+      "sha256": "e6f887cfd92aa6eba2c8d92c1135bdead737dbc36b46b9ea947aa353ef43d926",
+      "lines": 72
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fcf73f1d6db929f18206b1f1f50271b1c780bb8a02054d50021019413b0d97e8",
-      "lines": 467,
+      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "lines": 474,
       "selectedSections": [
         {
           "heading": "4. 状态归属",
@@ -30,7 +30,7 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ]
@@ -56,7 +56,7 @@
           ]
         }
       ],
-      "sha256": "efb68f3289d72f01a80716adf6c5f60e577a0318ad07765437056648514eb1fd"
+      "sha256": "288f8c3301c8a33da1cefd6d52a9126313c158d875233890d1a76b7693fded83"
     },
     "structure.md": {
       "sections": [
@@ -107,11 +107,11 @@
           "heading": "6. 验证与交付",
           "lines": [
             62,
-            74
+            72
           ]
         }
       ],
-      "sha256": "383e2a567914101992ad06d76e84636f614dd44563aa44637cb724256ffb07bc"
+      "sha256": "1f112626644e38c382793115f7a11a4f8f1f8c98d12720234fa01eda18a76f88"
     },
     "common/state.md": {
       "sections": [
@@ -146,11 +146,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ],
-      "sha256": "a00881ea152ca93f179ff9689ff452cd68e580189b2b9e0707c8bf1dc256e98d"
+      "sha256": "a56110f69accc91ee2cd0e8ba8cb99ad86cbfb4f086ed5980118eed20a00d4b8"
     }
   }
 }

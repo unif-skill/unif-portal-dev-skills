@@ -4,18 +4,18 @@
   "sources": {
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "11fddbd7a7c57c16d2ae36f70fbd3fe6e43ba6edbfce3773915eed3b6e47108f",
-      "lines": 70
+      "sha256": "ae15f4a6271b46ba1ce1759cb77e8514e1021f5c9d7434a11369153ef558f38e",
+      "lines": 68
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "02e2639d73b101d6f2132619061fe0be544b79d039a3c9886f6d21c7bdd0497f",
+      "sha256": "ebe9e55cfb4b540cb8cba5c2799a3853689de5218711a2f29ae401bad266228f",
       "lines": 215
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fcf73f1d6db929f18206b1f1f50271b1c780bb8a02054d50021019413b0d97e8",
-      "lines": 467,
+      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "lines": 474,
       "selectedSections": [
         {
           "heading": "4. 状态归属",
@@ -35,7 +35,7 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ]
@@ -69,7 +69,7 @@
           ]
         }
       ],
-      "sha256": "af7b53231c4c8e9b144fa3a1b7995bd239dc109345ce10b5b9240761b9e934f3"
+      "sha256": "4b0f5c71b3f18349a2276b0f6e5aae1fb9b37637ea694447bf3cb6fe5925a884"
     },
     "rn/file-rules.md": {
       "sections": [
@@ -99,19 +99,19 @@
           "heading": "5. 规则执行与定向验证",
           "lines": [
             58,
-            70
+            68
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
-          "heading": "6. 分批重写与定向验证",
+          "heading": "6. 开发维护与定向验证",
           "lines": [
             196,
             215
           ]
         }
       ],
-      "sha256": "b537101c56c4f0153d9ae7e5682093ff56d9ceaa63489cfb38da08676b8c894b"
+      "sha256": "7677dd2b95f1215ee40f9a9bda852874b359a6ffaf8092a733d62d35477c2543"
     },
     "rn/directory.md": {
       "sections": [
@@ -132,7 +132,7 @@
           ]
         }
       ],
-      "sha256": "c66586dca3335b2f88f746cd0124e17cb6126ada206e0361a6a7fcc17f8ca064"
+      "sha256": "f5251201f5372a87850fde65061388933b2f599404e818bb6a51806f11a88099"
     },
     "rn/ui.md": {
       "sections": [
@@ -145,7 +145,7 @@
           ]
         }
       ],
-      "sha256": "7be66f9f5cb0c92e3eb7dca7885af483d45bb23aac2a2da6c9d208cd48705700"
+      "sha256": "5990b35a71e5d8169868d58829db1af060a1e887e2e9bf683a0c4ad0238641d9"
     },
     "rn/utilities-config.md": {
       "sections": [
@@ -179,7 +179,7 @@
           ]
         }
       ],
-      "sha256": "7679e5af55eaab5a186ad124a98f0327bb34355e75c4bf6103481ab86287f4d7"
+      "sha256": "64f27d7877bffd1c56f8328834da23e9bdc49d3a8314135d95517a4b04e81f16"
     },
     "common/state.md": {
       "sections": [
@@ -214,11 +214,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ],
-      "sha256": "a00881ea152ca93f179ff9689ff452cd68e580189b2b9e0707c8bf1dc256e98d"
+      "sha256": "a56110f69accc91ee2cd0e8ba8cb99ad86cbfb4f086ed5980118eed20a00d4b8"
     }
   }
 }

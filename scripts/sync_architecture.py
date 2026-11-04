@@ -74,7 +74,7 @@ TOPICS = {
             'ui.md': ['2. 基础组件与 UI 复用'],
             'utilities-config.md': ['3. 工具、常量、类型及其他文件的归属'],
             'dependencies.md': ['4. 公共入口与依赖方向', '5. 基础能力与资源归属'],
-            'testing.md': ['6. 分批重写与定向验证'],
+            'testing.md': ['6. 开发维护与定向验证'],
         },
     },
 }
@@ -107,7 +107,7 @@ for platform, sources in {
         'PORTAL_DEVELOPMENT.md': {'rn/testing.md': ['5. 规则执行与定向验证']},
         'PORTAL_STRUCTURE.md': {
             'rn/ui.md': ['2. 基础组件与 UI 复用'],
-            'rn/testing.md': ['6. 分批重写与定向验证'],
+            'rn/testing.md': ['6. 开发维护与定向验证'],
         },
     },
     'harmony': {
@@ -153,7 +153,7 @@ for platform, sources in {
 TOPICS['unif-code-delivery'] = {
     'ARCHITECTURE.md': architecture_topics('contracts', 'verification'),
     'PORTAL_DEVELOPMENT.md': {'rn/testing.md': ['5. 规则执行与定向验证']},
-    'PORTAL_STRUCTURE.md': {'rn/testing.md': ['6. 分批重写与定向验证']},
+    'PORTAL_STRUCTURE.md': {'rn/testing.md': ['6. 开发维护与定向验证']},
     'HARMONY_DEVELOPMENT.md': {'harmony/testing.md': ['5. 验证与交付']},
     'PYTHON_DEVELOPMENT.md': {'python/validation.md': ['6. 验证与交付']},
 }

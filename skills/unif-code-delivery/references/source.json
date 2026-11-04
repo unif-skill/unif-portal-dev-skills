@@ -4,8 +4,8 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fcf73f1d6db929f18206b1f1f50271b1c780bb8a02054d50021019413b0d97e8",
-      "lines": 467,
+      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "lines": 474,
       "selectedSections": [
         {
           "heading": "6. 跨边界交接与业务结果",
@@ -18,32 +18,32 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ]
     },
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "11fddbd7a7c57c16d2ae36f70fbd3fe6e43ba6edbfce3773915eed3b6e47108f",
-      "lines": 70,
+      "sha256": "ae15f4a6271b46ba1ce1759cb77e8514e1021f5c9d7434a11369153ef558f38e",
+      "lines": 68,
       "selectedSections": [
         {
           "heading": "5. 规则执行与定向验证",
           "lines": [
             58,
-            70
+            68
           ]
         }
       ]
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "02e2639d73b101d6f2132619061fe0be544b79d039a3c9886f6d21c7bdd0497f",
+      "sha256": "ebe9e55cfb4b540cb8cba5c2799a3853689de5218711a2f29ae401bad266228f",
       "lines": 215,
       "selectedSections": [
         {
-          "heading": "6. 分批重写与定向验证",
+          "heading": "6. 开发维护与定向验证",
           "lines": [
             196,
             215
@@ -53,7 +53,7 @@
     },
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "dcdb20eafdae014a872f162a40a38480bb7e305853cee09aec859e1eff648264",
+      "sha256": "f67abe6f3c0c9895bf534ba0c11f3cfdf0bd96ec6b57b7e0ff4b80f1cf41dc4f",
       "lines": 64,
       "selectedSections": [
         {
@@ -67,14 +67,14 @@
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "4cf60c1c3b9a8185a4a8e23a4dc548e40c713c7994548f297d3b63cb691e57bd",
-      "lines": 74,
+      "sha256": "e6f887cfd92aa6eba2c8d92c1135bdead737dbc36b46b9ea947aa353ef43d926",
+      "lines": 72,
       "selectedSections": [
         {
           "heading": "6. 验证与交付",
           "lines": [
             62,
-            74
+            72
           ]
         }
       ]
@@ -101,11 +101,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ],
-      "sha256": "a00881ea152ca93f179ff9689ff452cd68e580189b2b9e0707c8bf1dc256e98d"
+      "sha256": "a56110f69accc91ee2cd0e8ba8cb99ad86cbfb4f086ed5980118eed20a00d4b8"
     },
     "rn/testing.md": {
       "sections": [
@@ -114,19 +114,19 @@
           "heading": "5. 规则执行与定向验证",
           "lines": [
             58,
-            70
+            68
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
-          "heading": "6. 分批重写与定向验证",
+          "heading": "6. 开发维护与定向验证",
           "lines": [
             196,
             215
           ]
         }
       ],
-      "sha256": "b537101c56c4f0153d9ae7e5682093ff56d9ceaa63489cfb38da08676b8c894b"
+      "sha256": "7677dd2b95f1215ee40f9a9bda852874b359a6ffaf8092a733d62d35477c2543"
     },
     "harmony/testing.md": {
       "sections": [
@@ -148,11 +148,11 @@
           "heading": "6. 验证与交付",
           "lines": [
             62,
-            74
+            72
           ]
         }
       ],
-      "sha256": "d2f36509ec9e621ab1b699762f72438b4f5cf7f310472828fdebf1ad2886b76f"
+      "sha256": "5cf9bdcff9351126541ccf37024ba5c414d13adbe851c96162a879acf4c9ebcc"
     }
   }
 }

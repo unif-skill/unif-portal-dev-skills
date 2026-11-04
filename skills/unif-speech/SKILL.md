@@ -32,4 +32,4 @@ finish、close、停止采集和结果采用分别核对；停止文字采用或
 
 ## 实施与验证
 
-本技能独立可用，具体接入、源码与验证见[任务指引](references/workflows.md)。检查命令取当前工程。Web unsupported、Mock、SDK 补丁检查、实际包编译、设备麦克风与真实识别分别报告；查询接口不执行录音、联网识别或安装。
+具体接入、源码与验证见[任务指引](references/workflows.md)。检查命令取当前工程。Web unsupported、Mock、SDK 补丁检查、实际包编译、设备麦克风与真实识别分别报告；查询接口不执行录音、联网识别或安装。

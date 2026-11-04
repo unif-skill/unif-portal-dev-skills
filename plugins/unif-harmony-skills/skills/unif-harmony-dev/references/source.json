@@ -4,7 +4,7 @@
   "sources": {
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "dcdb20eafdae014a872f162a40a38480bb7e305853cee09aec859e1eff648264",
+      "sha256": "f67abe6f3c0c9895bf534ba0c11f3cfdf0bd96ec6b57b7e0ff4b80f1cf41dc4f",
       "lines": 64
     },
     "HARMONY_STRUCTURE.md": {
@@ -44,8 +44,8 @@
     },
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fcf73f1d6db929f18206b1f1f50271b1c780bb8a02054d50021019413b0d97e8",
-      "lines": 467,
+      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "lines": 474,
       "selectedSections": [
         {
           "heading": "4. 状态归属",
@@ -65,7 +65,7 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ]
@@ -91,7 +91,7 @@
           ]
         }
       ],
-      "sha256": "f5e3ed6240669dcc3e504bcf963485c81186cf9efcb484a96389d68a2c1a177c"
+      "sha256": "a101f2a7bfeea481692fe1f10c29651d97a101f3cedb0899a3a91c5e8bacbf12"
     },
     "harmony/files.md": {
       "sections": [
@@ -490,11 +490,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ],
-      "sha256": "a00881ea152ca93f179ff9689ff452cd68e580189b2b9e0707c8bf1dc256e98d"
+      "sha256": "a56110f69accc91ee2cd0e8ba8cb99ad86cbfb4f086ed5980118eed20a00d4b8"
     }
   }
 }

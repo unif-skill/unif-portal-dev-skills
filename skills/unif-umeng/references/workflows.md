@@ -13,7 +13,7 @@
 
 ## 维护与验证
 
-从 docs/DEVELOPMENT.md、src/index.ts、package.json、common/share/analytics 及相关原生实现定位变更；目标契约为任务采用规范根的 libraries/react-native-umeng.md。共同规则按实际阶段读取。
+从 docs/DEVELOPMENT.md、src/index.ts、package.json、common/share/analytics 及相关原生实现定位变更；目标契约为任务采用规范根的 libraries/react-native-umeng.md。
 
 核对真实消费者、初始化前/失败状态、在途 busy、同实例呈现、原调用回执及统计参数。保留初始化失败、取消和不可判断副作用的错误，不将它们补成成功。
 

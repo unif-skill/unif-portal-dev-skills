@@ -1,10 +1,10 @@
 # RN 项目采用
 
-本专题维护 Unif RN 工程的目标契约与资料入口。通用代码组织、实现、库工程和文档遵循目标工程已采用的规范，来源由本库入口与采用记录说明。
+从本库入口与采用记录取得目标契约和规范修订，按其要求组织代码、实现、库工程和文档。
 
 ## 项目与工程来源
 
-Portal 的业务目录、组件选用、状态和接入按本插件对应项目专题及所属架构执行。库保留自身目录与构建约定，不套用 Portal 的 app/domains/capabilities 结构。Design 和 Chat 的目标契约分别为规范根的 `libraries/react-native-design.md`、`libraries/react-native-chat.md`，其他库从自己的开发资料取得契约；目标设计不证明发布包已具备接口。
+Portal 的业务目录、组件选用、状态和接入按本技能所列 RN 专题及所属架构执行。库保留自身目录与构建约定，不套用 Portal 的 app/domains/capabilities 结构。Design 和 Chat 的目标契约分别为规范根的 `libraries/react-native-design.md`、`libraries/react-native-chat.md`，其他库从自己的开发资料取得契约；目标设计不证明发布包已具备接口。
 
 工程规则从本库 AGENTS.md、开发说明及已提交的采用记录取得，按任务指定的修订核对。已接入交付检查的工程读取 `.github/delivery.json` 与 `.github/scripts/check-delivery.cjs`；具体命令、检查范围和发布绑定以本库文件为准，不从其他工程推定。
 

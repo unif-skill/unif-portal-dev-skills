@@ -4,8 +4,8 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fcf73f1d6db929f18206b1f1f50271b1c780bb8a02054d50021019413b0d97e8",
-      "lines": 467,
+      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "lines": 474,
       "selectedSections": [
         {
           "heading": "3. 功能、场景与入口",
@@ -32,15 +32,15 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ]
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "4cf60c1c3b9a8185a4a8e23a4dc548e40c713c7994548f297d3b63cb691e57bd",
-      "lines": 74,
+      "sha256": "e6f887cfd92aa6eba2c8d92c1135bdead737dbc36b46b9ea947aa353ef43d926",
+      "lines": 72,
       "selectedSections": [
         {
           "heading": "4. 运行与资源生命周期",
@@ -60,7 +60,7 @@
           "heading": "6. 验证与交付",
           "lines": [
             62,
-            74
+            72
           ]
         }
       ]
@@ -113,11 +113,11 @@
           "heading": "7. 独立开发与验证",
           "lines": [
             316,
-            404
+            411
           ]
         }
       ],
-      "sha256": "a00881ea152ca93f179ff9689ff452cd68e580189b2b9e0707c8bf1dc256e98d"
+      "sha256": "a56110f69accc91ee2cd0e8ba8cb99ad86cbfb4f086ed5980118eed20a00d4b8"
     },
     "python/lifecycle.md": {
       "sections": [
@@ -147,11 +147,11 @@
           "heading": "6. 验证与交付",
           "lines": [
             62,
-            74
+            72
           ]
         }
       ],
-      "sha256": "6a99e46c41a677530d88dca58f17df26ebce78963588c5a54edcd0c52530cc5f"
+      "sha256": "ebee3afe068dbf6109dadec0c75b08de59e542b330a6ef6ea2da35b49e9f791c"
     }
   }
 }

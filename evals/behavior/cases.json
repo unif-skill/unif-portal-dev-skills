@@ -1841,6 +1841,32 @@
       "required_skills": [],
       "forbidden_skills": [],
       "source": "evals/library-skills/additional-library-cases.md K5；固定 Speech 0.3.0 修订 b4289ac997d7f74ddc7a92b7c90dc0de340ebe05。CI 使用固定修订的必要节选与匿名消费场景，不覆盖完整源码追踪或原专项执行。"
+    },
+    {
+      "id": "unif-architecture-design-existing-capability",
+      "skill": "unif-architecture-design",
+      "mode": "application",
+      "prompt": "请审查导入面板新增键盘粘贴入口的方案，给出可落地的调整建议和验证范围。只依据 fixtures 的当前确认与源码节选判断，不修改或运行工程，不联网或操作真实设备。节选省略的内部实现不能据此判定为缺陷；本题不要求完整代码审计。",
+      "fixtures": {
+        "scenario.md": "导入面板已有文件选择和拖放入口，现在增加键盘粘贴。三者面向同一面板草稿及同一用户生命周期，处理相同的 LocalDocument 格式，均只准备附件、不自动提交。已有 clipboard.bindPaste 在面板拥有焦点时交付 LocalDocument，并返回解除监听函数；权限、输入格式和焦点判断已经由该适配完成，不需要新增解析器。\n最新确认：复用面板现有生命周期，不增加后台服务、统一任务中心或历史数据迁移。之前审查要求补历史迁移和启动恢复服务，已明确撤回。\n方案草稿：创建 KeyboardImportManager 和 KeyboardImportStore，各自负责上传、准备、取消和错误提示，完成后把结果复制回面板 store；保留原有两个入口。先搭建任务中心和恢复服务，再接入粘贴。\n",
+        "src/documents/index.ts": "export { createInbox } from './createInbox';\nexport type { Inbox, LocalDocument, InboxDependencies } from './types';\n",
+        "src/documents/types.ts": "export interface LocalDocument { uri: string; name: string; mimeType: string }\nexport interface Inbox {\n  acceptSource(file: LocalDocument): Promise<void>;\n  dispose(): void;\n}\n// InboxDependencies 来自本单元已有定义，包含 identity、files、transport 和 store。\n",
+        "src/documents/createInbox.ts": "// 以下为已有实现的关键流程节选，不是可执行的完整源码。\nexport function createInbox(deps: InboxDependencies): Inbox {\n  // 每次 acceptSource 捕获身份，登记本轮 AbortController，并在对应 finally 收尾。\n  // 文件取得 hold 后由本轮负责 release，取消和异常也遵守此责任。\n  // 关键调用：\n  // const prepared = await deps.transport.prepare(file, { signal });\n  // if (!disposed && !signal.aborted && deps.identity.isCurrent(identity)) {\n  //   deps.store.accept(prepared);\n  // }\n  // 错误映射与状态回执按当前契约处理。\n  // dispose 结束实例并取消所有在途操作，迟到结果不能继续采用。\n}\n",
+        "src/workspace/mountDocumentPanel.ts": "import { createInbox } from '../documents';\n\nexport function mountDocumentPanel(deps: InboxDependencies) {\n  const inbox = createInbox(deps);\n  const offPicker = bindFilePicker(file => void inbox.acceptSource(file));\n  const offDrop = bindDropZone(file => void inbox.acceptSource(file));\n  return () => {\n    offPicker();\n    offDrop();\n    inbox.dispose();\n  };\n}\n// bindFilePicker、bindDropZone 与 clipboard.bindPaste 均来自现有输入适配。\n// 依赖导入和错误展示等无关代码省略。\n"
+      },
+      "rubric": [
+        "根据实际源码定位 mountDocumentPanel -> documents 公共入口 -> createInbox/acceptSource -> transport.prepare/store.accept，不只笼统说复用。",
+        "三个入口使用面板已有 inbox 实例及 store，反对 KeyboardImportManager/KeyboardImportStore 重复准备、错误和取消流程；不合并不同面板实例或用户的状态。",
+        "实际缺口是把已有 clipboard.bindPaste 接入该面板并在结束时解除监听，复用 LocalDocument 与 Inbox 类型；不要求新增解析器、虚构 SDK API 或无必要包装。",
+        "以最新确认范围为准，不把撤回的历史迁移、后台服务、任务中心变为前置；不跳过已有实现另建同职责流程。",
+        "保留仅准备不提交、身份隔离、取消、迟到结果和文件归属；共同实现的修改与适配接线分别说明，既有契约不随方案改变。",
+        "提出验证三个实际入口及共用调用、解除监听、离页/身份结束/迟到结果，说明本次只有静态方案判断，未运行的检查不宣称通过。"
+      ],
+      "required_skills": [
+        "unif-architecture-design"
+      ],
+      "forbidden_skills": [],
+      "source": "匿名合成的已有能力复用与新会话接续场景；所有源码为固定节选，只验证书面应用，不对应真实工程或运行验收。"
     }
   ]
 }

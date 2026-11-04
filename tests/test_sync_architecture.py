@@ -27,7 +27,7 @@ HEADINGS = {
     ],
     'PORTAL_STRUCTURE.md': [
         '1. 目标目录', '2. 基础组件与 UI 复用', '3. 工具、常量、类型及其他文件的归属',
-        '4. 公共入口与依赖方向', '5. 基础能力与资源归属', '6. 分批重写与定向验证',
+        '4. 公共入口与依赖方向', '5. 基础能力与资源归属', '6. 开发维护与定向验证',
     ],
 }
 HEADINGS['PYTHON_DEVELOPMENT.md'] = ['1. 适用范围与实施', '2. 目录与文件归属', '3. 公共入口与依赖', '4. 运行与资源生命周期', '5. 契约与任务指令', '6. 验证与交付']
@@ -304,7 +304,7 @@ class SnapshotTests(unittest.TestCase):
         self.assertIn('[后者](state.md#输入)', (self.reference / 'documentation.md').read_text())
 
         for name, heading in (('PORTAL_DEVELOPMENT.md', '5. 规则执行与定向验证'),
-                              ('PORTAL_STRUCTURE.md', '6. 分批重写与定向验证')):
+                              ('PORTAL_STRUCTURE.md', '6. 开发维护与定向验证')):
             path = self.sources / name
             source = path.read_text().replace(f'## {heading}\n', f'## {heading}\n\n### 验证对象\n')
             path.write_text(source + '[本规范的验证对象](#验证对象)\n')

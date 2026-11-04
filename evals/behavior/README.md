@@ -18,7 +18,8 @@
 | 架构、交付及 RN/鸿蒙/Python 开发、测试、审查 | 11 | 11 | 11 | 33 |
 | 11 个库能力技能 | 11 | 11 | 11 | 33 |
 | 原生库补充：Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger | 7 | 0 | 0 | 7 |
-| 合计 | 29 | 22 | 22 | 73 |
+| 已有能力复用与任务接续 | 1 | 0 | 0 | 1 |
+| 合计 | 30 | 22 | 22 | 74 |
 
 每技能至少有一项应用、发现正例和发现反例。流程题沿用 `<skill>-<mode>`；库题保留 `app-unif-*`、`pos-unif-*`、`neg-unif-*`、`native-unif-*` 的稳定题号。
 
@@ -35,6 +36,7 @@
 | AMap、Files、Logger、OSS、Speech | [K1–K5](../library-skills/additional-library-cases.md)、[来源清单](../library-skills/additional-library-fixtures.json) | 将完整 example/实现追踪收窄为资料应用；保留取消、回执、身份、文件/设备释放的判断 |
 | 原生六库 | [HN1–HN6](../library-skills/harmony-library-cases.md)、[来源清单](../library-skills/harmony-library-fixtures.json) | 提供必要包入口、状态、公开参数或目标规范节选；保持冻结版本实际能力 |
 | 原生 Logger | [K6](../library-skills/additional-library-cases.md)、[来源清单](../library-skills/additional-library-fixtures.json) | 保留完整小型公开入口、Files、来源锁定与 example 节选，对照 RN 新导出 |
+| 已有能力复用与任务接续 | `unif-architecture-design-existing-capability` 的匿名合成源码与确认记录 | 沿实际入口判断现有能力与接线缺口，保留实例和资源责任，避免重复实现及重新引入已撤回要求 |
 
 库题依据上表对应原题适配，包含 22 项发现题和 18 项应用题。每题 `source` 指向原题编号与适配说明；实际引用的 Git 修订、来源文件/行、整文件 SHA-256 与节选 SHA-256 内嵌在 `reference/provenance.json`。`whole-file` 只用于必要的小型入口/参数文件，`contiguous-excerpt` 和 `selected-lines` 明示节选；CI 使用题内资料，不通过网络补全来源。
 
