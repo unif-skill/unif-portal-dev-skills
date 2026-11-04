@@ -31,7 +31,7 @@ metadata:
 | 开始拍摄与宿主 | [getting-started/quick-start](https://unif-design.github.io/react-native-camera/md/getting-started/quick-start.md)、[api/use-camera](https://unif-design.github.io/react-native-camera/md/api/use-camera.md) |
 | 调用、替换、取消与媒体归属 | [getting-started/concepts](https://unif-design.github.io/react-native-camera/md/getting-started/concepts.md)、[api/camera-api](https://unif-design.github.io/react-native-camera/md/api/camera-api.md)、[api/types](https://unif-design.github.io/react-native-camera/md/api/types.md) |
 | 照片、录像与水印 | [guides/taking-photos](https://unif-design.github.io/react-native-camera/md/guides/taking-photos.md)、[guides/recording-video](https://unif-design.github.io/react-native-camera/md/guides/recording-video.md)、[guides/watermark](https://unif-design.github.io/react-native-camera/md/guides/watermark.md) |
-| 迁移与排障 | [migration](https://unif-design.github.io/react-native-camera/md/migration.md)、[troubleshooting](https://unif-design.github.io/react-native-camera/md/troubleshooting.md) |
+| 排障 | [troubleshooting](https://unif-design.github.io/react-native-camera/md/troubleshooting.md) |
 | Mock 与平台验证 | [testing](https://unif-design.github.io/react-native-camera/md/testing.md) |
 
 ## RN 使用边界
