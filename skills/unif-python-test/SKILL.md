@@ -15,6 +15,7 @@ description: 在 Unif Agent、Marketing 等 Python 后端中设计、编写、�
 |---|---|
 | 真实对象、替身与覆盖证据 | [测试责任](references/common/verification.md#72-测试责任) |
 | 失败、降级、恢复及诊断断言 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
+| 六层目录、依赖方向、资源及生成路径迁移 | [工程组织](references/python/structure.md) |
 | 消费者与回归范围选择 | [变更影响](references/common/verification.md#73-变更影响) |
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |

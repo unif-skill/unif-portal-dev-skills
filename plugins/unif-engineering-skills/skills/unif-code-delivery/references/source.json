@@ -39,14 +39,14 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "ebe9e55cfb4b540cb8cba5c2799a3853689de5218711a2f29ae401bad266228f",
-      "lines": 215,
+      "sha256": "266e58833a215a6a95c253f064262b150a734c427e3784338b785d75bf6b2374",
+      "lines": 219,
       "selectedSections": [
         {
           "heading": "6. 开发维护与定向验证",
           "lines": [
-            196,
-            215
+            200,
+            219
           ]
         }
       ]
@@ -67,14 +67,14 @@
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "e6f887cfd92aa6eba2c8d92c1135bdead737dbc36b46b9ea947aa353ef43d926",
-      "lines": 72,
+      "sha256": "1d75aa5e842c9abbec915523c687de3ea9730cb10c9c3239ff0c49cca54b1c03",
+      "lines": 73,
       "selectedSections": [
         {
           "heading": "6. 验证与交付",
           "lines": [
-            62,
-            72
+            63,
+            73
           ]
         }
       ]
@@ -121,8 +121,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 开发维护与定向验证",
           "lines": [
-            196,
-            215
+            200,
+            219
           ]
         }
       ],
@@ -147,12 +147,12 @@
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "6. 验证与交付",
           "lines": [
-            62,
-            72
+            63,
+            73
           ]
         }
       ],
-      "sha256": "5cf9bdcff9351126541ccf37024ba5c414d13adbe851c96162a879acf4c9ebcc"
+      "sha256": "2261bad103aa72a933c5dd396fbd9448e626cf45c09de9eda04910aa03ef57ea"
     }
   }
 }

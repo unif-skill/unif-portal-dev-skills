@@ -60,8 +60,8 @@
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "e6f887cfd92aa6eba2c8d92c1135bdead737dbc36b46b9ea947aa353ef43d926",
-      "lines": 72,
+      "sha256": "1d75aa5e842c9abbec915523c687de3ea9730cb10c9c3239ff0c49cca54b1c03",
+      "lines": 73,
       "selectedSections": [
         {
           "heading": "2. 目录与文件归属",
@@ -74,28 +74,28 @@
           "heading": "3. 公共入口与依赖",
           "lines": [
             36,
-            44
+            45
           ]
         },
         {
           "heading": "4. 运行与资源生命周期",
           "lines": [
-            45,
-            53
+            46,
+            54
           ]
         },
         {
           "heading": "5. 契约与任务指令",
           "lines": [
-            54,
-            61
+            55,
+            62
           ]
         },
         {
           "heading": "6. 验证与交付",
           "lines": [
-            62,
-            72
+            63,
+            73
           ]
         }
       ]
@@ -203,11 +203,11 @@
           "heading": "3. 公共入口与依赖",
           "lines": [
             36,
-            44
+            45
           ]
         }
       ],
-      "sha256": "1bf1762336248bb1d539e2cf35c11e193b27594408197991d21cf07b1e1d3a3e"
+      "sha256": "6c57624d206bd5bd88a3686331ec4890a442a029d3172d6a91ff1cff2380cee1"
     },
     "python/lifecycle.md": {
       "sections": [
@@ -215,8 +215,8 @@
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "4. 运行与资源生命周期",
           "lines": [
-            45,
-            53
+            46,
+            54
           ]
         }
       ],
@@ -228,20 +228,20 @@
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "5. 契约与任务指令",
           "lines": [
-            54,
-            61
+            55,
+            62
           ]
         },
         {
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "6. 验证与交付",
           "lines": [
-            62,
-            72
+            63,
+            73
           ]
         }
       ],
-      "sha256": "ebee3afe068dbf6109dadec0c75b08de59e542b330a6ef6ea2da35b49e9f791c"
+      "sha256": "75dcea16cde892790a199c635ab4d4b0a430eb8180b8640d0fcf336afb896b0b"
     }
   }
 }

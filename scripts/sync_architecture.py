@@ -123,6 +123,7 @@ for platform, sources in {
     },
     'python': {
         'PYTHON_DEVELOPMENT.md': {
+            'python/structure.md': ['2. 目录与文件归属', '3. 公共入口与依赖'],
             'python/lifecycle.md': ['4. 运行与资源生命周期'],
             'python/validation.md': ['5. 契约与任务指令', '6. 验证与交付'],
         },

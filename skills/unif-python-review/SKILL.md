@@ -18,7 +18,7 @@ description: 在 Unif Agent、Marketing 等 Python 后端中对明确代码或�
 | 公共输入输出、协议与业务结果 | [交接契约](references/common/contracts.md) |
 | 测试证据、消费者与回归范围 | [测试责任](references/common/verification.md#72-测试责任)、[变更影响](references/common/verification.md#73-变更影响) |
 | 新增或改变的失败路径 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
-| 目录、公共入口与服务配置归属 | [工程组织](references/python/structure.md) |
+| 六层目录、能力分组、公共入口与服务配置归属 | [工程组织](references/python/structure.md) |
 | 异步任务、事务与资源收尾 | [运行与事务](references/python/lifecycle.md) |
 | 同源契约、环境隔离及真实进程证据 | [契约与验证](references/python/validation.md) |
 
