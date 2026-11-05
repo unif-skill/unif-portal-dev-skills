@@ -60,20 +60,20 @@
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "b20494bc075d4f723feb2294c984d99e6f0a1124ddadc89bc7842aa0ebac2310",
-      "lines": 82,
+      "sha256": "f189acdbdd0c08cf9206a436d32428d2e65a94a2e173458b70a30cf31feb93f9",
+      "lines": 84,
       "selectedSections": [
         {
           "heading": "2. 目录与文件归属",
           "lines": [
             12,
-            44
+            42
           ]
         },
         {
           "heading": "3. 公共入口与依赖",
           "lines": [
-            45,
+            43,
             54
           ]
         },
@@ -95,7 +95,7 @@
           "heading": "6. 验证与交付",
           "lines": [
             72,
-            82
+            84
           ]
         }
       ]
@@ -195,19 +195,19 @@
           "heading": "2. 目录与文件归属",
           "lines": [
             12,
-            44
+            42
           ]
         },
         {
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "3. 公共入口与依赖",
           "lines": [
-            45,
+            43,
             54
           ]
         }
       ],
-      "sha256": "85df9c9da779995eca2e80fde624af0de7b35cd03a9501bca87514931d16c807"
+      "sha256": "d7986a722f56ae245d119f1b1e9420d5b9c91c0d5bb489c78521d8814d430860"
     },
     "python/lifecycle.md": {
       "sections": [
@@ -237,11 +237,11 @@
           "heading": "6. 验证与交付",
           "lines": [
             72,
-            82
+            84
           ]
         }
       ],
-      "sha256": "e3b6f95a22be77849820c1537e0facb8262c1b059c5427429275c7de100fcd62"
+      "sha256": "e39fab0047a72a557f4365d0929d30806a6adbdcb20ab69c39dc739864c7c926"
     }
   }
 }

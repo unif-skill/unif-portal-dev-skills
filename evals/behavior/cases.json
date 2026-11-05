@@ -1867,6 +1867,72 @@
       ],
       "forbidden_skills": [],
       "source": "匿名合成的已有能力复用与新会话接续场景；所有源码为固定节选，只验证书面应用，不对应真实工程或运行验收。"
+    },
+    {
+      "id": "unif-python-dev-agent-capabilities-application",
+      "skill": "unif-python-dev",
+      "mode": "application",
+      "prompt": "请根据本技能和题设完成当前阶段的目录、职责与验证判断。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
+      "fixtures": {
+        "scenario.md": "Unif Agent 原有 api、core、db、services、schemas、utils。services/agent 负责小U路由、上下文与模型指令，services/execution 负责租约和任务状态，services/attachments 负责文件准备，services/clients/marketing.py 负责营销通信。现在按当前 Python 规范整理智能体自身模块及助手接入，只接入 Marketing，不预建未来助手。\n\nMarketing 的订单、拜访和客户业务规则既被模型流程使用，也被普通 HTTP 入口使用。通用 memory 服务为模型和普通接口提供读写、权限与事务，另有智能体决定如何使用记忆的策略。请说明两工程的目录、依赖方向及必要迁移范围。当前 Python 工程没有 BasedPyright 配置，解释器和依赖已锁定。\n"
+      },
+      "rubric": [
+        "顶层 agent、capabilities 与 core/services 同级。智能体自身 Skill、提示词、工具、路由、上下文及编排归 agent，不继续放 services/agent。",
+        "Agent 的 capabilities/marketing 负责助手能力与工具声明、已有资料装配、协议校验与通信，订单和拜访等业务归 Marketing 工程。",
+        "Marketing 的领域规则与校验留在独立 capabilities，普通接口可调用这些公开能力，无需通过智能体。",
+        "执行协调、附件原件处理和通用 memory 的读写、权限及事务保持原服务边界，只有智能体使用记忆的策略归 agent。",
+        "迁移真实消费者、Skill/提示词资源和装配，保留身份、来源和同源契约。不增加空目录、动态插件框架、自动业务查询或历史兼容壳。",
+        "使用目标工程解释器和依赖运行 BasedPyright，本题无配置时用 recommended，处理实际范围的错误与警告并报告尚未执行的证据。"
+      ],
+      "required_skills": [
+        "unif-python-dev"
+      ],
+      "forbidden_skills": [],
+      "source": "evals/independent-skills/assistant-integration-cases.md A 与 assistant-integration-rubric.md A，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
+    },
+    {
+      "id": "unif-python-test-agent-capabilities-application",
+      "skill": "unif-python-test",
+      "mode": "application",
+      "prompt": "请根据本技能和题设完成当前阶段的目录、职责与验证判断。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
+      "fixtures": {
+        "scenario.md": "团队把智能体自身指令与编排、Marketing 接入、领域校验分别归到新目录，普通接口继续调用既有能力，并认为导入检查通过就证明迁移完整。请按本技能设计验证，覆盖实际 Skill 和提示词装配、普通接口、通用 memory、输入来源、暂停恢复、取消、不同助手结果、身份、许可与用量。\n\n可以使用第二个助手替身，但没有真实财务服务。新旧任务指令要求语义等价，Python 已采用工程 BasedPyright 配置。说明各层证据能证明什么。\n"
+      },
+      "rubric": [
+        "从真实智能体和普通接口入口验证生产能力接线，不只检查新目录或模拟整个被测模块。",
+        "对照迁移前后的实际 Skill、提示词、工具和上下文装配及其语义，业务校验与结果采用仍走所属能力。",
+        "覆盖通用 memory 的读写、身份权限和事务，以及输入来源、暂停恢复、取消、晚到、输入版本、许可与用量等已给定边界。",
+        "使用不同助手替身验证选择、交接与隔离，未知或未授权目标没有业务副作用。不以替身或导入通过声明真实财务服务或所有未来助手完成。",
+        "沿用工程 BasedPyright 配置和目标解释器、依赖，逐项处理检查范围诊断。不关闭规则、加 ignore 或扩大 Any 来制造通过。",
+        "分别报告静态检查、替身、真实进程、持久化和业务证据。本题只给测试方案，没有实际执行或完整效果结论。"
+      ],
+      "required_skills": [
+        "unif-python-test"
+      ],
+      "forbidden_skills": [],
+      "source": "evals/independent-skills/assistant-integration-cases.md B 与 assistant-integration-rubric.md B，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
+    },
+    {
+      "id": "unif-python-review-agent-capabilities-application",
+      "skill": "unif-python-review",
+      "mode": "application",
+      "prompt": "请根据本技能和题设完成当前阶段的目录、职责与验证判断。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
+      "fixtures": {
+        "scenario.md": "某次目录整理提出以下做法。把所有名称含 AI 或 memory 的函数移入 agent，把普通接口调用的订单校验也搬到 agent/capabilities。营销适配器对唯一商品候选自动选中，Host 读取营销 action 判定拜访完成。公开 Schema 被复制为手写 DTO。为了通过类型检查，新增 ignore 并将未知外部对象直接 cast 成业务类型，却没有协议或运行校验依据。\n\n请按本技能只读审查这些做法，区分智能体策略、独立领域能力、通用服务、协议校验、业务决策与类型检查依据。\n"
+      },
+      "rubric": [
+        "指出按 AI/memory 名称整体迁移会混淆智能体策略与通用服务，capabilities 不能嵌在 agent 下，普通接口需要独立能力入口。",
+        "Agent 营销适配只承接能力声明、输入和协议，自动选品和拜访完成属于领域业务。允许合法领域名称和协议字段出现，不以删除名字替代职责核对。",
+        "同源 Schema、公共类型与运行校验继续从所属 contracts 产生，不复制手写 DTO。",
+        "类型诊断应使用目标解释器与工程配置处理，新增 ignore 和没有边界依据的 cast 均不能替代校验或类型修复，不改为 Any、降低诊断或关闭规则。",
+        "提出核对真实调用、来源、身份、取消、事务、资源与 Skill/提示词装配的必要证据，不因目录调整增加服务或业务查询。",
+        "保持只读审查范围，依据题设指出实际问题，不宣称运行了检查或已修复工程。"
+      ],
+      "required_skills": [
+        "unif-python-review"
+      ],
+      "forbidden_skills": [],
+      "source": "evals/independent-skills/assistant-integration-cases.md C 与 assistant-integration-rubric.md C，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
     }
   ]
 }

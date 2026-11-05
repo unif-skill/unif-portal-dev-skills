@@ -15,15 +15,15 @@ description: 在 Unif Agent、Marketing 等 Python 后端中设计、编写、�
 |---|---|
 | 真实对象、替身与覆盖证据 | [测试责任](references/common/verification.md#72-测试责任) |
 | 失败、降级、恢复及诊断断言 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
-| 目录与助手接入、依赖方向、资源及生成路径迁移 | [工程组织](references/python/structure.md) |
+| 顶层 agent 与 capabilities、依赖方向、资源及生成路径迁移 | [工程组织](references/python/structure.md) |
 | 消费者与回归范围选择 | [变更影响](references/common/verification.md#73-变更影响) |
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |
 | 协议输入、取消、业务成功及未确认结果 | [交接契约](references/common/contracts.md) |
-| 环境切换、API／Worker、数据／任务池隔离与真实进程 | [后端验证](references/python/validation.md) |
+| Python 类型检查、环境切换、API／Worker、数据／任务池隔离与真实进程 | [后端验证](references/python/validation.md) |
 | 异步任务、事务与资源收尾 | [运行与资源](references/python/lifecycle.md) |
 
-助手接入测试覆盖真实路由与交接，区分输入准备、协议校验和业务处理；不同助手的替身用于核对隔离与公共机制，不声明真实领域服务已接入。
+助手接入测试覆盖真实路由与交接，区分输入准备、协议校验和业务处理；不同助手的替身用于核对隔离与公共机制，不声明真实领域服务已接入。智能体模块迁移核对 agent 中真实加载的 Skill、提示词和编排。领域能力迁移同时验证智能体与普通接口的消费者，通用记忆读写、权限和事务继续按所属边界验证。
 
 只读取实际涉及的资料，不因取得共同规则进入其他阶段。服务接口、业务模块契约、命令和运行条件从目标工程取得。
 

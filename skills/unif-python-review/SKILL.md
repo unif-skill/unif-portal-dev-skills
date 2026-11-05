@@ -18,11 +18,11 @@ description: 在 Unif Agent、Marketing 等 Python 后端中对明确代码或�
 | 公共输入输出、协议与业务结果 | [交接契约](references/common/contracts.md) |
 | 测试证据、消费者与回归范围 | [测试责任](references/common/verification.md#72-测试责任)、[变更影响](references/common/verification.md#73-变更影响) |
 | 新增或改变的失败路径 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
-| 职责目录、助手接入分组、公共入口与服务配置归属 | [工程组织](references/python/structure.md) |
+| 顶层 agent 与 capabilities、公共入口与服务配置归属 | [工程组织](references/python/structure.md) |
 | 异步任务、事务与资源收尾 | [运行与事务](references/python/lifecycle.md) |
-| 同源契约、环境隔离及真实进程证据 | [契约与验证](references/python/validation.md) |
+| BasedPyright、同源契约、环境隔离及真实进程证据 | [契约与验证](references/python/validation.md) |
 
-涉及助手接入时，核对专属能力说明、输入投影和协议处理是否集中在自身 assistants 单元；区分必要的领域接入认知与业务决策，不以删除所有业务名称代替边界审查，也不允许适配器承接领域业务流程。
+涉及助手接入时，核对专属能力说明、输入投影和协议处理是否集中在 Agent 对应的 capabilities 单元；区分必要的领域接入认知与业务决策，不以删除所有业务名称代替边界审查，也不允许适配器承接领域业务流程。智能体自身的 Skill、提示词与编排归顶层 agent，Marketing 的业务规则与校验归 capabilities。核对普通接口仍可使用所属能力，通用 memory 的读写、权限与事务未因名称迁入 agent。
 
 工程指定了规则修订时采用该修订。具体业务、库 API 与 SDK 契约从工程入口和实际公开资料取得，不把模板、评测样例或偏好当成新增需求。后端任务、事务、进程与持久化按实际执行层级核对；内存替身不能证明数据库约束，单进程验证不能证明多进程行为。
 
