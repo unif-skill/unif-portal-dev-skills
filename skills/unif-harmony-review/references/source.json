@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "sha256": "68205acf4b54f62c3549ce526b2dd02a8da95974fc242170343fae175e7e15ee",
       "lines": 474,
       "selectedSections": [
         {
@@ -102,7 +102,7 @@
           ]
         }
       ],
-      "sha256": "1fff50a3f96a955aeaa72a0e6ee99a6589eb5ba78b4a77dc65584ba9772b7a27"
+      "sha256": "9aa58e012777b1d92952378e9c83ea120f6d6c120a0bfc4d0dcd024eb8aafff9"
     },
     "common/composition.md": {
       "sections": [

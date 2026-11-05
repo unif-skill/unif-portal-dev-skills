@@ -10,6 +10,11 @@
 | B4 | `unif-python-dev` | [状态与记录归属](../architecture-design/cases/state-identity.md) | B：后端并发 |
 | B5 | `unif-python-test` | [独立消费题](cases.md) | G：unif-python-test |
 | B6 | `unif-python-review` | [独立消费题](cases.md) | H：unif-python-review |
+| B7 | `unif-python-dev` | [助手接入题](assistant-integration-cases.md) | A：开发 |
+| B8 | `unif-python-test` | [助手接入题](assistant-integration-cases.md) | B：测试 |
+| B9 | `unif-python-review` | [助手接入题](assistant-integration-cases.md) | C：审查 |
+
+新增助手接入题另按[助手接入判据](assistant-integration-rubric.md)评阅。
 
 ## 组装与执行
 

@@ -14,7 +14,7 @@ description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif RN／原�
 - 需求、范围与现有实现：[设计依据](references/scope.md)、[模块文档](references/documentation.md)。
 - 调用、输入准备与结果复用：[能力、场景与入口](references/composition.md)；系统职责：[系统边界](references/responsibilities.md)。
 - 状态、持久化、恢复、业务唯一性与异步交接：[状态归属](references/state.md)；交互确认：[入口确认](references/composition.md)。
-- 自然语言任务与记忆：[智能体与上下文](references/agent-context.md)。
+- 自然语言任务与记忆：[智能体与上下文](references/agent-context.md)；多助手接入同时核对[系统边界](references/responsibilities.md)，区分超级智能体路由、助手协议适配和领域业务处理，目录按目标工程采用。
 - 跨边界输入输出、业务成功、取消与未确认结果：[交接契约](references/contracts.md)。
 - 第三方技术采用依据、依赖与复用：[依赖治理](references/verification.md#71-依赖治理)；测试与消费者：[测试责任](references/verification.md#72-测试责任)；回归选择：[变更影响](references/verification.md#73-变更影响)。
 - 调用与模型成本：[成本验证](references/cost.md)。

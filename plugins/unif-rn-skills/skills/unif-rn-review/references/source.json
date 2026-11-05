@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "sha256": "68205acf4b54f62c3549ce526b2dd02a8da95974fc242170343fae175e7e15ee",
       "lines": 474,
       "selectedSections": [
         {
@@ -65,8 +65,8 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "ebe9e55cfb4b540cb8cba5c2799a3853689de5218711a2f29ae401bad266228f",
-      "lines": 215
+      "sha256": "266e58833a215a6a95c253f064262b150a734c427e3784338b785d75bf6b2374",
+      "lines": 219
     }
   },
   "files": {
@@ -102,7 +102,7 @@
           ]
         }
       ],
-      "sha256": "1fff50a3f96a955aeaa72a0e6ee99a6589eb5ba78b4a77dc65584ba9772b7a27"
+      "sha256": "9aa58e012777b1d92952378e9c83ea120f6d6c120a0bfc4d0dcd024eb8aafff9"
     },
     "common/composition.md": {
       "sections": [
@@ -220,8 +220,8 @@
           "source": "PORTAL_STRUCTURE.md",
           "heading": "6. 开发维护与定向验证",
           "lines": [
-            196,
-            215
+            200,
+            219
           ]
         }
       ],
@@ -281,19 +281,19 @@
           "heading": "4. 公共入口与依赖方向",
           "lines": [
             164,
-            189
+            193
           ]
         },
         {
           "source": "PORTAL_STRUCTURE.md",
           "heading": "5. 基础能力与资源归属",
           "lines": [
-            190,
-            195
+            194,
+            199
           ]
         }
       ],
-      "sha256": "64f27d7877bffd1c56f8328834da23e9bdc49d3a8314135d95517a4b04e81f16"
+      "sha256": "09969c40c2e8577832818f94c6984db299f7b47e1ddf3adc7f1000f160abee0f"
     }
   }
 }

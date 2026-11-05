@@ -8,7 +8,8 @@ description: 在 Unif Agent、Marketing 等 Python 后端实现或调整代码�
 按已确认职责和实际消费者完成后端实现。接续任务或进入新会话时，先核对最新已确认需求、明确排除项及已撤回结论，再查当前实现与接线。优先采用目标工程指定的规范修订；同一上下文中仍适用的依据直接复用，按本次范围选择资料：
 
 - 修改范围与现有行为：[实施范围](references/scope.md)；第三方库、框架或 SDK 的设计、接入、封装与排障：[依赖治理](references/common/verification.md#71-依赖治理)，核对官方依据与项目采用条件。
-- api/core/db/services/schemas/utils 六层目录、services 内能力分组、提示词归属、包公共入口与调用方向：[目录与依赖](references/structure.md)。
+- 外层职责目录、与 services 同层的 assistants 接入分组、提示词归属、包公共入口与调用方向：[目录与依赖](references/structure.md)。
+- 新增或整理领域助手接入：按[目录与依赖](references/structure.md)区分本服务能力、助手协议适配和领域业务；核对能力声明、已有资料、启动装配及真实消费者，保留公共契约同源。
 - 服务配置、环境变体及启动接线：[目录与依赖](references/structure.md)、[契约与验证](references/validation.md)。
 - 异步执行、取消、收尾、事务及调用预算：[运行与资源](references/lifecycle.md)。
 - 持久化、恢复、跨设备同步、业务记录创建，或异步处理、状态交接、资源收尾：读取[状态归属](references/common/state.md)，核对权威来源、唯一性、执行归属及对应验证；读取共同规则不重启架构设计。

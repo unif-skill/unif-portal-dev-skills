@@ -4,7 +4,7 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "407c557b5924bdaf4c0ad8985b93fcf78a49ace99f49febdb3ffa3903ab5bc43",
+      "sha256": "68205acf4b54f62c3549ce526b2dd02a8da95974fc242170343fae175e7e15ee",
       "lines": 474,
       "selectedSections": [
         {
@@ -67,14 +67,14 @@
     },
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "1d75aa5e842c9abbec915523c687de3ea9730cb10c9c3239ff0c49cca54b1c03",
-      "lines": 73,
+      "sha256": "b20494bc075d4f723feb2294c984d99e6f0a1124ddadc89bc7842aa0ebac2310",
+      "lines": 82,
       "selectedSections": [
         {
           "heading": "6. 验证与交付",
           "lines": [
-            63,
-            73
+            72,
+            82
           ]
         }
       ]
@@ -147,12 +147,12 @@
           "source": "PYTHON_DEVELOPMENT.md",
           "heading": "6. 验证与交付",
           "lines": [
-            63,
-            73
+            72,
+            82
           ]
         }
       ],
-      "sha256": "2261bad103aa72a933c5dd396fbd9448e626cf45c09de9eda04910aa03ef57ea"
+      "sha256": "3d64ac35d180ca93c9234bd54a99faf5522579845f37e55f1ba38ef1ddd07d22"
     }
   }
 }

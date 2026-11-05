@@ -2,9 +2,13 @@
 
 ## 4. 公共入口与依赖方向
 
-Agent 客户端保留统一公开入口，内部按 transport、conversations、turns、observation、inputAttachments、visitAnalysis 归组，专属类型、常量和校验随职责维护，共同身份与错误语义保持共用。生成契约继续从同源产物采用，不复制为手写定义。
+Agent 客户端保留统一公开入口，按 transport、turns、observation、inputAttachments 处理传输、执行、观察与原件直传；运行控制类型和分析结果解码仍随所属功能维护。云会话目录、状态同步和内容投影实现退役。公共执行与业务契约采用同源生成物；类型通过 `import type` 从生成器维护的 `@/generated/contracts` 统一导入，不穿透 `protocol` 或 `types`。运行时校验采用 manifest 登记的 `@/generated/contracts/validators/<主题>/<契约>` 独立模块，避免全量目录进入 Metro bundle，不复制为手写定义。
+
+本机会话、目录、运行关联及私有文件引用归 app/chat/recovery，SQLite 表与事务由该功能维护；不建立 app/chat/sync 或云 content 层。本机聊天契约源归 app/chat/contracts/schema.json，营销恢复源归 domains/marketing/recovery/schema.json，各自生成类型与严格校验。运行实例、草稿与业务 owner 仍按所属生命周期创建，冷恢复调用原构造流程，不保留公开热合并入口。
 
 应用会话工厂可把订单创建、恢复采用、单会话装配和拜访入口协调提取为所属单元的私有实现。原工厂继续持有 store、实例表、取消信号和释放列表；提取代码引用这些原对象，可变标记实时读写原变量，不捕获一次快照或另建生命周期。私有入口按实际所有者登记导入检查，不因目录拆分扩大公共 API。
+
+营销结果执行的客户、订单与拜访动作归 `marketingResult/actions`，主执行器保留依赖调度、业务成功等待和统一释放。`OrderFlowPanel` 的数量编辑与选品 Hook 随面板实例维护原有交互状态，互斥判断读取实时 ref；订单换品与待补编辑的纯计算归 `order/flow/edits`，状态采用、标识分配、缓存写入和确认通知仍由原 flow 执行。这些实现只由所属单元消费，不进入公共入口。
 
 Portal 的应用组装连接各能力和协议实现，页面及对话入口调用所属场景；领域内查询保留领域归属。
 
