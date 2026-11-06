@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-library-skills",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "Unif 十一个库能力，双平台契约保留在同一技能",
   "extensions": {
     "com.openai": {
