@@ -207,6 +207,125 @@ class TransportTests(unittest.TestCase):
                 _ = client(**extra)
 
 
+class ProgressTests(unittest.TestCase):
+    def test_live_pairs_precede_later_requests_and_preserve_results(self) -> None:
+        case: evaluator.Case = {'id': 'sample-discovery', 'skill': 'sample', 'mode': 'discovery_positive',
+            'prompt': 'Select sample.', 'source': 'evals/example.md', 'rubric': ['Select sample.'],
+            'fixtures': {}, 'required_skills': ['sample'], 'forbidden_skills': []}
+        with patch('scripts.behavior_eval.resolve_commit', return_value='a' * 40), patch(
+                'scripts.behavior_eval.git', return_value=b''):
+            snapshot = evaluator.Snapshot('.', 'HEAD')
+        plan: evaluator.Plan = {'formatVersion': 1, 'repo': str(snapshot.repo), 'base': 'a' * 40,
+            'head': 'a' * 40, 'mode': 'smoke', 'case_ids': [case['id']], 'repeats': 1, 'suite_sha256': 'b' * 64}
+        observations: list[tuple[evaluator.CaseReport, list[bytes | None]]] = []
+        for enabled in (False, True):
+            progress = evaluator.Progress(enabled, 2)
+            api = evaluator.ChatCompletionsClient(evaluator.configuration(ENV), progress)
+            logs = io.StringIO()
+            sent: list[bytes | None] = []
+            with tempfile.TemporaryDirectory() as temporary:
+                output = Path(temporary)
+
+                def send(request: urllib.request.Request, timeout: int) -> io.BytesIO:
+                    self.assertGreater(timeout, 0)
+                    if len(sent) == 2 and enabled:
+                        self.assertIn('已处理 1/2', logs.getvalue())
+                        self.assertTrue((output / 'traces/sample-discovery/1-after.json').is_file())
+                    data = request.data
+                    if not isinstance(data, bytes):
+                        self.fail("Request payload must be serialized bytes")
+                    sent.append(data)
+                    return io.BytesIO(json.dumps(response('{"selected_skills":["sample"],"reason":"Matches."}')).encode())
+
+                reports: list[evaluator.CaseReport] = []
+                with patch('sys.stderr', logs), patch('urllib.request.urlopen', side_effect=send), patch.object(
+                        evaluator.Snapshot, 'skill_files', return_value={'skills/sample/SKILL.md': b'skill'}):
+                    for _ in range(2):
+                        report: evaluator.CaseReport = {'id': case['id'], 'skill': case['skill'], 'mode': case['mode'],
+                            'source': case['source'], 'rubric': case['rubric'], 'status': 'insufficient',
+                            'expected_pairs': 1, 'failures': [], 'traces': []}
+                        reports.append(evaluator.evaluate_case(report, case, api, {'before': snapshot, 'after': snapshot},
+                            {variant: [{'name': 'sample', 'description': 'Select sample.'}] for variant in ('before', 'after')},
+                            plan, output, 'harness'))
+                        self.assertEqual(report.get('completed_pairs'), 1)
+                        self.assertEqual(report['failures'], [])
+                observations.append((reports[-1], sent))
+            if enabled:
+                self.assertIn('已处理 2/2', logs.getvalue())
+                self.assertIn('题目 sample-discovery 结束：证据不足', logs.getvalue())
+                self.assertIn('单对观察，非最终结论', logs.getvalue())
+            else:
+                self.assertEqual(logs.getvalue(), '')
+        self.assertEqual(observations[0], observations[1])
+
+    def test_concurrent_progress_counts_each_pair_once(self) -> None:
+        logs = io.StringIO()
+        progress = evaluator.Progress(True, 30)
+        comparison: evaluator.Comparison = {'status': 'insufficient', 'completed_pairs': 1,
+            'expected_pairs': 1, 'criteria': [], 'observed_wins': 0, 'observed_losses': 0}
+
+        def finish(index: int) -> None:
+            progress.pair_finished('sample', index, comparison, 1)
+
+        with patch('sys.stderr', logs), ThreadPoolExecutor(max_workers=3) as pool:
+            _ = list(pool.map(finish, range(30)))
+        self.assertEqual(progress.processed_pairs, 30)
+        self.assertEqual(progress.completed_pairs, 30)
+        self.assertEqual(len(logs.getvalue().splitlines()), 30)
+        self.assertIn('已处理 30/30', logs.getvalue())
+
+    def test_incomparable_pairs_do_not_claim_zero_differences(self) -> None:
+        before: evaluator.ComparableSample = {'status': 'complete', 'scores': [True],
+            'actual_models': {'answer': ['model-a']}, 'case_sha256': 'same-case'}
+        for status in ('complete', 'error'):
+            candidate: evaluator.ComparableSample = {'status': status, 'scores': [True],
+                'actual_models': {'answer': ['model-b']}, 'case_sha256': 'same-case'}
+            comparison = evaluator.compare_results([(before, candidate)], 1)
+            logs = io.StringIO()
+            with patch('sys.stderr', logs):
+                evaluator.Progress(True, 1).pair_finished('sample', 1, comparison, 0)
+            self.assertIn('不可比较', logs.getvalue())
+            self.assertNotIn('观察上升/下降 0/0', logs.getvalue())
+
+    def test_actual_errors_exclude_stop_notices_and_logs_exclude_payloads(self) -> None:
+        logs = io.StringIO()
+        api = evaluator.ChatCompletionsClient(evaluator.configuration(ENV), evaluator.Progress(True, 1))
+        with patch('sys.stderr', logs), patch('urllib.request.urlopen', side_effect=fake_http(
+                [failure(), failure(), failure()], [], [])), patch('scripts.behavior_eval.time.sleep'):
+            for _ in range(4):
+                with self.assertRaises(evaluator.EvalError):
+                    _ = api.request([{'role': 'user', 'content': 'secret prompt'}], [])
+        self.assertEqual(api.request_errors, {'HTTP 503': 3})
+        self.assertEqual(api.requests_used, 3)
+        self.assertEqual(logs.getvalue().count('传输失败 HTTP 503'), 3)
+        for secret in ('secret prompt', 'private response body', 'synthetic-test-key', 'example.invalid'):
+            self.assertNotIn(secret, logs.getvalue())
+
+    def test_closed_log_stream_does_not_change_http_result(self) -> None:
+        logs = io.StringIO()
+        logs.close()
+        api = evaluator.ChatCompletionsClient(evaluator.configuration(ENV), evaluator.Progress(True, 1))
+        with patch('sys.stderr', logs), patch('urllib.request.urlopen', side_effect=fake_http([response()], [], [])):
+            self.assertEqual(api.request([{'role': 'user', 'content': 'task'}], []), response())
+
+    def test_repeated_errors_group_only_in_markdown(self) -> None:
+        error = '先前 API 传输失败，本次停止调用：HTTP 503'
+        failures: list[evaluator.Failure] = [{'error': error, 'variant': 'after', 'repeat': i,
+            'trace': f'traces/sample/{i}-after.json'} for i in range(1, 4)]
+        case: evaluator.CaseReport = {'id': 'sample', 'skill': 'sample', 'mode': 'application',
+            'source': 'example', 'rubric': [], 'status': 'insufficient', 'expected_pairs': 3,
+            'failures': failures, 'traces': []}
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            evaluator.write_report(output, {'status': 'insufficient', 'cases': [case], 'request_errors': {'HTTP 503': 3}})
+            markdown = (output / 'summary.md').read_text()
+            raw = (output / 'summary.json').read_text()
+        self.assertEqual(markdown.count(error), 1)
+        self.assertEqual(raw.count(error), 3)
+        self.assertIn('共 3 个样本提示', markdown)
+        self.assertIn('实际请求传输错误', markdown)
+
+
 def legacy_adoption(root: Path) -> tuple[Path, Path]:
     source, target = root / 'source', root / 'target'
     for path, name in ((source, 'uni-skills'), (target, 'unif-portal-dev-skills')):

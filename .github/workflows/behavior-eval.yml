@@ -128,7 +128,7 @@ jobs:
           eval_exit_code=2
           if [ -f eval-plan.json ]; then
             eval_exit_code=0
-            python scripts/behavior_eval.py run --plan eval-plan.json --output-dir artifacts/behavior-eval || eval_exit_code=$?
+            python scripts/behavior_eval.py run --plan eval-plan.json --output-dir artifacts/behavior-eval --progress || eval_exit_code=$?
           fi
           printf 'exit_code=%s\n' "$eval_exit_code" >> "$GITHUB_OUTPUT"
           exit "$eval_exit_code"

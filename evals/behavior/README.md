@@ -64,13 +64,14 @@
 
 打开[模型评测运行记录](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/behavior-eval.yml)，按提交、分支和触发方式选择对应运行：
 
-1. 在 **Summary** 下方查看评测结论、完成配对、实际请求次数和步骤退出码。
-2. 在 **Artifacts** 下载 `behavior-eval-<run_id>-<attempt>`，解压后查看 `artifacts/behavior-eval/summary.md`、`summary.json`、`workflow.json` 及 `traces/`。产物保留 30 天。
-3. 使用有仓库读取权限的 GitHub 账号；未登录或无权限时可能显示 404。
+1. 运行中展开 **Evaluate skill behavior → Compare baseline and candidate behavior** 的实时日志：每对前后样本落盘后显示已处理/总配对数、完整配对数、该对观察升降和耗时；每题完成后显示逐题结论。请求日志显示编号、作答/评阅、耗时和重试等待，不输出请求内容或凭证。单对观察不代表最终效果结论。
+2. 运行结束后，在 **Summary** 下方查看评测结论、完成配对、实际请求次数和步骤退出码。
+3. 在 **Artifacts** 下载 `behavior-eval-<run_id>-<attempt>`，解压后查看 `artifacts/behavior-eval/summary.md`、`summary.json`、`workflow.json` 及 `traces/`。产物保留 30 天。
+4. 使用有仓库读取权限的 GitHub 账号；未登录或无权限时可能显示 404。
 
 模型步骤和作业允许失败，不是发布门禁。绿色工作流只表示工作流按其配置结束，不能代替报告中的改善、退化、持平或证据不足。退出码 `0` 表示完成或无相关变化，`1` 表示退化，`2` 表示证据不足；没有相关题目时明确跳过。持平只表示本次样本未观察到差异，不保证其他任务的效果。
 
-“先前 API 传输失败，本次停止调用”表示该样本没有继续发请求。实际失败尝试保存在 `api_trace`，不能把停调后的样本数当成 HTTP 失败次数。
+“先前 API 传输失败，本次停止调用”表示该样本没有继续发请求。实际传输失败次数（含重试）单独汇总，逐次证据保存在 `api_trace`。相同错误在 Markdown 中合并计数并链接代表样本，JSON 和 traces 保留完整记录；不能把停调后的样本数当成 HTTP 失败次数。报告中的 traces 相对链接需下载并解压产物后使用。
 
 ## 触发与重复次数
 
@@ -111,7 +112,7 @@ HTTP 503 按[服务端错误说明](https://help.aliyun.com/zh/model-studio/erro
 python scripts/sync_evaluation_tools.py --verify
 python scripts/behavior_eval.py validate --root .
 python scripts/behavior_eval.py plan --repo . --base "$BASE_SHA" --head "$HEAD_SHA" --scope affected --mode smoke --event workflow_dispatch --output /tmp/skill-eval-plan.json
-python scripts/behavior_eval.py run --plan /tmp/skill-eval-plan.json --output-dir /tmp/skill-eval-artifacts
+python scripts/behavior_eval.py run --plan /tmp/skill-eval-plan.json --output-dir /tmp/skill-eval-artifacts --progress
 ```
 
 评测器、测试与工作流由 Uni 单一维护，Unif 显式采用同源副本；各仓 CI 只使用仓内文件，不读取其他私有仓或本机安装。

@@ -225,6 +225,7 @@ class Report(TypedDict, total=False):
     skills: dict[str, SkillReport]
     cases: list[CaseReport]
     requests_used: int
+    request_errors: dict[str, int]
     usage: Usage
     usage_complete: bool
     actual_models: dict[str, list[str]]
@@ -682,8 +683,49 @@ def configuration(env: Mapping[str, str]) -> Config:
             'retry_base_seconds': number('SKILL_EVAL_RETRY_BASE_SECONDS', 1, 1, 30)}
 
 
+class Progress:
+    """Serialize opt-in live logs; logging failures must not alter evaluation."""
+
+    def __init__(self, enabled: bool, total_pairs: int) -> None:
+        self.enabled: bool = enabled
+        self.total_pairs: int = total_pairs
+        self.processed_pairs: int = 0
+        self.completed_pairs: int = 0
+        self.started: float = time.monotonic()
+        self.lock: threading.Lock = threading.Lock()
+
+    def emit(self, message: str) -> None:
+        if not self.enabled:
+            return
+        with self.lock:
+            self.write(message)
+
+    def write(self, message: str) -> None:
+        # Caller holds the lock. No request payloads, credentials or answers here.
+        try:
+            print(f'[评测 +{time.monotonic() - self.started:.0f}s] ' +
+                  f'[{threading.current_thread().name}] {message}', file=sys.stderr, flush=True)
+        except (OSError, ValueError):
+            pass
+
+    def pair_finished(self, case_id: str, repeat: int, comparison: Comparison, elapsed: float) -> None:
+        if not self.enabled:
+            return
+        with self.lock:
+            self.processed_pairs += 1
+            self.completed_pairs += comparison['completed_pairs']
+            observation = (f"观察上升/下降 {comparison['observed_wins']}/{comparison['observed_losses']}"
+                           if comparison['criteria'] else '不可比较：' + comparison.get('reason', '判据不足'))
+            self.write(f"配对 {case_id} #{repeat} 已处理 {self.processed_pairs}/{self.total_pairs}；" +
+                       f"完整 {self.completed_pairs}；本对完整 {comparison['completed_pairs']}/1；" +
+                       f"{observation}；" +
+                       f"耗时 {elapsed:.1f}s（单对观察，非最终结论）")
+
+
 class ChatCompletionsClient:
-    def __init__(self, config: Config) -> None:
+    def __init__(self, config: Config, progress: Progress | None = None) -> None:
+        self.progress: Progress = progress if progress is not None else Progress(False, 0)
+        self.request_errors: dict[str, int] = {}
         self.config: Config = config
         self.requests_used: int = 0
         self.transport_error: str | None = None
@@ -718,6 +760,9 @@ class ChatCompletionsClient:
                 if self.requests_used >= self.config['max_requests']:
                     raise EvalError('API 请求预算已耗尽')
                 self.requests_used += 1
+                request_id = self.requests_used
+            started = time.monotonic()
+            self.progress.emit(f"请求 {request_id}/{self.config['max_requests']} {role} 尝试 {attempt + 1}/3 开始")
             trace.append(record)
             request = urllib.request.Request(endpoint, data=wire, method='POST', headers={'Content-Type': 'application/json'})
             request.add_unredirected_header('Authorization', 'Bearer ' + self.config['api_key'])
@@ -729,21 +774,28 @@ class ChatCompletionsClient:
                     raise EvalError('API 响应超过大小上限')
                 result = load_json(raw)
                 record['response'] = result
+                self.progress.emit(f'请求 {request_id} 已返回；耗时 {time.monotonic() - started:.1f}s')
             except (urllib.error.URLError, TimeoutError, OSError) as exc:
                 # Never retain HTTP bodies or headers. Each failed attempt remains in
                 # the trace and budget; its unreturned token usage stays unknown.
                 message = 'HTTP ' + str(exc.code) if isinstance(exc, urllib.error.HTTPError) else type(exc).__name__
                 record['error'] = message
+                with self.lock:
+                    self.request_errors[message] = self.request_errors.get(message, 0) + 1
+                self.progress.emit(f'请求 {request_id} 传输失败 {message}；耗时 {time.monotonic() - started:.1f}s')
                 if isinstance(exc, urllib.error.HTTPError):
                     exc.close()
                     if exc.code == 503 and attempt < 2:
-                        time.sleep(self.config['retry_base_seconds'] * (attempt + 1))
+                        delay = self.config['retry_base_seconds'] * (attempt + 1)
+                        self.progress.emit(f'请求 {request_id} 等待 {delay}s 后重试')
+                        time.sleep(delay)
                         continue
                 with self.lock:
                     self.transport_error = message
                 raise EvalError('API 传输失败：' + message) from exc
             except (ValueError, UnicodeError) as exc:
                 record['error'] = 'API 返回无效 JSON 或超限响应'
+                self.progress.emit(f'请求 {request_id} 响应无效；耗时 {time.monotonic() - started:.1f}s')
                 raise EvalError(record['error']) from exc
             if valid_response(result, tools is not None):
                 return result
@@ -1012,6 +1064,7 @@ def write_report(output_dir: str | Path, report: Report) -> None:
         '持平只表示完整重复样本的判据结果相同，不表示答案正确；任何观察下降都不能被其他增益抵消。', '',
         f"请求次数：{report.get('requests_used', 0)}；已返回的用量：{encode(report.get('usage', {}))}；" +
         f"用量是否完整：{'是' if report.get('usage_complete', False) else '否（未返回部分未知）'}",
+        f"实际请求传输错误（含重试）：{encode(report.get('request_errors', {}))}；停止后未继续调用的样本提示另列。",
         f"评测器 SHA-256：{report.get('harness_sha256', '不可用')}"]
     if report.get('config'):
         lines += [f"运行设置：{encode(report.get('config'))}"]
@@ -1033,11 +1086,22 @@ def write_report(output_dir: str | Path, report: Report) -> None:
         lines += ['', '逐题依据及前后失败例：', '']
         for case in report.get('cases', []):
             lines.append(f"- {case['id']}：{case.get('reason', '')}")
+            grouped_errors: dict[str, tuple[int, Failure]] = {}
+            failures: list[tuple[Failure, int]] = []
             for failure in case['failures']:
+                error = failure.get('error')
+                if error:
+                    count, first = grouped_errors.get(error, (0, failure))
+                    grouped_errors[error] = (count + 1, first)
+                else:
+                    failures.append((failure, 1))
+            failures.extend((first, count) for count, first in grouped_errors.values())
+            for failure, count in failures:
                 trace = failure.get('trace')
                 details = failure.get('error') or '；'.join(item['reason'] for item in failure.get('criteria', []) if not item['passed'])
                 link = f"[{failure.get('variant')} 第 {failure.get('repeat')} 次]({trace})" if trace else '未取得样本'
-                lines.append(f"  - {link}：{details.replace(chr(10), ' ')}")
+                occurrence = f'（共 {count} 个样本提示，链接为代表样本；完整记录见 traces/）' if count > 1 else ''
+                lines.append(f"  - {link}：{details.replace(chr(10), ' ')}{occurrence}")
     _ = (output_dir / 'summary.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
@@ -1107,12 +1171,16 @@ def evaluate_case(case_report: CaseReport, case: Case, client: ChatCompletionsCl
     except (ValueError, OSError, subprocess.SubprocessError) as exc:
         case_report['reason'] = str(exc)
         case_report['failures'].append({'error': str(exc)})
+        client.progress.emit(f"题目 {case['id']} 结束：证据不足（样本准备失败，详见报告）")
         return case_report
     pairs: list[tuple[ComparableSample, ComparableSample]] = []
     for repeat in range(plan['repeats']):
+        started = time.monotonic()
+        client.progress.emit(f"配对 {case['id']} #{repeat + 1}/{plan['repeats']} 开始")
         pair: dict[str, ComparableSample] = {}
         # Counterbalance order; every evaluate_sample starts a fresh conversation.
         for variant in (('before', 'after') if repeat % 2 == 0 else ('after', 'before')):
+            client.progress.emit(f"样本 {case['id']} #{repeat + 1} {variant} 开始")
             files_digest = digest(encode({path: digest(data) for path, data in sorted(files[variant].items())}).encode())
             catalog = catalogs.get(variant, [])
             sample = evaluate_sample(client, case, files[variant], catalog if not isinstance(catalog, str) else [], files_digest)
@@ -1135,15 +1203,18 @@ def evaluate_case(case_report: CaseReport, case: Case, client: ChatCompletionsCl
             pair[variant] = {'status': sample['status'], 'scores': sample['scores'],
                 'actual_models': sample['actual_models'], 'case_sha256': sample['case_sha256']}
         pairs.append((pair['before'], pair['after']))
+        client.progress.pair_finished(case['id'], repeat + 1, compare_results([pairs[-1]], 1), time.monotonic() - started)
     comparison = compare_results(pairs, plan['repeats'])
     case_report.update(status=comparison['status'], completed_pairs=comparison['completed_pairs'],
         expected_pairs=comparison['expected_pairs'], criteria=comparison['criteria'],
         observed_wins=comparison['observed_wins'], observed_losses=comparison['observed_losses'],
         reason=comparison.get('reason', ''))
+    client.progress.emit(f"题目 {case['id']} 结束：{LABELS[comparison['status']]}；" +
+                         f"完整配对 {comparison['completed_pairs']}/{plan['repeats']}")
     return case_report
 
 
-def run_plan(plan: object, output_dir: str | Path) -> int:
+def run_plan(plan: object, output_dir: str | Path, show_progress: bool = False) -> int:
     output_dir = Path(output_dir)
     report: Report = {'formatVersion': 1, 'status': 'insufficient', 'reason': '', 'plan': plan,
               'harness_sha256': digest(Path(__file__).read_bytes()), 'skills': {}, 'cases': [],
@@ -1169,7 +1240,10 @@ def run_plan(plan: object, output_dir: str | Path) -> int:
             'expected_pairs': plan['repeats'], 'failures': [], 'traces': []} for identifier in plan['case_ids']]
         config = configuration(os.environ)
         report['config'] = {key: value for key, value in config.items() if key != 'api_key'}
-        active_client = ChatCompletionsClient(config)
+        progress = Progress(show_progress, len(plan['case_ids']) * plan['repeats'])
+        progress.emit(f"开始：{len(plan['case_ids'])} 题，共 {progress.total_pairs} 对；" +
+                      f"并发 {config['max_workers']}；请求预算 {config['max_requests']}")
+        active_client = ChatCompletionsClient(config, progress)
         client = active_client
         catalogs: dict[str, list[dict[str, str]] | str] = {}
         if any(case['mode'] != 'application' for case in report['cases']):
@@ -1201,6 +1275,7 @@ def run_plan(plan: object, output_dir: str | Path) -> int:
             _ = case_report.setdefault('reason', str(exc))
     if client is not None:
         report['requests_used'] = client.requests_used
+        report['request_errors'] = client.request_errors.copy()
     for skill in sorted({case['skill'] for case in all_cases}):
         case_reports = [case for case in report['cases'] if case['skill'] == skill]
         total = sum(case['skill'] == skill for case in all_cases)
@@ -1227,6 +1302,7 @@ class Arguments(argparse.Namespace):
     output: str = ''
     plan: str = ''
     output_dir: str = ''
+    progress: bool = False
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -1245,6 +1321,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     run = subcommands.add_parser('run')
     _ = run.add_argument('--plan', required=True)
     _ = run.add_argument('--output-dir', required=True)
+    _ = run.add_argument('--progress', action='store_true', help='向 stderr 实时输出请求、配对和逐题进度')
     args = parser.parse_args(argv, namespace=Arguments())
     try:
         if args.command == 'validate':
@@ -1253,7 +1330,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == 'plan':
             write_json(args.output, create_plan(args.repo, args.base, args.head, args.mode, args.event, args.scope))
             return 0
-        return run_plan(load_json(Path(args.plan).read_text(encoding='utf-8')), args.output_dir)
+        return run_plan(load_json(Path(args.plan).read_text(encoding='utf-8')), args.output_dir, args.progress)
     except (ValueError, OSError, subprocess.SubprocessError) as exc:
         if args.command == 'plan':
             write_json(args.output, {'formatVersion': 1, 'repo': str(Path(args.repo).resolve()),
