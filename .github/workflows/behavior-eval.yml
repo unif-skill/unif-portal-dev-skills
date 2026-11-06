@@ -46,6 +46,10 @@ on:
         description: '基线 Git ref 或 SHA；留空使用 HEAD^，不可解析时报告证据不足'
         type: string
         required: false
+      head_ref:
+        description: '被测候选 Git ref 或 SHA；留空使用当前工作流修订'
+        type: string
+        required: false
 
 permissions:
   contents: read
@@ -86,7 +90,7 @@ jobs:
           EVAL_PR_BASE: ${{ github.event.pull_request.base.sha }}
           EVAL_PUSH_BASE: ${{ github.event.before }}
           EVAL_INPUT_BASE: ${{ inputs.base_ref }}
-          EVAL_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          EVAL_HEAD: ${{ inputs.head_ref || github.event.pull_request.head.sha || github.sha }}
           EVAL_SCOPE: ${{ inputs.scope || 'affected' }}
           EVAL_MODE: ${{ inputs.mode || 'auto' }}
         run: |
@@ -112,6 +116,7 @@ jobs:
           SKILL_EVAL_MODEL: ${{ vars.SKILL_EVAL_MODEL }}
           SKILL_EVAL_JUDGE_MODEL: ${{ vars.SKILL_EVAL_JUDGE_MODEL }}
           SKILL_EVAL_MAX_REQUESTS: ${{ vars.SKILL_EVAL_MAX_REQUESTS }}
+          SKILL_EVAL_TIMEOUT_SECONDS: ${{ vars.SKILL_EVAL_TIMEOUT_SECONDS || '60' }}
           UNIF_MODEL_BASE_URL: ${{ vars.UNIF_MODEL_BASE_URL }}
           UNIF_MODEL_API_KEY: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.UNIF_MODEL_API_KEY || '' }}
         run: |

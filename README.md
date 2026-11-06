@@ -221,7 +221,7 @@ python3.12 -m venv .venv
 
 `mode` 只决定重复次数：`smoke` 为每题旧版、候选各 1 次，`full` 为各 10 次，不再决定选题范围。PR 的 `auto` 使用 `smoke`；main 推送及手动 `auto` 遇到比较范围中的 `feat` 提交或根清单 major／minor 提升时使用 `full`，其余使用 `smoke`。无受影响题目时直接跳过，不因版本提升制造评测任务。10 对是当前统计比较协议，不能与历史 5 次重复或其他模型样本混合。
 
-手动运行可分别选择 `scope`、`mode` 和基线 `base_ref`。PR 使用目标分支的 `base.sha`，main 推送使用 `before`，手动未填基线时使用 `HEAD^`；历史缺失或基线不可解析会报告证据不足，不回退到候选自比。
+手动运行可分别选择 `scope`、`mode`、基线 `base_ref` 和候选 `head_ref`。候选留空时使用当前工作流修订，评测运行配置需要调整时可指定已发布候选，保持被测技能版本固定。PR 使用目标分支的 `base.sha`，main 推送使用 `before`，手动未填基线时使用 `HEAD^`；历史缺失或基线不可解析会报告证据不足，不回退到候选自比。
 
 工作流先离线核对题库与受管文件，再在同一次运行中使用同一题库、模型和判据比较固定基线与候选。模型只读固定题设和允许的技能资料，不执行 shell、写文件或调用业务系统。机器题库及覆盖范围见[行为评测说明](evals/behavior/README.md)；现有题库、人工判据和本地专项回归继续保留，首版 CI 只执行自包含题，不代表已迁移全部历史案例。应用题由独立模型调用按冻结判据评阅，保留理由并需人工抽查。
 
@@ -233,6 +233,7 @@ python3.12 -m venv .venv
 | `SKILL_EVAL_MODEL` | variable | 百炼答题模型标识，例如 `deepseek-v4-pro` |
 | `SKILL_EVAL_JUDGE_MODEL` | variable，可选 | 评阅模型；未填时用答题模型的独立上下文 |
 | `SKILL_EVAL_MAX_REQUESTS` | variable | 单次运行的总 API 请求次数上限，包含答题与评阅；不是美元预算 |
+| `SKILL_EVAL_TIMEOUT_SECONDS` | variable，可选 | 单次 API 请求等待上限，1–120 秒，默认 60 秒；不改变题目、模型与判据 |
 | `UNIF_MODEL_BASE_URL` | variable | 百炼兼容接口地址：`https://dashscope.aliyuncs.com/compatible-mode/v1` |
 | `UNIF_MODEL_API_KEY` | secret | 百炼 API Key；无需 OpenAI 或 DeepSeek 官网 Key，不使用本机 OAuth 或用户订阅鉴权 |
 
