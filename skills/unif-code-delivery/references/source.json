@@ -4,21 +4,21 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "d049c6819e69c287967b322dc6b16d597efcb0b1968d41a63a3ecabdcf3b2034",
-      "lines": 474,
+      "sha256": "a7a53d9249acb5b1ebf79f59588144a5c63afbfcd5f120d7744907edece8d68e",
+      "lines": 475,
       "selectedSections": [
         {
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
-            238,
-            315
+            239,
+            316
           ]
         },
         {
           "heading": "7. 独立开发与验证",
           "lines": [
-            316,
-            411
+            317,
+            412
           ]
         }
       ]
@@ -87,8 +87,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
-            238,
-            315
+            239,
+            316
           ]
         }
       ],
@@ -100,8 +100,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "7. 独立开发与验证",
           "lines": [
-            316,
-            411
+            317,
+            412
           ]
         }
       ],

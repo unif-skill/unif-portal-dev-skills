@@ -4,8 +4,8 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "d049c6819e69c287967b322dc6b16d597efcb0b1968d41a63a3ecabdcf3b2034",
-      "lines": 474
+      "sha256": "a7a53d9249acb5b1ebf79f59588144a5c63afbfcd5f120d7744907edece8d68e",
+      "lines": 475
     }
   },
   "files": {
@@ -37,11 +37,11 @@
           "heading": "2. 系统边界与职责",
           "lines": [
             41,
-            109
+            110
           ]
         }
       ],
-      "sha256": "f7866152b0fb1d8e4aed905c6867b21de2c7138ed6f248244288f51a00e0c93e"
+      "sha256": "9ecc784f7f0f99d3e25a49cbef18eb5a18545ae265bbbe34dcd5353658dcadbe"
     },
     "composition.md": {
       "sections": [
@@ -49,8 +49,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "3. 功能、场景与入口",
           "lines": [
-            110,
-            146
+            111,
+            147
           ]
         }
       ],
@@ -62,8 +62,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "4. 状态归属",
           "lines": [
-            147,
-            182
+            148,
+            183
           ]
         }
       ],
@@ -75,8 +75,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "5. 自然语言任务与上下文",
           "lines": [
-            183,
-            237
+            184,
+            238
           ]
         }
       ],
@@ -88,8 +88,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
-            238,
-            315
+            239,
+            316
           ]
         }
       ],
@@ -101,8 +101,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "7. 独立开发与验证",
           "lines": [
-            316,
-            411
+            317,
+            412
           ]
         }
       ],
@@ -114,8 +114,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "8. 成本与效果验证",
           "lines": [
-            412,
-            427
+            413,
+            428
           ]
         }
       ],
@@ -127,8 +127,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "9. 领域与模块文档",
           "lines": [
-            428,
-            474
+            429,
+            475
           ]
         }
       ],
