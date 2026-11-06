@@ -69,6 +69,7 @@ class Config(TypedDict):
     timeout_seconds: int
     max_turns: int
     max_workers: int
+    retry_base_seconds: int
 
 
 class ToolFunction(TypedDict):
@@ -677,7 +678,8 @@ def configuration(env: Mapping[str, str]) -> Config:
             'max_output_tokens': number('SKILL_EVAL_MAX_OUTPUT_TOKENS', 4096, 128, 16384),
             'timeout_seconds': number('SKILL_EVAL_TIMEOUT_SECONDS', 60, 1, 300),
             'max_turns': number('SKILL_EVAL_MAX_TURNS', 8, 1, 20),
-            'max_workers': number('SKILL_EVAL_MAX_WORKERS', 3, 1, 3)}
+            'max_workers': number('SKILL_EVAL_MAX_WORKERS', 3, 1, 3),
+            'retry_base_seconds': number('SKILL_EVAL_RETRY_BASE_SECONDS', 1, 1, 30)}
 
 
 class ChatCompletionsClient:
@@ -735,7 +737,7 @@ class ChatCompletionsClient:
                 if isinstance(exc, urllib.error.HTTPError):
                     exc.close()
                     if exc.code == 503 and attempt < 2:
-                        time.sleep((1, 2)[attempt])
+                        time.sleep(self.config['retry_base_seconds'] * (attempt + 1))
                         continue
                 with self.lock:
                     self.transport_error = message

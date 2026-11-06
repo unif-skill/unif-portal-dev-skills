@@ -105,6 +105,20 @@ class TransportTests(unittest.TestCase):
                 self.assertEqual(len(trace), 3)
                 self.assertEqual(delays, [1, 2])
 
+    def test_configured_backoff_remains_bounded(self) -> None:
+        api = client(SKILL_EVAL_RETRY_BASE_SECONDS='15', SKILL_EVAL_MAX_WORKERS='1')
+        requests: list[urllib.request.Request] = []
+        delays: list[float] = []
+        with patch('urllib.request.urlopen', side_effect=fake_http([failure(), failure(), response()], requests, [])), patch(
+                'scripts.behavior_eval.time.sleep', side_effect=delays.append):
+            _ = api.request([{'role': 'user', 'content': 'task'}], [])
+        self.assertEqual(delays, [15, 30])
+        self.assertEqual(api.requests_used, 3)
+        self.assertEqual(api.config['max_workers'], 1)
+        for value in ('0', '31'):
+            with self.subTest(value=value), self.assertRaises(evaluator.EvalError):
+                _ = client(SKILL_EVAL_RETRY_BASE_SECONDS=value)
+
     def test_retry_cannot_exceed_remaining_budget(self) -> None:
         api = client(SKILL_EVAL_MAX_REQUESTS='1')
         requests: list[urllib.request.Request] = []

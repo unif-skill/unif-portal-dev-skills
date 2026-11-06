@@ -120,6 +120,8 @@ jobs:
           SKILL_EVAL_MAX_REQUESTS: ${{ vars.SKILL_EVAL_MAX_REQUESTS }}
           SKILL_EVAL_MAX_OUTPUT_TOKENS: ${{ vars.SKILL_EVAL_MAX_OUTPUT_TOKENS || '4096' }}
           SKILL_EVAL_TIMEOUT_SECONDS: ${{ vars.SKILL_EVAL_TIMEOUT_SECONDS || '60' }}
+          SKILL_EVAL_MAX_WORKERS: ${{ vars.SKILL_EVAL_MAX_WORKERS || '3' }}
+          SKILL_EVAL_RETRY_BASE_SECONDS: ${{ vars.SKILL_EVAL_RETRY_BASE_SECONDS || '1' }}
           UNIF_MODEL_BASE_URL: ${{ vars.UNIF_MODEL_BASE_URL }}
           UNIF_MODEL_API_KEY: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.UNIF_MODEL_API_KEY || '' }}
         run: |
