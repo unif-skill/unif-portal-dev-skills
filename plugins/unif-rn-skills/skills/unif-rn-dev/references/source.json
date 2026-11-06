@@ -9,7 +9,7 @@
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "266e58833a215a6a95c253f064262b150a734c427e3784338b785d75bf6b2374",
+      "sha256": "4f05cdd4ee84d0fdc4ccc8240fc3d7fd4271711f26485b9cab14ed1432aa0e02",
       "lines": 219
     },
     "ARCHITECTURE.md": {
@@ -132,7 +132,7 @@
           ]
         }
       ],
-      "sha256": "f5251201f5372a87850fde65061388933b2f599404e818bb6a51806f11a88099"
+      "sha256": "ec74a14bb7cf9410da9b40b00fd941670341ab0bd235f0e140a06c0168023aaa"
     },
     "rn/ui.md": {
       "sections": [

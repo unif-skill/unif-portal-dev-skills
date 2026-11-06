@@ -9,7 +9,7 @@
 - 规范工作区：`unif-platform-architecture`，`codex/harmony-foundation`，基线 `4cf9e05` 加本次差异。主工作区的 `libraries/react-native-design/theme.md` 并行修改未带入。
 - 技能工作区：`unif-portal-dev-skills`，`codex/harmony-foundation`，基线 `4503109`／`0.3.19` 加本次差异。清单版本未升；相同版本号不表示已发布或已安装这份候选。
 - 鸿蒙项目：`ai-app-portal-harmony`，`codex/harmony-foundation`，基线 `bf9abf7` 加项目文档入口。初始化运行文件未改。
-- [候选文件摘要](2026-10-27-harmony-foundation.json)：规范六源、完整技能内容、包清单、生成器及同步测试，共 76 个文件；清单 SHA-256 `bd8f715ee9bb96b079347d2b551081d9822fd6be59a2333e05712c5297a91da2`。
+- [候选文件摘要](https://github.com/unif-skill/unif-portal-dev-skills/blob/2391a8a082bef64d5e302b8f448292eaa6020a91/docs/validation/2026-10-27-harmony-foundation.json)：规范六源、完整技能内容、包清单、生成器及同步测试，共 76 个文件；清单 SHA-256 `bd8f715ee9bb96b079347d2b551081d9822fd6be59a2333e05712c5297a91da2`。
 - 安装缓存保持 `0.3.19`；当前任务通过项目采用记录明确读取本地候选，不修改缓存，不宣称宿主自动加载新版本。
 
 ## 静态、脚本与分发验证

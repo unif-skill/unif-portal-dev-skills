@@ -42,28 +42,6 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 全部 22 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时安装下方五个插件；根 `skills/` 继续供其他 Agent Skills 客户端按技能安装。
 
-原 `code-development`、`code-testing`、`code-review` 已移除，按目标平台迁移到上表入口；更早的 `portal-development` 同样迁移至 `unif-rn-dev`。iOS 与 Android 仍由 RN 技能按实际影响选读，不再拆出平台技能。更新独立安装时替换原目录，避免旧入口继续被扫描；历史设计和冻结评测保留原名称与输入。
-
-## 1.1.0 名称迁移
-
-全部技能以 `unif-` 开头；原有六个 `unif-*` 库能力名称保持。Python 系列只改变技能与资料入口的命名，职责和行为契约不变。
-
-| 原名称 | 当前名称 |
-|---|---|
-| `architecture-design` | `unif-architecture-design` |
-| `code-delivery` | `unif-code-delivery` |
-| `rn-development` | `unif-rn-dev` |
-| `rn-testing` | `unif-rn-test` |
-| `rn-review` | `unif-rn-review` |
-| `harmony-development` | `unif-harmony-dev` |
-| `harmony-testing` | `unif-harmony-test` |
-| `harmony-review` | `unif-harmony-review` |
-| `backend-development` | `unif-python-dev` |
-| `backend-testing` | `unif-python-test` |
-| `backend-review` | `unif-python-review` |
-
-后端规范源改为 `PYTHON_DEVELOPMENT.md`，阶段资料使用 `references/python/`；生成器仅接受当前技能名称。旧名称不再分发，工程入口和同步命令按上表更新。独立安装时先取得完整新目录，再移除对应旧目录，避免重复发现；历史计划和冻结评测保留原命名语境。
-
 ## 安装与使用
 
 技能采用 Agent Skills 格式，可安装到支持该格式的工具中。推荐使用 Vercel Skills 按需安装，下面以独立安装 `unif-code-delivery` 为例；Codex 按下方五个职责插件安装。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
@@ -100,7 +78,7 @@ git clone https://github.com/unif-skill/unif-portal-dev-skills.git
 
 ### 插件市场（Codex，可选）
 
-在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills.git)，分支选择 `main`，不要使用 README 或技能子目录的链接。添加后按任务选择下表插件安装，全部安装仍为原有 22 个技能。技能名字保持不变，插件前缀按所选包显示。
+在 Codex 的“添加市场”入口填写[仓库地址](https://github.com/unif-skill/unif-portal-dev-skills.git)，分支选择 `main`，不要使用 README 或技能子目录的链接。添加后按任务选择下表插件安装，全部安装包含 22 个技能，插件前缀按所选包显示。
 
 | 插件 ID | 技能范围 |
 |---|---|
@@ -125,8 +103,6 @@ codex plugin add unif-library-skills@unif-portal-dev-skills
 
 仓库的 [marketplace.json](.agents/plugins/marketplace.json) 是市场入口，仅引用 `plugins/<插件 ID>/` 内的五个标准插件，各目录都有自己的 `plugin.json`、图标及完整技能资料；清单格式见 [Codex 插件管理文档](https://learn.chatgpt.com/zh-Hans/docs/enterprise/plugin-management#支持的格式)。
 
-已安装旧 `unif-portal-dev-skills` 整包时，先安装需要的五包并核对技能发现，再在插件管理中停用旧整包，避免重复发现；独立技能安装不受影响。市场名及仓库地址保持不变。宿主中的显式插件限定引用须同步改为新插件 ID，技能名称仍用对应的 `unif-*` 名称。
-
 ### 使用
 
 按目标工具的方式加载技能，并在任务中指定，例如：
@@ -141,14 +117,12 @@ codex plugin add unif-library-skills@unif-portal-dev-skills
 
 - 独立技能：分发对应的完整技能目录，保留相对引用。
 - 标准插件：分发所选 `plugins/<插件 ID>/` 的完整目录。每包具有 `plugin.json`、`assets/`、自身完整 `skills/`，不依赖根维护脚本、其他插件或个人缓存。Codex 的插件展示配置在各清单的 `extensions.com.openai` 中。
-- 根 `skills/` 是唯一技能源；修改根技能或架构同步后运行 `python scripts/sync_plugins.py`，再以 `--check` 核对。生成目录不手改；检测到未知文件或符号链接时停止，先核对归属。根 `plugin.json` 保留其他客户端兼容入口并锚定统一版本，市场不再分发旧整包。
+- 根 `skills/` 是唯一技能源；修改根技能或架构同步后运行 `python scripts/sync_plugins.py`，再以 `--check` 核对。生成目录不手改；检测到未知文件或符号链接时停止，先核对归属。根 `plugin.json` 管理包元数据与统一版本，市场按五个插件分发。
 - 使用时声明目标工程采用的规范及版本；共同规则默认使用技能内同源快照，工程明确指定修订时采用该修订；实际业务契约、工具命令和配置以目标工程为准。
 
 SKILL.md 和配套资料说明任务怎么执行：需要读取什么、使用哪个入口、如何判断缺口，以及必须保留的行为与保护。技能仓的维护分工、生成和分发流程放在本 README、AGENTS 或对应维护入口。讨论过程不直接写入技能，只保留必要且可复用的结论。实际影响使用的版本、资料位置和依赖限制仍在对应步骤保留。
 
 README、docs、evals、同步脚本和测试用于仓库维护，不进入技能默认上下文。生成标记和 `source.json` 保留，以便核对采用来源和内容一致性。
-
-evals 中沿用的旧目录名是评测主题与历史档案位置，不是可安装技能名称；当前样本按平台入口执行，冻结 runs 不回写。
 
 `evals/*/cases/`、`rubric.md` 和评测方法纳入版本管理；`evals/*/runs/` 中的规范快照、原始输出、日志及结果记录仅在本地保留，由 `.gitignore` 排除。
 
@@ -184,21 +158,21 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 
 ## 版本与发布
 
-五个插件与兼容根清单使用统一版本，由根 `plugin.json` 锚定，Git tag 使用对应的 `vX.Y.Z`。常规发布允许 minor／patch，自动发布保持当前已发布的 major；清单改为另一 major 也会停止，须另行取得明确授权。历史独立分发约定保留在 [spec](docs/specs/2026-10-30-independent-skills-v1.md)，不作为后续主版本升级授权。
+五个插件与根清单使用统一版本，由根 `plugin.json` 锚定，Git tag 使用对应的 `vX.Y.Z`。常规发布允许 minor／patch，自动发布保持当前已发布的 major；清单改为另一 major 也会停止，须另行取得明确授权。
 
-- `main` 的新提交通过完整校验后，CI 检查当前版本标签到本次已验证提交之间的提交标题：包含 `feat: ...`、`feat(scope): ...` 等 feat 类型时递增 minor 并将 patch 归零，例如 `1.1.12 → 1.2.0`；其余递增 patch，例如 `1.1.12 → 1.1.13`。提交正文提到 feat 不参与判断，`!` 标记不触发 major 升级。同一 major 内显式指定、尚未发布且不落后于已有标签的新版本继续直接使用。
+- `main` 的新提交通过完整校验后，CI 检查当前版本标签到本次已验证提交之间的提交标题：包含 `feat: ...`、`feat(scope): ...` 等 feat 类型时递增 minor 并将 patch 归零；其余递增 patch。提交正文提到 feat 不参与判断，`!` 标记不触发 major 升级。同一 major 内显式指定、尚未发布且不落后于已有标签的新版本继续直接使用。
 - 准备步骤只修改根及市场五个 `plugin.json` 的版本字段，六份清单在同一个版本提交中原子写回，对候选包再次执行带 tag 的完整包校验，再创建版本提交并以普通快进推送写回 `main`。发布步骤为该提交创建 tag 和 GitHub Release，发布说明由 GitHub 生成；main、tag 和清单版本保持一致。
 - 重跑同一次 main 推送可识别其版本提交，继续未完成的发布，不再次升版。已发布且 tag 指向同一提交时跳过；草稿、同名 tag 冲突或倒退版本均停止处理。远端 main 已有其他更新时旧运行停止发布；写回不强推，写请求失败不自动重试。
 - PR、tag 推送和手动触发仅校验。CI 使用 `GITHUB_TOKEN` 写回版本和创建标签，不会递归触发新的 push 工作流；版本提交也带有 `[skip ci]`。发布依据为原提交的完整检查、候选版本包校验及最终提交核对。Codex 的安装更新另行执行。
 
 ## 验证
 
-- [GitHub Actions](.github/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查统一版本、技能格式、五插件完整副本、本仓市场入口、隔离安装下的文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
-- 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。官方 Schema、`skills-ref validate` 的环境与复跑命令见[格式验证记录](docs/validation/2026-09-07-agent-standards.md)。
+- [工程校验运行记录](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查统一版本、技能格式、五插件完整副本、本仓市场入口、隔离安装下的文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
+- 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。校验使用仓内[插件 Schema](scripts/schemas/plugin.schema.json)与[固定依赖](scripts/requirements-ci.txt)，复跑命令见下文。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。鸿蒙开发、测试与审查的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖实际任务和平台／阶段排除场景。
 - RN 与 Python 六个阶段技能的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)分别说明独立消费、阶段选择及排除边界。
 - 架构、交付及六库能力的[九题独立行为组](evals/independent-skills/capability-behavior-cases.md)、[23 项自动触发场景](evals/independent-skills/capability-trigger-cases.md)与[专项判据](evals/independent-skills/capability-rubric.md)覆盖资料应用、组合与排除边界；库材料按固定 Git 修订和摘要组装，不复制 API 正文或原始运行日志。
-- 全部 22 个技能的完整目录隔离分发、主题溯源及组织资产由脚本测试验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。新增 AMap、Files、Logger、OSS、Speech 与鸿蒙 Logger 的定向题见[新增库案例](evals/library-skills/additional-library-cases.md)，不改写原六库的冻结输入。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
+- 全部 22 个技能的完整目录隔离分发、主题溯源及组织资产由脚本测试验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。AMap、Files、Logger、OSS、Speech 与鸿蒙 Logger 的定向题见[专项案例](evals/library-skills/additional-library-cases.md)，不改写原六库的冻结输入。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
 
 本地复现 CI（Python 3.12）：
 
@@ -215,49 +189,8 @@ python3.12 -m venv .venv
 
 格式校验、模型评测和实际宿主加载分别验证。
 
-### 行为评测 CI
+### 查看评测报告
 
-独立的[行为评测工作流](.github/workflows/behavior-eval.yml)在 PR、main 的技能、题库、分发入口或评测工具变化时运行。默认 `scope=affected` 按变更技能、插件及实际发现关联选题；技能源与生成副本去重，纯版本和溯源记录变化不触发模型评测。共享评测机制变化或显式 `scope=all` 才覆盖全库，详细规则见[选题范围](evals/behavior/README.md#本次选题范围)。
+[工程校验](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml)与[模型行为评测](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/behavior-eval.yml)分别记录结果。在模型评测的运行页查看 **Summary** 下方的结论、完成配对和请求次数；完整报告与读取轨迹从 **Artifacts** 下载。
 
-`mode` 只决定重复次数：`smoke` 为每题旧版、候选各 1 次，`full` 为各 10 次，不再决定选题范围。PR 的 `auto` 使用 `smoke`；main 推送及手动 `auto` 遇到比较范围中的 `feat` 提交或根清单 major／minor 提升时使用 `full`，其余使用 `smoke`。无受影响题目时直接跳过，不因版本提升制造评测任务。10 对是当前统计比较协议，不能与历史 5 次重复或其他模型样本混合。
-
-手动运行可分别选择 `scope`、`mode`、基线 `base_ref` 和候选 `head_ref`。候选留空时使用当前工作流修订，评测运行配置需要调整时可指定已发布候选，保持被测技能版本固定。PR 使用目标分支的 `base.sha`，main 推送使用 `before`，手动未填基线时使用 `HEAD^`；历史缺失或基线不可解析会报告证据不足，不回退到候选自比。
-
-工作流先离线核对题库与受管文件，再在同一次运行中使用同一题库、模型和判据比较固定基线与候选。模型只读固定题设和允许的技能资料，不执行 shell、写文件或调用业务系统。机器题库及覆盖范围见[行为评测说明](evals/behavior/README.md)；现有题库、人工判据和本地专项回归继续保留，首版 CI 只执行自包含题，不代表已迁移全部历史案例。应用题由独立模型调用按冻结判据评阅，保留理由并需人工抽查。
-
-通过百炼调用 DeepSeek 时，在仓库 Actions 配置以下变量和密钥；工作流不会自动配置密钥或开启模型调用。有待评测题目而缺配置、外部 fork PR 无密钥、预算耗尽或运行不完整时生成“证据不足”摘要；无相关变化时明确标记跳过。
-
-| 配置 | 类型 | 用途 |
-|---|---|---|
-| `SKILL_EVAL_ENABLED` | variable | 设为 `true` 才启用模型调用 |
-| `SKILL_EVAL_MODEL` | variable | 百炼答题模型标识，例如 `deepseek-v4-pro` |
-| `SKILL_EVAL_JUDGE_MODEL` | variable，可选 | 评阅模型；未填时用答题模型的独立上下文 |
-| `SKILL_EVAL_MAX_REQUESTS` | variable | 单次运行的总 API 请求次数上限，包含答题、评阅与重试；不是美元预算 |
-| `SKILL_EVAL_MAX_OUTPUT_TOKENS` | variable，可选 | 单次输出 Token 上限，128–16384，默认 4096；推理模型的预算可能同时包含思考与正文，截断结果不能作为完整答案 |
-| `SKILL_EVAL_TIMEOUT_SECONDS` | variable，可选 | 单次 API 请求等待上限，1–300 秒，默认 60 秒；不改变题目、模型与判据 |
-| `UNIF_MODEL_BASE_URL` | variable | 百炼兼容接口地址：`https://dashscope.aliyuncs.com/compatible-mode/v1` |
-| `UNIF_MODEL_API_KEY` | secret | 百炼 API Key；无需 OpenAI 或 DeepSeek 官网 Key，不使用本机 OAuth 或用户订阅鉴权 |
-
-模型示例的账号权限、服务可用性与兼容返回需在首次真实调用时核验；写入配置不代表已经验证。
-
-HTTP 503 按[服务端错误说明](https://help.aliyun.com/zh/model-studio/error-code)最多重试两次，间隔为 1、2 秒；每次尝试均计入总请求预算并保留轨迹。重试耗尽或其他传输错误仍停止后续调用，未返回的 Token 用量保持未知。输出截断、拒答或无效评分不自动重试，也不作为完整样本。
-
-摘要展示改善、退化、持平（本样本未观察到差异）或证据不足；退出码 `0` 表示完成或无相关变化，`1` 表示有证据支持退化，`2` 表示证据不足。GitHub step summary 展示结论和原始退出码，artifact 保留 `summary.md`、`summary.json`、记录步骤结果与退出码的 `workflow.json`、逐题失败例、原始回答与读取轨迹 30 天。请求次数限制、180 分钟超时及同 ref 取消旧运行控制执行规模；它们不承诺实际费用。此工作流不写 PR 评论，仅供查看：job 和模型运行步骤允许失败，不纳入分支必需检查，也不成为现有校验或发布的依赖。密钥缺失、退化、证据不足及评测基础设施错误均不阻断原有发布流程；发布继续依据原有校验。报告保留真实四态与退出码，成功生成报告不等于模型通过。
-
-本地可先离线验证与规划；将 `BASE_SHA`、`HEAD_SHA` 设为实际比较修订。最后一条命令仅在显式启用并提供上述配置时调用模型，输出放在仓库外：
-
-```sh
-python scripts/sync_evaluation_tools.py --verify
-python scripts/behavior_eval.py validate --root .
-python scripts/behavior_eval.py plan --repo . --base "$BASE_SHA" --head "$HEAD_SHA" --scope affected --mode smoke --event workflow_dispatch --output /tmp/skill-eval-plan.json
-python scripts/behavior_eval.py run --plan /tmp/skill-eval-plan.json --output-dir /tmp/skill-eval-artifacts
-```
-
-通用评测器、测试与工作流由 Uni 维护，Unif 通过 `scripts/sync_evaluation_tools.py` 显式采用同源副本；各仓 CI 只运行仓内文件，不访问其他私有仓。离线校验、模型样本结果、实际宿主加载、设备及业务验收分别提供证据，CI 结果不能保证模型对其他任务正确。
-
-升级共用评测工具时，从本地 Uni 维护源的同步入口指定本仓目标，确保采用新增受管文件；先比较，再按本次授权同步并审查差异。已有受管文件与采用摘要不符，或新增受管路径存在不同的本地文件时停止，保留本地修改：
-
-```sh
-python /path/to/uni-skills/scripts/sync_evaluation_tools.py --source /path/to/uni-skills --target . --check
-python /path/to/uni-skills/scripts/sync_evaluation_tools.py --source /path/to/uni-skills --target .
-```
+工作流允许模型评测失败，绿色状态不代表技能效果通过。选题范围、模型配置、判分与本地运行方法见[行为评测说明](evals/behavior/README.md)。
