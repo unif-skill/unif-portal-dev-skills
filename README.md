@@ -232,12 +232,15 @@ python3.12 -m venv .venv
 | `SKILL_EVAL_ENABLED` | variable | 设为 `true` 才启用模型调用 |
 | `SKILL_EVAL_MODEL` | variable | 百炼答题模型标识，例如 `deepseek-v4-pro` |
 | `SKILL_EVAL_JUDGE_MODEL` | variable，可选 | 评阅模型；未填时用答题模型的独立上下文 |
-| `SKILL_EVAL_MAX_REQUESTS` | variable | 单次运行的总 API 请求次数上限，包含答题与评阅；不是美元预算 |
-| `SKILL_EVAL_TIMEOUT_SECONDS` | variable，可选 | 单次 API 请求等待上限，1–120 秒，默认 60 秒；不改变题目、模型与判据 |
+| `SKILL_EVAL_MAX_REQUESTS` | variable | 单次运行的总 API 请求次数上限，包含答题、评阅与重试；不是美元预算 |
+| `SKILL_EVAL_MAX_OUTPUT_TOKENS` | variable，可选 | 单次输出 Token 上限，128–16384，默认 4096；推理模型的预算可能同时包含思考与正文，截断结果不能作为完整答案 |
+| `SKILL_EVAL_TIMEOUT_SECONDS` | variable，可选 | 单次 API 请求等待上限，1–300 秒，默认 60 秒；不改变题目、模型与判据 |
 | `UNIF_MODEL_BASE_URL` | variable | 百炼兼容接口地址：`https://dashscope.aliyuncs.com/compatible-mode/v1` |
 | `UNIF_MODEL_API_KEY` | secret | 百炼 API Key；无需 OpenAI 或 DeepSeek 官网 Key，不使用本机 OAuth 或用户订阅鉴权 |
 
 模型示例的账号权限、服务可用性与兼容返回需在首次真实调用时核验；写入配置不代表已经验证。
+
+HTTP 503 按[服务端错误说明](https://help.aliyun.com/zh/model-studio/error-code)最多重试两次，间隔为 1、2 秒；每次尝试均计入总请求预算并保留轨迹。重试耗尽或其他传输错误仍停止后续调用，未返回的 Token 用量保持未知。输出截断、拒答或无效评分不自动重试，也不作为完整样本。
 
 摘要展示改善、退化、持平（本样本未观察到差异）或证据不足；退出码 `0` 表示完成或无相关变化，`1` 表示有证据支持退化，`2` 表示证据不足。GitHub step summary 展示结论和原始退出码，artifact 保留 `summary.md`、`summary.json`、记录步骤结果与退出码的 `workflow.json`、逐题失败例、原始回答与读取轨迹 30 天。请求次数限制、180 分钟超时及同 ref 取消旧运行控制执行规模；它们不承诺实际费用。此工作流不写 PR 评论，仅供查看：job 和模型运行步骤允许失败，不纳入分支必需检查，也不成为现有校验或发布的依赖。密钥缺失、退化、证据不足及评测基础设施错误均不阻断原有发布流程；发布继续依据原有校验。报告保留真实四态与退出码，成功生成报告不等于模型通过。
 
@@ -252,9 +255,9 @@ python scripts/behavior_eval.py run --plan /tmp/skill-eval-plan.json --output-di
 
 通用评测器、测试与工作流由 Uni 维护，Unif 通过 `scripts/sync_evaluation_tools.py` 显式采用同源副本；各仓 CI 只运行仓内文件，不访问其他私有仓。离线校验、模型样本结果、实际宿主加载、设备及业务验收分别提供证据，CI 结果不能保证模型对其他任务正确。
 
-升级共用评测工具时，在本仓显式指定本地 Uni 来源；先比较，再按本次授权同步并审查差异。已有受管文件与采用摘要不符时停止，保留本地修改：
+升级共用评测工具时，从本地 Uni 维护源的同步入口指定本仓目标，确保采用新增受管文件；先比较，再按本次授权同步并审查差异。已有受管文件与采用摘要不符，或新增受管路径存在不同的本地文件时停止，保留本地修改：
 
 ```sh
-python scripts/sync_evaluation_tools.py --source /path/to/uni-skills --check
-python scripts/sync_evaluation_tools.py --source /path/to/uni-skills
+python /path/to/uni-skills/scripts/sync_evaluation_tools.py --source /path/to/uni-skills --target . --check
+python /path/to/uni-skills/scripts/sync_evaluation_tools.py --source /path/to/uni-skills --target .
 ```
