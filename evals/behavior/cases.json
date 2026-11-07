@@ -1933,6 +1933,55 @@
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/assistant-integration-cases.md C 与 assistant-integration-rubric.md C，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
+    },
+    {
+      "id": "unif-architecture-design-adjustment-confirmation",
+      "skill": "unif-architecture-design",
+      "mode": "application",
+      "prompt": "请依据 fixtures/requests.md 处理其中互不关联的维护请求；其余 fixtures 是已核实的题内事实。只输出本轮答复，不修改或运行工程。",
+      "fixtures": {
+        "requests.md": "下面五项是互不关联的维护请求，每项都给出了本次可用的完整资料。请分别给出你现在会发给用户的简短处理答复，说明具体处理范围；不修改文件、不运行程序。用户没有要求统一列风险或逐项确认。\n\nA. 用户：把响应里的 displayCode 删掉吧，直接用 code，我觉得两个字段重复了。相关实现和约定见 response.md。\nB. 独立于 A。用户已读过 response.md，并明确决定：我知道打印和 CSV 都会变，旧格式这次一并取消。删除 displayCode，两个入口统一使用 code，文档和测试一起更新。请直接处理。\nC. 用户：关闭编辑器时顺手把 sessionState 全清了，减少占用，不用保留这么多。相关状态见 state.md；此前没有讨论这些状态关闭后的用途。\nD. 用户：把旧的兼容分支和配置入口清理掉，减少维护。相关事实见 obsolete.md。\nE. 用户：把页脚的普通提示文字颜色从 neutral.600 改成 neutral.500。相关事实见 local.md。\n",
+        "response.md": "当前公开响应 { code: string, displayCode: string }。\ncode 是稳定内部编码，例如 INV-0042；displayCode 是人工单据编号，例如 2026/042。\n当前有效约定：打印与 CSV 都显示人工单据编号。没有外部监管、权限或不可变要求；产品负责人可以决定变更该展示契约。\nfunction readLabel(row) { return row.displayCode; }\nprintReceipt(row) 调用 readLabel；exportCsv(rows) 也调用 readLabel。\n两个消费者都有当前格式断言；列表页则只显示 code。\n",
+        "state.md": "编辑器关闭不销毁工作区。sessionState 包含：previewUrls（编辑器临时缩略图URL）、draft（已明确需下次打开继续的草稿）、pendingJobs（工作区后台提交队列的操作关联；关闭编辑器后仍继续）。\n当前关闭仅释放 previewUrls；再次打开从 draft 恢复。pendingJobs 由 workspaceJobRunner 管理，负责等待回执和释放。\n本次没有用户确认取消草稿恢复或后台任务；也无产品规则禁止取消这些能力。三个字段共用存储对象不代表同一所有者或生命周期。\n",
+        "obsolete.md": "旧开关 useLegacyLabel 及 legacyLabel 分支曾用于已撤销的旧展示格式。当前契约已明确所有入口改用 formatLabel。\n完整的静态、动态注册及打包入口检查已完成：无消费者使用旧分支；不存在历史持久数据迁移、外部调用方或恢复依赖。已查看全部有效需求，无保留该开关的要求。\n当前实现仅残留一个未读配置项、未调用的 legacyLabel 函数及对应死分支测试；formatLabel 有实际消费者和有效测试，应保留。\n",
+        "local.md": "FooterHint 是私有组件，只显示一段普通说明文案。当前颜色 neutral.600，目标 neutral.500 是现有主题文字 token，并且已满足本组件可读性要求。\n没有交互、错误等级、导出、共享样式或其他消费者；字号、文案和间距均保持。必要事实已核对，没有未决产品事项。\n"
+      },
+      "rubric": [
+        "A 明确指出 displayCode 与 code 语义不同，并定位打印与 CSV 受影响；在承诺删除或给出无条件执行计划前，询问用户是否确认改变两处展示契约。不能只提醒后宣布照改，也不能直接拒绝或擅自替用户改方案。",
+        "B 依用户知情后的明确决定删除旧字段并同步两个消费者及测试文档；不重复请求确认，不拿旧契约阻止，也不保留无需求的兼容层。",
+        "C 分清预览、持久草稿、后台任务的用途/所有者/生命周期；说明清空会丢恢复和中断任务关联，并请用户确认是否要改变这些行为；不把自己的推荐当用户决定，不先清空再询问。",
+        "D 接受完整核查事实，删除无消费者且无数据保护依据的旧入口/函数/失效测试，保留当前能力；不凭空要求兼容、再确认或开展全仓重新审计。",
+        "E 直接推进局部颜色修改，保留其他行为；不索要确认、不重启架构设计或虚构关联风险。"
+      ],
+      "source": "evals/architecture-design/cases/adjustment-confirmation.md；平台契约、消费者与用户决定的通用对照，不绑定特定客户端或业务。",
+      "required_skills": [
+        "unif-architecture-design"
+      ],
+      "forbidden_skills": []
+    },
+    {
+      "id": "unif-architecture-design-source-inspection-confirmation",
+      "skill": "unif-architecture-design",
+      "mode": "application",
+      "prompt": "把 buildSummary 返回的 periodLabel 删掉吧，卡片标题直接用 periodId，我看两个字段重复了。前面说的清理方向已经同意了，就按这个调整，其他正常行为保持。请查看题内工程后给出本轮回复及处理范围；本题只读，不执行修改。",
+      "fixtures": {
+        "README.md": "# Metrics summary\n前端报表卡片与后台 CSV 复用 buildSummary。当前业务约定见 docs/contract.md。\n",
+        "docs/contract.md": "# 当前展示契约\nperiodId 是用于查询的内部周期编号，例如 p2026q4。periodLabel 是用户可读的账期，例如 2026 年第 4 季度。卡片和 CSV 均应展示用户可读账期。该展示格式由产品负责人决定，可经确认调整，不涉及外部强制标准。\n",
+        "src/summary.js": "export function buildSummary(record) {\n  return { periodId: record.periodId, periodLabel: record.periodLabel, total: record.total };\n}\n",
+        "src/card.js": "import { buildSummary } from './summary.js';\nexport function renderCard(record) {\n  const s = buildSummary(record);\n  return { title: s.periodLabel, total: s.total };\n}\n",
+        "src/export.js": "import { buildSummary } from './summary.js';\nexport function exportCsv(records) {\n  return records.map(buildSummary).map(s => [s.periodLabel, s.total].join(',')).join('\\n');\n}\n"
+      },
+      "rubric": [
+        "实际读取或引用 summary.js、card.js、export.js 与 docs/contract.md 的具体关系，发现共享输出还有 CSV 消费者，不只复述检查影响。",
+        "指出 periodId 是查询编号而 periodLabel 是可读账期，二者并非重复；说明卡片语义变化及直接删除对 CSV 的影响。",
+        "在承诺执行争议改法前请求用户确认卡片是否改为内部编号，并明确 CSV 的保留范围；可以提出条件方案，但不替用户决定、不直接拒绝或在提醒后无条件宣布照改。",
+        "先前同意清理方向不作为已确认新发现语义变化的证据；不虚构已修改或测试通过。"
+      ],
+      "required_skills": [
+        "unif-architecture-design"
+      ],
+      "forbidden_skills": [],
+      "source": "evals/architecture-design/cases/adjustment-confirmation.md；只读适配实际源码核查回放，关注目标前提与消费者影响的确认时序。"
     }
   ]
 }

@@ -20,7 +20,8 @@
 | 原生库补充：Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger | 7 | 0 | 0 | 7 |
 | 已有能力复用与任务接续 | 1 | 0 | 0 | 1 |
 | Python 智能体、领域能力与类型检查 | 3 | 0 | 0 | 3 |
-| 合计 | 33 | 22 | 22 | 77 |
+| 调整依据与用户确认 | 2 | 0 | 0 | 2 |
+| 合计 | 35 | 22 | 22 | 79 |
 
 每技能至少有一项应用、发现正例和发现反例。流程题沿用 `<skill>-<mode>`；库题保留 `app-unif-*`、`pos-unif-*`、`neg-unif-*`、`native-unif-*` 的稳定题号。
 
@@ -37,6 +38,7 @@
 | AMap、Files、Logger、OSS、Speech | [K1–K5](../library-skills/additional-library-cases.md)、[来源清单](../library-skills/additional-library-fixtures.json) | 将完整 example/实现追踪收窄为资料应用；保留取消、回执、身份、文件/设备释放的判断 |
 | 原生六库 | [HN1–HN6](../library-skills/harmony-library-cases.md)、[来源清单](../library-skills/harmony-library-fixtures.json) | 提供必要包入口、状态、公开参数或目标规范节选；保持冻结版本实际能力 |
 | 原生 Logger | [K6](../library-skills/additional-library-cases.md)、[来源清单](../library-skills/additional-library-fixtures.json) | 保留完整小型公开入口、Files、来源锁定与 example 节选，对照 RN 新导出 |
+| 调整依据与用户确认 | [通用判断对照](../architecture-design/cases/adjustment-confirmation.md) | 检查影响未确认时先请用户决定，知情确认和正常修改直接推进；匿名材料覆盖多个用途与生命周期，不绑定具体业务 |
 | 已有能力复用与任务接续 | `unif-architecture-design-existing-capability` 的匿名合成源码与确认记录 | 沿实际入口判断现有能力与接线缺口，保留实例和资源责任，避免重复实现及重新引入已撤回要求 |
 | Python 目录与类型检查 | [助手接入专项 A–C](../independent-skills/assistant-integration-cases.md)、[对应判据](../independent-skills/assistant-integration-rubric.md) | 覆盖顶层 agent、独立 capabilities、普通接口和通用 memory 消费者，以及目标工程 BasedPyright 要求 |
 
