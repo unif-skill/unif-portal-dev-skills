@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif Python 代码审查"
-  short_description: "审查 Unif 后端变更的契约、状态与实际影响，保留证据和授权边界"
+  short_description: "审查后端契约、状态资源、故障证据及验证边界"
   default_prompt: "使用 $unif-python-review，按本工程的当前契约处理本次任务。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

@@ -1,6 +1,6 @@
 ---
 name: unif-rn-test
-description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共享核心中设计、编写、修正或执行测试，以及评估测试质量与验证范围时使用。
+description: 在为 Unif React Native 应用、@unif RN 库或共享核心设计、编写、执行或评估测试时使用，包括异步与资源边界、诊断证据及真实消费者。仅查看测试状态不触发。
 ---
 
 # RN 测试规范
@@ -14,7 +14,7 @@ description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共
 | 本次问题 | 本技能资料与工程依据 |
 |---|---|
 | 真实对象、替身与覆盖证据 | [测试责任](references/common/verification.md#72-测试责任) |
-| 失败、降级、恢复及诊断断言 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
+| 失败、校验转换、降级恢复及诊断证据 | [日志与故障诊断](references/common/verification.md#721-日志与故障诊断) |
 | 消费者与回归范围选择 | [变更影响](references/common/verification.md#73-变更影响) |
 | 状态、持久化、恢复、身份与异步交接 | [状态归属](references/common/state.md) |
 | 调用、准备、选择与确认 | [能力与场景](references/common/composition.md) |
@@ -29,6 +29,6 @@ description: 在 Unif React Native 客户端、@unif/react-native-* 库或其共
 
 运行真实被测实现；涉及多个入口复用时，验证受影响入口确实调用所属公共能力，并覆盖各自状态归属、输入及交接差异。替换外部边界，断言返回、状态、消费者交接及不应发生的副作用。替身保留所采用依赖的接口、参数和必要前置；依赖真实行为决定的结果，另以实际实现核对。
 
-失败、降级或恢复变化按诊断责任验证安全原因、关联、取消、迟到及日志自身失败，保留原业务控制。测试预期来自有效契约，不能通过复制实现、排除源码或弱化断言获得绿色结果。
+对受影响失败路径，用一次受控失败的实际记录核对阶段、具体安全原因、级别和原操作关联；采用附日志时核对索引与可读内容、截断／未采集状态及敏感信息。按实际影响覆盖取消、迟到、身份切换和日志存储失败，断言业务返回、副作用及原保护不变。详细判据见[日志与故障诊断](references/common/verification.md#721-日志与故障诊断)；只验证 logger 调用次数不能证明可定位，纯展示调整不因此新增整套日志用例。测试预期来自有效契约，不复制实现或弱化断言凑通过。
 
 报告实际修订、命令和覆盖范围，区分源码检查、替身测试、产物、设备和真实业务证据。资料溯源见 references/source.json；读取资料不授权修改无关实现或执行外部操作。
