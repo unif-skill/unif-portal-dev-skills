@@ -4,7 +4,7 @@
 
 | 题目 | 关键观察 |
 |---|---|
-| A | 两工程的 agent、capabilities 与 core、services 同级。agent 维护自身 Skill、提示词、工具、路由／上下文和编排。Agent 的 capabilities/marketing 只承接助手说明、工具声明、资料与协议交接，Marketing 的领域规则由自身 capabilities 维护并可供普通接口使用。执行协调和实际基础服务归 services，通用 memory 读写、权限和事务保持原边界。迁移实际调用与资源，保留来源、同源契约和附件准备，不预建助手、引入框架或自动查询业务。Python 无配置时用目标工程解释器与依赖执行 BasedPyright recommended。 |
+| A | 两工程的 agent、capabilities 与 core、services 同级。agent 维护自身 Skill、提示词、工具、路由／上下文和编排。Agent 的 capabilities/marketing 只承接助手说明、工具声明、资料与协议交接，Marketing 的领域规则由自身 capabilities 维护并可供普通接口使用。执行协调和实际基础服务归 services，通用 memory 读写、权限和事务保持原边界。迁移实际调用与资源，保留来源、同源契约和附件准备，不预建助手、引入框架或自动查询业务。本题只评书面验证方案。说明实施时如何使用目标工程的解释器和锁定依赖，在无配置时以 recommended 运行 BasedPyright，处理本次检查范围内的错误和警告，并交代哪些验证待执行。无需提供实际诊断清单。缺少执行依据却声称检查已完成、零诊断或已通过，本项不满足。 |
 | B | 从真实智能体及普通接口入口验证实际能力调用，核对 Skill／提示词最终装配、输入原文和来源、领域校验与结果采用。覆盖通用 memory 的读写、权限、事务，以及暂停恢复、取消、晚到、身份、输入版本、许可和用量。第二助手替身只能证明所测公共机制与隔离。沿工程配置执行 BasedPyright 并报告范围，分别记录静态、替身、进程、存储和真实业务证据。 |
 | C | 拒绝按 AI/memory 名称归类，capabilities 保持顶层并独立于 agent。业务规则归 Marketing，Agent 接入保留必要领域声明与协议校验，通用 Host 不决定领域完成。公开类型与校验同源，不手写同义 DTO。不用降级、关闭规则、ignore、Any 或无实际边界依据的 cast 掩盖诊断。建议检查实际边界并处理每项错误和警告，不额外修改应用或运行真实服务。 |
 

@@ -30,7 +30,7 @@ metadata:
 | 安装与快速接入 | [getting-started/installation](https://unif-design.github.io/react-native-umeng/md/getting-started/installation.md)、[getting-started/quick-start](https://unif-design.github.io/react-native-umeng/md/getting-started/quick-start.md) |
 | 隐私同意与初始化 | [guides/privacy-pipl](https://unif-design.github.io/react-native-umeng/md/guides/privacy-pipl.md)、[api/common](https://unif-design.github.io/react-native-umeng/md/api/common.md) |
 | 直接分享与结果 | [guides/sharing](https://unif-design.github.io/react-native-umeng/md/guides/sharing.md)、[api/share](https://unif-design.github.io/react-native-umeng/md/api/share.md) |
-| 实例分享宿主与呈现 | [api/platform-sharesheethost](https://unif-design.github.io/react-native-umeng/md/api/platform-sharesheethost.md) |
+| SDK 分享弹层与页内渠道列表 | [实例宿主](https://unif-design.github.io/react-native-umeng/md/api/platform-sharesheethost.md)、[SharePanel](https://unif-design.github.io/react-native-umeng/docs/api/platform-sharesheethost#share-panel) |
 | 统计与原生回调 | [guides/analytics](https://unif-design.github.io/react-native-umeng/md/guides/analytics.md)、[api/analytics](https://unif-design.github.io/react-native-umeng/md/api/analytics.md)、[native-setup/ios](https://unif-design.github.io/react-native-umeng/md/native-setup/ios.md)、[native-setup/android](https://unif-design.github.io/react-native-umeng/md/native-setup/android.md) |
 | 测试与排障 | [testing](https://unif-design.github.io/react-native-umeng/md/testing.md)、[troubleshooting](https://unif-design.github.io/react-native-umeng/md/troubleshooting.md) |
 
@@ -38,7 +38,9 @@ metadata:
 
 应用取得真实隐私同意后再调用 initializeUmeng；库不拥有用户同意记录。导入包、显示面板和接收系统回调不等于完成初始化。配置与凭据不写入模型输入、日志或分享结果。
 
-直接分享查 share，目标选择查 useShareSheet。控制器与 host 属于同一实例，宿主放在实际展示窗口；图片准备和上传使用应用已有能力。SDK 有效成功回执、用户取消、失败和 busy 分别处理；面板关闭或应用被拉起不能证明分享成功。
+目标和内容已确定时调用 `share`。内容已备好、需要 SDK 弹层选渠道时使用 `useShareSheet`，在实际展示窗口挂载同一实例的宿主。`@unif/react-native-umeng` 2.7.0 起，页面内先选渠道再准备内容时使用 `SharePanel`，图片准备和上传由应用负责。
+
+按分享结果处理 `success`、`cancelled` 和 `failed`，失败时区分 `busy` 等原因。面板关闭或第三方应用被拉起后，仍以原分享调用的结果为准。
 
 ## RN 实施与验证
 
