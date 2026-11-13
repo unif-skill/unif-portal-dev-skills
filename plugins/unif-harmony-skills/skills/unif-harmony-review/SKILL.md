@@ -7,6 +7,8 @@ description: 在 Unif 原生鸿蒙客户端、@unif/harmony-* HAR 库或其共�
 
 从 ArkTS／ArkUI 宿主核对变更后的 HAR 公开出口、状态归属及资源生命周期。
 
+审查兼容用例、事件顺序或覆盖率结论时，可选用已安装的 `uni-test-design` 核对判据。
+
 ## 按变化读取
 
 | 本次变化 | 本技能资料 |

@@ -7,6 +7,8 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 按应用、HAR 或共享核心核对原生消费者与已确认范围。只在新发现的接入事实会改变原取舍时再确认。
 
+修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行；已安装的 `uni-test-design` 提供相应判据。
+
 ## 依据
 
 具体 ArkTS／ArkUI API、SDK 和检查命令从目标工程采用的修订取得。
