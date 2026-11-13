@@ -5,7 +5,7 @@ description: 在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执
 
 # 交付规范
 
-按当前授权和实际工程配置交付。接续任务或进入新会话时，先核对最新已确认的交付范围、明确排除项和已撤回操作，再检查当前工作区、提交及验证状态。执行命令和发布方式从目标工程的 AGENTS.md、贡献说明、检查脚本和 workflow 取得。
+从目标工程的 AGENTS.md、脚本与 workflow 确认交付入口，核对本轮已确认的范围、工作区、提交及验证结果。
 
 ## 按交付对象读取
 
@@ -18,10 +18,10 @@ description: 在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执
 | Python 后端的类型检查、进程、资源和部署证据 | [后端验证](references/python/validation.md)；不套 RN 包命名或发布身份 |
 | 跨仓契约、结果与消费者兼容 | [交接契约](references/common/contracts.md)、[依赖治理](references/common/verification.md#71-依赖治理)、[变更影响](references/common/verification.md#73-变更影响) |
 
-共同验证资料按所链接章节选读，技术证据的证明范围见[测试责任](references/common/verification.md#72-测试责任)。已有且仍有效的依据直接复用；提交、配置或目标变化后只补受影响核对。定向验证不替代工程 required 门禁，所有证据对应本次提交与实际执行层级。
+按[测试责任](references/common/verification.md#72-测试责任)说明本次提交的实际验证范围。已有结果仍适用时复用，合并前核对当前提交的 required 检查。
 
 ## 操作边界
 
 提交、推送、合并、发布和部署分别核对授权。保留无关工作区修改，检查实际暂存内容；合并核对当前 head 与 required 结果，分支清理核对内容、占用和远端回执。已有条件授权满足后继续，不因加载规范重复审批。
 
-资料取得不启动重复测试或设计。报告实际完成的交付步骤、修订和未验证范围，不将本地构建、绿色 CI 或安装结果作为设备与真实业务验收。生成资料溯源见 references/source.json。
+交付说明写明实际完成的操作、修订和待验收内容。

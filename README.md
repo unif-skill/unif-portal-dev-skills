@@ -2,8 +2,6 @@
 
 Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端、相关 Agent／Channel／CLI 及对应 @unif 库工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
-本仓维护 Unif 企业规则及能力契约，按五个职责插件或独立技能使用。通用工程规则从目标工程的采用来源取得；工程按实际安装技能的描述选择入口，不要求另装其他技能集合。
-
 企业研发规范共 11 个入口，按目标平台与当前阶段选择：
 
 | 目标 | 开发 | 测试 | 审查 |
@@ -32,19 +30,17 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 原生开发从 unif-harmony-dev 的[鸿蒙适用范围](skills/unif-harmony-dev/references/harmony/scope.md)进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
 
-库能力技能的鸿蒙资料页直接定位所属库和规范源，可独立查询接口或核对目标契约，不要求安装鸿蒙阶段技能。实际入口为空时只说明缺口；有明确开发授权后才进入实现。相关模型题与来源选择见[鸿蒙库覆盖检查](evals/library-skills/harmony-library-cases.md)。
+鸿蒙库按已采用版本核对公开入口。目标契约和实现的版本差异见[鸿蒙库覆盖检查](evals/library-skills/harmony-library-cases.md)。
 
-工程调用方式见[接入说明](docs/code-development-integration.md)。本插件按当前任务提供企业规范入口；事实查询不因涉及源码就自动进入工程审查。进入实际工程阶段时取得对应依据，同一上下文已读且仍适用的内容直接复用；通用流程与企业规则用于同一次工作，不另开重复流程，也不强制依赖某个流程插件。
+工程如何选择阶段与库技能，见[工程接入示例](docs/code-development-integration.md)。
 
-按任务组合研发阶段与库能力。接口查询可直接使用对应库能力技能；实际开发同时取得开发规则，测试、审查和交付按实际阶段取得。文档、文档站和运行示例按本库采用的规范与构建入口维护；Unif 约定从 unif-rn-dev 的 [RN 项目采用](skills/unif-rn-dev/references/rn/project.md)取得。应用消费与库源码维护分别选择资料；修改一个组件或 H5 消息不默认加载全部技能。
+RN 库的文档站和运行示例采用方式见 [RN 项目采用](skills/unif-rn-dev/references/rn/project.md)。
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
-全部 22 个技能均可单独安装，只需对应完整目录，无需同时安装兄弟技能或整个插件。各技能携带职责范围内必需的规范、资产与元数据；架构正文从同一规范源按阶段生成，具体 API、业务契约及命令仍从目标工程取得。需要整套技能时安装下方五个插件；根 `skills/` 继续供其他 Agent Skills 客户端按技能安装。
-
 ## 安装与使用
 
-技能采用 Agent Skills 格式，可安装到支持该格式的工具中。推荐使用 Vercel Skills 按需安装，下面以独立安装 `unif-code-delivery` 为例；Codex 按下方五个职责插件安装。本仓库为私有仓库，从仓库获取文件需要访问权限及可用的 Git 认证；取得获授权分发的完整技能目录后，使用该技能不要求安装完整插件。
+可通过 Vercel Skills 按名称安装单个完整技能，或在 Codex 市场按职责安装插件。从私有仓库获取文件需要仓库读取权限和 Git 认证。
 
 ### 使用 Vercel Skills
 
@@ -54,7 +50,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 npx skills add unif-skill/unif-portal-dev-skills --skill unif-code-delivery
 ```
 
-安装其他技能时将 `--skill` 替换为上方列出的名称；命令只安装所选技能。测试、审查或交付技能自身包含必需规范，不需要额外安装开发或架构技能。
+安装其他技能时，将 `--skill` 后的名称换成上表中的对应项。
 
 按提示选择目标工具，例如 Claude Code、Cursor 或 Codex。默认安装到当前项目；需要用户级安装时，在命令后添加 `--global`。支持的工具、安装位置和认证方式见 [Skills CLI 文档](https://github.com/vercel-labs/skills#readme)。
 
@@ -118,11 +114,8 @@ codex plugin add unif-library-skills@unif-portal-dev-skills
 - 独立技能：分发对应的完整技能目录，保留相对引用。
 - 标准插件：分发所选 `plugins/<插件 ID>/` 的完整目录。每包具有 `plugin.json`、`assets/`、自身完整 `skills/`，不依赖根维护脚本、其他插件或个人缓存。Codex 的插件展示配置在各清单的 `extensions.com.openai` 中。
 - 根 `skills/` 是唯一技能源；修改根技能或架构同步后运行 `python scripts/sync_plugins.py`，再以 `--check` 核对。生成目录不手改；检测到未知文件或符号链接时停止，先核对归属。根 `plugin.json` 管理包元数据与统一版本，市场按五个插件分发。
-- 使用时声明目标工程采用的规范及版本；共同规则默认使用技能内同源快照，工程明确指定修订时采用该修订；实际业务契约、工具命令和配置以目标工程为准。
 
-SKILL.md 和配套资料说明任务怎么执行：需要读取什么、使用哪个入口、如何判断缺口，以及必须保留的行为与保护。技能仓的维护分工、生成和分发流程放在本 README、AGENTS 或对应维护入口。讨论过程不直接写入技能，只保留必要且可复用的结论。实际影响使用的版本、资料位置和依赖限制仍在对应步骤保留。
-
-README、docs、evals、同步脚本和测试用于仓库维护，不进入技能默认上下文。生成标记和 `source.json` 保留，以便核对采用来源和内容一致性。
+README、docs、evals、同步脚本和测试供仓库维护使用。
 
 `evals/*/cases/`、`rubric.md` 和评测方法纳入版本管理；`evals/*/runs/` 中的规范快照、原始输出、日志及结果记录仅在本地保留，由 `.gitignore` 排除。
 
@@ -187,10 +180,6 @@ python3.12 -m venv .venv
 
 校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为通过下方独立工作流和本地专项评测取得证据。
 
-格式校验、模型评测和实际宿主加载分别验证。
-
 ### 查看评测报告
 
-[工程校验](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml)与[模型行为评测](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/behavior-eval.yml)分别记录结果。在模型评测的运行页查看 **Summary** 下方的结论、完成配对和请求次数；完整报告与读取轨迹从 **Artifacts** 下载。
-
-工作流允许模型评测失败，绿色状态不代表技能效果通过。选题范围、模型配置、判分与本地运行方法见[行为评测说明](evals/behavior/README.md)。
+[工程校验](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml)检查仓库与插件。模型评测结果、运行入口及其证据范围见[行为评测说明](evals/behavior/README.md#运行与报告)。

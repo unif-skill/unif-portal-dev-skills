@@ -34,9 +34,7 @@ jobs:
         run: python -m pip install -r scripts/requirements-ci.txt
       - name: Test validation and synchronization scripts
         run: python -m unittest discover -s tests -v
-      - name: Check five independent plugin copies
-        run: python scripts/sync_plugins.py --check
-      - name: Validate package and evaluation records
+      - name: Validate repository, skills and five plugin copies
         env:
           RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
         run: |

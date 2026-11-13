@@ -30,6 +30,4 @@ metadata:
 
 createLocalResourceAccess 由实际共享宿主持有。成功生成 URL 不证明文件存在或 WebView 已加载；所有消费者结束后再 close。目录边界检查不解析符号链接，不能作为不可信文件的安全隔离。
 
-## 实施与验证
-
-独立接入、源码维护与验证见[任务指引](references/workflows.md)。保留路径、所有权与原生终态保护；命令取当前 package.json/CI。类型与 Mock、修补 SDK、平台构建、设备文件／HTTP 行为分别报告，只查询接口不执行清理或安装。
+源码维护及验证见[任务指引](references/workflows.md)。

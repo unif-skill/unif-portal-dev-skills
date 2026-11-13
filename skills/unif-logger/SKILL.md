@@ -8,7 +8,7 @@ metadata:
 
 # Unif Logger
 
-本技能处理日志 SDK 的实际接口与资源契约。先确定 RN／Web 或原生鸿蒙、应用消费或库维护，再核对锁定版本、公开出口和安装产物；不把某一平台或新版本的能力视为当前已可用。记录场景与验收目标由目标工程规范决定，后端日志继续由所属服务公共入口承担。
+按宿主使用的平台和锁定版本核对日志包的公开出口，采用版本与官网不同则读对应修订。
 
 ## 按平台查阅
 
@@ -16,8 +16,6 @@ metadata:
 |---|---|
 | RN／Web 根入口、`/files` 与实际消费者 | [RN 指引](references/rn.md)、[RN 官网索引](https://unif-design.github.io/react-native-logger/llms.txt) |
 | 原生鸿蒙根入口、`/Files`、HAR 与共享核心 | [鸿蒙指引](references/harmony.md)、[HAR 包文档](https://github.com/unif-design/harmony-logger/blob/main/library/README.md) |
-
-只读取实际平台与调用需要的资料；维护共享核心时再核对双方采用修订。官网与锁定版本不一致时，以对应修订的公开类型和文档确认支持范围。
 
 ## 接入与生命周期
 

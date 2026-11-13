@@ -8,22 +8,11 @@ metadata:
 
 # Unif HMS Scan
 
-按下方入口选择 RN 或原生鸿蒙资料。目标契约不代表当前包已实现或发布；不把 RN 接口改包名当作鸿蒙用法。
+原生鸿蒙的相机权限与图片借用见[鸿蒙契约与实际库入口](references/harmony.md)。
 
-## 按平台读取
+## React Native
 
-| 目标 | 入口 |
-|---|---|
-| React Native | 下方 RN 资料与当前包公开类型 |
-| 原生鸿蒙 | [鸿蒙接入与契约](references/harmony.md)；先核对实际库，再按任务读取目标规范 |
-
-独立消费只需本技能完整目录及对应库资料，不要求安装另一平台或其他技能。
-
-## RN 资料
-
-先核对应用锁文件、实际安装包或本次维护修订的 package.json、exports 与公开类型。[官网索引](https://unif-design.github.io/react-native-hms-scan/llms.txt) 标明文档构建版本；版本不一致时从对应安装包或已核实发布修订取得接口，不能直接采用最新文档的新增能力。
-
-本地源码的使用文档在 website/docs；没有库工作区时使用下面的公开资料。只读当前任务相关单页，全文是确需全局资料时的选项。
+按锁定版本的包导出和公开类型核对下列资料。本地文档位于 `website/docs`，线上文档的构建版本见[官网索引](https://unif-design.github.io/react-native-hms-scan/llms.txt)。
 
 | 任务 | 使用资料 |
 |---|---|
@@ -40,8 +29,4 @@ metadata:
 
 图片在识别结束前仍被借用，关闭页面不能提前删除；空结果、输入/桥接错误和 SDK 失败分别处理。手电请求与实际状态分开，平台支持范围、厂商静默失败和设备验证以对应版本资料为准。
 
-## RN 实施与验证
-
-应用消费采用当前公开接口；源码维护与定向验证见[任务指引](references/workflows.md)，工程规则从库内 docs/DEVELOPMENT.md 取得。复用同一任务已有且仍适用的依据。
-
-检查命令取当前 package.json/CI；验证本次消费者及受影响的取消、错误和资源交接。仅查询接口或版本时不自动修改、安装或发布。
+源码维护与验证见[扫码接入与验证](references/workflows.md)。

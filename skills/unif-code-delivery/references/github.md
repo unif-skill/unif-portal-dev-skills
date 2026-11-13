@@ -10,6 +10,6 @@
 - repositorySettings 控制仓库合并与安全扫描设置。远端操作按授权用当前已登录的 gh CLI 执行并回读，不把本地 JSON 当成远端已生效。
 - 有文档部署 workflow 时采用 Pages Actions 来源，网址按 pagesURL 中的 `{repo}` 替换为实际仓库名；同步 About 网站入口。没有文档部署的工程不因资产存在自动建站。
 - security 的三项分别核对 CodeQL 默认配置、Dependabot 安全更新和私密漏洞报告；不从其中一项推断其他项已完成。
-- obsoleteFiles 只列出已采用标准明确停用的 `.github/dependabot.yaml`、`.github/workflows/dependabot-auto-merge.yml`、`.github/workflows/dependabot-automerge.yml`。同步只清理这些已核对的停用项，不扫描删除其他配置；该文件清理与远端 Dependabot 安全更新开关是不同操作。
+- 对照组织资产的 `obsoleteFiles` 逐项核实并清理已停用配置。远端 Dependabot 安全更新开关按 `security` 单独核对。
 
 成熟库局部修改复用有效采用记录，不重新初始化或反复设置远端。规则和资产更新、工程接入、离线漂移检查及远端生效分别留证；权限不足时只限制依赖该权限的步骤，不自行申请更大权限或改用个人凭据绕过。
