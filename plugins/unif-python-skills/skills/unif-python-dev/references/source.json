@@ -4,8 +4,8 @@
   "sources": {
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
-      "sha256": "f189acdbdd0c08cf9206a436d32428d2e65a94a2e173458b70a30cf31feb93f9",
-      "lines": 84
+      "sha256": "24de86f7d4af2e9c9a667202a6f67af3223e0b17449896d1c3de9148897a0a64",
+      "lines": 86
     }
   },
   "files": {
@@ -79,11 +79,11 @@
           "heading": "6. 验证与交付",
           "lines": [
             72,
-            84
+            86
           ]
         }
       ],
-      "sha256": "7aaf200b2a62b220e8355cd1bf61800f1829f99ccc7616af493786dfcbdccb98"
+      "sha256": "23aa68ae524c631dc45d8d6fb5f3ba6a0928e0fbe0c799a5db1d7e80a3cc9485"
     }
   }
 }
