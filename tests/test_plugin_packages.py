@@ -16,8 +16,8 @@ GROUPS = {
     'unif-react-native-skills': ['unif-rn-dev', 'unif-rn-test', 'unif-rn-review'],
     'unif-harmony-skills': ['unif-harmony-dev', 'unif-harmony-test', 'unif-harmony-review'],
     'unif-python-skills': ['unif-python-dev', 'unif-python-test', 'unif-python-review'],
-    'unif-library-skills': ['unif-' + name for name in
-        ('amap', 'camera', 'chat', 'design', 'files', 'hms-scan', 'icons', 'logger', 'oss', 'speech', 'umeng')],
+    **{f'unif-{name}': [f'unif-{name}'] for name in
+       ('amap', 'camera', 'chat', 'design', 'files', 'hms-scan', 'icons', 'logger', 'oss', 'speech', 'umeng')},
 }
 
 
@@ -36,7 +36,7 @@ class MarketPlugin(TypedDict):
 
 
 class PluginPackageTests(unittest.TestCase):
-    def test_marketplace_defaults_to_platform_rules_and_offers_five_business_plugins(self):
+    def test_marketplace_defaults_to_platform_rules_and_offers_individual_libraries(self):
         entries = cast(list[MarketPlugin], json.loads((ROOT / '.agents/plugins/marketplace.json').read_text())['plugins'])
         self.assertEqual({p['name']: p['source']['path'] for p in entries},
                          {name: './plugins/' + name for name in GROUPS})
@@ -83,7 +83,7 @@ class PluginPackageTests(unittest.TestCase):
     def test_duplicate_skill_in_another_plugin_is_rejected(self) -> None:
         root = self.fixture()
         skill = 'unif-amap'
-        _ = shutil.copytree(root / 'plugins/unif-library-skills/skills' / skill,
+        _ = shutil.copytree(root / 'plugins' / skill / 'skills' / skill,
                             root / 'plugins/unif-engineering-skills/skills' / skill)
         with self.assertRaisesRegex(ValueError, '其他插件提供'):
             _ = validate_repository(root)
@@ -130,7 +130,7 @@ class PluginPackageTests(unittest.TestCase):
     def test_unlisted_package_is_rejected(self) -> None:
         root = self.fixture()
         (root / 'plugins/other').mkdir()
-        with self.assertRaisesRegex(ValueError, '六个市场入口'):
+        with self.assertRaisesRegex(ValueError, '市场入口'):
             _ = validate_repository(root)
 
     def test_relative_reference_may_not_enter_another_plugin(self) -> None:

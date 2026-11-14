@@ -19,7 +19,9 @@ SCHEMA = Path(__file__).resolve().parent / 'schemas/plugin.schema.json'
 DEFAULT_PLUGIN = 'unif-platform-rules'
 BUSINESS_PLUGINS = {
     'unif-engineering-skills', 'unif-react-native-skills', 'unif-harmony-skills',
-    'unif-python-skills', 'unif-library-skills',
+    'unif-python-skills', 'unif-amap', 'unif-camera', 'unif-chat', 'unif-design',
+    'unif-files', 'unif-hms-scan', 'unif-icons', 'unif-logger', 'unif-oss',
+    'unif-speech', 'unif-umeng',
 }
 
 
@@ -359,12 +361,12 @@ def validate_repository(root: Path | str, release_tag: str | None = None, includ
             raise ValueError(f'{packages_dir}: 缺少插件目录或使用了符号链接')
         distributed = {p.name for p in packages_dir.iterdir() if p.is_dir() or p.is_symlink()}
         if distributed != BUSINESS_PLUGINS | {DEFAULT_PLUGIN}:
-            raise ValueError('插件目录与六个市场入口不一致')
+            raise ValueError('插件目录与市场入口不一致')
         entries = check_marketplace(root, validator, release_version=plugin['version'])
         expected = {name: ('./plugins/' + name, 'AVAILABLE') for name in BUSINESS_PLUGINS}
         expected[DEFAULT_PLUGIN] = './plugins/' + DEFAULT_PLUGIN, 'INSTALLED_BY_DEFAULT'
         if entries != expected:
-            raise ValueError('市场必须默认安装公共规范，五个业务插件按需安装，并分别指向对应目录')
+            raise ValueError('市场必须默认安装公共规范，阶段及各库插件按需安装，并分别指向对应目录')
         seen: set[str] = set()
         coverage: dict[str, SourceCoverage] = {}
         for name in entries:

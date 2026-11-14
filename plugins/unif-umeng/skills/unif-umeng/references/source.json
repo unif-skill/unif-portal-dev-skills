@@ -1,0 +1,58 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-owner-relative-links-v8",
+  "sources": {
+    "libraries/harmony-umeng.md": {
+      "source": "unif-platform-architecture/libraries/harmony-umeng.md",
+      "sha256": "339174fe7d123d11dcad8550f1cca9762e0e953054c113820c740b40f6149614",
+      "lines": 41
+    }
+  },
+  "files": {
+    "harmony/umeng.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            12
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            13,
+            24
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            25,
+            34
+          ]
+        },
+        {
+          "source": "libraries/harmony-umeng.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            35,
+            41
+          ]
+        }
+      ],
+      "sha256": "b3f17f51fd6d8ba8e18c95df54b33131816520bf41ef69413357ab6de6dc80f5"
+    }
+  }
+}

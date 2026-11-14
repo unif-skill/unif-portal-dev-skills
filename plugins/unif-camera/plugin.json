@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-camera",
+  "version": "1.9.1",
+  "description": "Unif 相机、录像、水印与媒体交接技能，覆盖 RN 和原生鸿蒙",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-camera/assets/icon.svg",
+        "logo": "./skills/unif-camera/assets/icon.svg",
+        "logoDark": "./skills/unif-camera/assets/icon.svg"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-logger",
+  "version": "1.9.1",
+  "description": "Unif 结构化日志、诊断快照与共享核心技能，覆盖 RN 和原生鸿蒙",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-logger/assets/icon.svg",
+        "logo": "./skills/unif-logger/assets/icon.svg",
+        "logoDark": "./skills/unif-logger/assets/icon.svg"
+      }
+    }
+  }
+}

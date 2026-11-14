@@ -1,0 +1,58 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-owner-relative-links-v8",
+  "sources": {
+    "libraries/harmony-hms-scan.md": {
+      "source": "unif-platform-architecture/libraries/harmony-hms-scan.md",
+      "sha256": "c70b1336e35f6b9674522e48e18c0935c935486a8c8881110eddac1772b30e61",
+      "lines": 33
+    }
+  },
+  "files": {
+    "harmony/hms-scan.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            18
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            19,
+            28
+          ]
+        },
+        {
+          "source": "libraries/harmony-hms-scan.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            29,
+            33
+          ]
+        }
+      ],
+      "sha256": "a99eff2de1d4270fe969f286ab7a0962a094d8d7f2df61396f547a4627bd1f1f"
+    }
+  }
+}

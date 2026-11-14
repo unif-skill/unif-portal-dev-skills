@@ -1,0 +1,58 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-owner-relative-links-v8",
+  "sources": {
+    "libraries/harmony-design.md": {
+      "source": "unif-platform-architecture/libraries/harmony-design.md",
+      "sha256": "17bba2c439dd56a9edaa3bbabe16c4b2b2d0fbf15eba4d21d9b6bef66d6bd63a",
+      "lines": 56
+    }
+  },
+  "files": {
+    "harmony/design.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            34
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            35,
+            44
+          ]
+        },
+        {
+          "source": "libraries/harmony-design.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            45,
+            56
+          ]
+        }
+      ],
+      "sha256": "10ebe604625d251c58aab3c18280e1f44f18f4d21ae815e8b490f1018bcba8cf"
+    }
+  }
+}

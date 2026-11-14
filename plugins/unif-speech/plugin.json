@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-speech",
+  "version": "1.9.1",
+  "description": "Unif 音频采集、实时识别与语音输入技能",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-speech/assets/icon.svg",
+        "logo": "./skills/unif-speech/assets/icon.svg",
+        "logoDark": "./skills/unif-speech/assets/icon.svg"
+      }
+    }
+  }
+}

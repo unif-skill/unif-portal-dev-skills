@@ -65,10 +65,130 @@
       "category": "Productivity"
     },
     {
-      "name": "unif-library-skills",
+      "name": "unif-amap",
       "source": {
         "source": "local",
-        "path": "./plugins/unif-library-skills"
+        "path": "./plugins/unif-amap"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-camera",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-camera"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-chat",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-chat"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-design",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-design"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-files",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-files"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-hms-scan",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-hms-scan"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-icons",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-icons"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-logger",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-logger"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-oss",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-oss"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-speech",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-speech"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "unif-umeng",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-umeng"
       },
       "policy": {
         "installation": "AVAILABLE",

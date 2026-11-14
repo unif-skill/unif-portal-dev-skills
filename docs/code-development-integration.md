@@ -10,7 +10,7 @@
 - 采用本工程确认的业务契约、规范修订和实际配置；按已安装技能的描述选择当前任务入口。
 - RN 开发、测试和审查按实际工作选择 unif-rn-dev、unif-rn-test、unif-rn-review；原生鸿蒙选择 unif-harmony-dev、unif-harmony-test、unif-harmony-review；Python 后端选择 unif-python-dev、unif-python-test、unif-python-review。
 - 跨平台设计和交付分别使用 unif-architecture-design、unif-code-delivery。工程共用的状态归属、交接契约和验证依据从 unif-platform-rules 的对应主题读取。
-- 已安装的库能力技能可辅助定位公开 API，未安装时直接使用本库对应版本文档和类型。
+- 库能力技能随同名插件按库安装，已安装的库技能可辅助定位公开 API，未安装时直接使用本库对应版本文档和类型。
 - 同一上下文有效依据直接复用；实际命令、门禁、发布方式及操作授权从本工程和当前任务取得。
 ```
 

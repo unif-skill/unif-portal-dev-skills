@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-umeng",
+  "version": "1.9.1",
+  "description": "Unif 统计、分享与平台回调技能，覆盖 RN 和原生鸿蒙",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-umeng/assets/icon.svg",
+        "logo": "./skills/unif-umeng/assets/icon.svg",
+        "logoDark": "./skills/unif-umeng/assets/icon.svg"
+      }
+    }
+  }
+}

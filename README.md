@@ -12,21 +12,23 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 跨平台共用 [unif-architecture-design](plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。各阶段技能指向本次需要的公共主题。
 
-库能力技能共 11 个。Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 在同一入口内区分 RN 与原生鸿蒙；其余四项当前对应 RN 包。鸿蒙资料按实际库区分公开 API、目标契约与空 HAR，不因技能覆盖而声明功能已实现或已发布；开发、测试与审查仍按实际任务使用对应阶段技能。
+## 库插件
+
+库能力技能共 11 个，各自随同名插件安装。Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 在同一入口内区分 RN 与原生鸿蒙；其余四项当前对应 RN 包。鸿蒙资料按实际库区分公开 API、目标契约与空 HAR，不因技能覆盖而声明功能已实现或已发布；开发、测试与审查仍按实际任务使用对应阶段技能。
 
 | 技能 | 对应包与任务 |
 |---|---|
-| [unif-design](plugins/unif-library-skills/skills/unif-design/SKILL.md) | @unif/react-native-design、@unif/harmony-design：基础组件、主题、字体和 UI 宿主 |
-| [unif-chat](plugins/unif-library-skills/skills/unif-chat/SKILL.md) | @unif/react-native-chat、@unif/harmony-chat：消息、输入、附件和聊天组合 |
-| [unif-camera](plugins/unif-library-skills/skills/unif-camera/SKILL.md) | @unif/react-native-camera、@unif/harmony-camera：拍照、录像、水印、取消与媒体交接 |
-| [unif-hms-scan](plugins/unif-library-skills/skills/unif-hms-scan/SKILL.md) | @unif/react-native-hms-scan、@unif/harmony-hms-scan：实时扫码、图片解码、权限和手电 |
-| [unif-umeng](plugins/unif-library-skills/skills/unif-umeng/SKILL.md) | @unif/react-native-umeng、@unif/harmony-umeng：初始化、统计、第三方分享与实例面板 |
-| [unif-icons](plugins/unif-library-skills/skills/unif-icons/SKILL.md) | @unif/react-native-icons、@unif/harmony-icons：图标消费、SVG 源与生成 |
-| [unif-amap](plugins/unif-library-skills/skills/unif-amap/SKILL.md) | @unif/react-native-amap：地图选点、定位、地点查询与高德唤起 |
-| [unif-files](plugins/unif-library-skills/skills/unif-files/SKILL.md) | @unif/react-native-files：文件操作、下载、生命周期与本地 HTTP 资源 |
-| [unif-logger](plugins/unif-library-skills/skills/unif-logger/SKILL.md) | @unif/react-native-logger、@unif/harmony-logger：结构化日志、身份隔离、诊断快照与共享核心 |
-| [unif-oss](plugins/unif-library-skills/skills/unif-oss/SKILL.md) | @unif/react-native-oss：临时凭证、上传、转存与源文件释放 |
-| [unif-speech](plugins/unif-library-skills/skills/unif-speech/SKILL.md) | @unif/react-native-speech：音频采集、临时凭证、实时识别与语音输入 |
+| [unif-design](plugins/unif-design/skills/unif-design/SKILL.md) | @unif/react-native-design、@unif/harmony-design：基础组件、主题、字体和 UI 宿主 |
+| [unif-chat](plugins/unif-chat/skills/unif-chat/SKILL.md) | @unif/react-native-chat、@unif/harmony-chat：消息、输入、附件和聊天组合 |
+| [unif-camera](plugins/unif-camera/skills/unif-camera/SKILL.md) | @unif/react-native-camera、@unif/harmony-camera：拍照、录像、水印、取消与媒体交接 |
+| [unif-hms-scan](plugins/unif-hms-scan/skills/unif-hms-scan/SKILL.md) | @unif/react-native-hms-scan、@unif/harmony-hms-scan：实时扫码、图片解码、权限和手电 |
+| [unif-umeng](plugins/unif-umeng/skills/unif-umeng/SKILL.md) | @unif/react-native-umeng、@unif/harmony-umeng：初始化、统计、第三方分享与实例面板 |
+| [unif-icons](plugins/unif-icons/skills/unif-icons/SKILL.md) | @unif/react-native-icons、@unif/harmony-icons：图标消费、SVG 源与生成 |
+| [unif-amap](plugins/unif-amap/skills/unif-amap/SKILL.md) | @unif/react-native-amap：地图选点、定位、地点查询与高德唤起 |
+| [unif-files](plugins/unif-files/skills/unif-files/SKILL.md) | @unif/react-native-files：文件操作、下载、生命周期与本地 HTTP 资源 |
+| [unif-logger](plugins/unif-logger/skills/unif-logger/SKILL.md) | @unif/react-native-logger、@unif/harmony-logger：结构化日志、身份隔离、诊断快照与共享核心 |
+| [unif-oss](plugins/unif-oss/skills/unif-oss/SKILL.md) | @unif/react-native-oss：临时凭证、上传、转存与源文件释放 |
+| [unif-speech](plugins/unif-speech/skills/unif-speech/SKILL.md) | @unif/react-native-speech：音频采集、临时凭证、实时识别与语音输入 |
 
 原生开发从 [unif-harmony-dev](plugins/unif-harmony-skills/skills/unif-harmony-dev/SKILL.md) 进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
 
@@ -49,17 +51,24 @@ RN 库的文档站和运行示例采用方式见 [RN 项目采用](plugins/unif-
 | `unif-react-native-skills` | RN 开发、测试、审查 |
 | `unif-harmony-skills` | 原生鸿蒙开发、测试、审查 |
 | `unif-python-skills` | Python 开发、测试、审查 |
-| `unif-library-skills` | 11 个库能力技能 |
+
+另从[库插件清单](#库插件)选择所需的库，例如 `unif-chat`、`unif-design`、`unif-camera`。每个库插件只包含自身技能与资料。
 
 在 Codex 的“添加市场”中填写 [Git 仓库地址](https://github.com/unif-skill/unif-portal-dev-skills.git)，分支选 `main`。确认 `unif-platform-rules` 已安装并启用后，再选需要的业务插件。部分客户端仅显示默认安装策略；如果公共插件仍显示可安装，先在市场中安装它。
 
-也可使用 Codex CLI 和 Python 3，从本仓的常驻克隆运行安装命令。未配置市场时，脚本将该克隆注册为本地市场；已有市场时沿用原配置。无参数时只装公共插件，以下示例同时安装 RN 插件。
+也可使用 Codex CLI 和 Python 3，从本仓的常驻克隆运行安装命令。未配置市场时，脚本将该克隆注册为本地市场；已有市场时沿用原配置。无参数时只装公共插件，以下示例安装 Chat 库插件并确保公共插件已安装。需要多个库时，依次列出插件名即可。
 
 ```sh
-./scripts/install-plugins.sh unif-react-native-skills
+sh scripts/install-plugins.sh unif-chat
 ```
 
 更新已配置的 Git 市场可运行 `codex plugin marketplace upgrade unif-portal-dev-skills`。安装后打开新会话，核对公共插件和所选业务插件的技能入口。
+
+已安装旧整包 `unif-library-skills` 的用户，刷新市场后，先用上述命令安装所需的库插件，再移除旧整包，避免同名技能重复加载。
+
+```sh
+codex plugin remove unif-library-skills@unif-portal-dev-skills
+```
 
 已安装旧版 React Native 插件的用户，更新本地克隆或刷新 Git 市场后，运行以下命令迁移。Codex 会分别保留两个插件 ID，先移除旧插件可避免重复加载开发、测试和审查技能。
 
@@ -105,21 +114,21 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 
 ## 版本与发布
 
-六个插件与根清单使用统一版本，由根 `plugin.json` 锚定，Git tag 使用对应的 `vX.Y.Z`。常规发布允许 minor／patch，自动发布保持当前已发布的 major；清单改为另一 major 也会停止，须另行取得明确授权。
+全部 16 个插件与根清单使用统一版本，由根 `plugin.json` 锚定，Git tag 使用对应的 `vX.Y.Z`。常规发布允许 minor／patch，自动发布保持当前已发布的 major；清单改为另一 major 也会停止，须另行取得明确授权。
 
 - `main` 的新提交通过完整校验后，CI 检查当前版本标签到本次已验证提交之间的提交标题：包含 `feat: ...`、`feat(scope): ...` 等 feat 类型时递增 minor 并将 patch 归零；其余递增 patch。提交正文提到 feat 不参与判断，`!` 标记不触发 major 升级。同一 major 内显式指定、尚未发布且不落后于已有标签的新版本继续直接使用。
-- 准备步骤只修改根及市场六个 `plugin.json` 的版本字段，七份清单在同一个版本提交中原子写回，对候选包再次执行带 tag 的完整包校验，再创建版本提交并以普通快进推送写回 `main`。发布步骤为该提交创建 tag 和 GitHub Release，发布说明由 GitHub 生成；main、tag 和清单版本保持一致。
+- 准备步骤只修改根及市场中各插件 `plugin.json` 的版本字段，全部清单在同一个版本提交中原子写回，对候选包再次执行带 tag 的完整包校验，再创建版本提交并以普通快进推送写回 `main`。发布步骤为该提交创建 tag 和 GitHub Release，发布说明由 GitHub 生成；main、tag 和清单版本保持一致。
 - 重跑同一次 main 推送可识别其版本提交，继续未完成的发布，不再次升版。已发布且 tag 指向同一提交时跳过；草稿、同名 tag 冲突或倒退版本均停止处理。远端 main 已有其他更新时旧运行停止发布；写回不强推，写请求失败不自动重试。
 - PR、tag 推送和手动触发仅校验。CI 使用 `GITHUB_TOKEN` 写回版本和创建标签，不会递归触发新的 push 工作流；版本提交也带有 `[skip ci]`。发布依据为原提交的完整检查、候选版本包校验及最终提交核对。Codex 的安装更新另行执行。
 
 ## 验证
 
-- [工程校验运行记录](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查统一版本、技能格式、六个插件的唯一技能目录、本仓市场入口、隔离安装下的文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
+- [工程校验运行记录](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查统一版本、技能格式、各插件的唯一技能目录、本仓市场入口、隔离安装下的文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。校验使用仓内[插件 Schema](scripts/schemas/plugin.schema.json)与[固定依赖](scripts/requirements-ci.txt)，复跑命令见下文。
 - 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。鸿蒙开发、测试与审查的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖实际任务和平台／阶段排除场景。
 - RN 与 Python 六个阶段技能的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)分别说明独立消费、阶段选择及排除边界。
 - 架构、交付及六库能力的[九题独立行为组](evals/independent-skills/capability-behavior-cases.md)、[23 项自动触发场景](evals/independent-skills/capability-trigger-cases.md)与[专项判据](evals/independent-skills/capability-rubric.md)覆盖资料应用、组合与排除边界；库材料按固定 Git 修订和摘要组装，不复制 API 正文或原始运行日志。
-- 脚本测试覆盖六个插件的分发目录、规范归属和组织资产。插件安装与主题可达性另在全新环境验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。AMap、Files、Logger、OSS、Speech 与鸿蒙 Logger 的定向题见[专项案例](evals/library-skills/additional-library-cases.md)，不改写原六库的冻结输入。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
+- 脚本测试覆盖 16 个插件的分发目录、规范归属和组织资产。插件安装与主题可达性另在全新环境验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。AMap、Files、Logger、OSS、Speech 与鸿蒙 Logger 的定向题见[专项案例](evals/library-skills/additional-library-cases.md)，不改写原六库的冻结输入。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
 
 本地复现 CI（Python 3.12）：
 

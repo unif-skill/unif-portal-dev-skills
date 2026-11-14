@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-amap",
+  "version": "1.9.1",
+  "description": "Unif 高德地图、定位、地点查询与宿主接入技能",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-amap/assets/icon.svg",
+        "logo": "./skills/unif-amap/assets/icon.svg",
+        "logoDark": "./skills/unif-amap/assets/icon.svg"
+      }
+    }
+  }
+}

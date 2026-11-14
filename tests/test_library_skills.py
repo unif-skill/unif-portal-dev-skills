@@ -37,13 +37,13 @@ class LibraryFrontmatter(TypedDict):
 
 
 class LibrarySkillDistributionTests(unittest.TestCase):
-    def test_library_plugin_preserves_metadata_and_in_package_references(self) -> None:
-        source = Path(__file__).resolve().parents[1] / 'plugins/unif-library-skills'
-        with tempfile.TemporaryDirectory() as temporary:
-            plugin = Path(temporary) / 'unif-library-skills'
-            _ = shutil.copytree(source, plugin, symlinks=True)
-            self.assertEqual(check_skills(plugin, standalone=False), len(LIBRARIES))
-            for name, package in LIBRARIES.items():
+    def test_each_library_preserves_metadata_and_references_when_installed_alone(self) -> None:
+        source = Path(__file__).resolve().parents[1] / 'plugins'
+        for name, package in LIBRARIES.items():
+            with self.subTest(plugin=name), tempfile.TemporaryDirectory() as temporary:
+                plugin = Path(temporary) / name
+                _ = shutil.copytree(source / name, plugin, symlinks=True)
+                self.assertEqual(check_skills(plugin, standalone=False), 1)
                 isolated = plugin / 'skills' / name
                 frontmatter = cast(LibraryFrontmatter, yaml.safe_load(
                     (isolated / 'SKILL.md').read_text(encoding='utf-8').split('---', 2)[1]

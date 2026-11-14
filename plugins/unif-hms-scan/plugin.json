@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-hms-scan",
+  "version": "1.9.1",
+  "description": "Unif 实时扫码、图片解码与宿主接入技能，覆盖 RN 和原生鸿蒙",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-hms-scan/assets/icon.svg",
+        "logo": "./skills/unif-hms-scan/assets/icon.svg",
+        "logoDark": "./skills/unif-hms-scan/assets/icon.svg"
+      }
+    }
+  }
+}

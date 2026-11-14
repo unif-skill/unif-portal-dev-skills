@@ -3,17 +3,20 @@
 set -eu
 
 market=unif-portal-dev-skills
-for plugin in "$@"; do
-    case "$plugin" in
-        unif-engineering-skills|unif-react-native-skills|unif-harmony-skills|unif-python-skills|unif-library-skills) ;;
-        *)
-            echo "未知业务插件：$plugin" >&2
-            exit 2
-            ;;
-    esac
-done
-
 root=$(CDPATH= cd -P "$(dirname "$0")/.." && pwd)
+python3 - "$root/.agents/plugins/marketplace.json" "$@" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+entries = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))['plugins']
+available = {entry['name'] for entry in entries if entry['policy']['installation'] == 'AVAILABLE'}
+for plugin in sys.argv[2:]:
+    if plugin not in available:
+        print(f'未知业务插件：{plugin}', file=sys.stderr)
+        raise SystemExit(2)
+PY
+
 markets=$(codex plugin marketplace list --json)
 registered=$(printf '%s' "$markets" | python3 -c '
 import json, sys

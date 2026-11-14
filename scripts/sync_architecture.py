@@ -88,7 +88,8 @@ def owner(topic: str) -> str:
     if platform == 'architecture':
         return DESIGN if name in ('agent-context.md', 'cost.md', 'documentation.md') else COMMON
     if platform == 'harmony' and name.removesuffix('.md') in LIBRARIES:
-        return 'unif-library-skills/skills/unif-' + name.removesuffix('.md')
+        library = 'unif-' + name.removesuffix('.md')
+        return f'{library}/skills/{library}'
     package = 'react-native' if platform == 'rn' else platform
     return f'unif-{package}-skills/skills/unif-{platform}-dev'
 

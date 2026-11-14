@@ -88,7 +88,7 @@ class SnapshotTests(unittest.TestCase):
         return self.refs(f'unif-{package}-skills/skills/unif-{platform}-dev')
 
     def library_refs(self, name: str) -> Path:
-        return self.refs(f'unif-library-skills/skills/unif-{name}')
+        return self.refs(f'unif-{name}/skills/unif-{name}')
 
     @override
     def setUp(self) -> None:
@@ -210,7 +210,7 @@ class SnapshotTests(unittest.TestCase):
         topic = self.library_refs('icons') / 'harmony/icons.md'
         self.assertTrue(topic.is_file(), '六库专题应随各自库技能分发')
         text = topic.read_text()
-        self.assertIn('[Design](../../../unif-design/references/harmony/design.md#1-职责与依赖)', text)
+        self.assertIn(f'[Design]({SOURCE_URL}libraries/harmony-design.md#1-职责与依赖)', text)
         self.assertIn(f'[字体]({SOURCE_URL}HARMONY_STRUCTURE.md#2-组件主题与玻璃材质)', text)
         self.assertIn('RN（规范源相对路径：`libraries/react-native-icons.md#公开输入`）', text)
         self.assertIn(f'[架构]({SOURCE_URL}ARCHITECTURE.md#4-状态归属)', text)

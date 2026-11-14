@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-files",
+  "version": "1.9.1",
+  "description": "Unif 文件操作、下载、生命周期与本地资源访问技能",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./skills/unif-files/assets/icon.svg",
+        "logo": "./skills/unif-files/assets/icon.svg",
+        "logoDark": "./skills/unif-files/assets/icon.svg"
+      }
+    }
+  }
+}
