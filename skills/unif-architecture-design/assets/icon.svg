@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
-  <title>Unif 架构与模块设计</title>
-  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
-  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="5" rx="1.4"/><path d="M12 7v5M5 16v-4h14v4"/><rect x="2" y="16" width="6" height="5" rx="1.4"/><rect x="16" y="16" width="6" height="5" rx="1.4"/></g>
-</svg>

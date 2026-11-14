@@ -1,43 +1,15 @@
 {
   "formatVersion": 2,
-  "transformation": "section-text-selected-relative-links-v6",
+  "transformation": "section-owner-relative-links-v8",
   "sources": {
     "PYTHON_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PYTHON_DEVELOPMENT.md",
       "sha256": "f189acdbdd0c08cf9206a436d32428d2e65a94a2e173458b70a30cf31feb93f9",
       "lines": 84
-    },
-    "ARCHITECTURE.md": {
-      "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "4f9fbbc6146557f992a92931acc8f6f46479e9d0603969791cc2602ba6d91974",
-      "lines": 483,
-      "selectedSections": [
-        {
-          "heading": "4. 状态归属",
-          "lines": [
-            148,
-            183
-          ]
-        },
-        {
-          "heading": "6. 跨边界交接与业务结果",
-          "lines": [
-            239,
-            316
-          ]
-        },
-        {
-          "heading": "7. 独立开发与验证",
-          "lines": [
-            317,
-            420
-          ]
-        }
-      ]
     }
   },
   "files": {
-    "scope.md": {
+    "python/scope.md": {
       "sections": [
         {
           "source": "PYTHON_DEVELOPMENT.md",
@@ -56,9 +28,9 @@
           ]
         }
       ],
-      "sha256": "288f8c3301c8a33da1cefd6d52a9126313c158d875233890d1a76b7693fded83"
+      "sha256": "8d28d246bb997a71f329de80489a60b736d0773bbb6803d7118181521638177b"
     },
-    "structure.md": {
+    "python/structure.md": {
       "sections": [
         {
           "source": "PYTHON_DEVELOPMENT.md",
@@ -77,9 +49,9 @@
           ]
         }
       ],
-      "sha256": "be7e4dd3583c75503feba715a4de9000e6c50dc6c24e721d15a4910fe360bfa8"
+      "sha256": "d7986a722f56ae245d119f1b1e9420d5b9c91c0d5bb489c78521d8814d430860"
     },
-    "lifecycle.md": {
+    "python/lifecycle.md": {
       "sections": [
         {
           "source": "PYTHON_DEVELOPMENT.md",
@@ -90,9 +62,9 @@
           ]
         }
       ],
-      "sha256": "eaef13860b052a0be9bec9b2ce11d3a1ca9d671b546aafc43e7a1ff0b67404f8"
+      "sha256": "b7cb3be0b0735bd60dea988248663c288831dfbc38d8b07343d57d80b3be0fa7"
     },
-    "validation.md": {
+    "python/validation.md": {
       "sections": [
         {
           "source": "PYTHON_DEVELOPMENT.md",
@@ -111,46 +83,7 @@
           ]
         }
       ],
-      "sha256": "499ef9afcc07513c93e2896ce78c51c8931d9ed9137b4018a9ddef92148ddaab"
-    },
-    "common/state.md": {
-      "sections": [
-        {
-          "source": "ARCHITECTURE.md",
-          "heading": "4. 状态归属",
-          "lines": [
-            148,
-            183
-          ]
-        }
-      ],
-      "sha256": "495f632a0341b4a2100ee3e2cce8fa6e3d483c910641315d8da7f81a36a0c9ae"
-    },
-    "common/contracts.md": {
-      "sections": [
-        {
-          "source": "ARCHITECTURE.md",
-          "heading": "6. 跨边界交接与业务结果",
-          "lines": [
-            239,
-            316
-          ]
-        }
-      ],
-      "sha256": "2e012702d3c251a4813ec6a1873b299cc8d48a9dafa7d403960b3d62f1386a2f"
-    },
-    "common/verification.md": {
-      "sections": [
-        {
-          "source": "ARCHITECTURE.md",
-          "heading": "7. 独立开发与验证",
-          "lines": [
-            317,
-            420
-          ]
-        }
-      ],
-      "sha256": "4a80fb650f13ed8a61ec50003d906a2803fc9ed3485231f31150c49bc5281e9a"
+      "sha256": "7aaf200b2a62b220e8355cd1bf61800f1829f99ccc7616af493786dfcbdccb98"
     }
   }
 }

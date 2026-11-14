@@ -2,7 +2,7 @@
 
 # Unif 原生鸿蒙开发规则
 
-开发 Unif 原生客户端、`@unif/harmony-*` 六库及共同功能时，先核对目标工程采用的 ArkTS／ArkUI、SDK 和 HAR 规范，再确认本次项目契约、已有能力及实际调用方。目录与 UI 职责分别见[工程目录](directory.md#1-工程目录与依赖)、[组件与材质](ui.md#2-组件主题与玻璃材质)，业务职责见平台架构（规范源相对路径：`ARCHITECTURE.md`）及所属契约。
+开发 Unif 原生客户端、`@unif/harmony-*` 六库及共同功能时，先核对目标工程采用的 ArkTS／ArkUI、SDK 和 HAR 规范，再确认本次项目契约、已有能力及实际调用方。目录与 UI 职责分别见[工程目录](directory.md#1-工程目录与依赖)、[组件与材质](ui.md#2-组件主题与玻璃材质)，业务职责见[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)及所属契约。
 
 
 ## 1. 适用范围与实施
@@ -17,6 +17,6 @@ Unif 原生产品目标为 HarmonyOS 7.0.0／API 26；新目标、最低版本�
 | 六库维护 | 本库原生规范、对应 RN 行为契约和实际应用消费者；未形成原生出口的能力登记为待实现 |
 | 共同功能 | 共同契约、源头与实际 RN／鸿蒙消费者，登记各端修订和差异 |
 
-六库规范按本次能力选读：[Icons](icons.md#1-职责与依赖)、[Design](design.md#1-职责与依赖)、[Chat](chat.md#1-职责与依赖)、[Camera](camera.md#1-职责与依赖)、[Scan](hms-scan.md#1-职责与依赖)、[Umeng](umeng.md#1-职责与依赖)。它们维护 Unif 的职责、公开结果语义与验收；各能力技能按自身范围提供 RN 用法与鸿蒙目标契约入口，实际原生 API 仍以采用库的公开出口为准。
+六库规范按本次能力选读：[Icons](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-icons.md#1-职责与依赖)、[Design](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-design.md#1-职责与依赖)、[Chat](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-chat.md#1-职责与依赖)、[Camera](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-camera.md#1-职责与依赖)、[Scan](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-hms-scan.md#1-职责与依赖)、[Umeng](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-umeng.md#1-职责与依赖)。它们维护 Unif 的职责、公开结果语义与验收；各能力技能按自身范围提供 RN 用法与鸿蒙目标契约入口，实际原生 API 仍以采用库的公开出口为准。
 
 是否进入产品实施以当前任务与状态登记为准；规范或技能发布不代表六库产品完成，也不要求所有库齐全才推进已授权消费者。

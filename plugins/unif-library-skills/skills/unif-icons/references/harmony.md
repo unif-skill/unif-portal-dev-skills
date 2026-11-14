@@ -7,7 +7,7 @@
 | 消费、同源生成与验证 | [仓库 README](https://github.com/unif-design/harmony-icons/blob/main/README.md)、[包说明](https://github.com/unif-design/harmony-icons/blob/main/library/README.md) |
 | 原生参数与渲染 | [docs/API.md](https://github.com/unif-design/harmony-icons/blob/main/docs/API.md)、[UnifIcon.ets](https://github.com/unif-design/harmony-icons/blob/main/library/src/main/ets/UnifIcon.ets) |
 | 实际公开入口与版本 | [Index.ets](https://github.com/unif-design/harmony-icons/blob/main/library/Index.ets)、[包清单](https://github.com/unif-design/harmony-icons/blob/main/library/oh-package.json5) |
-| 项目契约与目标验收 | [鸿蒙 Icons 规范](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-icons.md) |
+| 项目契约与目标验收 | [鸿蒙 Icons 规范](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-icons.md)；包内规范见[对应章节](harmony/icons.md#4-验证与采用) |
 
 本地按相同相对路径读取；接口按采用修订核对，规范链接用于定位，目标契约不代替实际公开声明。
 

@@ -5,6 +5,8 @@ description: 在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执
 
 # 交付规范
 
+文中用代码标出的公共主题路径从 `$unif-platform-rules` 读取。
+
 从目标工程的 AGENTS.md、脚本与 workflow 确认交付入口，核对本轮已确认的范围、工作区、提交及验证结果。
 
 ## 按交付对象读取
@@ -12,13 +14,13 @@ description: 在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执
 | 本次对象 | 本技能资料与工程依据 |
 |---|---|
 | Unif RN 库的组织接入、命名与发布 | [包命名](references/package-naming.md)、[GitHub 采用](references/github.md)、[发布约定](references/publishing.md)；非敏感默认值见[组织资产](assets/organization.json) |
-| Portal RN 客户端的技术证据 | [Portal 验证](references/rn/testing.md) |
+| Portal RN 客户端的技术证据 | [Portal 验证](https://github.com/unif-design/unif-platform-architecture/blob/main/PORTAL_DEVELOPMENT.md#5-规则执行与定向验证)、[消费者验证](https://github.com/unif-design/unif-platform-architecture/blob/main/PORTAL_STRUCTURE.md#6-开发维护与定向验证) |
 | Unif RN 库的技术证据 | 本库采用的规范、检查脚本、产物与公开消费者记录；共同验证依据按下文选读 |
-| 原生鸿蒙、HAR 与共享核心 | [鸿蒙验证](references/harmony/testing.md)；按实际 OHPM／HAR 配置交付，不套 RN 组织资产或 npm 接线 |
-| Python 后端的类型检查、进程、资源和部署证据 | [后端验证](references/python/validation.md)；不套 RN 包命名或发布身份 |
-| 跨仓契约、结果与消费者兼容 | [交接契约](references/common/contracts.md)、[依赖治理](references/common/verification.md#71-依赖治理)、[变更影响](references/common/verification.md#73-变更影响) |
+| 原生鸿蒙、HAR 与共享核心 | [鸿蒙验证](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_DEVELOPMENT.md#5-验证与交付)；按实际 OHPM／HAR 配置交付，不套 RN 组织资产或 npm 接线 |
+| Python 后端的类型检查、进程、资源和部署证据 | [后端验证](https://github.com/unif-design/unif-platform-architecture/blob/main/PYTHON_DEVELOPMENT.md#6-验证与交付)；不套 RN 包命名或发布身份 |
+| 跨仓契约、结果与消费者兼容 | 交接契约（`references/architecture/contracts.md`）、依赖治理（`references/architecture/verification.md#71-依赖治理`）、变更影响（`references/architecture/verification.md#73-变更影响`） |
 
-按[测试责任](references/common/verification.md#72-测试责任)说明本次提交的实际验证范围。已有结果仍适用时复用，合并前核对当前提交的 required 检查。
+按测试责任（`references/architecture/verification.md#72-测试责任`）说明本次提交的实际验证范围。已有结果仍适用时复用，合并前核对当前提交的 required 检查。
 
 ## 操作边界
 

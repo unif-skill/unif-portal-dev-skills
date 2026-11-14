@@ -1,0 +1,3 @@
+from pathlib import Path
+
+def validate(skill_dir: Path) -> list[str]: ...

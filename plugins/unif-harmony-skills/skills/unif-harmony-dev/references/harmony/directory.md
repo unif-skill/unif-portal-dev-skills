@@ -2,7 +2,7 @@
 
 # Unif 原生鸿蒙工程组织
 
-本文定义 Unif ArkTS／ArkUI 应用、原生库和共享资源的职责归属。项目采用见[适用范围](scope.md#1-适用范围与实施)，状态与验收分别见[状态与生命周期](state.md#3-arkui-状态与生命周期)、[验证与交付](testing.md#5-验证与交付)，系统职责见平台架构（规范源相对路径：`ARCHITECTURE.md`）。下列目录是 Unif 的组织约定，按真实职责使用，不是必须预建的文件清单。
+本文定义 Unif ArkTS／ArkUI 应用、原生库和共享资源的职责归属。项目采用见[适用范围](scope.md#1-适用范围与实施)，状态与验收分别见[状态与生命周期](state.md#3-arkui-状态与生命周期)、[验证与交付](testing.md#5-验证与交付)，系统职责见[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)。下列目录是 Unif 的组织约定，按真实职责使用，不是必须预建的文件清单。
 
 
 ## 1. 工程目录与依赖

@@ -1,0 +1,157 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-owner-relative-links-v8",
+  "sources": {
+    "PORTAL_DEVELOPMENT.md": {
+      "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
+      "sha256": "ae15f4a6271b46ba1ce1759cb77e8514e1021f5c9d7434a11369153ef558f38e",
+      "lines": 68
+    },
+    "PORTAL_STRUCTURE.md": {
+      "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
+      "sha256": "4f05cdd4ee84d0fdc4ccc8240fc3d7fd4271711f26485b9cab14ed1432aa0e02",
+      "lines": 219
+    }
+  },
+  "files": {
+    "rn/scope.md": {
+      "sections": [
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "",
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "1. 文件变更入口",
+          "lines": [
+            7,
+            18
+          ]
+        },
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "2. 各类代码的开发规则",
+          "lines": [
+            19,
+            33
+          ]
+        }
+      ],
+      "sha256": "e803d748c6881926995bce4eff7c6b2a6eb298613a4f8f0e7bef45d5d1d8be34"
+    },
+    "rn/file-rules.md": {
+      "sections": [
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "3. 常量、类型、变量与文件拆分",
+          "lines": [
+            34,
+            53
+          ]
+        },
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "4. 命名与公开出口",
+          "lines": [
+            54,
+            57
+          ]
+        }
+      ],
+      "sha256": "c9eb782b86ad01e72db085ccb81576d487dc863f3dded7a1252e4db7a1eae666"
+    },
+    "rn/testing.md": {
+      "sections": [
+        {
+          "source": "PORTAL_DEVELOPMENT.md",
+          "heading": "5. 规则执行与定向验证",
+          "lines": [
+            58,
+            68
+          ]
+        },
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "6. 开发维护与定向验证",
+          "lines": [
+            200,
+            219
+          ]
+        }
+      ],
+      "sha256": "f286f5cebeed466fdbc2dcb4918e9feba83277d42eecc35b8303ce14dd48beb5"
+    },
+    "rn/directory.md": {
+      "sections": [
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "",
+          "lines": [
+            1,
+            8
+          ]
+        },
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "1. 目标目录",
+          "lines": [
+            9,
+            101
+          ]
+        }
+      ],
+      "sha256": "d1b0e50d86837dcc73f354b9c88f7ebcc8287aea1dfaa25c3947d61a205234e8"
+    },
+    "rn/ui.md": {
+      "sections": [
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "2. 基础组件与 UI 复用",
+          "lines": [
+            102,
+            147
+          ]
+        }
+      ],
+      "sha256": "5990b35a71e5d8169868d58829db1af060a1e887e2e9bf683a0c4ad0238641d9"
+    },
+    "rn/utilities-config.md": {
+      "sections": [
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "3. 工具、常量、类型及其他文件的归属",
+          "lines": [
+            148,
+            163
+          ]
+        }
+      ],
+      "sha256": "f300f1cd2483d5e5589bdaa24ae681bd142622624478dfc406f4df99814469e3"
+    },
+    "rn/dependencies.md": {
+      "sections": [
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "4. 公共入口与依赖方向",
+          "lines": [
+            164,
+            193
+          ]
+        },
+        {
+          "source": "PORTAL_STRUCTURE.md",
+          "heading": "5. 基础能力与资源归属",
+          "lines": [
+            194,
+            199
+          ]
+        }
+      ],
+      "sha256": "09969c40c2e8577832818f94c6984db299f7b47e1ddf3adc7f1000f160abee0f"
+    }
+  }
+}

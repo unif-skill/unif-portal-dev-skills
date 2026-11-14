@@ -1,0 +1,58 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-owner-relative-links-v8",
+  "sources": {
+    "libraries/harmony-camera.md": {
+      "source": "unif-platform-architecture/libraries/harmony-camera.md",
+      "sha256": "3c1bdefd012f21dc82400399d205b620b0e9a26a2e501e9dbca655fd8e035307",
+      "lines": 41
+    }
+  },
+  "files": {
+    "harmony/camera.md": {
+      "sections": [
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "",
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "1. 职责与依赖",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "2. 公开契约与对齐",
+          "lines": [
+            11,
+            18
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "3. 状态、资源与结束",
+          "lines": [
+            19,
+            36
+          ]
+        },
+        {
+          "source": "libraries/harmony-camera.md",
+          "heading": "4. 验证与采用",
+          "lines": [
+            37,
+            41
+          ]
+        }
+      ],
+      "sha256": "8743c2874f75570d6a6126ca1bb5e3a033b8b56e82e5d6965e13e0ca890f8054"
+    }
+  }
+}

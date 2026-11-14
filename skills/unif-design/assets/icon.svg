@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
-  <title>Unif Design</title>
-  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
-  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="18" rx="2"/><rect x="15" y="3" width="6" height="7" rx="1.6"/><rect x="15" y="14" width="6" height="7" rx="1.6"/><path d="M6.5 7h1M6.5 11h1"/></g>
-</svg>

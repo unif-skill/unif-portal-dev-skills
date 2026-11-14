@@ -6,7 +6,7 @@ from typing import cast
 import yaml
 
 
-SKILLS = Path(__file__).resolve().parents[1] / 'skills'
+PLUGINS = Path(__file__).resolve().parents[1] / 'plugins'
 
 
 def has_skill_frontmatter(markdown: str) -> bool:
@@ -31,12 +31,11 @@ def has_skill_frontmatter(markdown: str) -> bool:
 
 class NestedSkillTests(unittest.TestCase):
     def test_only_the_skill_root_contains_an_entry_point(self) -> None:
-        # 五个 plugins/ 镜像的文件清单与内容由 sync_plugins --check 和分发校验核对。
-        for skill in sorted(SKILLS.iterdir()):
+        for skill in sorted(PLUGINS.glob('*/skills/*')):
             for path in sorted(skill.rglob('*.md')):
                 if path == skill / 'SKILL.md':
                     continue
-                with self.subTest(path=path.relative_to(SKILLS)):
+                with self.subTest(path=path.relative_to(PLUGINS)):
                     self.assertNotEqual(path.name.lower(), 'skill.md', '技能目录内嵌了另一份技能入口')
                     self.assertFalse(has_skill_frontmatter(path.read_text(encoding='utf-8')),
                                      '配套资料含另一份技能入口元数据')

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif Icons"
-  short_description: "消费与维护 Unif RN／鸿蒙图标，核对公开 API 与同源产物"
-  default_prompt: "使用 $unif-icons，先区分 RN 与原生鸿蒙，再按实际版本、实现状态和任务范围取得对应资料。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

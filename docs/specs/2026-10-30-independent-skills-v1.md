@@ -1,6 +1,6 @@
 # Unif 技能独立分发与 1.0.0 契约
 
-以下保留独立化初始契约；当前入口数量与名称按末尾的「平台入口拆分补充」执行。
+以下记录 1.0.0 起各次分发调整。当前公共插件、五个业务插件及安装要求见[安装与使用](../../README.md#安装与使用)，现行规范归属见[规范来源](../../README.md#规范来源)。
 
 ## 目标与范围
 
@@ -58,7 +58,7 @@ backend-development、architecture-design、code-delivery 和六个 unif-* 能�
 根 `skills/` 仍是唯一技能源，22 个当前 `unif-*` 技能名称不变，其他 Agent Skills 客户端继续从根目录安装。Codex 沿用同一市场 `unif-portal-dev-skills`，市场仅引用五个插件根：
 
 - `unif-engineering-skills`：架构设计与代码交付，共 2 个技能。
-- `unif-rn-skills`、`unif-harmony-skills`、`unif-python-skills`：各平台开发、测试与审查，各 3 个技能。
+- React Native、原生鸿蒙和 Python 插件各含开发、测试与审查 3 个技能。现行插件 ID 见[安装清单](../../README.md#安装与使用)。
 - `unif-library-skills`：全部 11 个库能力，双平台技能保持完整，不按平台复制或拆分。
 
 `plugins/<插件 ID>/` 由 `scripts/sync_plugins.py` 从根清单、资产及所属技能完整生成。每包有自身清单、图标、技能正文、元数据、规范与资产，可脱离根维护脚本及兄弟插件安装。逐文件校验须核对完整副本，禁止符号链接或越界引用；未知目标文件先核对归属，不静默删除。根清单保留兼容入口，不再被市场引用。

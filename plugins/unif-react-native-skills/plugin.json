@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-react-native-skills",
+  "version": "1.8.11",
+  "description": "React Native 企业开发、测试与审查",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo.png"
+      }
+    }
+  }
+}

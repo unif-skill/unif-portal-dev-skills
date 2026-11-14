@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from collections.abc import Callable, Iterable, Mapping, Sequence
+from functools import cached_property
 from typing import BinaryIO, NotRequired, Literal, TypeGuard, TypedDict
 from pathlib import Path
 
@@ -290,6 +291,27 @@ def resolve_commit(repo: str | Path, revision: str) -> str:
                revision + '^{commit}').decode().strip()
 
 
+def linked_peer_docs(entry: bytes) -> set[str]:
+    """Explicit links from a skill entry to a sibling skill's reference pages."""
+    links = re.finditer(r'\]\(\.\./([a-z0-9][a-z0-9-]*)/(references/[^\s#?)]+\.md)(?:#[^\s)]*)?\)',
+                       entry.decode('utf-8'))
+    return {'skills/' + link[1] + '/' + safe_path(link[2]) for link in links}
+
+
+def linked_peer_paths(directory: str, entry: bytes, owners: Mapping[str, str]) -> dict[str, str]:
+    siblings, name = directory.rsplit('/', 1)
+    paths: dict[str, str] = {}
+    for logical in linked_peer_docs(entry):
+        _, peer, relative = logical.split('/', 2)
+        if peer == name:
+            continue
+        peer_dir = siblings + '/' + peer
+        if peer_dir != owners.get(peer):
+            raise EvalError('引用不属于同一插件的技能：' + logical)
+        paths[logical] = peer_dir + '/' + relative
+    return paths
+
+
 class Snapshot:
     """Reads blobs without checkout, executing hooks, or following symbolic links."""
 
@@ -316,14 +338,40 @@ class Snapshot:
         return git(self.repo, 'cat-file', 'blob', oid)
 
     def skill_names(self) -> list[str]:
-        return sorted(path.split('/')[1] for path in self.entries
-                      if re.fullmatch(r'skills/[a-z0-9][a-z0-9-]*/SKILL\.md', path))
+        return sorted(self.skill_dirs)
+
+    @cached_property
+    def package_dirs(self) -> set[str]:
+        roots = marketplace_sources(optional_json(self, MARKETPLACE_PATH))
+        return {prefix for _, prefix in roots.values()}
+
+    @cached_property
+    def skill_dirs(self) -> dict[str, str]:
+        owners: dict[str, str] = {}
+        for prefix in sorted(self.package_dirs):
+            for name in package_skills(self, prefix):
+                register_skill(owners, name, (prefix + '/' if prefix else '') + 'skills/' + name)
+        # Older split packages shipped mirrors of the root skills, the historical evaluation source.
+        for name in package_skills(self, ''):
+            owners[name] = 'skills/' + name
+        return owners
+
+    def skill_dir(self, name: str) -> str:
+        if name not in self.skill_dirs:
+            raise EvalError('固定提交缺少技能：' + name)
+        return self.skill_dirs[name]
+
+    @cached_property
+    def peer_docs(self) -> dict[str, dict[str, str]]:
+        return {name: linked_peer_paths(directory, self.read(directory + '/SKILL.md'), self.skill_dirs)
+                for name, directory in self.skill_dirs.items() if not directory.startswith('skills/')}
 
     def skill_files(self, name: str) -> dict[str, bytes]:
-        prefix = f'skills/{name}/'
-        files = {path: self.read(path) for path in self.entries if path.startswith(prefix)}
-        if prefix + 'SKILL.md' not in files:
-            raise EvalError('固定提交缺少技能：' + name)
+        prefix = self.skill_dir(name) + '/'
+        files = {f'skills/{name}/' + path[len(prefix):]: self.read(path)
+                 for path in self.entries if path.startswith(prefix)}
+        for logical, physical in self.peer_docs.get(name, {}).items():
+            files[logical] = self.read(physical)
         if sum(map(len, files.values())) > MAX_SUITE_BYTES:
             raise EvalError('完整技能超过评测大小上限：' + name)
         return files
@@ -392,22 +440,58 @@ def parse_suite(raw: bytes, skills: Sequence[str]) -> list[Case]:
         raise EvalError('题库缺少技能评测模式：' + ', '.join(missing))
     return validated
 
-def validate(root: str | Path) -> list[Case]:
-    root = Path(root).resolve()
-    for path in [root / 'skills', root / 'evals', root / 'evals/behavior', root / SUITE_PATH]:
-        if path.is_symlink():
-            raise EvalError('拒绝符号链接：' + str(path))
-    skills: list[str] = []
-    for directory in (root / 'skills').iterdir():
+MARKETPLACE_PATH = '.agents/plugins/marketplace.json'
+
+
+def register_skill(owners: dict[str, str], name: str, directory: str) -> None:
+    if name in owners:
+        raise EvalError(f'多个插件分发同名技能 {name}：{owners[name]} 和 {directory}')
+    owners[name] = directory
+
+
+def worktree_skill_dirs(root: Path, prefix: str) -> dict[str, str]:
+    relative = (prefix + '/' if prefix else '') + 'skills'
+    directory = root
+    for part in relative.split('/'):
+        directory = directory / part
         if directory.is_symlink():
             raise EvalError('拒绝符号链接：' + str(directory))
-        if directory.is_dir():
-            for path in directory.rglob('*'):
+    if not directory.is_dir():
+        return {}
+    result: dict[str, str] = {}
+    for child in directory.iterdir():
+        if child.is_symlink():
+            raise EvalError('拒绝符号链接：' + str(child))
+        if child.is_dir():
+            for path in child.rglob('*'):
                 if path.is_symlink():
                     raise EvalError('拒绝符号链接：' + str(path))
-            if (directory / 'SKILL.md').is_file():
-                skills.append(directory.name)
-    return parse_suite((root / SUITE_PATH).read_bytes(), skills)
+            if (child / 'SKILL.md').is_file():
+                result[child.name] = relative + '/' + child.name
+    return result
+
+
+def validate(root: str | Path) -> list[Case]:
+    root = Path(root).resolve()
+    for path in [root / '.agents', root / '.agents/plugins', root / MARKETPLACE_PATH,
+                 root / 'evals', root / 'evals/behavior', root / SUITE_PATH]:
+        if path.is_symlink():
+            raise EvalError('拒绝符号链接：' + str(path))
+    market = root / MARKETPLACE_PATH
+    roots = marketplace_sources(load_json(market.read_bytes()) if market.is_file() else None)
+    skills: dict[str, str] = {}
+    for _, prefix in roots.values():
+        for name, directory in worktree_skill_dirs(root, prefix).items():
+            register_skill(skills, name, directory)
+    if all(prefix for _, prefix in roots.values()):
+        skills.update(worktree_skill_dirs(root, ''))
+    for directory in skills.values():
+        if not directory.startswith('skills/'):
+            peers = linked_peer_paths(directory, (root / directory / 'SKILL.md').read_bytes(), skills)
+            for target in peers.values():
+                if not (root / target).is_file():
+                    raise EvalError('技能引用资料不存在：' + target)
+    return parse_suite((root / SUITE_PATH).read_bytes(), sorted(skills))
 
 
 def optional_json(snapshot: Snapshot, path: str) -> object:
@@ -427,28 +511,28 @@ def provenance_content(value: object) -> object:
 def package_skills(snapshot: Snapshot, prefix: str) -> set[str]:
     if prefix:
         _ = safe_path(prefix)
-    if prefix and prefix in snapshot.entries:
-        _ = snapshot.read(prefix)
-        raise EvalError('插件路径必须为目录：' + prefix)
     directory = prefix + '/skills/' if prefix else 'skills/'
+    for parent in [directory.rstrip('/'), *map(str, Path(directory).parents)]:
+        if parent in snapshot.entries:
+            raise EvalError('插件路径必须为目录：' + parent)
     names: set[str] = set()
     for path in snapshot.entries:
         if path.startswith(directory) and path.endswith('/SKILL.md'):
             relative = path[len(directory):]
             if re.fullmatch(r'[a-z0-9][a-z0-9-]*/SKILL\.md', relative):
-                _ = snapshot.read(path)  # Reject symlink skill entrypoints.
+                if snapshot.entries[path][0] not in ('100644', '100755'):
+                    raise EvalError('拒绝非普通技能入口：' + path)
                 names.add(relative.split('/')[0])
     return names
 
 
-def marketplace_entries(snapshot: Snapshot) -> dict[str, tuple[dict[str, object], set[str]]]:
-    market = optional_json(snapshot, '.agents/plugins/marketplace.json')
+def marketplace_sources(market: object) -> dict[str, tuple[dict[str, object], str]]:
     if market is None:
         return {}
     plugins = market.get('plugins') if is_object(market) else None
     if not is_array(plugins):
         raise EvalError('marketplace plugins 必须为数组')
-    result: dict[str, tuple[dict[str, object], set[str]]] = {}
+    result: dict[str, tuple[dict[str, object], str]] = {}
     for item in plugins:
         name = item.get('name') if is_object(item) else None
         if not is_object(item) or not isinstance(name, str):
@@ -463,8 +547,15 @@ def marketplace_entries(snapshot: Snapshot) -> dict[str, tuple[dict[str, object]
         prefix = path[2:].rstrip('/')
         if prefix:
             _ = safe_path(prefix)
-        result[name] = (item, package_skills(snapshot, prefix))
+        if any(prefix == existing for _, existing in result.values()):
+            raise EvalError('多个插件引用同一市场目录：' + prefix)
+        result[name] = (item, prefix)
     return result
+
+
+def marketplace_entries(snapshot: Snapshot) -> dict[str, tuple[dict[str, object], set[str]]]:
+    return {name: (entry, package_skills(snapshot, prefix))
+            for name, (entry, prefix) in marketplace_sources(optional_json(snapshot, MARKETPLACE_PATH)).items()}
 
 def affected_cases(before: Snapshot, after: Snapshot, cases: Sequence[Case], changed: Sequence[str]) -> tuple[set[str], list[str]]:
     skills: set[str] = set()
@@ -476,22 +567,33 @@ def affected_cases(before: Snapshot, after: Snapshot, cases: Sequence[Case], cha
                     '.github/workflows/behavior-eval.yml'}
     if global_paths.intersection(changed):
         return {case['id'] for case in cases}, ['共享评测器或评测工作流变更']
+    changed_paths = set(changed)
+    for snapshot in (before, after):
+        for consumer, links in snapshot.peer_docs.items():
+            if changed_paths.intersection(links.values()):
+                skills.add(consumer)
+                reasons.append('技能引用资料：' + consumer)
+    owners = before.package_dirs | after.package_dirs
     for path in changed:
-        match = re.fullmatch(r'(?:plugins/[^/]+/)?skills/([^/]+)/(.+)', path)
-        if match:
-            if match[2] == 'references/source.json':
+        split = re.fullmatch(r'(?:(.+)/)?skills/([^/]+)/(.+)', path)
+        # Legacy root layouts also selected changes to a generated plugins/<id> copy.
+        if split and (not split[1] or split[1] in owners or (
+                re.fullmatch(r'plugins/[^/]+', split[1])
+                and any(snapshot.skill_dirs.get(split[2]) == f'skills/{split[2]}' for snapshot in (before, after)))):
+            if split[3] == 'references/source.json':
                 old, new = (provenance_content(optional_json(snapshot, path))
                             for snapshot in (before, after))
                 if old == new:
                     continue
-            skills.add(match[1])
-            if match[2] == 'SKILL.md':
-                metadata = [skill_metadata(snapshot.read(path).decode(), match[1])
-                            if path in snapshot.entries else None for snapshot in (before, after)]
+            skills.add(split[2])
+            if split[3] == 'SKILL.md':
+                metadata = [skill_metadata(snapshot.read(snapshot.skill_dir(split[2]) + '/SKILL.md').decode(), split[2])
+                            if split[2] in snapshot.skill_dirs else None for snapshot in (before, after)]
                 if metadata[0] != metadata[1]:
-                    discovery_skills.add(match[1])
-            reasons.append('技能内容：' + match[1])
-        if path == 'plugin.json' or re.fullmatch(r'plugins/[^/]+/plugin\.json', path):
+                    discovery_skills.add(split[2])
+            reasons.append('技能内容：' + split[2])
+        if (path == 'plugin.json' or re.fullmatch(r'plugins/[^/]+/plugin\.json', path)
+                or path.removesuffix('/plugin.json') in owners and path.endswith('/plugin.json')):
             manifests = [optional_json(snapshot, path) for snapshot in (before, after)]
             normalized: list[dict[str, object] | None] = []
             for item in manifests:
@@ -616,9 +718,11 @@ class ReadOnlyFiles:
 
     def __init__(self, skill: str, files: Mapping[str, object], fixtures: Mapping[str, str]) -> None:
         self.files: dict[str, bytes] = {}
+        entry = files.get(f'skills/{skill}/SKILL.md')
+        peers: set[str] = linked_peer_docs(entry) if isinstance(entry, bytes) else set()
         for path, content in files.items():
             path = safe_path(path)
-            if not path.startswith(f'skills/{skill}/') or not isinstance(content, bytes):
+            if not (path.startswith(f'skills/{skill}/') or path in peers) or not isinstance(content, bytes):
                 raise EvalError('文件不属于目标技能')
             self.files[path] = content
         for path, content in fixtures.items():
@@ -869,7 +973,7 @@ def response_text(response: Response) -> str:
 def answer_application(client: ChatCompletionsClient, case: Case, files: Mapping[str, bytes], result: Sample) -> str:
     readonly = ReadOnlyFiles(case['skill'], files, case['fixtures'])
     inputs: list[Message] = [{'role': 'system', 'content':
-        '这是只读技能应用任务。先阅读给定技能入口，按需读取本技能全部文件和固定题设资料。' +
+        '这是只读技能应用任务。先阅读给定技能入口，按需读取清单内的技能资料和固定题设资料。' +
         '同一轮可请求读取多份相互独立的必要资料。' +
         '仅有 read_file/list_files；没有 shell、写入、网络业务或其他技能。' +
         '若任务要求修改，请在回答中提供可审阅的修改内容，不声称实际写入或真实验证。'},
@@ -1249,7 +1353,7 @@ def run_plan(plan: object, output_dir: str | Path, show_progress: bool = False) 
         if any(case['mode'] != 'application' for case in report['cases']):
             for variant, snapshot in snapshots.items():
                 try:
-                    catalogs[variant] = [skill_metadata(snapshot.read(f'skills/{name}/SKILL.md').decode('utf-8'), name)
+                    catalogs[variant] = [skill_metadata(snapshot.read(snapshot.skill_dir(name) + '/SKILL.md').decode('utf-8'), name)
                                          for name in snapshot.skill_names()]
                 except (ValueError, OSError, subprocess.SubprocessError) as exc:
                     catalogs[variant] = str(exc)

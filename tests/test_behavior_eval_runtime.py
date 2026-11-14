@@ -350,6 +350,82 @@ def files_snapshot(root: Path) -> dict[str, bytes]:
     return {str(path.relative_to(root)): path.read_bytes() for path in root.rglob('*') if path.is_file()}
 
 
+class PluginLayoutTests(unittest.TestCase):
+    def test_old_and_direct_package_layouts_expose_the_same_virtual_skill_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            _ = evaluator.git(root, 'init', '-q')
+            _ = evaluator.git(root, 'config', 'user.name', 'Test')
+            _ = evaluator.git(root, 'config', 'user.email', 'test@example.invalid')
+
+            def put(path: str, body: str) -> None:
+                target = root / path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                _ = target.write_text(body, encoding='utf-8')
+
+            def save() -> str:
+                _ = evaluator.git(root, 'add', '.')
+                _ = evaluator.git(root, 'commit', '-qm', 'layout')
+                return evaluator.resolve_commit(root, 'HEAD')
+
+            def market(*names: str) -> None:
+                entries = [{'name': name, 'source': {'source': 'local', 'path': './plugins/' + name}}
+                           for name in names]
+                put(evaluator.MARKETPLACE_PATH, json.dumps({'plugins': entries}))
+
+            cases: list[dict[str, object]] = []
+            for skill in ('dev', 'review', 'other'):
+                put(f'skills/{skill}/SKILL.md',
+                    f'---\nname: {skill}\ndescription: applies to {skill}\n---\n')
+                for mode in evaluator.CASE_MODES:
+                    cases.append({'id': f'{skill}-{mode}', 'skill': skill, 'mode': mode, 'prompt': 'test',
+                                  'fixtures': {}, 'source': 'fixture', 'rubric': ['correct'],
+                                  'required_skills': [skill] if mode == 'discovery_positive' else [],
+                                  'forbidden_skills': [skill] if mode == 'discovery_negative' else []})
+            put(evaluator.SUITE_PATH, json.dumps({'formatVersion': 1, 'cases': cases}))
+            market('one', 'two')
+            put('plugins/one/skills/review/SKILL.md', 'historical mirror')
+            old = save()
+            baseline = evaluator.Snapshot(root, old)
+            self.assertEqual(baseline.skill_dir('review'), 'skills/review')
+            for skill, package in (('dev', 'one'), ('review', 'one'), ('other', 'two')):
+                name = f'plugins/{package}/skills/{skill}/SKILL.md'
+                put(name, (root / f'skills/{skill}/SKILL.md').read_text())
+            _ = evaluator.git(root, 'rm', '-qr', 'skills')
+            review_entry = 'plugins/one/skills/review/SKILL.md'
+            with (root / review_entry).open('a', encoding='utf-8') as stream:
+                _ = stream.write('[shared](../dev/references/state.md#x)')
+            put('plugins/one/skills/dev/references/private.md', 'not requested')
+            shared = 'plugins/one/skills/dev/references/state.md'
+            put(shared, 'provided')
+            candidate = save()
+            self.assertEqual(len(evaluator.validate(root)), 9)
+            self.assertEqual(len(evaluator.create_plan(root, old, candidate, 'smoke', 'push')['case_ids']), 9)
+            snapshot = evaluator.Snapshot(root, candidate)
+            self.assertEqual(snapshot.skill_names(), ['dev', 'other', 'review'])
+            files = snapshot.skill_files('review')
+            self.assertEqual(set(files), {'skills/review/SKILL.md', 'skills/dev/references/state.md'})
+            sandbox = evaluator.ReadOnlyFiles('review', files, {})
+            self.assertEqual(sandbox.call('read_file', {'path': 'skills/dev/references/state.md'})['content'], 'provided')
+            with self.assertRaises(evaluator.EvalError):
+                _ = sandbox.call('read_file', {'path': 'skills/dev/references/private.md'})
+            put(shared, 'updated')
+            changed = save()
+            selected = evaluator.create_plan(root, candidate, changed, 'smoke', 'push')['case_ids']
+            self.assertEqual(set(selected), {f'{name}-{mode}' for name in ('dev', 'review') for mode in evaluator.CASE_MODES})
+            with (root / review_entry).open('a', encoding='utf-8') as stream:
+                _ = stream.write('[bad](../other/references/bad.md)')
+            with self.assertRaisesRegex(evaluator.EvalError, '同一插件'):
+                _ = evaluator.validate(root)
+            with self.assertRaisesRegex(evaluator.EvalError, '同一插件'):
+                _ = evaluator.Snapshot(root, save()).skill_files('review')
+            put('plugins/two/skills/dev/SKILL.md', 'duplicate')
+            with self.assertRaisesRegex(evaluator.EvalError, '同名技能'):
+                _ = evaluator.validate(root)
+            with self.assertRaisesRegex(evaluator.EvalError, '同名技能'):
+                _ = evaluator.Snapshot(root, save()).skill_names()
+
+
 class RuntimeAdoptionTests(unittest.TestCase):
     def test_published_five_file_record_requires_explicit_upgrade(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

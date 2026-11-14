@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
-  <title>Unif Umeng</title>
-  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
-  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><path d="M8.5 10.5l7-3"></path><path d="M8.5 13.5l7 3"></path></g>
-</svg>

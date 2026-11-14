@@ -5,6 +5,18 @@
   },
   "plugins": [
     {
+      "name": "unif-platform-rules",
+      "source": {
+        "source": "local",
+        "path": "./plugins/unif-platform-rules"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "unif-engineering-skills",
       "source": {
         "source": "local",
@@ -17,10 +29,10 @@
       "category": "Productivity"
     },
     {
-      "name": "unif-rn-skills",
+      "name": "unif-react-native-skills",
       "source": {
         "source": "local",
-        "path": "./plugins/unif-rn-skills"
+        "path": "./plugins/unif-react-native-skills"
       },
       "policy": {
         "installation": "AVAILABLE",

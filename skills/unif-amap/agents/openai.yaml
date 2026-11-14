@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif AMap"
-  short_description: "接入与维护 Unif 高德选点、定位、地点查询及原生宿主"
-  default_prompt: "使用 $unif-amap，按当前采用版本处理本库的接入、维护或排障任务。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

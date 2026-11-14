@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif Python 代码开发"
-  short_description: "按后端契约实现代码与服务接线，保留可定位故障的运行证据"
-  default_prompt: "使用 $unif-python-dev，按本工程的当前契约处理本次任务。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif Python 测试与验收"
-  short_description: "验证后端真实行为、失败证据与消费者，区分测试和运行环境"
-  default_prompt: "使用 $unif-python-test，按本工程的当前契约处理本次任务。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

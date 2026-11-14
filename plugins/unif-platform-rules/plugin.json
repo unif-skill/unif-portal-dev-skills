@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unif-platform-rules",
+  "version": "1.8.11",
+  "description": "Unif 平台规范",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo.png"
+      }
+    }
+  }
+}

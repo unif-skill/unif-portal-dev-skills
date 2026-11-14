@@ -1,0 +1,157 @@
+{
+  "formatVersion": 2,
+  "transformation": "section-owner-relative-links-v8",
+  "sources": {
+    "ARCHITECTURE.md": {
+      "source": "unif-platform-architecture/ARCHITECTURE.md",
+      "sha256": "be2ee4e67ed89fe5080cd695d8b5d9912e3690409ca1a553e487c95a9f575a36",
+      "lines": 483,
+      "selectedSections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "",
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "1. 架构目标",
+          "lines": [
+            7,
+            40
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "2. 系统边界与职责",
+          "lines": [
+            41,
+            110
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            111,
+            147
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            148,
+            183
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            239,
+            316
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            317,
+            420
+          ]
+        }
+      ]
+    }
+  },
+  "files": {
+    "architecture/scope.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "",
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "1. 架构目标",
+          "lines": [
+            7,
+            40
+          ]
+        }
+      ],
+      "sha256": "7b41ced442a68c0d4c1b0b3683604218a1d3a61461f5b033d6edc1048fb0eacf"
+    },
+    "architecture/responsibilities.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "2. 系统边界与职责",
+          "lines": [
+            41,
+            110
+          ]
+        }
+      ],
+      "sha256": "0f613f11a6f2315c53d9e2edfa96878caf2e8af28d851d11cf4ce80b8f6be3fb"
+    },
+    "architecture/composition.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "3. 功能、场景与入口",
+          "lines": [
+            111,
+            147
+          ]
+        }
+      ],
+      "sha256": "c057ed422f31e07ad14bebeb8305d3a7b31af454653f4a401802a10fa33db7bc"
+    },
+    "architecture/state.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "4. 状态归属",
+          "lines": [
+            148,
+            183
+          ]
+        }
+      ],
+      "sha256": "495f632a0341b4a2100ee3e2cce8fa6e3d483c910641315d8da7f81a36a0c9ae"
+    },
+    "architecture/contracts.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "6. 跨边界交接与业务结果",
+          "lines": [
+            239,
+            316
+          ]
+        }
+      ],
+      "sha256": "495eda4cdc81c9ba8368cf619c151d19a08f56cbefb5f89966ec3cb0b7adb914"
+    },
+    "architecture/verification.md": {
+      "sections": [
+        {
+          "source": "ARCHITECTURE.md",
+          "heading": "7. 独立开发与验证",
+          "lines": [
+            317,
+            420
+          ]
+        }
+      ],
+      "sha256": "4a80fb650f13ed8a61ec50003d906a2803fc9ed3485231f31150c49bc5281e9a"
+    }
+  }
+}

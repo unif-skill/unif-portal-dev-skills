@@ -2,6 +2,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from typing import TypedDict, cast
 
 import yaml
 from scripts.validate_repository import check_skills
@@ -26,18 +27,27 @@ HARMONY_LIBRARIES = {
 }
 
 
+class LibraryMetadata(TypedDict):
+    package: str
+    harmony_package: str
+
+
+class LibraryFrontmatter(TypedDict):
+    metadata: LibraryMetadata
+
+
 class LibrarySkillDistributionTests(unittest.TestCase):
-    def test_each_library_skill_can_be_distributed_without_sibling_files(self):
-        source = Path(__file__).resolve().parents[1] / 'skills'
-        for name, package in LIBRARIES.items():
-            with self.subTest(skill=name), tempfile.TemporaryDirectory() as temporary:
-                self.assertTrue((source / name).is_dir(), f'Missing library entry: {name}')
-                isolated = Path(temporary) / 'skills' / name
-                shutil.copytree(source / name, isolated, symlinks=True)
-                self.assertEqual(check_skills(Path(temporary)), 1)
-                frontmatter = yaml.safe_load(
+    def test_library_plugin_preserves_metadata_and_in_package_references(self) -> None:
+        source = Path(__file__).resolve().parents[1] / 'plugins/unif-library-skills'
+        with tempfile.TemporaryDirectory() as temporary:
+            plugin = Path(temporary) / 'unif-library-skills'
+            _ = shutil.copytree(source, plugin, symlinks=True)
+            self.assertEqual(check_skills(plugin, standalone=False), len(LIBRARIES))
+            for name, package in LIBRARIES.items():
+                isolated = plugin / 'skills' / name
+                frontmatter = cast(LibraryFrontmatter, yaml.safe_load(
                     (isolated / 'SKILL.md').read_text(encoding='utf-8').split('---', 2)[1]
-                )
+                ))
                 self.assertEqual(frontmatter['metadata']['package'], package)
                 if name in HARMONY_LIBRARIES:
                     self.assertEqual(frontmatter['metadata']['harmony_package'], HARMONY_LIBRARIES[name])
@@ -45,4 +55,4 @@ class LibrarySkillDistributionTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    _ = unittest.main()

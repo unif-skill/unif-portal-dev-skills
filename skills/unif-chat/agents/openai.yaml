@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif Chat"
-  short_description: "核对 Unif RN／鸿蒙消息、输入、附件及聊天组件契约"
-  default_prompt: "使用 $unif-chat，先区分 RN 与原生鸿蒙，再按实际版本、实现状态和任务范围取得对应资料。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"
