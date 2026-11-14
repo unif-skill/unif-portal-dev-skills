@@ -10,14 +10,15 @@ from jsonschema import Draft202012Validator
 from scripts.validate_repository import SCHEMA, check_plugin, check_skills, validate_repository
 
 ROOT = Path(__file__).resolve().parents[1]
+LIBRARY_PLUGINS = {f'unif-{name}' for name in
+                   ('amap', 'camera', 'chat', 'design', 'files', 'hms-scan', 'icons', 'logger', 'oss', 'speech', 'umeng')}
 GROUPS = {
     'unif-platform-rules': ['unif-platform-rules'],
     'unif-engineering-skills': ['unif-architecture-design', 'unif-code-delivery'],
     'unif-react-native-skills': ['unif-rn-dev', 'unif-rn-test', 'unif-rn-review'],
     'unif-harmony-skills': ['unif-harmony-dev', 'unif-harmony-test', 'unif-harmony-review'],
     'unif-python-skills': ['unif-python-dev', 'unif-python-test', 'unif-python-review'],
-    **{f'unif-{name}': [f'unif-{name}'] for name in
-       ('amap', 'camera', 'chat', 'design', 'files', 'hms-scan', 'icons', 'logger', 'oss', 'speech', 'umeng')},
+    **{name: [name] for name in LIBRARY_PLUGINS},
 }
 
 
@@ -47,6 +48,7 @@ class PluginPackageTests(unittest.TestCase):
     def test_every_plugin_survives_isolated_install(self):
         validator = Draft202012Validator(cast(dict[str, object], json.loads(SCHEMA.read_text())))
         brand_icon = (ROOT / 'assets/logo.png').read_bytes()
+        library_icons: set[bytes] = set()
         for name, skills in GROUPS.items():
             with self.subTest(plugin=name), tempfile.TemporaryDirectory() as directory:
                 isolated = Path(directory) / name
@@ -55,11 +57,17 @@ class PluginPackageTests(unittest.TestCase):
                 self.assertEqual(manifest['name'], name)
                 extensions = cast(dict[str, dict[str, dict[str, str]]], manifest['extensions'])
                 interface = extensions['com.openai']['interface']
+                expected_icon = brand_icon
+                if name in LIBRARY_PLUGINS:
+                    skill_icon = isolated / 'skills' / name / 'assets/icon.svg'
+                    expected_icon = skill_icon.read_bytes()
+                    library_icons.add(expected_icon)
                 for field in ('composerIcon', 'logo', 'logoDark'):
-                    self.assertEqual((isolated / interface[field]).read_bytes(), brand_icon, field)
+                    self.assertEqual((isolated / interface[field]).read_bytes(), expected_icon, field)
                 self.assertEqual(check_skills(isolated, standalone=False), len(skills))
                 self.assertEqual({p.name for p in (isolated / 'skills').iterdir()}, set(skills))
                 self.assertFalse(any(p.is_symlink() for p in isolated.rglob('*')))
+        self.assertEqual(len(library_icons), len(LIBRARY_PLUGINS))
 
     def fixture(self) -> Path:
         temporary = tempfile.TemporaryDirectory()

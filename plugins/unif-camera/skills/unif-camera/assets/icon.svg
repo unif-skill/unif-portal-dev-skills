@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64" fill="none">
   <title>Unif Camera</title>
-  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
-  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"></path><circle cx="12" cy="13" r="3.5"></circle></g>
+  <rect width="64" height="64" rx="14" fill="#FE6A00"/>
+  <rect x="9" y="17" width="41" height="36" rx="12" fill="white"/>
+  <circle cx="29.5" cy="35" r="9.5" fill="#17171D"/>
+  <circle cx="52" cy="12" r="4.4" fill="#24212A"/>
 </svg>

@@ -1,5 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64" fill="none">
   <title>Unif Icons</title>
-  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
-  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="3.5"/><path d="m17.5 3 4 7h-8Z"/><rect x="3.5" y="14" width="7" height="7" rx="1"/><path d="m17.5 13 1.4 3.6 3.6 1.4-3.6 1.4-1.4 3.6-1.4-3.6-3.6-1.4 3.6-1.4Z"/></g>
+  <rect width="64" height="64" rx="14" fill="#FE6A00"/>
+  <g fill="none" stroke="white" stroke-width="5.6" stroke-linejoin="round">
+    <path d="m32 9 11.5 11.5L32 32 20.5 20.5Z"/>
+    <path d="m20.5 20.5 11.5 11.5-11.5 11.5L9 32Z"/>
+    <path d="m43.5 20.5 11.5 11.5-11.5 11.5L32 32Z"/>
+    <path d="m32 32 11.5 11.5L32 55 20.5 43.5Z"/>
+  </g>
 </svg>

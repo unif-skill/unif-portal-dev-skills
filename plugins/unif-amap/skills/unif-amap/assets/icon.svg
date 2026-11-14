@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64" fill="none">
   <title>Unif AMap</title>
-  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
-  <g transform="translate(4 4)" fill="none" stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></g>
+  <rect width="64" height="64" rx="14" fill="#FE6A00"/>
+  <path fill="white" fill-rule="evenodd" d="M32 8c-9.3 0-16.6 7.1-16.6 16.3 0 10.4 10.4 23.8 16.6 31.7 6.2-7.9 16.6-21.3 16.6-31.7C48.6 15.1 41.3 8 32 8Zm0 8.4a7.8 7.8 0 1 1 0 15.6 7.8 7.8 0 0 1 0-15.6Z"/>
 </svg>

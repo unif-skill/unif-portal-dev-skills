@@ -6,9 +6,9 @@
   "extensions": {
     "com.openai": {
       "interface": {
-        "composerIcon": "./assets/logo.png",
-        "logo": "./assets/logo.png",
-        "logoDark": "./assets/logo.png"
+        "composerIcon": "./skills/unif-umeng/assets/icon.svg",
+        "logo": "./skills/unif-umeng/assets/icon.svg",
+        "logoDark": "./skills/unif-umeng/assets/icon.svg"
       }
     }
   }
