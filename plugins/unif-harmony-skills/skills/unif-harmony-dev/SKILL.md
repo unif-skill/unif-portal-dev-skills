@@ -9,7 +9,7 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 按应用、HAR 或共享核心核对原生消费者与已确认范围。只在新发现的接入事实会改变原取舍时再确认。
 
-修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行；已安装的 `uni-test-design` 提供相应判据。
+修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行。
 
 ## 依据
 
@@ -41,7 +41,7 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 这些规范定义 Unif 目标行为和验收，不证明已有原生包或导出。具体 API 从当前原生库公开源码、文档及目标 SDK 取得；没有出口时明确待实现，不把 RN 示例改包名充当 ArkUI 用法。提供方与协议采用按原生接入专题执行，平台示例不改变项目选型。
 
-原生 Logger 的现有 API、`Files` 入口与 HAR 消费见 [harmony-logger 包文档](https://github.com/unif-design/harmony-logger/blob/main/library/README.md)。维护共享核心时核对该库 logger-source.json 的固定 RN 修订及生成器；采用版本、OHPM 发布和实际设备证据分别确认。已安装 unif-logger 时可按任务读取其鸿蒙资料，不是本技能的前置依赖。
+原生 Logger 的现有 API、`Files` 入口与 HAR 消费见 [harmony-logger 包文档](https://github.com/unif-design/harmony-logger/blob/main/library/README.md)。维护共享核心时核对该库 logger-source.json 的固定 RN 修订及生成器；采用版本、OHPM 发布和实际设备证据分别确认。
 
 对涉及多端的接口，按交接契约（`references/architecture/contracts.md`）核对公共语义和各端消费者。规范路径从采用的架构仓定位，库路径从实际库根定位。
 

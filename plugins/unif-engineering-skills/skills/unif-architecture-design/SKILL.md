@@ -21,7 +21,7 @@ description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif RN／原�
 - 第三方技术采用依据、依赖与复用：依赖治理（`references/architecture/verification.md#71-依赖治理`）；测试与消费者：测试责任（`references/architecture/verification.md#72-测试责任`）；回归选择：变更影响（`references/architecture/verification.md#73-变更影响`）。
 - 调用与模型成本：[成本验证](references/architecture/cost.md)。
 
-模块契约确定公共名称与语义；RN／原生鸿蒙的应用、库与共享核心分别确认职责、消费者和运行边界，不以同名推定接口或实现兼容。平台组织与 SDK 约束从目标工程已采用的规范和当前配置取得，不要求另装开发技能。未定部分标明草案及影响范围。资料缺口只限制依赖它的设计。
+模块契约确定公共名称与语义；RN／原生鸿蒙的应用、库与共享核心分别确认职责、消费者和运行边界，不以同名推定接口或实现兼容。平台组织与 SDK 约束从目标工程已采用的规范和当前配置取得。未定部分标明草案及影响范围。资料缺口只限制依赖它的设计。
 
 ## 应用
 

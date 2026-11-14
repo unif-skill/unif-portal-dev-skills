@@ -14,7 +14,7 @@
 | 来源、引用与反馈 | 同目录 `sources.md`、`citation.md`、`feedback.md` |
 | 可选 Chat 组合、主聊天／抽屉及宿主接线 | 同目录 `chat.md`、`composition.md` |
 
-以上路径相对于工程采用的规范根目录，资料未随本技能分发；省略目录的文件均位于 `libraries/react-native-chat/`。只读取本次单元及实际依赖的契约；涉及 Design 公开接口时核对其公开资料，已安装 unif-design 时可按其入口定位。
+以上路径相对于工程采用的规范根目录，省略目录的文件均位于 `libraries/react-native-chat/`。只读取本次单元及实际依赖的契约；涉及 Design 公开接口时核对其公开资料。
 
 ## 开发边界
 

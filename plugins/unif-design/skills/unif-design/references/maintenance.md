@@ -4,7 +4,7 @@
 
 ## 按变化定位契约
 
-以下路径相对于工程采用的规范根目录，资料未随本技能分发。规范入口为 `libraries/react-native-design.md`，下列文件均位于 `libraries/react-native-design/`：
+以下路径相对于工程采用的规范根目录。规范入口为 `libraries/react-native-design.md`，下列文件均位于 `libraries/react-native-design/`：
 
 | 本次变化 | 文件 |
 |---|---|

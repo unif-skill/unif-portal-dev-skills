@@ -9,7 +9,7 @@ description: 在 Unif React Native 应用、@unif RN 库或共享核心实现、
 
 定位应用入口、所用 RN 库的公开能力和实际消费者。检查已同意的改法是否仍符合当前事实，发现新的实质影响时再请用户取舍。
 
-修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行；已安装的 `uni-test-design` 提供相应判据。
+修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行。
 
 ## 依据
 
@@ -50,7 +50,7 @@ React Native 的 Portal 项目约定：
 | 临时凭证、上传、转存与源文件释放 | [OSS](https://unif-design.github.io/react-native-oss/llms.txt) |
 | 音频采集、实时识别与语音输入 | [Speech](https://unif-design.github.io/react-native-speech/llms.txt) |
 
-这些入口对应 RN 包，不声明原生鸿蒙支持；官网版本与当前依赖不一致时，改用本库对应修订的文档与公开类型。组合任务只取得实际涉及的能力；已安装的库能力技能可辅助定位，不是前置依赖。
+这些入口对应 RN 包，不声明原生鸿蒙支持；官网版本与当前依赖不一致时，改用本库对应修订的文档与公开类型。组合任务只取得实际涉及的能力。
 
 跨模块的输入输出、取消与业务结果按交接契约（`references/architecture/contracts.md`）核对。
 

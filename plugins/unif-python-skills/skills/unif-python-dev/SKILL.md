@@ -21,4 +21,4 @@ description: 在 Unif Agent、Marketing 等 Python 服务实现、修复或重�
 
 服务公开结果及跨边界协作按交接契约（`references/architecture/contracts.md`）核对。
 
-修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行；已安装的 `uni-test-design` 提供相应判据。
+修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行。

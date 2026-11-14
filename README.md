@@ -34,7 +34,7 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 
 鸿蒙库按已采用版本核对公开入口。目标契约和实现的版本差异见[鸿蒙库覆盖检查](evals/library-skills/harmony-library-cases.md)。
 
-工程如何选择阶段与库技能，见[工程接入示例](docs/code-development-integration.md)。
+工程如何记录规范与契约入口，见[工程接入示例](docs/code-development-integration.md)。
 
 RN 库的文档站和运行示例采用方式见 [RN 项目采用](plugins/unif-react-native-skills/skills/unif-rn-dev/references/rn/project.md)。
 

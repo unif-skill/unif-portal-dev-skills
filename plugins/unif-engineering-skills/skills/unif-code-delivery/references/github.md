@@ -6,7 +6,7 @@
 
 ## 落实到工程
 
-- 以实际 package.json、文档站和 workflow 确定需要的接线；命令及共享文件采用记录保留在目标工程。已有 `.github/delivery.json` 与 `.github/scripts/check-delivery.cjs` 时使用其实际检查方式，不要求安装技能才能运行 CI。
+- 以实际 package.json、文档站和 workflow 确定需要的接线；命令及共享文件采用记录保留在目标工程。已有 `.github/delivery.json` 与 `.github/scripts/check-delivery.cjs` 时使用其实际检查方式。
 - repositorySettings 控制仓库合并与安全扫描设置。远端操作按授权用当前已登录的 gh CLI 执行并回读，不把本地 JSON 当成远端已生效。
 - 有文档部署 workflow 时采用 Pages Actions 来源，网址按 pagesURL 中的 `{repo}` 替换为实际仓库名；同步 About 网站入口。没有文档部署的工程不因资产存在自动建站。
 - security 的三项分别核对 CodeQL 默认配置、Dependabot 安全更新和私密漏洞报告；不从其中一项推断其他项已完成。
