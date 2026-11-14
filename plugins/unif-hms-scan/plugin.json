@@ -6,9 +6,9 @@
   "extensions": {
     "com.openai": {
       "interface": {
-        "composerIcon": "./skills/unif-hms-scan/assets/icon.svg",
-        "logo": "./skills/unif-hms-scan/assets/icon.svg",
-        "logoDark": "./skills/unif-hms-scan/assets/icon.svg"
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo.png"
       }
     }
   }

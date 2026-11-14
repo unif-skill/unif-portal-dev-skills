@@ -6,9 +6,9 @@
   "extensions": {
     "com.openai": {
       "interface": {
-        "composerIcon": "./skills/unif-camera/assets/icon.svg",
-        "logo": "./skills/unif-camera/assets/icon.svg",
-        "logoDark": "./skills/unif-camera/assets/icon.svg"
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo.png"
       }
     }
   }

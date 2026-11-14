@@ -46,11 +46,17 @@ class PluginPackageTests(unittest.TestCase):
 
     def test_every_plugin_survives_isolated_install(self):
         validator = Draft202012Validator(cast(dict[str, object], json.loads(SCHEMA.read_text())))
+        brand_icon = (ROOT / 'assets/logo.png').read_bytes()
         for name, skills in GROUPS.items():
             with self.subTest(plugin=name), tempfile.TemporaryDirectory() as directory:
                 isolated = Path(directory) / name
                 _ = shutil.copytree(ROOT / 'plugins' / name, isolated)
-                self.assertEqual(check_plugin(isolated, validator)['name'], name)
+                manifest = check_plugin(isolated, validator)
+                self.assertEqual(manifest['name'], name)
+                extensions = cast(dict[str, dict[str, dict[str, str]]], manifest['extensions'])
+                interface = extensions['com.openai']['interface']
+                for field in ('composerIcon', 'logo', 'logoDark'):
+                    self.assertEqual((isolated / interface[field]).read_bytes(), brand_icon, field)
                 self.assertEqual(check_skills(isolated, standalone=False), len(skills))
                 self.assertEqual({p.name for p in (isolated / 'skills').iterdir()}, set(skills))
                 self.assertFalse(any(p.is_symlink() for p in isolated.rglob('*')))
