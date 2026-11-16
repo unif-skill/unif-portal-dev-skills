@@ -2015,7 +2015,14 @@
         "unif-platform-rules"
       ],
       "forbidden_skills": [
-        "unif-code-delivery"
+        "unif-code-delivery",
+        "unif-architecture-design",
+        "unif-rn-dev",
+        "unif-rn-test",
+        "unif-harmony-dev",
+        "unif-harmony-test",
+        "unif-python-dev",
+        "unif-python-test"
       ],
       "source": "平台规范查询入口及 Unif 系统职责、状态与交接的实际主题。"
     },
