@@ -7,17 +7,23 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 文中用代码标出的公共主题路径从 `$unif-platform-rules` 读取。
 
-按应用、HAR 或共享核心核对原生消费者与已确认范围。只在新发现的接入事实会改变原取舍时再确认。
+本技能维护 Unif 原生应用、HAR 与共享核心的项目采用、库契约和消费者验收。平台实现与库工程方法按下表选用，不复制到项目专题。
 
-修改兼容分支或异步保护需要设计回归时，按项目采用的通用测试规范执行。
+## 通用方法
+
+| 工程事项 | 通用入口 |
+|---|---|
+| ArkTS／ArkUI、组件状态、Context、SDK 接入与宿主生命周期 | `uni-harmony-dev` |
+| HAR 公共入口、依赖资源、打包发布与原生运行示例 | `uni-harmony-library`；应用仅调用已有 API 时不进入库工程流程 |
+| 测试用例、替身、异常与并发场景、覆盖率判据 | `uni-test-design` |
+
+按实际涉及事项组合；Unif 的目录、能力语义和验收对象由下列项目资料确定。
 
 ## 依据
 
-具体 ArkTS／ArkUI API、SDK 和检查命令从目标工程采用的修订取得。
-
 身份、持久化和异步资源交接见状态归属（`references/architecture/state.md`）。
 
-第三方库、框架或 SDK 的设计、接入、封装与排障，按依赖治理（`references/architecture/verification.md#71-依赖治理`）核对官方依据与项目采用条件。涉及外部依赖、持久化、异常转换、异步收尾、降级或恢复时，同时读取验证与故障诊断（`references/architecture/verification.md#721-日志与故障诊断`），核对本次调用链的记录责任及对应测试。
+第三方库、框架或 SDK 的 Unif 采用条件按依赖治理（`references/architecture/verification.md#71-依赖治理`）核对。涉及外部依赖、持久化、异常转换、异步收尾、降级或恢复时，同时读取验证与故障诊断（`references/architecture/verification.md#721-日志与故障诊断`），核对受影响调用链的记录责任及对应测试。
 
 原生 ArkTS／ArkUI 应用与 `@unif/harmony-*` HAR 库：
 
@@ -28,7 +34,7 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 - 设备、SDK、HTTP／SSE／H5 与共同契约：[原生接入](references/harmony/integration.md)。
 - 六库、共同功能与业务消费者验收：[鸿蒙测试与验收](references/harmony/testing.md)。
 
-原生六库按当前能力选读同源专题；应用消费核对采用版本的公开入口和宿主，HAR 维护同时核对库契约、实际消费者与产物，共享核心核对完整依赖和各目标运行环境：
+原生六库按所需能力选读同源专题，核对采用版本的公开入口、Unif 库契约与实际应用消费者：
 
 | 原生目标库 | 规范入口 |
 |---|---|
@@ -45,4 +51,4 @@ description: 在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR
 
 对涉及多端的接口，按交接契约（`references/architecture/contracts.md`）核对公共语义和各端消费者。规范路径从采用的架构仓定位，库路径从实际库根定位。
 
-替换原生能力前查明现有 HAR 出口和实际调用方。迁移资源交接及宿主接线后，清理已失效且无消费者的实现。
+原生能力替换涉及 HAR 出口、资源交接及宿主接线；清理方法按 `uni-code-organization`，跨端契约退役按 `$unif-platform-rules` 的“契约变更与清理”核对。

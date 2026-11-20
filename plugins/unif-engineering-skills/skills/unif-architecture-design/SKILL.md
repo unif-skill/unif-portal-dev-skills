@@ -7,11 +7,11 @@ description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif RN／原�
 
 文中用代码标出的公共主题路径从 `$unif-platform-rules` 读取。
 
-先核对当前目标、候选方案的事实前提和实际消费者。涉及新的取舍时按调整依据（`references/architecture/scope.md#11-设计依据与适用范围`）处理。
+设计依据包括目标契约、候选方案的事实前提和实际消费者。范围、职责或契约变化按调整依据（`references/architecture/scope.md#11-设计依据与适用范围`）处理。
 
 ## 依据
 
-优先采用任务或工程指定的规范版本；未指定时按问题选读平台规范主题。同一上下文中已读且仍适用的内容直接复用，只补新范围或新修订涉及的部分：
+优先采用任务或工程指定的规范版本；未指定时按设计对象选读平台规范主题。已有依据在版本、适用条件和覆盖范围不变时复用；条件变化时补充核对受影响的部分：
 
 - 需求、范围与现有实现：设计依据（`references/architecture/scope.md`）、[模块文档](references/architecture/documentation.md)。
 - 调用、输入准备与结果复用：能力、场景与入口（`references/architecture/composition.md`）；系统职责：系统边界（`references/architecture/responsibilities.md`）。

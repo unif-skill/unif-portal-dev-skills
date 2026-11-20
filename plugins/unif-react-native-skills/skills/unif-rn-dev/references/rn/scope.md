@@ -2,7 +2,7 @@
 
 # Portal 文件开发规则
 
-本文维护 Portal 客户端对通用工程规范的采用方式及项目专属约定。代码组织、RN 实现和技术文档遵循目标工程已采用的规范，来源由工程入口指明。目录归属见[目标目录](directory.md#1-目标目录)，能力边界见基础能力架构（规范源相对路径：`capabilities/portal-foundation.md`），业务契约与状态原则见[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)。
+本文维护 Portal 客户端的项目采用与专属约定。代码组织、RN 实现、测试设计和技术文档分别采用 `uni-code-organization`、`uni-rn-dev`、`uni-test-design` 和 `uni-documentation`，具体版本与可访问来源由工程入口指明。目录归属见[目标目录](directory.md#1-目标目录)，能力边界见基础能力架构（规范源相对路径：`capabilities/portal-foundation.md`），业务契约与状态原则见[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)。
 
 本文是 React Native 客户端工程规则。原生 ArkTS／ArkUI 应用与库使用[鸿蒙开发规则](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_DEVELOPMENT.md)和[鸿蒙工程组织](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_STRUCTURE.md)；不把 TypeScript 文件名或 React Native 目录套用到这些工程或 Agent、Channel、CLI 的其他语言实现。开发与维护按[平台架构第 1.1 节](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md#11-设计依据与适用范围)核对现有能力、有效契约和实际消费者，优先复用或在所属实现扩展；修改限定在本次功能及实际影响范围内。
 
@@ -15,9 +15,9 @@
 
 工程提供设计与开发状态表时，先核对本次条目的范围、设计依据、适用规范、执行归属及具体限制，再读取对应契约。设计完成不等于代码已实现或已验收；未核对不等于未开始。状态表只作范围与依据索引，不替代契约正文、当前任务授权或真实验证证据。
 
-设计已完成且本次必要规范实际可用时，在已授权范围内直接开展工作；局部未决项只限制依赖它的部分，已有契约下的内部等价调整不重新设计。记录与已明确的最新依据不一致时核对并更新，不因登记滞后重做已有成果。从目标工程指明的位置取得规范和模块契约，核对采用版本。
+设计、契约与工程约束齐备的单元可在授权范围内独立实施；未决项仅限制依赖它的部分。状态登记与有效依据不一致时更新登记，已有契约下的等价调整沿用原设计。规范和模块契约从工程指定入口取得并核对采用版本。
 
-用户已明确的需求和契约限定实现范围。开发与重构不擅自增加重试、自动提交、缓存、恢复、确认或新接口调用。
+实现范围以有效需求和契约为边界。新增重试、自动提交、缓存、恢复、确认或接口调用等行为须有明确授权。
 
 
 ## 2. 各类代码的开发规则
@@ -34,3 +34,7 @@ Portal 具体归属见[目标目录](directory.md#1-目标目录)。在工程已
 | hooks、utils、config、types | 采用通用文件规则；Portal 配置、业务存储和资源的具体归属见[工具与文件归属](utilities-config.md#3-工具常量类型及其他文件的归属) |
 
 测试、脚本与原生配置沿用实际工程工具，不套用手工 TypeScript 单元的文件名。
+
+### 2.1 可订阅状态
+
+Portal 自有可订阅状态统一使用已采用的 `zustand/vanilla` store，按所属功能与实例生命周期创建，不手写订阅者集合和状态发布机制。持久化顺序、敏感数据边界和身份隔离遵循所属契约；SDK 事件使用其公开订阅接口。

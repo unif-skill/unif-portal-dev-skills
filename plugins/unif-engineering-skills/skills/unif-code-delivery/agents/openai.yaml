@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif 代码交付"
   short_description: "核对 Unif 工程交付授权、组织采用、当前提交的交付证据及未验证范围"
-  default_prompt: "使用 $unif-code-delivery，按本工程的当前契约处理本次任务。"
+  default_prompt: "使用 $unif-code-delivery 核对交付范围、验证证据及各项操作授权。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif 鸿蒙代码审查"
   short_description: "审查 Unif 鸿蒙变更的契约、状态与实际影响，保留证据和授权边界"
-  default_prompt: "使用 $unif-harmony-review，按本工程的当前契约处理本次任务。"
+  default_prompt: "使用 $unif-harmony-review 依据工程有效契约完成原生鸿蒙审查。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

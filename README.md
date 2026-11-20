@@ -10,7 +10,19 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 | 原生鸿蒙客户端与 HAR | [unif-harmony-dev](plugins/unif-harmony-skills/skills/unif-harmony-dev/SKILL.md) | [unif-harmony-test](plugins/unif-harmony-skills/skills/unif-harmony-test/SKILL.md) | [unif-harmony-review](plugins/unif-harmony-skills/skills/unif-harmony-review/SKILL.md) |
 | Python 后端 | [unif-python-dev](plugins/unif-python-skills/skills/unif-python-dev/SKILL.md) | [unif-python-test](plugins/unif-python-skills/skills/unif-python-test/SKILL.md) | [unif-python-review](plugins/unif-python-skills/skills/unif-python-review/SKILL.md) |
 
-跨平台共用 [unif-architecture-design](plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。各阶段技能指向本次需要的公共主题。
+跨平台共用 [unif-architecture-design](plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。各阶段技能按职责引用相关公共主题。
+
+## 与 Uni 技能的职责分工
+
+| 规则对象 | 通用维护入口 | Unif 专项内容 |
+|---|---|---|
+| RN 源码与平台接入 | `uni-rn-dev` | Portal 目录、环境和状态采用、组件选型、H5 与业务契约 |
+| RN 库工程与产物 | `uni-rn-library` | `@unif` 库职责、组织采用及真实业务消费者 |
+| ArkTS／ArkUI 与原生接入 | `uni-harmony-dev` | Unif 原生目录、视觉要求、身份及跨能力交接 |
+| HAR 工程与产物 | `uni-harmony-library` | `@unif/harmony-*` 库契约、同源资源与指定宿主验收 |
+| 用例与覆盖率方法 | `uni-test-design` | 业务不变量、平台接线及实际验收对象 |
+
+通用方法按场景引用技能名称，Unif 的开发、审查和测试入口共用所属规范资料。纯项目契约核对只读取专项内容；涉及平台实现或库工程时才组合通用技能。专项正文不复制通用方法，跨插件引用不依赖本机目录；缺少必要来源时保留具体缺项，不以复制旧规则或推测替代依据。
 
 ## 库插件
 
@@ -99,7 +111,7 @@ codex plugin remove unif-rn-skills@unif-portal-dev-skills
 |---|---|
 | 平台规范 | 多个插件实际共用的设计依据、系统职责、场景组合、状态归属、跨系统契约及验证原则。普通订单提交在公共契约中只保留专项文档入口。 |
 | 工程 | 架构设计专用的智能体上下文、成本分析和领域文档规则；组织交付资料随交付技能。 |
-| RN、鸿蒙、Python | 各自的平台规范。开发、测试和审查技能按需引用同一插件里的对应章节。 |
+| RN、鸿蒙、Python | 各自的 Unif 工程采用、模块契约与消费者验收。开发、测试和审查技能按需引用同一插件里的对应章节；通用技术方法由 Uni 技能维护。 |
 | 库能力 | 库专用规范随对应的库技能。例如鸿蒙 Camera 的契约在 Camera 技能中维护。 |
 
 维护者在规范源更新后运行下列命令。各技能的 `references/source.json` 记录它所承接章节的来源和摘要。只改手写技能时，直接校验仓库。安装用户使用已经随包提供的文件。

@@ -4,13 +4,13 @@
   "sources": {
     "PORTAL_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/PORTAL_DEVELOPMENT.md",
-      "sha256": "839a0ea75c739316782db39d624635feb62348ae1818ed341ec5ed23da57764e",
-      "lines": 68
+      "sha256": "c796c408d37002da0c45bb773dc0895c923bbfa40f44c188a7f6cdf02f25ca3b",
+      "lines": 72
     },
     "PORTAL_STRUCTURE.md": {
       "source": "unif-platform-architecture/PORTAL_STRUCTURE.md",
-      "sha256": "4f05cdd4ee84d0fdc4ccc8240fc3d7fd4271711f26485b9cab14ed1432aa0e02",
-      "lines": 219
+      "sha256": "e62cc6760752e943a022a76df552c423db15161d8344f6da3f43e0e9dbc87bd7",
+      "lines": 217
     }
   },
   "files": {
@@ -37,11 +37,11 @@
           "heading": "2. 各类代码的开发规则",
           "lines": [
             19,
-            33
+            37
           ]
         }
       ],
-      "sha256": "19a344230a393a90c0edb073467efb8c0ec29cab4180b2dff7b4562d13affd4c"
+      "sha256": "22efe773d96c7f924396080425a1aa607a1feac73dea856372c773de2f995ece"
     },
     "rn/file-rules.md": {
       "sections": [
@@ -49,16 +49,16 @@
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "3. 常量、类型、变量与文件拆分",
           "lines": [
-            34,
-            53
+            38,
+            57
           ]
         },
         {
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "4. 命名与公开出口",
           "lines": [
-            54,
-            57
+            58,
+            61
           ]
         }
       ],
@@ -70,8 +70,8 @@
           "source": "PORTAL_DEVELOPMENT.md",
           "heading": "5. 规则执行与定向验证",
           "lines": [
-            58,
-            68
+            62,
+            72
           ]
         },
         {
@@ -79,11 +79,11 @@
           "heading": "6. 开发维护与定向验证",
           "lines": [
             200,
-            219
+            217
           ]
         }
       ],
-      "sha256": "39c8c3fa7a65686dc041026f43a21f59e3aa0ecf47cdad0175f7a85d16d4138f"
+      "sha256": "5959351b5558b8b1b7d48b8d119626856917dfa538c6fd65b2fbca32a751d2ab"
     },
     "rn/directory.md": {
       "sections": [
@@ -104,7 +104,7 @@
           ]
         }
       ],
-      "sha256": "d1b0e50d86837dcc73f354b9c88f7ebcc8287aea1dfaa25c3947d61a205234e8"
+      "sha256": "627375a7f3f05102064eed85bd2ff50579c203a6966652c1c30448da8b1d07b6"
     },
     "rn/ui.md": {
       "sections": [

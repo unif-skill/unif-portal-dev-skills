@@ -4,7 +4,7 @@
 
 本文定义 React Native Portal 客户端的目标代码归属、公共入口、共用单元和测试组织，供模块开发、维护、重构与代码审查使用。原生 ArkTS／ArkUI 应用及 HAR 库的目录与 UI 归属见[鸿蒙工程组织](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_STRUCTURE.md)。系统职责、业务成功判定、状态归属和模型参与边界遵循[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)；领域内容在各自架构和模块契约中维护。
 
-通用目录职责、文件拆分、变量作用域和命名遵循目标工程已采用的规范；Portal 的采用关系见[文件变更入口](scope.md#1-文件变更入口)。本文只补充具体目录、依赖与业务契约。
+通用目录职责、文件拆分、变量作用域和命名采用 `uni-code-organization`；Portal 的采用关系见[文件变更入口](scope.md#1-文件变更入口)。本文只补充具体目录、依赖与业务契约。
 
 目录用于定位职责，不表示功能已实现或需要立即新增。开发与维护以当前实现和实际调用为基础，复用已有组件、工具与能力，按本次需求补齐业务及接入缺口。能力边界见Portal 基础能力架构（规范源相对路径：`capabilities/portal-foundation.md`），实现与验收状态从当前源码及所属记录核实。
 

@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif 鸿蒙测试与验收"
   short_description: "验证 Unif 鸿蒙真实实现、消费者与失败路径，区分测试和运行证据"
-  default_prompt: "使用 $unif-harmony-test，按本工程的当前契约处理本次任务。"
+  default_prompt: "使用 $unif-harmony-test 依据工程有效契约完成原生鸿蒙测试与验收。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

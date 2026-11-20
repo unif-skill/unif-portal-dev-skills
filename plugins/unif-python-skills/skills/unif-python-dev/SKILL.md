@@ -7,7 +7,7 @@ description: 在 Unif Agent、Marketing 等 Python 服务实现、修复或重�
 
 文中用代码标出的公共主题路径从 `$unif-platform-rules` 读取。
 
-从真实请求、Worker 或启动入口核实当前契约、调用方与事务影响。沿用已确认的范围，新事实改变原取舍时指出证据和影响。
+从真实请求、Worker 或启动入口核实服务契约、调用方与事务影响。实现范围由有效需求、契约和操作授权限定；未覆盖的影响在实施前核实并取得必要授权。
 
 - 修改范围与现有行为：[实施范围](references/python/scope.md)；第三方库、框架或 SDK 的设计、接入、封装与排障：依赖治理（`references/architecture/verification.md#71-依赖治理`），核对官方依据与项目采用条件。
 - 智能体指令与编排、领域能力、通用服务的归属见[目录与依赖](references/python/structure.md)。
@@ -17,7 +17,7 @@ description: 在 Unif Agent、Marketing 等 Python 服务实现、修复或重�
 - BasedPyright、同源契约、任务指令、消费者接线和验证证据：[契约与验证](references/python/validation.md)。
 - API、模型及持久化失败按日志与故障诊断（`references/architecture/verification.md#721-日志与故障诊断`）核对服务端实际记录。
 
-迁移后对照实际加载的指令、事务与资源路径，核对调用方已接到所属实现。
+迁移后对照实际加载的指令、事务与资源路径，核对调用方已接到所属实现。涉及协议、字段或数据库定义清理时，按 `$unif-platform-rules` 的“契约变更与清理”核对跨仓消费者、生成物与初始化 SQL。
 
 服务公开结果及跨边界协作按交接契约（`references/architecture/contracts.md`）核对。
 
