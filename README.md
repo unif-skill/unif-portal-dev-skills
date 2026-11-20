@@ -76,6 +76,21 @@ sh scripts/install-plugins.sh unif-chat
 
 更新已配置的 Git 市场可运行 `codex plugin marketplace upgrade unif-portal-dev-skills`。安装后打开新会话，核对公共插件和所选业务插件的技能入口。
 
+### 组合使用 Uni 技能
+
+涉及通用平台开发、库工程或测试方法时，按[职责分工](#与-uni-技能的职责分工)同时提供对应 Uni 技能。纯 Unif 契约查询只需所属专项资料。Uni 是独立插件，不会随 Unif 插件自动安装。
+
+Codex 在“添加市场”中填写 [Uni Skills 仓库](https://github.com/unif-skill/uni-skills.git)，选择 `main`，安装并启用 `uni-skills`。CLI 可使用：
+
+```sh
+codex plugin marketplace add https://github.com/unif-skill/uni-skills.git
+codex plugin add uni-skills@uni-skills
+```
+
+已有 Uni 市场时直接安装插件，更新使用 `codex plugin marketplace upgrade uni-skills`。安装后核对 `uni-*` 与所需 `unif-*` 入口均可用；工程明确提供同一规范来源时，也可按该来源读取。其他工具的共享目录安装方式见 [Uni 安装说明](https://github.com/unif-skill/uni-skills#安装)。同一工具采用插件时，不重复启用共享目录中的同名技能。
+
+### 已有 Unif 插件迁移
+
 已安装旧整包 `unif-library-skills` 的用户，刷新市场后，先用上述命令安装所需的库插件，再移除旧整包，避免同名技能重复加载。
 
 ```sh
@@ -147,13 +162,24 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 ```sh
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r scripts/requirements-ci.txt
+.venv/bin/python scripts/sync_validation_tools.py --verify
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python scripts/validate_repository.py
 ```
 
 本地完成模型评测后，可加 `--include-evals` 校验运行目录中的 manifest 与原始文件摘要；默认分发包校验及 `validate.yml` 不读取这些目录。
 
+技能格式、可选元数据、已声明图标、本地链接与锚点采用 Uni 维护的通用校验模块；采用来源与摘要记录在 `scripts/validation-tools.json`，维护者通过 `scripts/sync_validation_tools.py --source /path/to/uni-skills --target .` 显式更新。`--check` 比较指定来源，`--verify` 只校验本仓副本。组织配置、规范生成摘要与跨插件唯一性继续由本仓校验，校验单独插件包不要求携带仓库维护脚本。
+
 校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为通过下方独立工作流和本地专项评测取得证据。
+
+Uni／Unif 同时可用时的专项发现评测采用 Uni 维护的工具、题库和冻结目录；单包题库保持各自职责。维护来源与运行说明见 [Uni 联合发现评测](https://github.com/unif-skill/uni-skills#联合发现评测)。采用内容可直接离线校验：
+
+```sh
+.venv/bin/python -m scripts.joint_discovery_eval validate
+```
+
+该命令不读取另一仓库或本机安装，也不调用模型。真实模型运行须显式启用，缺配置或完整证据时报告证据不足；两个包的发现正反例通过不等于宿主组合加载已验证。
 
 ### 查看评测报告
 

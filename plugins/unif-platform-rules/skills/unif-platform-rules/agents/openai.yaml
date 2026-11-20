@@ -2,3 +2,5 @@ interface:
   display_name: "Unif 平台规范"
   short_description: "按主题读取 Unif 共用的职责、状态、业务回执与验证规则"
   default_prompt: "使用 $unif-platform-rules 查阅工程适用的 Unif 平台规范。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

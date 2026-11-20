@@ -29,9 +29,13 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: scripts/requirements-ci.txt
+          cache-dependency-path: |
+            scripts/requirements-ci.txt
+            scripts/requirements-skill-validation.txt
       - name: Install validation tools
         run: python -m pip install -r scripts/requirements-ci.txt
+      - name: Verify adopted skill validation tools
+        run: python scripts/sync_validation_tools.py --verify
       - name: Test validation and synchronization scripts
         run: python -m unittest discover -s tests -v
       - name: Validate repository, skills and plugin packages
@@ -63,9 +67,13 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: scripts/requirements-ci.txt
+          cache-dependency-path: |
+            scripts/requirements-ci.txt
+            scripts/requirements-skill-validation.txt
       - name: Install validation tools
         run: python -m pip install -r scripts/requirements-ci.txt
+      - name: Verify adopted skill validation tools
+        run: python scripts/sync_validation_tools.py --verify
       - name: Configure release commit identity
         run: |
           git config user.name 'github-actions[bot]'

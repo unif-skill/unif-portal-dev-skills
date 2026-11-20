@@ -3,10 +3,14 @@
   "source": "unif-skill/uni-skills",
   "files": {
     "scripts/behavior_eval.py": "603712bddb7ab4406523fd587645c94f218744d2e2a1b19d2c71a63aec8d0c35",
-    "scripts/sync_evaluation_tools.py": "1b5442fbea003fa4976a8dc6dd3d280b0e9ae5b3f9f3c3ed343cce68520ca98c",
+    "scripts/sync_evaluation_tools.py": "69a8c3996ef73a9539c279d112efe53390e83904dbdc01188eb442900b9cc78b",
     "tests/test_behavior_eval.py": "a71a4221955e4bf070db7996db20a40b91df35dd5edd3897c1709617293e7542",
     "tests/test_behavior_eval_runtime.py": "587f3e32fb9a6628c1a9289c6b648b37411291b542f3ed6eb1219a79ce674b4e",
     "tests/test_sync_evaluation_tools.py": "501607f1f8eb0c0b5f5fc0e3f867b586f279d61c1186a2d05a74f66cfa0bd786",
-    ".github/workflows/behavior-eval.yml": "36226c93443ea85c1ebc01044b54d75a1e4cadc37cc9d5d33462d76c112fc7bf"
+    ".github/workflows/behavior-eval.yml": "36226c93443ea85c1ebc01044b54d75a1e4cadc37cc9d5d33462d76c112fc7bf",
+    "scripts/joint_discovery_eval.py": "fea73e3ebd2d664838a3106a928f68c00de34775a6a3b461c2d3dbf077818eed",
+    "tests/test_joint_discovery_eval.py": "e6487fb925e082e2c882212455934eaf12286c2a4b593b88bb7a5600fa06b0a5",
+    "evals/joint-discovery/catalog.json": "994cc0e34af56bc6bf6bdb23893b25526ae7a2621a5ee4fd63561477aee91809",
+    "evals/joint-discovery/cases.json": "97c958e1262eca42e79d01e2e72ef3616a0c86a683cb909be8564bf5719412dc"
   }
 }

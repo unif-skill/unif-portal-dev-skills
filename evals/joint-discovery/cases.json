@@ -1,0 +1,286 @@
+{
+  "formatVersion": 1,
+  "cases": [
+    {
+      "id": "generic-rn",
+      "skill": "uni-rn-dev",
+      "mode": "discovery_positive",
+      "prompt": "一个独立 React Native 记事应用，未采用 Unif 规范或 @unif 包。请修复切换笔记本后旧 Hook 请求覆盖新界面的实现，保持现有交互；不涉及库工程、发布或独立变更审查。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "需要 RN 通用实现规则，不能因为技术相同加载 Unif 项目阶段。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "uni-rn-dev"
+      ],
+      "forbidden_skills": [
+        "unif-amap",
+        "unif-architecture-design",
+        "unif-camera",
+        "unif-chat",
+        "unif-code-delivery",
+        "unif-design",
+        "unif-files",
+        "unif-harmony-dev",
+        "unif-harmony-review",
+        "unif-harmony-test",
+        "unif-hms-scan",
+        "unif-icons",
+        "unif-logger",
+        "unif-oss",
+        "unif-platform-rules",
+        "unif-python-dev",
+        "unif-python-review",
+        "unif-python-test",
+        "unif-rn-dev",
+        "unif-rn-review",
+        "unif-rn-test",
+        "unif-speech",
+        "unif-umeng"
+      ]
+    },
+    {
+      "id": "generic-harmony",
+      "skill": "uni-harmony-dev",
+      "mode": "discovery_positive",
+      "prompt": "一个独立原生 HarmonyOS API 26 应用，未采用 Unif。请修改 ArkUI V2 页面，使离开页面后停止监听，重进时按原状态重新订阅；没有 React Native、HAR 工程或发布工作。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "需要 ArkUI 平台生命周期规则，不需要 Unif 或 RN 规则。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "uni-harmony-dev"
+      ],
+      "forbidden_skills": [
+        "unif-amap",
+        "unif-architecture-design",
+        "unif-camera",
+        "unif-chat",
+        "unif-code-delivery",
+        "unif-design",
+        "unif-files",
+        "unif-harmony-dev",
+        "unif-harmony-review",
+        "unif-harmony-test",
+        "unif-hms-scan",
+        "unif-icons",
+        "unif-logger",
+        "unif-oss",
+        "unif-platform-rules",
+        "unif-python-dev",
+        "unif-python-review",
+        "unif-python-test",
+        "unif-rn-dev",
+        "unif-rn-review",
+        "unif-rn-test",
+        "unif-speech",
+        "unif-umeng",
+        "uni-rn-dev",
+        "uni-rn-library"
+      ]
+    },
+    {
+      "id": "generic-rn-library",
+      "skill": "uni-rn-library",
+      "mode": "discovery_positive",
+      "prompt": "维护一个独立 React Native npm 库，未采用 Unif。需要修正 package exports 与声明输出，并从真实 tarball 在独立目录验证公开导入；不发布，不修改组件交互。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "需要通用 RN 库工程与产物验证，不引入 Unif 组织要求。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "uni-rn-library"
+      ],
+      "forbidden_skills": [
+        "unif-amap",
+        "unif-architecture-design",
+        "unif-camera",
+        "unif-chat",
+        "unif-code-delivery",
+        "unif-design",
+        "unif-files",
+        "unif-harmony-dev",
+        "unif-harmony-review",
+        "unif-harmony-test",
+        "unif-hms-scan",
+        "unif-icons",
+        "unif-logger",
+        "unif-oss",
+        "unif-platform-rules",
+        "unif-python-dev",
+        "unif-python-review",
+        "unif-python-test",
+        "unif-rn-dev",
+        "unif-rn-review",
+        "unif-rn-test",
+        "unif-speech",
+        "unif-umeng"
+      ]
+    },
+    {
+      "id": "unif-rn-composition",
+      "skill": "unif-rn-dev",
+      "mode": "discovery_positive",
+      "prompt": "修复 Unif Portal 订单页的 React Native Hook 与订阅接线：账号切换后旧组件仍接收结果。实现应遵循已有 Portal 状态方案与订单职责，保持原组件交互；不做发布或其他平台改动。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "平台框架实现与 Portal 项目状态约定都适用，必须允许同时选择两层。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "uni-rn-dev",
+        "unif-rn-dev"
+      ],
+      "forbidden_skills": [
+        "unif-rn-review",
+        "unif-code-delivery",
+        "uni-harmony-dev",
+        "uni-harmony-library",
+        "unif-harmony-dev"
+      ]
+    },
+    {
+      "id": "unif-harmony-composition",
+      "skill": "unif-harmony-dev",
+      "mode": "discovery_positive",
+      "prompt": "修复 Unif 原生鸿蒙客户端的 ArkUI V2 页面实现：页面返回后继续持有相机资源。按平台生命周期和 Unif 既有媒体交接契约完成代码修改；不改 RN、不做发布。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "原生平台资源规则和 Unif 媒体职责都适用，两层不是互斥选择。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "uni-harmony-dev",
+        "unif-harmony-dev"
+      ],
+      "forbidden_skills": [
+        "uni-rn-dev",
+        "uni-rn-library",
+        "unif-rn-dev",
+        "unif-code-delivery"
+      ]
+    },
+    {
+      "id": "unif-har-composition",
+      "skill": "unif-harmony-dev",
+      "mode": "discovery_positive",
+      "prompt": "维护 @unif/harmony-logger 的原生 HAR 工程：调整公开出口与资源配置，打包实际 HAR，并在独立 ArkUI 消费工程中验证公开导入和传递依赖。保持现有 Unif 日志契约；不改业务行为、不涉及 RN，不提交或发布。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "HAR 工程与独立产物验证采用通用库方法，Unif 原生库出口与消费者契约采用项目规则，两层都应选中。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "uni-harmony-library",
+        "unif-harmony-dev"
+      ],
+      "forbidden_skills": [
+        "uni-rn-dev",
+        "uni-rn-library",
+        "unif-rn-dev",
+        "unif-rn-review",
+        "unif-code-delivery"
+      ]
+    },
+    {
+      "id": "unif-project-contract",
+      "skill": "unif-architecture-design",
+      "mode": "discovery_positive",
+      "prompt": "只评审 Unif 的模块职责方案：附件由 Agent 准备，领域能力提供结果，Portal 负责人工确认。核对状态归属、交接与业务成功依据，不涉及组件、Hook、SDK、源码实现、测试编写或发布。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "纯项目职责与契约评审需要项目架构入口，不机械加载平台实现技能。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "unif-architecture-design"
+      ],
+      "forbidden_skills": [
+        "uni-rn-dev",
+        "uni-rn-library",
+        "uni-harmony-dev",
+        "uni-harmony-library",
+        "unif-rn-dev",
+        "unif-harmony-dev",
+        "unif-python-dev",
+        "unif-code-delivery"
+      ]
+    },
+    {
+      "id": "unif-public-api-query",
+      "skill": "unif-icons",
+      "mode": "discovery_positive",
+      "prompt": "仅根据已采用版本的 @unif/react-native-icons 文档，查询 IconProps 的公开属性与默认含义。只回答已有 API，不修改、接入、调试、审查变更或设计测试。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "库 API 事实查询选择对应库入口，不自动进入两层开发或交付流程。"
+      ],
+      "fixtures": {},
+      "required_skills": [
+        "unif-icons"
+      ],
+      "forbidden_skills": [
+        "uni-rn-dev",
+        "uni-rn-library",
+        "uni-harmony-dev",
+        "uni-harmony-library",
+        "uni-code-organization",
+        "unif-rn-dev",
+        "unif-rn-review",
+        "unif-rn-test",
+        "unif-architecture-design",
+        "unif-code-delivery"
+      ]
+    },
+    {
+      "id": "unrelated-poem",
+      "skill": "uni-code-organization",
+      "mode": "discovery_negative",
+      "prompt": "写一首描写春雨的四句小诗。没有工程、代码、技能维护或软件发布任务。",
+      "source": "联合目录专项发现：独立编写的自然请求；目录来源见 catalog.json 固定修订。",
+      "rubric": [
+        "与两包全部工程技能均无关，应不选择任何目录技能。"
+      ],
+      "fixtures": {},
+      "required_skills": [],
+      "forbidden_skills": [
+        "uni-code-organization",
+        "uni-documentation",
+        "uni-github-delivery",
+        "uni-harmony-dev",
+        "uni-harmony-library",
+        "uni-rn-dev",
+        "uni-rn-library",
+        "uni-skill-authoring",
+        "uni-test-design",
+        "uni-third-party-integration",
+        "unif-amap",
+        "unif-architecture-design",
+        "unif-camera",
+        "unif-chat",
+        "unif-code-delivery",
+        "unif-design",
+        "unif-files",
+        "unif-harmony-dev",
+        "unif-harmony-review",
+        "unif-harmony-test",
+        "unif-hms-scan",
+        "unif-icons",
+        "unif-logger",
+        "unif-oss",
+        "unif-platform-rules",
+        "unif-python-dev",
+        "unif-python-review",
+        "unif-python-test",
+        "unif-rn-dev",
+        "unif-rn-review",
+        "unif-rn-test",
+        "unif-speech",
+        "unif-umeng"
+      ]
+    }
+  ]
+}

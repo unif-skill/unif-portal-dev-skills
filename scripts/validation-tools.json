@@ -1,0 +1,12 @@
+{
+  "formatVersion": 1,
+  "source": "unif-skill/uni-skills",
+  "files": {
+    "scripts/skill_validation.py": "ae1d826b07d382861cac3b3f6b5d54696ed70edadcc814d137ddd3ce7aa184c0",
+    "scripts/sync_validation_tools.py": "324c6f5659d3db81a99f710f4e9dcb11bea5b1c62688dcd434ff97a337f35683",
+    "scripts/requirements-skill-validation.txt": "0580bc4e9b4e24843c3a2809d3f9c4207ca4467a928b4cf552878c2355e26d07",
+    "typings/skills_ref/__init__.pyi": "2870e26948c5a15ca17008701d3068f8729184cb98ebba5895fb52f35ec62113",
+    "tests/test_skill_validation.py": "ef6fa7e1b0b61ce873d70ab15e2acae0c3d9a68cb6f99022784ef4554a3e0618",
+    "tests/test_sync_validation_tools.py": "53ecacaa0b1ed89d528b0294bc5ef00eab6458cd627a58ab632878ecd7f3ae39"
+  }
+}

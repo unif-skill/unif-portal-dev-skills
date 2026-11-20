@@ -10,12 +10,14 @@ import re
 from typing import TypeGuard, TypedDict
 
 
-FILES = ('scripts/behavior_eval.py', 'scripts/sync_evaluation_tools.py',
+PAIRED_FILES = ('scripts/behavior_eval.py', 'scripts/sync_evaluation_tools.py',
          'tests/test_behavior_eval.py', 'tests/test_behavior_eval_runtime.py',
          'tests/test_sync_evaluation_tools.py', '.github/workflows/behavior-eval.yml')
-# Published consumers before runtime retry tests have five managed files. They
-# may be upgraded explicitly, but do not pass verification as the new version.
-PREVIOUS_FILES = tuple(name for name in FILES if name != 'tests/test_behavior_eval_runtime.py')
+FILES = PAIRED_FILES + ('scripts/joint_discovery_eval.py', 'tests/test_joint_discovery_eval.py',
+                        'evals/joint-discovery/catalog.json', 'evals/joint-discovery/cases.json')
+# Existing five/six-file consumers can be explicitly upgraded. Verification still
+# requires the complete current set, including the joint frozen inputs.
+PREVIOUS_FILES = tuple(name for name in PAIRED_FILES if name != 'tests/test_behavior_eval_runtime.py')
 RECORD = 'scripts/evaluation-tools.json'
 SOURCE = 'unif-skill/uni-skills'
 load_json: Callable[[str], object] = json.loads
@@ -39,7 +41,7 @@ def is_record(value: object, allow_previous: bool) -> TypeGuard[AdoptionRecord]:
     files = value.get('files')
     if not is_mapping(files):
         return False
-    allowed = set(files) == set(FILES) or (allow_previous and set(files) == set(PREVIOUS_FILES))
+    allowed = set(files) == set(FILES) or (allow_previous and set(files) in (set(PAIRED_FILES), set(PREVIOUS_FILES)))
     return allowed and all(isinstance(name, str) and isinstance(digest, str) for name, digest in files.items())
 
 

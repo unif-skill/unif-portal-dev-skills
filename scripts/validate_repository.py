@@ -5,15 +5,14 @@ import argparse
 import hashlib
 import json
 import re
-from collections.abc import Sequence
 from pathlib import Path
 from typing import NamedTuple, Protocol, TypeGuard, cast
-from urllib.parse import unquote, urlsplit
 
-import yaml
 from jsonschema import Draft202012Validator, ValidationError
-from markdown_it import MarkdownIt
-from skills_ref import validate as validate_skill
+if __package__:
+    from .skill_validation import check_assets, check_skill, contained_path
+else:
+    from skill_validation import check_assets, check_skill, contained_path
 
 SCHEMA = Path(__file__).resolve().parent / 'schemas/plugin.schema.json'
 DEFAULT_PLUGIN = 'unif-platform-rules'
@@ -43,31 +42,12 @@ def read_json(path: Path) -> dict[str, object]:
         raise ValueError(f'{path}: {error}') from error
 
 
-def contained_path(root: Path, base: Path, target: object, *, directory: bool = False) -> Path:
-    if not isinstance(target, str) or not target or Path(target).is_absolute():
-        raise ValueError(f'{base}: 非法相对路径 {target!r}')
-    path = (base / target).resolve()
-    if not path.is_relative_to(root.resolve()):
-        raise ValueError(f'{base}: 引用越出分发目录 {target}')
-    if not (path.is_dir() if directory else path.is_file()):
-        raise ValueError(f'{base}: 引用不存在 {target}')
-    return path
-
-
 def check_package_files(directory: Path) -> None:
     if directory.is_symlink() or not directory.is_dir():
         raise ValueError(f'{directory}: 插件目录须为普通目录')
     for path in directory.rglob('*'):
         if path.is_symlink() or not (path.is_file() or path.is_dir()):
             raise ValueError(f'{path}: 插件只可包含普通文件和目录')
-
-
-def check_assets(root: Path, interface: object, fields: Sequence[str]) -> None:
-    if not is_object(interface):
-        raise ValueError(f'{root}: interface 必须是对象')
-    for field in fields:
-        if field in interface:
-            _ = contained_path(root, root, interface[field])
 
 
 class PluginValidator(Protocol):
@@ -138,21 +118,6 @@ def check_marketplace(root: Path, validator: PluginValidator, *, release_version
             raise ValueError(f'{path}: 缺少 category')
         packages[name] = location, install
     return packages
-
-
-def check_markdown(root: Path, path: Path) -> None:
-    pending = list(MarkdownIt('commonmark').parse(path.read_text(encoding='utf-8')))
-    while pending:
-        token = pending.pop()
-        pending.extend(token.children or [])
-        target = token.attrGet('href') if token.type == 'link_open' else token.attrGet('src')
-        if not isinstance(target, str) or not target:
-            continue
-        url = urlsplit(target)
-        if url.scheme and url.scheme != 'file':
-            continue
-        if url.path:
-            _ = contained_path(root, path.parent, unquote(url.path))
 
 
 def source_section(value: object, size: int, where: str) -> tuple[str, int, int]:
@@ -297,24 +262,9 @@ def check_skills(root: Path, *, standalone: bool = True, seen: set[str] | None =
             if skill.name in seen:
                 raise ValueError(f'{skill}: 技能名称已由其他插件提供')
             seen.add(skill.name)
-        errors = validate_skill(skill)
-        if errors:
-            raise ValueError(f'{skill}: {"; ".join(errors)}')
-        for path in skill.rglob('*.md'):
-            _ = contained_path(skill, skill, str(path.relative_to(skill)))
-            check_markdown(skill if standalone else root, path)
+        check_skill(skill, markdown_root=skill if standalone else root)
         check_generated_references(skill, coverage)
         check_organization_profile(skill)
-        metadata = skill / 'agents/openai.yaml'
-        if metadata.exists():
-            _ = contained_path(skill, skill, 'agents/openai.yaml')
-            try:
-                data = cast(object, yaml.safe_load(metadata.read_text(encoding='utf-8')))
-            except yaml.YAMLError as error:
-                raise ValueError(f'{metadata}: {error}') from error
-            if not is_object(data):
-                raise ValueError(f'{metadata}: 必须是对象')
-            check_assets(skill, data.get('interface', {}), ('icon_small', 'icon_large'))
     return len(skills)
 
 
