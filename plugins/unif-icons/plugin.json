@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-icons",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "description": "Unif 图标消费与同源生成技能，覆盖 RN 和原生鸿蒙",
   "extensions": {
     "com.openai": {
