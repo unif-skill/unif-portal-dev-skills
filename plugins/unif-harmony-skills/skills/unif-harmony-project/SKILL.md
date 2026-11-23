@@ -1,15 +1,19 @@
 ---
 name: unif-harmony-project
-description: 在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要核对宿主接线、资源交接或跨端功能验收时使用。只查 SDK 版本或已发布 API 时查看相应资料。
+description: 在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要组织 ArkTS 源码、对照 RN 公开接口，或核对宿主接线、资源交接和跨端验收时使用。只查 SDK 版本或已发布 API 时查看相应资料。
 ---
 
 # Unif 原生鸿蒙工程
 
 从宿主的依赖配置定位采用的原生模块，跟到公开导出和实际导入它的 ArkUI 宿主。RN 与鸿蒙共同支持的功能要核对两端的业务语义，各端 API 和运行效果以对应原生工程为准。
 
+## 核对源码组织和 RN 对照
+
+调整 ArkTS 文件、组件命名或公开接口时，先读[ArkTS 文件与公共入口](references/harmony/files.md)。涉及 RN 对照时，定位项目采用的 RN 版本和实际导出。新建工程、移动文件或调整模块归属时，同时查看[适用范围](references/harmony/scope.md)和[工程目录](references/harmony/directory.md)。
+
 ## 确认宿主实际能用什么
 
-检查 HAR 的入口配置、入口文件的导出，以及宿主按包名导入的符号。空 HAR 可以验证打包流程。要确认某项能力可用，还需要包里的实现及调用该能力的宿主。新建工程或移动文件时查看[实施范围](references/harmony/scope.md)、[工程目录](references/harmony/directory.md)和[公开入口](references/harmony/files.md)。
+检查 HAR 的入口配置、入口文件的导出，以及宿主按包名导入的符号。空 HAR 可以验证打包流程。要确认某项能力可用，还需要包里的实现及调用该能力的宿主。
 
 Icons、Design、Chat、Camera、HMS Scan、Umeng 的目标行为见所属库技能或[原生库规范](https://github.com/unif-design/unif-platform-architecture/tree/main/libraries)。Portal（原生鸿蒙）从 `ai-app-portal-harmony/entry/oh-package.json5` 定位采用的 HAR 包。同仓模块读 `packages/` 下的包清单和公开入口，注册表依赖核对锁定版本的 HAR。Logger 的文件能力从包的 `/Files` 入口取得。
 

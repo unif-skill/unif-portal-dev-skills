@@ -4,8 +4,8 @@
   "sources": {
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "c6d720bc7111719df38088f06e83d25135c8a55127e8f79b11d7ac65f054163d",
-      "lines": 64
+      "sha256": "85fe19b09f9ae3495c0fc3238d477a7de6468da497cb20fab322fde742bc856b",
+      "lines": 68
     },
     "HARMONY_STRUCTURE.md": {
       "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
@@ -42,11 +42,11 @@
           "heading": "2. ArkTS 文件与公共入口",
           "lines": [
             21,
-            28
+            32
           ]
         }
       ],
-      "sha256": "6281e442bd262b5de71a592dba4cbae617a4ca136b27ac02da863451e5781944"
+      "sha256": "e9a0194b875a35181240f85907770adbef2177c8e2a805b03bf423984e9d377b"
     },
     "harmony/state.md": {
       "sections": [
@@ -54,8 +54,8 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "3. ArkUI 状态与生命周期",
           "lines": [
-            29,
-            42
+            33,
+            46
           ]
         }
       ],
@@ -67,8 +67,8 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "4. 原生能力与协议接入",
           "lines": [
-            43,
-            50
+            47,
+            54
           ]
         },
         {
@@ -88,8 +88,8 @@
           "source": "HARMONY_DEVELOPMENT.md",
           "heading": "5. 验证与交付",
           "lines": [
-            51,
-            64
+            55,
+            68
           ]
         }
       ],
