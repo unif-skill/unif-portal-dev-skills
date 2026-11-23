@@ -5,13 +5,13 @@ description: 在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要核对宿�
 
 # Unif 原生鸿蒙工程
 
-从工程采用的原生修订，跟到 HAR 公开导出和实际导入它的 ArkUI 宿主。RN 与鸿蒙共同支持的功能要核对两端的业务语义，各端 API 和运行效果以对应原生工程为准。
+从宿主的依赖配置定位采用的原生模块，跟到公开导出和实际导入它的 ArkUI 宿主。RN 与鸿蒙共同支持的功能要核对两端的业务语义，各端 API 和运行效果以对应原生工程为准。
 
 ## 确认宿主实际能用什么
 
 检查 HAR 的入口配置、入口文件的导出，以及宿主按包名导入的符号。空 HAR 可以验证打包流程。要确认某项能力可用，还需要包里的实现及调用该能力的宿主。新建工程或移动文件时查看[实施范围](references/harmony/scope.md)、[工程目录](references/harmony/directory.md)和[公开入口](references/harmony/files.md)。
 
-Icons、Design、Chat、Camera、HMS Scan、Umeng 的目标行为见所属库技能或[原生库规范](https://github.com/unif-design/unif-platform-architecture/tree/main/libraries)。Logger 采用哪个共享核心，要核对本库 `logger-source.json` 所锁定的 RN 修订，以及生成后的 HAR 是否导出所需的 `Files` 等能力。[Logger 原生公开接口](https://github.com/unif-design/harmony-logger/blob/main/library/README.md)
+Icons、Design、Chat、Camera、HMS Scan、Umeng 的目标行为见所属库技能或[原生库规范](https://github.com/unif-design/unif-platform-architecture/tree/main/libraries)。Portal（原生鸿蒙）从 `ai-app-portal-harmony/entry/oh-package.json5` 定位采用的 HAR 包。同仓模块读 `packages/` 下的包清单和公开入口，注册表依赖核对锁定版本的 HAR。Logger 的文件能力从包的 `/Files` 入口取得。
 
 ## 沿页面生命周期检查资源
 
@@ -21,7 +21,7 @@ Icons、Design、Chat、Camera、HMS Scan、Umeng 的目标行为见所属库技
 
 ## 核实本次验收覆盖哪一层
 
-按[鸿蒙验收对象](references/harmony/testing.md)分别记录共享逻辑用例、ArkTS 编译、HAR 导入、真实宿主、设备操作和业务回执的结果。涉及身份和跨模块结果时，查 `$unif-platform-rules` 的 `references/architecture/state.md` 和 `references/architecture/contracts.md`。失败、降级和恢复的诊断责任见 `references/architecture/verification.md#721-日志与故障诊断`。
+按[鸿蒙验收对象](references/harmony/testing.md)记录 RN 行为基线、鸿蒙包版本、共同案例及本端验证。源码消费检查 Portal 构建与实际调用。按包分发还需用独立宿主检查 HAR 的导出、资源和依赖，发布后验证指定版本的安装。涉及身份和跨模块结果时，查 `$unif-platform-rules` 的 `references/architecture/state.md` 和 `references/architecture/contracts.md`。失败、降级和恢复的诊断责任见 `references/architecture/verification.md#721-日志与故障诊断`。
 
 ## 按任务选择工程方法
 

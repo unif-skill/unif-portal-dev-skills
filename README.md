@@ -46,7 +46,7 @@ Unif 工程技能提供会影响上述工作结论的项目约定。例如，审
 | [unif-icons](plugins/unif-icons/skills/unif-icons/SKILL.md) | @unif/react-native-icons、@unif/harmony-icons：图标消费、SVG 源与生成 |
 | [unif-amap](plugins/unif-amap/skills/unif-amap/SKILL.md) | @unif/react-native-amap：地图选点、定位、地点查询与高德唤起 |
 | [unif-files](plugins/unif-files/skills/unif-files/SKILL.md) | @unif/react-native-files：文件操作、下载、生命周期与本地 HTTP 资源 |
-| [unif-logger](plugins/unif-logger/skills/unif-logger/SKILL.md) | @unif/react-native-logger、@unif/harmony-logger：结构化日志、身份隔离、诊断快照与共享核心 |
+| [unif-logger](plugins/unif-logger/skills/unif-logger/SKILL.md) | @unif/react-native-logger、@unif/harmony-logger：结构化日志、身份隔离、诊断快照与文件交接 |
 | [unif-oss](plugins/unif-oss/skills/unif-oss/SKILL.md) | @unif/react-native-oss：临时凭证、上传、转存与源文件释放 |
 | [unif-speech](plugins/unif-speech/skills/unif-speech/SKILL.md) | @unif/react-native-speech：音频采集、临时凭证、实时识别与语音输入 |
 

@@ -1,6 +1,6 @@
 # 原生鸿蒙 Icons
 
-先核对采用的 `@unif/harmony-icons` 版本、HAR 公开声明及实际实现。库版本从 library/oh-package.json5 取得，不能用 RN 当前版本或 Node 工具版本代替；中心仓发布、审核和安装状态另行确认。
+先读原生宿主的依赖声明与锁文件。采用同仓 Icons 时，按模块清单、公开导出和实际资源核对。采用已分发 HAR 时，按包版本和归档内容核对。
 
 | 任务 | 所属资料 |
 |---|---|
@@ -9,7 +9,7 @@
 | 实际公开入口与版本 | [Index.ets](https://github.com/unif-design/harmony-icons/blob/main/library/Index.ets)、[包清单](https://github.com/unif-design/harmony-icons/blob/main/library/oh-package.json5) |
 | 项目契约与目标验收 | [鸿蒙 Icons 规范](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-icons.md)；包内规范见[对应章节](harmony/icons.md#4-验证与采用) |
 
-本地按相同相对路径读取；接口按采用修订核对，规范链接用于定位，目标契约不代替实际公开声明。
+仓库链接用于定位 Icons 的生成规则和参考实现，宿主可用的参数和资源以其实际依赖为准。
 
 ## 应用消费
 

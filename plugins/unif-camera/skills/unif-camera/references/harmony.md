@@ -1,6 +1,6 @@
 # 原生鸿蒙 Camera
 
-从 [harmony-camera README](https://github.com/unif-design/harmony-camera/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-camera/blob/main/library/oh-package.json5)及实际 main 入口确认当前能力；[原生目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-camera.md)提供拍摄和资源要求。本地按相同路径读取，工程指定的规范修订优先。包内规范见[对应章节](harmony/camera.md#3-状态资源与结束)。
+在 Portal（原生鸿蒙）的模块依赖中定位 `@unif/harmony-camera`。采用同仓源码时查看实际模块的 `oh-package.json5` 和公开入口，采用已分发 HAR 时检查锁定版本的声明。包内行为与验收要求见[对应章节](harmony/camera.md#3-状态资源与结束)。
 
 空 HAR 或 `export {};` 不提供可调用相机 API。此时只说明契约与实现前提，不改名套用 RN useCamera、holder、React 宿主或取消签名，不提供未经核实的安装命令。功能实现按当前任务授权开展。
 

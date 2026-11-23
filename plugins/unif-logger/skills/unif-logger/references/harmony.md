@@ -1,20 +1,16 @@
 # 原生鸿蒙日志
 
-从实际 HAR 或库修订确认公开接口；版本读取 library/oh-package.json5，不能采用根目录 Node 工具包的版本。发布和 OHPM 审核状态另行核实；未取得可安装发布证据时，采用已验证 HAR 的 file 依赖，不假设中心仓已有包。
+Portal（原生鸿蒙）在 `ai-app-portal-harmony` 开发。读 `entry/oh-package.json5` 及锁文件，确认 `@unif/harmony-logger` 的依赖来源。同仓源码位于 `packages/logger`，其他应用采用 OHPM 版本时检查所装 HAR 的公开声明。
 
-| 任务 | 所属仓库资料 |
+| 要核对什么 | Portal 工程位置 |
 |---|---|
-| 接入、日志、身份与文件交接 | [library/README.md](https://github.com/unif-design/harmony-logger/blob/main/library/README.md) |
-| HAR 根入口与文件入口 | [Index.ts](https://github.com/unif-design/harmony-logger/blob/main/library/Index.ts)、[Files.ts](https://github.com/unif-design/harmony-logger/blob/main/library/Files.ts)、[包清单](https://github.com/unif-design/harmony-logger/blob/main/library/oh-package.json5) |
-| 日志格式 | [library/FORMAT.md](https://github.com/unif-design/harmony-logger/blob/main/library/FORMAT.md) |
-| 核心采用与生成 | [logger-source.json](https://github.com/unif-design/harmony-logger/blob/main/logger-source.json)、[开发说明](https://github.com/unif-design/harmony-logger/blob/main/docs/DEVELOPMENT.md) |
+| 版本、包身份和导出配置 | `packages/logger/oh-package.json5` |
+| 根入口和文件入口 | `packages/logger/Index.ts`、`packages/logger/Files.ts` |
+| 使用方法与验收入口 | `packages/logger/README.md` |
+| 日志格式与 RN 行为对照 | `packages/logger/FORMAT.md`、`docs/acceptance/rn-harmony-parity.md` |
 
-以上链接用于定位；在本地按相同相对路径读取，涉及具体接口时使用采用修订而不是直接假设 main 兼容。
+文件工厂从 `@unif/harmony-logger/Files` 导入，大小写有意义。工厂接收 `context`、`directoryName` 和 `createId`，使用 `context.filesDir` 下的私有目录。保留系统文件 URI 的 authority，参数以鸿蒙公开入口为准。
 
-文件工厂从 `@unif/harmony-logger/Files` 导入，大小写有意义；它接收 context、directoryName 和 createId，使用 context.filesDir 下的私有目录。不能复制 RN `/files` 的导入与参数，也不引入 BlobUtil、RN、React 或 npm 运行时。文件 URI 保留鸿蒙系统生成的 authority，不自行改成 RN 路径形式。
+维护鸿蒙实现时读取本端包版本和公开类型。按 RN 包版本和 Git 修订选择共同案例，在功能对照表记录对齐目标与本端结果。0.3.0 的 `captureError` 通过 Promise 返回诊断文本或 `null`。
 
-共享核心按 logger-source.json 指定的 RN Git 修订生成；当前 RN main 和版本号不能代替采用记录。共同逻辑在所属来源修复，平台差异在 native 适配处理，不能手改 generated、Index.ts 或生成格式文档。更新采用修订属于源码维护，仅在本次授权覆盖时执行；纯 HAR 消费不运行生成器。
-
-维护时按 docs/DEVELOPMENT.md 核对完整核心依赖、生成器、原生适配、来源清单与实际 example。使用现有 check:core、共享核心回归及 HAR 验包／独立消费入口；具体命令与 SDK 取当前工程，不要求消费者取得 RN 工作区。
-
-验证真实生产者与文件消费者的身份切换、clear 后快照、交付后 dispose、读取完成释放和 SDK 写入／关闭失败。Node 替身、API 26 构建、独立 HAR 消费、设备运行与 OHPM 发布后安装分别记录，不能从其中一层推出其余通过。
+用真实日志生产者和文件接收方核对身份切换、clear 后快照、交付后 dispose、读取完成释放及 SDK 写入或关闭失败。按实际交付分别记录 Node 回归、Portal 原生编译、设备文件行为。独立发包时用实际产出的 HAR 验证公开入口、资源和依赖。使用方采用 OHPM 版本时，从目标仓安装指定版本，核对锁文件并编译实际导入。

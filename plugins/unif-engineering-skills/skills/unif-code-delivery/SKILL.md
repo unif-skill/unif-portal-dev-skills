@@ -13,7 +13,7 @@ description: 准备一次具体的 Unif 交付，或执行已获授权的提交�
 |---|---|
 | Portal RN 应用 | 从工程 `scripts/README.md` 选择覆盖本次功能、适配和实际消费者的检查。找出暂存差异对应的行为证据。[Portal 验证](https://github.com/unif-design/unif-platform-architecture/blob/main/PORTAL_DEVELOPMENT.md#5-规则执行与定向验证)、[消费者验证](https://github.com/unif-design/unif-platform-architecture/blob/main/PORTAL_STRUCTURE.md#6-开发维护与定向验证) |
 | Unif RN 库 | 按[包命名](references/package-naming.md)和[发布约定](references/publishing.md)核对库版本、包内容和使用它的应用或示例。本库的[组织约定](references/github.md)和[非敏感组织资产](assets/organization.json)供实际交付或 GitHub 设施接入使用。设施维护由 `uni-github-delivery-setup` 承接。 |
-| 原生鸿蒙和 HAR | 核对实际 OHPM／HAR 配置，记录包导入和原生宿主结果。共享核心的证据要对应这次采用的修订。[鸿蒙验证](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_DEVELOPMENT.md#5-验证与交付) |
+| 原生鸿蒙和 HAR | 本地源码依赖核对模块版本、锁文件和鸿蒙宿主构建。按包交付时核对独立消费者的 HAR 导入，发布后核验指定版本的 OHPM 安装。[鸿蒙验证](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_DEVELOPMENT.md#5-验证与交付) |
 | Python 服务 | 核对工程解释器运行的类型检查，以及涉及的进程、存储、镜像或部署结果。[后端验证](https://github.com/unif-design/unif-platform-architecture/blob/main/PYTHON_DEVELOPMENT.md#6-验证与交付) |
 | 跨仓契约 | 核对生成物版本、消费者锁定的修订及其交付顺序。公共依据见 `$unif-platform-rules` 的 `references/architecture/contracts.md` 和 `references/architecture/verification.md#73-变更影响`。 |
 

@@ -9,7 +9,7 @@
 | K3 RN Logger | 核对根入口、/files 与真实宿主。clear 保留活跃快照；身份切换／dispose 使未交付快照失效，已交付文件仍归接收方。等待实际读取结束后 release，不以分享面板打开代替；区分健康状态、部分清理和成功落盘。 |
 | K4 OSS | 追踪真实 access→upload→源释放与 example；本地取消、原生终态、明确回执／未确认分别判断，凭证迟到响应不入失效实例。onRequestStarted 不是上传成功，onSourceReleased 才表示不再读取；不自动重传未确认对象，不删除调用方仍被读取的文件。 |
 | K5 Speech | 核对真实权限／采集／会话／input 与 example。旧轮次不采用新回调，静默 context_ended 与卸载、原生 stop 收尾、词表／凭证等待及服务终态分别判断。transcript 不等于草稿，confirmed／unconfirmed、失败定稿与取消按实际契约采用；不以超时证明麦克风释放。 |
-| K6 Harmony Logger | 从 library/oh-package.json5、Index.ts、Files.ts、logger-source.json 和 example 核实。文件入口为 /Files，需 context，不复制 RN /files 参数；采用明确 RN 修订，不假设最新 RN API 已同步。包声明、HAR 构建、设备行为与 OHPM 发布安装分层；纯消费不改生成核心或引入 RN 运行时。 |
+| K6 Harmony Logger | 从宿主依赖、包清单和公开导出核对鸿蒙包版本与 `/Files` 的 Context 参数。RN 版本与修订用于行为对照。本地源码检查实际宿主导入，独立交付检查包内资源、依赖和指定版本的安装。按题面证据报告各层结果。 |
 
 若 example 只覆盖部分路径，应继续查真实公开实现，并说明未执行的组合；不得把示例片段描述成完整业务或设备验证。方案保持既有身份、权限、路径、取消、错误及资源保护，只有资料缺口限制需要它的判断。
 

@@ -12,8 +12,8 @@
 
 根入口与 `/files` 分开消费；原生 createLogFiles 接收 directoryName 和 createId，目录是应用私有日志子目录。Web 通过 browser 条件采用有界内存，不具备原生文件、快照和导出能力，不另造一个 Web 深层入口。
 
-installLogging 选项只在首次安装生效。组件库和 SDK 日志接线共享宿主运行时；结构化 createLogger 与后端 Logger 的可变参数签名不同，不能互换。需要 defaultLogBackend 等接口时先查采用版本的根导出，不将 RN 新接口直接用于鸿蒙旧核心。
+installLogging 选项只在首次安装生效。组件库和 SDK 日志接线共享宿主运行时；结构化 createLogger 与后端 Logger 的可变参数签名不同，不能互换。使用 `defaultLogBackend` 等接口时先查 RN 宿主锁定版本的根导出。
 
-维护从 docs/DEVELOPMENT.md、src/index.ts、src/files 和真实宿主定位。涉及共享核心的变更先核对鸿蒙 logger-source.json，但不因同源而扩大单平台修改授权。
+维护从 docs/DEVELOPMENT.md、src/index.ts、src/files 和真实宿主定位。核对跨端行为时记录 RN 包版本及对应 Git 修订，鸿蒙实现和验收从原生鸿蒙工程的实际入口查证。
 
 验证实际生产者→运行时→存储→导出消费者，覆盖匿名／登录、A→B→A、旧上下文、敏感字段、flush 失败、clear 后快照可读及交付后读取释放。Web 内存检查、原生 BlobUtil、打包消费与真实设备分开记录；不以日志函数被调用证明已落盘。

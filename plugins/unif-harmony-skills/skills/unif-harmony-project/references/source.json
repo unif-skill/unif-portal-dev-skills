@@ -4,13 +4,13 @@
   "sources": {
     "HARMONY_DEVELOPMENT.md": {
       "source": "unif-platform-architecture/HARMONY_DEVELOPMENT.md",
-      "sha256": "69771b030af6045a33a12f2b5c966a838c2e6f11faae93021a7f9c6d3df69052",
+      "sha256": "c6d720bc7111719df38088f06e83d25135c8a55127e8f79b11d7ac65f054163d",
       "lines": 64
     },
     "HARMONY_STRUCTURE.md": {
       "source": "unif-platform-architecture/HARMONY_STRUCTURE.md",
-      "sha256": "1b9867edba5f59e76b61ac45a142fa441cea9a513c1e778af32130f54fa7eb5b",
-      "lines": 41
+      "sha256": "9e2709e37288b54d0be5f35377709e24f481ce41143c57bc9b01e28cf8942fc3",
+      "lines": 43
     }
   },
   "files": {
@@ -33,7 +33,7 @@
           ]
         }
       ],
-      "sha256": "b481c11706f28f5502b4a61d3dad25e9d6d2e599a6e78d0622e5965660a6acf7"
+      "sha256": "43a3e6049e532dde14852f75055ceabb65fefb28ef833c1fe0bc5f0f5853cb8e"
     },
     "harmony/files.md": {
       "sections": [
@@ -75,12 +75,12 @@
           "source": "HARMONY_STRUCTURE.md",
           "heading": "3. 契约与资源归属",
           "lines": [
-            33,
-            41
+            35,
+            43
           ]
         }
       ],
-      "sha256": "a1284e4229ba435a6f13362647c24fff626ec645fb626dbf00cda6bfbc3fbcea"
+      "sha256": "fef6438a7316cd273c632c14b250464ef909a02acc2730a436ad314c29b9fa47"
     },
     "harmony/testing.md": {
       "sections": [
@@ -93,7 +93,7 @@
           ]
         }
       ],
-      "sha256": "11440e555e1ed3288c01813e495b1e7c8723b162854868472216f861dd55fcfd"
+      "sha256": "c4bb706b47bb15eec4d6dda7bd041e026abf266f727fa8e33b19647f6c1ad6ff"
     },
     "harmony/directory.md": {
       "sections": [
@@ -110,11 +110,11 @@
           "heading": "1. 工程目录与依赖",
           "lines": [
             5,
-            22
+            24
           ]
         }
       ],
-      "sha256": "a67c49ed8af5ff80f5ccc4ad5c359e291341a4ed34dcb3b0bbc156866e48f971"
+      "sha256": "270062f473e9f9c38095f893716e7fe1cf27a0006e11139454698a8f1b82ed09"
     },
     "harmony/ui.md": {
       "sections": [
@@ -122,8 +122,8 @@
           "source": "HARMONY_STRUCTURE.md",
           "heading": "2. 组件、主题与玻璃材质",
           "lines": [
-            23,
-            32
+            25,
+            34
           ]
         }
       ],

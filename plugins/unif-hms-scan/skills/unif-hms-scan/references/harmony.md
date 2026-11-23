@@ -1,6 +1,6 @@
 # 原生鸿蒙 HMS Scan
 
-先核对 [harmony-hms-scan README](https://github.com/unif-design/harmony-hms-scan/blob/main/README.md)、[包清单](https://github.com/unif-design/harmony-hms-scan/blob/main/library/oh-package.json5)和 main 入口；[目标契约](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-hms-scan.md)规定识别、交互与资源交接。本地按同一相对路径读取，真实 ArkTS 和 Scan Kit 签名按采用版本确认。包内规范见[对应章节](harmony/hms-scan.md#3-状态资源与结束)。
+在 Portal（原生鸿蒙）的模块依赖中定位 `@unif/harmony-hms-scan`。采用同仓源码时查看实际模块的 `oh-package.json5` 和公开入口，采用已分发 HAR 时检查锁定版本的声明。包内行为与验收要求见[对应章节](harmony/hms-scan.md#3-状态资源与结束)。
 
 若当前仍为空 HAR 或 `export {};`，没有可供接入的扫码组件或解码函数。只核对契约与缺口，不把 RN Scanner、HmsScanView、decodeImage 改包名作为原生 API。
 

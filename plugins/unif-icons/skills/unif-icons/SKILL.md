@@ -15,7 +15,7 @@ metadata:
 | 平台 | 公开入口 | 尺寸、颜色 |
 |---|---|---|
 | RN | 包根或正式子路径中的命名组件。[RN 图标 API](https://unif-design.github.io/react-native-icons/md/api.md) | `size`、`color` |
-| 原生鸿蒙 | 由 `library/oh-package.json5` 找到 HAR 导出的 `UnifIcon` 或命名组件。[鸿蒙公开入口与示例](references/harmony.md) | `iconSize`、`iconColor` |
+| 原生鸿蒙 | 由 采用模块的 `oh-package.json5` 找到 HAR 导出的 `UnifIcon` 或命名组件。[鸿蒙公开入口与示例](references/harmony.md) | `iconSize`、`iconColor` |
 
 颜色由页面提供。RN 宿主按版本配置 `react-native-svg`，普通消费无需运行生成器或引入 SVG transformer。[RN 版本与安装资料](https://unif-design.github.io/react-native-icons/llms.txt)
 
