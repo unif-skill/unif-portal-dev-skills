@@ -9,7 +9,7 @@ description: Unif 跨仓字段、消息或存储格式已经定稿，需要实�
 
 ## 找到唯一源和需要更新的产物
 
-定位所属 `contracts` 单元、生成命令和消费者锁定的版本。基础封套和身份归平台基础契约，营销输入、结果和模型投影归 Marketing，Agent API 组合所采用的公开契约。按实际用途核对 OpenAPI、Python 运行校验、TypeScript／Go 产物及依赖它们的 CLI 命令。[跨工程契约交付](https://github.com/unif-design/unif-platform-architecture/blob/main/runtime/contract-delivery.md)
+定位所属 `contracts` 单元、生成命令和消费者锁定的版本。基础封套和身份归平台基础契约，营销输入、结果和模型投影归 Marketing，Agent API 组合所采用的公开契约。根据字段的实际用途核对 OpenAPI、Python 运行校验和 TypeScript／Go 产物，沿调用方锁定的版本检查读取与写入。[跨工程契约交付](https://github.com/unif-design/unif-platform-architecture/blob/main/runtime/contract-delivery.md)
 
 | 本次任务 | 如何核对源和产物 |
 |---|---|

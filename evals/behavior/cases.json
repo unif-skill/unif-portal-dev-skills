@@ -154,17 +154,17 @@
       "prompt": "Unif 已确定选中条目的新公开字段为 displayName。请只读审查这份跨仓修改能否交付，说明具体缺陷、修复位置和最小验收材料。新提交和历史草稿回读的要求见题内约定。不要实际编辑、生成、部署或操作数据库。",
       "fixtures": {
         "contract.md": "业务决定：新写入的公共结果只接收 displayName，模型输入只含 itemRef。新格式与替代格式中，Portal 均显示用户保存的名称。旧设备冷启动后必须还能读取持久化的 legacyLabel；仅授权读取旧草稿时进行格式转换。服务端已有历史记录保留，本次不允许删除表、列或数据。",
-        "contracts/manifest.txt": "营销领域的唯一源为 contracts/selection.schema.json。generate 从它派生 Python 运行校验、公开 JSON Schema、TS、Go；模型投影另外按 x-model-fields 生成。Agent 锁定营销契约版本，CLI 从提交的 Go 模块消费公开结果。当前唯一源、仓内公开 Schema 与 Go 产物仍只允许 legacyLabel；模型投影只含 itemRef。",
-        "change.diff": "Marketing 的结果生产者已经改成输出 displayName。改动手写了 generated/selection.ts 与 Python 的接收分支，未改 contracts/selection.schema.json；Agent 仍按所锁定旧版本校验后保存再转发。Portal 在线编辑已读取 displayName，本地 restoreDraft 仍从 legacyLabel 取值，保存新版草稿写 displayName。CLI 仍导入当前 Go 导出。",
+        "contracts/manifest.txt": "营销领域的唯一源为 contracts/selection.schema.json。generate 从它派生 Python 运行校验、公开 JSON Schema、TS、Go；模型投影另外按 x-model-fields 生成。Agent 锁定营销契约版本。Go 包用独立的解析和往返用例核对公开结果。当前唯一源、仓内公开 Schema 与 Go 产物仍只允许 legacyLabel；模型投影只含 itemRef。",
+        "change.diff": "Marketing 的结果生产者已经改成输出 displayName。改动手写了 generated/selection.ts 与 Python 的接收分支，未改 contracts/selection.schema.json；Agent 仍按所锁定旧版本校验后保存再转发。Portal 在线编辑已读取 displayName，本地 restoreDraft 仍从 legacyLabel 取值，保存新版草稿写 displayName。Go 包的往返样例仍使用原字段。",
         "history.txt": "设备甲的旧持久化草稿 {itemRef:A, legacyLabel:甲}，设备乙新存草稿 {itemRef:B, displayName:乙}。服务初始化定义、部署 SQL 与运行中的历史库有不同生命周期。拟议提交还增加了针对现有表的 DROP COLUMN；没有数据迁移执行记录。",
         "verification.txt": "已验证新编辑界面用手写 TS 类型编译成功。尚无重新生成的差异核对、运行校验、Agent 转交、Go 消费、冷启动恢复或数据库执行记录。"
       },
       "rubric": [
         "定位所属营销 schema、公开与模型投影边界。指出只改手写生成物会被生成器覆盖，旧运行校验／Agent 仍可能拒绝新结果，锁定的 Go 消费者仍读旧形状。模型本来只有 itemRef，不能据此删除下游显示字段或给模型补 displayName。",
-        "从修改的唯一源重新生成需要的 Python、TS、Go 和公开校验并核对各方实际采用版本，沿 Marketing 生产、Agent 校验保存及转交、Portal 编辑和 CLI 读回追到具体消费者。",
+        "从修改的唯一源重新生成需要的 Python、TS、Go 和公开校验并核对各方实际采用版本，在 Marketing 的生产、Agent 的校验与转交、Portal 的编辑与恢复入口检查字段，并验证 Go 包能解析新结果。",
         "指出新版草稿冷启后 restoreDraft 只能读旧键，会丢显示名称。为已授权的旧草稿读取边界做转换，分别验证题内两条草稿的名称；公开新写入保持严格，不新增跨产品兼容分支。",
         "指出 DROP COLUMN 超出授权，新库初始化或部署 SQL 变化不能证明既有数据库已安全迁移。分开报告已有表和新建环境，保留原有记录。",
-        "要求对同一份有效公开结果进行实际生成一致性、运行校验、跨仓转交与 Go 消费，验证非法旧格式新写入被拒绝以及两个本地冷启动场景。单端类型编译只能证明本地静态结果。"
+        "要求对同一份有效公开结果进行生成一致性、运行校验、跨仓转交和 Go 包解析，验证非法旧格式新写入被拒绝以及两个本地冷启动场景。单端类型编译只能证明本地静态结果。"
       ],
       "required_skills": [
         "unif-contract-change"
@@ -176,7 +176,7 @@
       "id": "unif-contract-change-discovery_positive",
       "skill": "unif-contract-change",
       "mode": "discovery_positive",
-      "prompt": "Unif 的领域消息字段已经定稿，需审查 Marketing 生成物、Agent 保存与转交、Portal 的旧草稿冷启动和 CLI 消费是否都已切到指定形状。请核对这份变更和可验证的缺口，保持已确认的模块职责。",
+      "prompt": "Unif 的领域消息字段已经定稿，需审查 Marketing 生成物、Agent 保存与转交，以及 Portal 编辑新结果和冷启动读取旧草稿时是否符合约定。请核对这份变更和可验证的缺口，保持已确认的模块职责。",
       "fixtures": {
         "scope.md": "已确认改动范围为一个跨仓消息字段。旧数据读回仍有效，协议生产、派生类型和客户端消费都在审查范围。"
       },

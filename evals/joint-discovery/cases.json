@@ -289,7 +289,7 @@
       "id": "review-contract-removal",
       "skill": "uni-code-review",
       "mode": "discovery_positive",
-      "prompt": "帮我审查这个 Portal PR。它把已批准退役的回执字段从 schema 和展示层删除了，我想知道 Agent、Marketing、CLI 和旧草稿还有没有读写它，只给审查发现。",
+      "prompt": "请审查这个 Portal PR。它从 schema 和展示层删除了已批准退役的回执字段。Marketing 生成回执、Agent 保存和转交回执、Portal 冷启动恢复草稿时，还有哪些地方读写这个字段？只列审查发现。",
       "source": "Uni 与 Unif 同时可用时的自然请求。",
       "rubric": [
         "沿真实差异和契约消费者审查已确定的退役范围。"

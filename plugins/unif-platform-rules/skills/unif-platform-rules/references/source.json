@@ -4,8 +4,8 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fb9cf1a39498180d74b3b50981591cd35ab8821910808266effd0681d9227897",
-      "lines": 483,
+      "sha256": "24f8206d83fd8af638f9c6ea60bafab300a10b8592b880e29ee7d61772c4933c",
+      "lines": 479,
       "selectedSections": [
         {
           "source": "ARCHITECTURE.md",
@@ -28,39 +28,39 @@
           "heading": "2. 系统边界与职责",
           "lines": [
             41,
-            110
+            106
           ]
         },
         {
           "source": "ARCHITECTURE.md",
           "heading": "3. 功能、场景与入口",
           "lines": [
-            111,
-            147
+            107,
+            143
           ]
         },
         {
           "source": "ARCHITECTURE.md",
           "heading": "4. 状态归属",
           "lines": [
-            148,
-            183
+            144,
+            179
           ]
         },
         {
           "source": "ARCHITECTURE.md",
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
-            239,
-            316
+            235,
+            312
           ]
         },
         {
           "source": "ARCHITECTURE.md",
           "heading": "7. 独立开发与验证",
           "lines": [
-            317,
-            420
+            313,
+            416
           ]
         }
       ]
@@ -86,7 +86,7 @@
           ]
         }
       ],
-      "sha256": "0080d6cb90f415fd53111f374e9e4869ea01d02d65ae753d1739ed1ba9a187a4"
+      "sha256": "54a02382c07bb9fe3d92f442499fe015d7cf685a94d0725d7321688be79f6c3c"
     },
     "architecture/responsibilities.md": {
       "sections": [
@@ -95,11 +95,11 @@
           "heading": "2. 系统边界与职责",
           "lines": [
             41,
-            110
+            106
           ]
         }
       ],
-      "sha256": "0f613f11a6f2315c53d9e2edfa96878caf2e8af28d851d11cf4ce80b8f6be3fb"
+      "sha256": "4135391085bf14ef357b0f8b133d6861f13ccf4c66cc49a61e39e5baeeff9d8d"
     },
     "architecture/composition.md": {
       "sections": [
@@ -107,8 +107,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "3. 功能、场景与入口",
           "lines": [
-            111,
-            147
+            107,
+            143
           ]
         }
       ],
@@ -120,8 +120,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "4. 状态归属",
           "lines": [
-            148,
-            183
+            144,
+            179
           ]
         }
       ],
@@ -133,8 +133,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "6. 跨边界交接与业务结果",
           "lines": [
-            239,
-            316
+            235,
+            312
           ]
         }
       ],
@@ -146,8 +146,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "7. 独立开发与验证",
           "lines": [
-            317,
-            420
+            313,
+            416
           ]
         }
       ],
