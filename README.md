@@ -1,6 +1,6 @@
 # unif-portal-dev-skills
 
-Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端、相关 Agent／Channel／CLI 及对应 @unif 库工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
+Unif 产品的研发技能集合，适用于 RN 与原生鸿蒙 Portal 客户端、Agent 和 Marketing 服务、通道接入，以及相关 @unif 库。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
 16 个可安装插件提供 18 个技能。7 个工程技能处理平台规范、设计、跨仓变更、交付和三个平台的工程采用；11 个库技能分别说明各库的公开能力。
 

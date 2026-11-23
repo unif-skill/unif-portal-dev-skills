@@ -13,7 +13,7 @@
 
 目录归属见[目标目录](directory.md#1-目标目录)，能力边界见基础能力架构（规范源相对路径：`capabilities/portal-foundation.md`），业务契约与状态原则见[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)。
 
-本文是 React Native 客户端工程规则。原生 ArkTS／ArkUI 应用与库使用[鸿蒙开发规则](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_DEVELOPMENT.md)和[鸿蒙工程组织](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_STRUCTURE.md)；不把 TypeScript 文件名或 React Native 目录套用到这些工程或 Agent、Channel、CLI 的其他语言实现。开发与维护按[平台架构第 1.1 节](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md#11-设计依据与适用范围)核对现有能力、有效契约和实际消费者，优先复用或在所属实现扩展；修改限定在本次功能及实际影响范围内。
+本文是 React Native 客户端工程规则。原生 ArkTS／ArkUI 应用与库使用[鸿蒙开发规则](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_DEVELOPMENT.md)和[鸿蒙工程组织](https://github.com/unif-design/unif-platform-architecture/blob/main/HARMONY_STRUCTURE.md)；不把 TypeScript 文件名或 React Native 目录套用到这些工程或 Agent、Marketing 和通道适配的其他语言实现。开发与维护按[平台架构第 1.1 节](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md#11-设计依据与适用范围)核对现有能力、有效契约和实际消费者，优先复用或在所属实现扩展；修改限定在本次功能及实际影响范围内。
 
 
 ## 1. 文件变更入口

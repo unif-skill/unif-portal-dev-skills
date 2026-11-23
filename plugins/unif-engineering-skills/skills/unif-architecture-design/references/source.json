@@ -4,31 +4,31 @@
   "sources": {
     "ARCHITECTURE.md": {
       "source": "unif-platform-architecture/ARCHITECTURE.md",
-      "sha256": "fb9cf1a39498180d74b3b50981591cd35ab8821910808266effd0681d9227897",
-      "lines": 483,
+      "sha256": "24f8206d83fd8af638f9c6ea60bafab300a10b8592b880e29ee7d61772c4933c",
+      "lines": 479,
       "selectedSections": [
         {
           "source": "ARCHITECTURE.md",
           "heading": "5. 自然语言任务与上下文",
           "lines": [
-            184,
-            238
+            180,
+            234
           ]
         },
         {
           "source": "ARCHITECTURE.md",
           "heading": "8. 成本与效果验证",
           "lines": [
-            421,
-            436
+            417,
+            432
           ]
         },
         {
           "source": "ARCHITECTURE.md",
           "heading": "9. 领域与模块文档",
           "lines": [
-            437,
-            483
+            433,
+            479
           ]
         }
       ]
@@ -41,8 +41,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "5. 自然语言任务与上下文",
           "lines": [
-            184,
-            238
+            180,
+            234
           ]
         }
       ],
@@ -54,8 +54,8 @@
           "source": "ARCHITECTURE.md",
           "heading": "8. 成本与效果验证",
           "lines": [
-            421,
-            436
+            417,
+            432
           ]
         }
       ],
@@ -67,12 +67,12 @@
           "source": "ARCHITECTURE.md",
           "heading": "9. 领域与模块文档",
           "lines": [
-            437,
-            483
+            433,
+            479
           ]
         }
       ],
-      "sha256": "2402fb31de136457e1ce71b2cfab9f109dc9938383b99ea75c5a894041c340ee"
+      "sha256": "eb199b33e3702d7de06495ab96472b37b62c7cdc4feec4c19cf4b58afebe789f"
     }
   }
 }

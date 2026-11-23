@@ -2,7 +2,7 @@
 
 ## 职责
 
-`unif-architecture-design` 服务 Unif Portal 产品的研发设计与审查，覆盖客户端及相关 Agent、Channel、CLI 工程；产品运行时的业务任务另行维护。
+`unif-architecture-design` 服务 Unif Portal 产品的研发设计与审查，覆盖客户端、Agent 与 Marketing 服务、通道接入和公共库。业务运行时的任务另行维护。
 
 技能帮助新会话根据本次需求和目标契约完成模块边界、调用交接、状态归属与验证范围的设计。入口保留必要判断和阅读指引，详细架构原则由规范源维护。
 
