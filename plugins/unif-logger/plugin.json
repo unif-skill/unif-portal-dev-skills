@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-logger",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "Unif 结构化日志、诊断快照与文件交接技能，覆盖 RN 和原生鸿蒙",
   "extensions": {
     "com.openai": {
