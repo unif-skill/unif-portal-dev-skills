@@ -1,31 +1,30 @@
 ---
 name: unif-speech
-description: 在查询、接入、维护或排查 @unif/react-native-speech 的音频采集、临时凭证、实时识别会话、语音输入及麦克风释放时使用。不用于语音合成或其他语音 SDK。
+description: 接入 @unif/react-native-speech 的音频采集、临时凭证和实时识别，排查语音输入结果和麦克风释放。语音合成及其他语音 SDK 另查对应接口。
 metadata:
   package: "@unif/react-native-speech"
 ---
 
 # Unif Speech
 
-先核对实际版本、锁文件及 package.json 的根入口与子路径导出。[官网索引](https://unif-design.github.io/react-native-speech/llms.txt) 不代表已安装版本；资料与依赖不一致时取得对应包或已核实修订的公开类型。
+## 按需要选择入口
 
-## 按任务读取
+先查应用锁定版本的 `package.json` 根入口和子路径导出。本地资料在 `docs`，官网索引标明构建版本。[文档与版本索引](https://unif-design.github.io/react-native-speech/llms.txt)
 
-本地资料在 docs，website/docs 链接到同一来源；按实际层次读取，避免为单项接口接入整套流程。
+| 用途 | 子路径 | 公开入口 |
+|---|---|---|
+| 音频采集 | `/capture` | [openAudioCapture](https://unif-design.github.io/react-native-speech/md/api/capture.md) |
+| 临时凭证 | `/credentials` | [createSpeechCredentialAccess](https://unif-design.github.io/react-native-speech/md/api/credentials.md) |
+| 实时识别 | `/realtime` | [openSpeechSession](https://unif-design.github.io/react-native-speech/md/api/realtime.md) |
+| 语音输入框 | `/input` | [useVoiceInput](https://unif-design.github.io/react-native-speech/md/api/input.md) |
 
-| 能力与公开入口 | 资料 |
-|---|---|
-| 宿主组合与权限 | [快速开始](https://unif-design.github.io/react-native-speech/md/quick-start.md) |
-| `/capture`：openAudioCapture | [音频采集](https://unif-design.github.io/react-native-speech/md/api/capture.md) |
-| `/credentials`：createSpeechCredentialAccess | [临时凭证](https://unif-design.github.io/react-native-speech/md/api/credentials.md) |
-| `/realtime`：openSpeechSession | [实时识别](https://unif-design.github.io/react-native-speech/md/api/realtime.md) |
-| `/input`：useVoiceInput | [语音输入](https://unif-design.github.io/react-native-speech/md/api/input.md) |
-| Expo Modules、音频补丁与实际包消费 | [原生接线](https://unif-design.github.io/react-native-speech/md/native-setup.md) |
+应用提供权限、身份、HTTP 换发、业务词表和输入界面，持有草稿并负责发送。采集只交付缓冲区中的实际 PCM，录音文件和识别连接由调用方管理。遇到格式不匹配时返回实际错误，避免隐式重采样。
 
-## 使用边界
+凭证访问实例属于当前身份，单次取消保留其他有效缓存。按协议交付凭证，避免凭据出现在 URL 或日志中。普通断网按实际失败处理，避免自动换发或重连。身份结束时关闭所属会话并释放凭证实例。
 
-应用持有权限、身份、HTTP 换发、业务词表、输入界面和草稿。低层采集不申请权限、不保存录音或连接识别服务；采用真实 PCM 格式，不以请求参数代替实际输出，也不在会话层新增隐式重采样。
+## 文字结果与麦克风释放
 
-凭证访问实例属于当前身份范围，取消不清除其他有效缓存；身份结束时释放所属实例。鉴权通过当前公开协议交付，凭证不放入 URL 或日志；普通断网不自动换发或重连。
+- **文字是否能写入草稿**　`transcript` 供当前界面展示，草稿采用本轮 `onResult` 的确认或未确认文字，失败时可用 `finalText`，取消保留原草稿。`context_ended` 和卸载静默结束本轮，停止向旧接收方交付。
+- **麦克风能否开始下一轮**　核对同一轮的 `finish`、`close` 和原生停止结果。识别超时、停止采用文字或收到取消通知后，仍需等待旧采集实际释放才能重新开始。旧回调只处理所属轮次。[结果采用与释放时序](references/workflows.md)
 
-finish、close、停止采集和结果采用分别核对；停止文字采用或等待超时不证明麦克风已释放。useVoiceInput 的展示文本与交付结果分开，确认／未确认、失败及取消按契约采用，草稿拼接和发送归应用。旧轮次不得影响新输入，context_ended 与卸载不回调旧接收方。结果字段与释放时序见[任务指引](references/workflows.md)。
+维护时从异常所属的采集、会话或输入 Hook 追到真实消费者，再核对宿主实际编译的音频 SDK 与补丁。麦克风释放在设备上验证，厂商识别结果看服务端终态。[原生接线与补丁](https://unif-design.github.io/react-native-speech/md/native-setup.md)

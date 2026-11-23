@@ -2,31 +2,39 @@
 
 Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端、相关 Agent／Channel／CLI 及对应 @unif 库工程。仓库名中的 Portal 指产品；架构正文中的 Portal 指客户端职责边界。
 
-[Unif 平台规范](plugins/unif-platform-rules/skills/unif-platform-rules/SKILL.md)提供本产品研发的公共规则。业务插件中的 11 个研发技能按平台与阶段选择。
+16 个可安装插件提供 18 个技能。7 个工程技能处理平台规范、设计、跨仓变更、交付和三个平台的工程采用；11 个库技能分别说明各库的公开能力。
 
-| 目标 | 开发 | 测试 | 审查 |
-|---|---|---|---|
-| RN 客户端与库 | [unif-rn-dev](plugins/unif-react-native-skills/skills/unif-rn-dev/SKILL.md) | [unif-rn-test](plugins/unif-react-native-skills/skills/unif-rn-test/SKILL.md) | [unif-rn-review](plugins/unif-react-native-skills/skills/unif-rn-review/SKILL.md) |
-| 原生鸿蒙客户端与 HAR | [unif-harmony-dev](plugins/unif-harmony-skills/skills/unif-harmony-dev/SKILL.md) | [unif-harmony-test](plugins/unif-harmony-skills/skills/unif-harmony-test/SKILL.md) | [unif-harmony-review](plugins/unif-harmony-skills/skills/unif-harmony-review/SKILL.md) |
-| Python 后端 | [unif-python-dev](plugins/unif-python-skills/skills/unif-python-dev/SKILL.md) | [unif-python-test](plugins/unif-python-skills/skills/unif-python-test/SKILL.md) | [unif-python-review](plugins/unif-python-skills/skills/unif-python-review/SKILL.md) |
-
-跨平台共用 [unif-architecture-design](plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md) 处理职责、契约与状态设计，[unif-code-delivery](plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md) 处理工程门禁、版本和授权交付。各阶段技能按职责引用相关公共主题。
+| 任务 | 工程技能 |
+|---|---|
+| 查现行职责、状态、业务回执与验证规范 | [Unif 平台规范](plugins/unif-platform-rules/skills/unif-platform-rules/SKILL.md) |
+| 设计或评审模块职责、状态和场景组合 | [架构与模块设计](plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md) |
+| 实施或审查已确定的跨仓字段变化，核对生成物、消费者、退役和旧数据恢复 | [跨仓契约变更](plugins/unif-engineering-skills/skills/unif-contract-change/SKILL.md) |
+| 准备或执行某次已授权的 Git 操作、发布与部署 | [代码交付](plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md) |
+| 核对 Portal RN 或 @unif RN 库的状态、环境、接线与真实消费者 | [React Native 工程](plugins/unif-react-native-skills/skills/unif-rn-project/SKILL.md) |
+| 核对原生鸿蒙工程、HAR 公开入口、资源交接与 ArkUI 宿主 | [原生鸿蒙工程](plugins/unif-harmony-skills/skills/unif-harmony-project/SKILL.md) |
+| 核对 Agent／Marketing 服务的路由、领域能力、事务与 API／Worker | [Python 服务](plugins/unif-python-skills/skills/unif-python-service/SKILL.md) |
 
 ## 与 Uni 技能的职责分工
 
-| 规则对象 | 通用维护入口 | Unif 专项内容 |
-|---|---|---|
-| RN 源码与平台接入 | `uni-rn-dev` | Portal 目录、环境和状态采用、组件选型、H5 与业务契约 |
-| RN 库工程与产物 | `uni-rn-library` | `@unif` 库职责、组织采用及真实业务消费者 |
-| ArkTS／ArkUI 与原生接入 | `uni-harmony-dev` | Unif 原生目录、视觉要求、身份及跨能力交接 |
-| HAR 工程与产物 | `uni-harmony-library` | `@unif/harmony-*` 库契约、同源资源与指定宿主验收 |
-| 用例与覆盖率方法 | `uni-test-design` | 业务不变量、平台接线及实际验收对象 |
+| 当前任务 | 方法入口 |
+|---|---|
+| 实施已明确的修改 | `uni-code-change` |
+| 定位故障原因 | `uni-debugging` |
+| 审查具体改动 | `uni-code-review` |
+| 设计测试、补回归用例 | `uni-test-design` |
+| 选择并运行验收检查 | `uni-verify-change` |
+| 接入或维护 GitHub 仓库设置、CI 和发布设施 | `uni-github-delivery-setup` |
 
-通用方法按场景引用技能名称，Unif 的开发、审查和测试入口共用所属规范资料。纯项目契约核对只读取专项内容；涉及平台实现或库工程时才组合通用技能。专项正文不复制通用方法，跨插件引用不依赖本机目录；缺少必要来源时保留具体缺项，不以复制旧规则或推测替代依据。
+Unif 工程技能提供会影响上述工作结论的项目约定。例如，审查 Portal 的 H5 回调，要核对接收文档和授权是否仍属原操作；审查服务端并发创建，要核对实际数据库和 Worker。只查库里现有 API 时可直接选择[库插件](#库插件)。
+
+| 工程对象 | Uni 平台方法 | Unif 采用与验收 |
+|---|---|---|
+| RN 应用与库 | `uni-rn-dev`、`uni-rn-library` | Portal 的目录、环境、H5、状态和业务契约，库的真实平台消费者 |
+| 原生鸿蒙应用与 HAR | `uni-harmony-dev`、`uni-harmony-library` | 原生出口、资源归属、同源资料与指定 ArkUI 宿主 |
 
 ## 库插件
 
-库能力技能共 11 个，各自随同名插件安装。Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 在同一入口内区分 RN 与原生鸿蒙；其余四项当前对应 RN 包。鸿蒙资料按实际库区分公开 API、目标契约与空 HAR，不因技能覆盖而声明功能已实现或已发布；开发、测试与审查仍按实际任务使用对应阶段技能。
+库能力技能共 11 个，各自随同名插件安装。Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger 在同一入口内区分 RN 与原生鸿蒙；其余四项当前对应 RN 包。鸿蒙资料按实际库区分公开 API、目标契约与空 HAR，不因技能覆盖而声明功能已实现或已发布；平台接线和宿主验收按实际需要使用对应工程技能。
 
 | 技能 | 对应包与任务 |
 |---|---|
@@ -42,13 +50,13 @@ Unif 产品的研发技能集合，适用于 RN／原生鸿蒙 Portal 客户端�
 | [unif-oss](plugins/unif-oss/skills/unif-oss/SKILL.md) | @unif/react-native-oss：临时凭证、上传、转存与源文件释放 |
 | [unif-speech](plugins/unif-speech/skills/unif-speech/SKILL.md) | @unif/react-native-speech：音频采集、临时凭证、实时识别与语音输入 |
 
-原生开发从 [unif-harmony-dev](plugins/unif-harmony-skills/skills/unif-harmony-dev/SKILL.md) 进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
+原生开发从 [原生鸿蒙工程](plugins/unif-harmony-skills/skills/unif-harmony-project/SKILL.md) 进入，按需取得 ArkTS 文件、状态、原生接入、UI、HAR 与验证规则。RN、鸿蒙应用／库分别组织，共享 TS 与资源必须具有同一来源及各目标验证。
 
 鸿蒙库按已采用版本核对公开入口。目标契约和实现的版本差异见[鸿蒙库覆盖检查](evals/library-skills/harmony-library-cases.md)。
 
 工程如何记录规范与契约入口，见[工程接入示例](docs/code-development-integration.md)。
 
-RN 库的文档站和运行示例采用方式见 [RN 项目采用](plugins/unif-react-native-skills/skills/unif-rn-dev/references/rn/project.md)。
+RN 库的文档站和运行示例采用方式见 [RN 项目采用](plugins/unif-react-native-skills/skills/unif-rn-project/references/rn/project.md)。
 
 库能力入口指向所属库的公开文档、版本化 llms 索引、实际类型与必要维护资料。先核对采用版本，官网最新文档不代表已安装版本具备全部能力。跨库契约由规范仓维护，公开 API 与示例由库维护，技能维护任务指引和资料定位；不复制完整 API 或实时开发状态。
 
@@ -59,10 +67,10 @@ RN 库的文档站和运行示例采用方式见 [RN 项目采用](plugins/unif-
 | 插件 | 所含技能 |
 |---|---|
 | `unif-platform-rules`（默认） | 跨插件共用的职责、场景、状态、交接与验证规则 |
-| `unif-engineering-skills` | 架构设计、代码交付 |
-| `unif-react-native-skills` | RN 开发、测试、审查 |
-| `unif-harmony-skills` | 原生鸿蒙开发、测试、审查 |
-| `unif-python-skills` | Python 开发、测试、审查 |
+| `unif-engineering-skills` | 架构设计、跨仓契约变更、授权交付 |
+| `unif-react-native-skills` | React Native 工程 |
+| `unif-harmony-skills` | 原生鸿蒙工程 |
+| `unif-python-skills` | Python 服务 |
 
 另从[库插件清单](#库插件)选择所需的库，例如 `unif-chat`、`unif-design`、`unif-camera`。每个库插件只包含自身技能与资料。
 
@@ -91,13 +99,23 @@ codex plugin add uni-skills@uni-skills
 
 ### 已有 Unif 插件迁移
 
+**已经通过市场安装工程插件。** RN、鸿蒙和 Python 的插件 ID 保持不变。新版发布后更新原插件，在新会话核对下表的工程技能。原 `unif-engineering-skills` 插件还会提供 `unif-contract-change`。
+
+| 已安装的插件 | 原开发、测试和审查技能 | 更新后的工程技能 |
+|---|---|---|
+| `unif-react-native-skills` | `unif-rn-dev`、`unif-rn-test`、`unif-rn-review` | `unif-rn-project` |
+| `unif-harmony-skills` | `unif-harmony-dev`、`unif-harmony-test`、`unif-harmony-review` | `unif-harmony-project` |
+| `unif-python-skills` | `unif-python-dev`、`unif-python-test`、`unif-python-review` | `unif-python-service` |
+
+**曾把技能单独复制或链接到共享目录。** 市场更新只管理插件分发内容。先核对宿主列出的来源路径，确认新工程技能已经可用，再按表移除自己安装的旧技能目录或链接，并更新仍指定旧名的工程入口。
+
 已安装旧整包 `unif-library-skills` 的用户，刷新市场后，先用上述命令安装所需的库插件，再移除旧整包，避免同名技能重复加载。
 
 ```sh
 codex plugin remove unif-library-skills@unif-portal-dev-skills
 ```
 
-已安装旧版 React Native 插件的用户，更新本地克隆或刷新 Git 市场后，运行以下命令迁移。Codex 会分别保留两个插件 ID，先移除旧插件可避免重复加载开发、测试和审查技能。
+已安装旧版 React Native 插件的用户，更新本地克隆或刷新 Git 市场后，运行以下命令迁移。Codex 会分别保留两个插件 ID，先移除旧插件可避免重复加载 RN 工程技能。
 
 ```sh
 codex plugin remove unif-rn-skills@unif-portal-dev-skills
@@ -125,8 +143,8 @@ codex plugin remove unif-rn-skills@unif-portal-dev-skills
 | 插件 | 随包提供的规范 |
 |---|---|
 | 平台规范 | 多个插件实际共用的设计依据、系统职责、场景组合、状态归属、跨系统契约及验证原则。普通订单提交在公共契约中只保留专项文档入口。 |
-| 工程 | 架构设计专用的智能体上下文、成本分析和领域文档规则；组织交付资料随交付技能。 |
-| RN、鸿蒙、Python | 各自的 Unif 工程采用、模块契约与消费者验收。开发、测试和审查技能按需引用同一插件里的对应章节；通用技术方法由 Uni 技能维护。 |
+| 工程 | 架构设计的智能体上下文、成本和领域文档规则，跨仓契约实施与退役指引，以及 RN 库组织交付资料。 |
+| RN、鸿蒙、Python | 各自的 Unif 工程采用、模块契约与消费者验收。每个平台将实施、测试与审查需要的项目事实放在同一工程技能中。 |
 | 库能力 | 库专用规范随对应的库技能。例如鸿蒙 Camera 的契约在 Camera 技能中维护。 |
 
 维护者在规范源更新后运行下列命令。各技能的 `references/source.json` 记录它所承接章节的来源和摘要。只改手写技能时，直接校验仓库。安装用户使用已经随包提供的文件。
@@ -152,8 +170,8 @@ Unif RN 库的组织约定及非敏感值由 unif-code-delivery 的[组织资产
 
 - [工程校验运行记录](https://github.com/unif-skill/unif-portal-dev-skills/actions/workflows/validate.yml) 在 PR、main 或 `v*` tag 推送及手动触发时运行脚本测试和分发包校验：检查统一版本、技能格式、各插件的唯一技能目录、本仓市场入口、隔离安装下的文档与图标引用、主题资料摘要与源行段覆盖。校验 job 不依赖本地评测运行产物，保持只读，不调用模型、改写仓库文件或自动提交；仅依赖校验成功的发布 job 获得版本写回、创建 tag 和 Release 的权限。
 - 格式遵循 [Agent Skills](https://agentskills.io/specification) 与 [Agent Plugins 1.0.0](https://agent-plugins.org/specification)。校验使用仓内[插件 Schema](scripts/schemas/plugin.schema.json)与[固定依赖](scripts/requirements-ci.txt)，复跑命令见下文。
-- 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。鸿蒙开发、测试与审查的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖实际任务和平台／阶段排除场景。
-- RN 与 Python 六个阶段技能的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)分别说明独立消费、阶段选择及排除边界。
+- 行为验证使用独立的[评测样本与判据](evals/architecture-design/README.md)，历史运行记录保留原文。原生鸿蒙工程技能的隐式加载见[自动触发题干](evals/independent-skills/harmony-trigger-cases.md)及[独立判据](evals/independent-skills/harmony-trigger-rubric.md)，覆盖项目契约、其他平台及纯事实查询。
+- RN 工程和 Python 服务的[独立行为组](evals/independent-skills/rn-python-behavior-cases.md)和[自动触发组](evals/independent-skills/rn-python-trigger-cases.md)复用现行任务并核对实际读取；[判据](evals/independent-skills/rn-python-rubric.md)说明独立消费、平台选择与排除范围。
 - 架构、交付及六库能力的[九题独立行为组](evals/independent-skills/capability-behavior-cases.md)、[23 项自动触发场景](evals/independent-skills/capability-trigger-cases.md)与[专项判据](evals/independent-skills/capability-rubric.md)覆盖资料应用、组合与排除边界；库材料按固定 Git 修订和摘要组装，不复制 API 正文或原始运行日志。
 - 脚本测试覆盖 16 个插件的分发目录、规范归属和组织资产。插件安装与主题可达性另在全新环境验证；使用、维护、组合与排除场景见[库能力评测](evals/library-skills/README.md)。AMap、Files、Logger、OSS、Speech 与鸿蒙 Logger 的定向题见[专项案例](evals/library-skills/additional-library-cases.md)，不改写原六库的冻结输入。每次库 API 或行为变化核对相关资料入口、示例和评测；模型行为、宿主加载与节省成本须由独立证据说明。
 
@@ -173,7 +191,7 @@ python3.12 -m venv .venv
 
 校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为通过下方独立工作流和本地专项评测取得证据。
 
-Uni／Unif 同时可用时的专项发现评测采用 Uni 维护的工具、题库和冻结目录；单包题库保持各自职责。维护来源与运行说明见 [Uni 联合发现评测](https://github.com/unif-skill/uni-skills#联合发现评测)。采用内容可直接离线校验：
+Uni／Unif 同时可用时的专项发现评测采用 Uni 维护的工具、题库和冻结目录。分发的冻结目录与运行结果按其中记录的版本解读；当前单包目录的发现和资料应用使用各包自己的题库。维护来源与运行说明见 [Uni 联合发现评测](https://github.com/unif-skill/uni-skills#联合发现评测)。采用内容可直接离线校验：
 
 ```sh
 .venv/bin/python -m scripts.joint_discovery_eval validate

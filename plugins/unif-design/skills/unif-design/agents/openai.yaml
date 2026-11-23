@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif Design"
-  short_description: "核对 Unif RN／鸿蒙基础组件、主题、字体及 UI 宿主契约"
+  short_description: "查 RN 基础组件的用法、字号与弹层问题，以及鸿蒙组件契约"
   default_prompt: "使用 $unif-design，先区分 RN 与原生鸿蒙，再按实际版本、实现状态和任务范围取得对应资料。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

@@ -1,6 +1,6 @@
 # 代码审查判据
 
-本目录保留历史评测主题名，现有 JS／RN 题设使用 unif-rn-review；其他平台的独立样本见 [平台隔离样本](../independent-skills/cases.md)。冻结 runs 不改写。
+本组 JS／RN 场景用 uni-code-review 处理相应任务，需要 Unif 实际消费者和宿主判据时选 unif-rn-project。其他平台见[平台隔离样本](../independent-skills/cases.md)。冻结 runs 按当时题设保留。
 
 判据不提供给被测上下文。按实际判断及证据评分，允许合理表述差异；题设与执行结果分别记录。
 

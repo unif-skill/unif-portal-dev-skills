@@ -14,25 +14,24 @@ from scripts.validate_repository import check_skills
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGINS = ROOT / 'plugins'
-PLATFORMS = ('rn', 'harmony', 'python')
-STAGES = ('dev', 'test', 'review')
+PROJECT_SKILLS = {'unif-rn-project', 'unif-harmony-project', 'unif-python-service'}
 EXPECTED_SKILLS = {
-    'unif-architecture-design', 'unif-code-delivery', 'unif-platform-rules',
+    'unif-architecture-design', 'unif-contract-change', 'unif-code-delivery', 'unif-platform-rules',
     'unif-icons', 'unif-design', 'unif-chat', 'unif-camera', 'unif-hms-scan', 'unif-umeng',
     'unif-amap', 'unif-files', 'unif-logger', 'unif-oss', 'unif-speech',
-    *(f'unif-{platform}-{stage}' for platform in PLATFORMS for stage in STAGES),
+    *PROJECT_SKILLS,
 }
 
 
 class IndependentSkillTests(unittest.TestCase):
-    def test_platform_entries_replace_the_three_mixed_entries(self) -> None:
+    def test_market_distributes_exactly_one_entry_per_task_or_project(self) -> None:
         self.assertEqual({p.parent.name for p in PLUGINS.glob('*/skills/*/SKILL.md')}, EXPECTED_SKILLS)
 
     def test_platform_rules_have_one_owner(self) -> None:
         owners = {p.parents[1].name: p for p in PLUGINS.glob('*/skills/*/references/source.json')}
         self.assertEqual(set(owners), {
             'unif-platform-rules', 'unif-architecture-design',
-            *(f'unif-{platform}-dev' for platform in PLATFORMS),
+            *PROJECT_SKILLS,
             *(f'unif-{library}' for library in ('camera', 'chat', 'design', 'hms-scan', 'icons', 'umeng')),
         })
         topics: set[tuple[str, str]] = set()
@@ -53,9 +52,8 @@ class IndependentSkillTests(unittest.TestCase):
 
     def test_specialist_topics_resolve_from_the_named_rules_skill(self) -> None:
         owner = PLUGINS / 'unif-platform-rules/skills/unif-platform-rules'
-        stages = ['unif-architecture-design', 'unif-code-delivery',
-                  *(f'unif-{platform}-{stage}' for platform in PLATFORMS for stage in STAGES)]
-        for name in stages:
+        consumers = {'unif-architecture-design', 'unif-contract-change', 'unif-code-delivery', *PROJECT_SKILLS}
+        for name in consumers:
             consumer = next(PLUGINS.glob(f'*/skills/{name}/SKILL.md'))
             with self.subTest(skill=name):
                 body = consumer.read_text()

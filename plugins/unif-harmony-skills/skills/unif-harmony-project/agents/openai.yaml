@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif 原生鸿蒙工程"
+  short_description: "核对原生鸿蒙宿主实际导入的 HAR、资源归属和设备验收结果。"
+  default_prompt: "使用 $unif-harmony-project 核对原生鸿蒙工程采用、HAR 公开出口、资源归属与宿主验收。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

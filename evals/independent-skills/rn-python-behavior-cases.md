@@ -1,18 +1,18 @@
 # RN 与 Python 独立行为题
 
-本组分别检查六个业务技能能否结合公共规范处理题设。复用下表现行题目，不另维护一份相同正文；本文件供评测者组装输入，不整份交给被测上下文。判据见[RN 与 Python 评测判据](rn-python-rubric.md)。
+本组分别检查RN 工程和 Python 服务两个技能能否结合公共规范处理题设。复用下表现行题目，不另维护一份相同正文；本文件供评测者组装输入，不整份交给被测上下文。判据见[RN 与 Python 评测判据](rn-python-rubric.md)。
 
 | 编号 | 提供的完整技能目录 | 题干来源 | 二级标题 |
 |---|---|---|---|
-| B1 | `unif-rn-dev` | [状态与记录归属](../architecture-design/cases/state-identity.md) | A：客户端恢复 |
-| B2 | `unif-rn-test` | [独立消费题](cases.md) | A：unif-rn-test |
-| B3 | `unif-rn-review` | [独立消费题](cases.md) | E：unif-rn-review |
-| B4 | `unif-python-dev` | [状态与记录归属](../architecture-design/cases/state-identity.md) | B：后端并发 |
-| B5 | `unif-python-test` | [独立消费题](cases.md) | G：unif-python-test |
-| B6 | `unif-python-review` | [独立消费题](cases.md) | H：unif-python-review |
-| B7 | `unif-python-dev` | [助手接入题](assistant-integration-cases.md) | A：开发 |
-| B8 | `unif-python-test` | [助手接入题](assistant-integration-cases.md) | B：测试 |
-| B9 | `unif-python-review` | [助手接入题](assistant-integration-cases.md) | C：审查 |
+| B1 | `unif-rn-project` | [状态与记录归属](../architecture-design/cases/state-identity.md) | A：客户端恢复 |
+| B2 | `unif-rn-project` | [独立消费题](cases.md) | A：unif-rn-project |
+| B3 | `unif-rn-project` | [独立消费题](cases.md) | E：unif-rn-project |
+| B4 | `unif-python-service` | [状态与记录归属](../architecture-design/cases/state-identity.md) | B：后端并发 |
+| B5 | `unif-python-service` | [独立消费题](cases.md) | G：unif-python-service |
+| B6 | `unif-python-service` | [独立消费题](cases.md) | H：unif-python-service |
+| B7 | `unif-python-service` | [助手接入题](assistant-integration-cases.md) | A：开发 |
+| B8 | `unif-python-service` | [助手接入题](assistant-integration-cases.md) | B：测试 |
+| B9 | `unif-python-service` | [助手接入题](assistant-integration-cases.md) | C：审查 |
 
 新增助手接入题另按[助手接入判据](assistant-integration-rubric.md)评阅。
 

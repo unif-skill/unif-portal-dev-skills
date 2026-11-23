@@ -1,6 +1,6 @@
 ---
 name: unif-chat
-description: 在查询、接入、维护或排查 @unif/react-native-chat 或 @unif/harmony-chat 的消息列表、输入、附件、流式展示、组件组合及鸿蒙目标契约时使用。
+description: 组合消息列表、输入框和附件，处理滚动与流式展示等聊天界面问题。涵盖 @unif/react-native-chat 的组件用法与维护，以及原生鸿蒙 @unif/harmony-chat 的实际导出与目标契约。
 metadata:
   package: "@unif/react-native-chat"
   harmony_package: "@unif/harmony-chat"
@@ -8,27 +8,18 @@ metadata:
 
 # Unif Chat
 
-原生鸿蒙的聊天组件、附件资源与输入宿主见[鸿蒙契约与实际库入口](references/harmony.md)。
+先确认聊天页实际使用的 Chat 版本，从该版本的公开组件选择消息、列表、输入或附件。RN 本地资料在 `website/docs`，完整单页与构建版本见官网索引。原生鸿蒙则查 HAR 的实际导出，入口为空时按目标契约说明实现缺口。[RN 组件与文档索引](https://unif-design.github.io/react-native-chat/llms.txt) · [鸿蒙组件与契约](references/harmony.md)
 
-## React Native
+## 把组件接到现有聊天页
 
-按锁定版本的包导出和公开类型核对下列资料。本地文档位于 `website/docs`，线上文档的构建版本见[官网索引](https://unif-design.github.io/react-native-chat/llms.txt)。
+先看页面能否直接复用主聊天、抽屉输入或已有独立组件。主题和基础控件使用 Design。[主聊天组合](https://unif-design.github.io/react-native-chat/md/composition/main-chat.md) · [抽屉输入](https://unif-design.github.io/react-native-chat/md/composition/drawer-input.md)
 
-| 任务 | 使用资料 |
-|---|---|
-| 安装与公开组件 | [getting-started](https://unif-design.github.io/react-native-chat/md/getting-started.md)、[components/overview](https://unif-design.github.io/react-native-chat/md/components/overview.md) |
-| 输入、语音操作与受控草稿 | [components/composer](https://unif-design.github.io/react-native-chat/md/components/composer.md) |
-| 图片、文件、进度和重试展示 | [components/attachments](https://unif-design.github.io/react-native-chat/md/components/attachments.md)、[components/processing-progress](https://unif-design.github.io/react-native-chat/md/components/processing-progress.md) |
-| 消息渲染与列表滚动 | [components/message](https://unif-design.github.io/react-native-chat/md/components/message.md)、[components/message-list](https://unif-design.github.io/react-native-chat/md/components/message-list.md) |
-| 确认、建议、过程和来源 | [components/confirmation](https://unif-design.github.io/react-native-chat/md/components/confirmation.md)、[components/suggestions](https://unif-design.github.io/react-native-chat/md/components/suggestions.md)、[components/process](https://unif-design.github.io/react-native-chat/md/components/process.md)、[components/sources](https://unif-design.github.io/react-native-chat/md/components/sources.md) |
-| 主聊天或抽屉组合 | [composition/main-chat](https://unif-design.github.io/react-native-chat/md/composition/main-chat.md)、[composition/drawer-input](https://unif-design.github.io/react-native-chat/md/composition/drawer-input.md) |
+- **草稿**由页面持有。组件显示输入并交回发送事件，页面按业务结果决定是否清空草稿。[Composer](https://unif-design.github.io/react-native-chat/md/components/composer.md)
+- **附件**由应用准备、上传和释放。Chat 显示内容与进度，交回重试等操作。拍照、扫码由对应设备能力接手。[附件](https://unif-design.github.io/react-native-chat/md/components/attachments.md)
+- **消息**由页面根据会话、业务回执和 Agent 或 SSE 返回的内容更新。Chat 呈现消息、过程与状态。
 
-## RN 使用边界
+## 列表跳动或操作后界面未更新
 
-界面需要跟随列表滚动时，RN Chat 4.8.0 起可用 `MessageList.onScroll`。列表先更新滚动位置和末尾状态，再把同一个原生滚动事件交给回调。只需判断是否位于末尾时用 `onAtEndChange`。
+列表跳动时，先查变化前的滚动位置，再查跟随策略、手动拖动和键盘造成的视口变化。只关心是否位于末尾，用 `onAtEndChange`。需要滚动偏移时，RN Chat 4.8.0 起的 `MessageList.onScroll` 会在更新内部位置和末尾状态后交付同一个原生事件。[消息列表](https://unif-design.github.io/react-native-chat/md/components/message-list.md)
 
-接入或调整聊天界面时，先定位应用已有消息、草稿、附件和操作，核对当前公开组件、组合及真实消费者。已有独立组件或 Chat 组合能满足需求时直接使用；属于 Chat 展示或交互职责的缺口在授权内扩展所属能力，不复制库实现或为新入口另建同职责流程。组件展示状态并交回事件；会话事实、业务提交、附件准备、上传、采集及 Agent 通信（含 SSE）归应用，展示事件不代表业务成功。
-
-主题、字体和基础控件使用 Design 的公开能力。拍照或扫码仅在需求涉及这些操作时查对应库的公开资料。附件展示本身不启动设备、上传或临时文件清理流程。
-
-源码维护与验证见[维护与组合验证](references/maintenance.md)。
+操作后界面未更新时，顺着“组件收到的受控值 → 发出的事件 → 页面接收和采用的回执”核对。确有展示或交互缺口时，在所属 Chat 组件修复，用实际聊天页检查输入、附件点击、列表位置和键盘行为。[维护与组合验证](references/maintenance.md)

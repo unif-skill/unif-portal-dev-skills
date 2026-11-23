@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif 跨仓契约变更"
+  short_description: "核对跨仓改动从契约源、生成物到消费者和旧数据恢复的全过程。"
+  default_prompt: "使用 $unif-contract-change 核对这次契约变更的唯一源、派生产物、跨仓读写和旧数据恢复。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

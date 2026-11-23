@@ -1,33 +1,29 @@
 ---
 name: unif-files
-description: 在查询、接入、维护或排查 @unif/react-native-files 的文件读写、复制、下载、目录清理、文件生命周期或本地 HTTP 资源访问时使用。不用于 Logger 专属日志文件管理。
+description: 管理 @unif/react-native-files 的文件读写、复制、下载与目录清理，排查预览和上传共用文件或 WebView 本地 HTTP 访问问题。Logger 的私有日志文件和诊断快照归日志库。
 metadata:
   package: "@unif/react-native-files"
 ---
 
 # Unif Files
 
-先核对实际包版本、锁文件、exports 和公开类型。[官网索引](https://unif-design.github.io/react-native-files/llms.txt) 只说明文档构建版本；版本不同则取得对应包或已核实修订的资料。所有消费从包公开入口进行。
+从锁定版本的包根确认所需操作。文件读写、复制、下载和目录清理各有自己的结果类型。本地资料在 `docs`，官网索引标明文档对应的版本。[文件操作与版本索引](https://unif-design.github.io/react-native-files/llms.txt)
 
-## 按任务读取
+## 预览和上传还在用同一文件
 
-本地资料位于 docs，website/docs 链接到同一来源；无库工作区时按任务读取下列单页。
+先找文件创建者、实际读者和最终清理者，用同一个 `createLocalFileLifetime` 管理这份文件。
 
-| 任务 | 资料 |
-|---|---|
-| 原生依赖、补丁与本地网络策略 | [安装配置](https://unif-design.github.io/react-native-files/md/host-setup.md) |
-| 文件读写、复制、删除与目录清理 | [文件操作](https://unif-design.github.io/react-native-files/md/api/file-operations.md) |
-| 下载、进度、取消与失败文件 | [下载](https://unif-design.github.io/react-native-files/md/api/download.md) |
-| 预览／上传持有与目录 URI | [生命周期](https://unif-design.github.io/react-native-files/md/api/lifetime.md) |
-| WebView 等组件的本地 HTTP 资源 | [资源访问](https://unif-design.github.io/react-native-files/md/api/local-resources.md) |
-| 结果类型与排障 | [类型](https://unif-design.github.io/react-native-files/md/api/types.md)、[常见问题](https://unif-design.github.io/react-native-files/md/troubleshooting.md) |
+- **预览**用 `retain` 登记持有，在预览实际结束读取后归还。
+- **需要独占读取的上传**用 `retainRead` 登记，等上传方确认原生已结束读取再归还。页面退出和取消上传都可能早于读取结束。
 
-## 使用边界
+调用 `retire` 只标记文件待清理。包括预览和上传在内的所有持有者都归还后才触发清理，异步删除结果由调用方处理。排查提前删除时，逐一核对这两个读取者的释放时刻。[文件生命周期](https://unif-design.github.io/react-native-files/md/api/lifetime.md)
 
-复用实际文件操作，由 createLocalFileLifetime 统一管理文件持有；retain、retainRead、retire 分别表示持有、独占读取和待清理。按实际使用者释放安排清理，由调用方处理异步删除结果；取消或页面关闭不代表原生读取已停止。
+## WebView 地址生成了，页面仍加载失败
 
-复制／下载只清理本次拥有的失败产物，成功文件交给应用。目录清理使用功能专属目录，保留 partial 与 failed 结果，不清空应用根目录。下载结果、远端内容完整性和业务采用分别核实。
+检查共享宿主持有的 `createLocalResourceAccess`、指定根目录和文件是否存在可读，再检查服务是否工作及 WebView 的实际加载结果。`getUrl` 成功只交付地址。全部消费者结束后才 `close`。路径边界检查不解析符号链接，宿主负责隔离不可信文件。[本地资源访问](https://unif-design.github.io/react-native-files/md/api/local-resources.md)
 
-createLocalResourceAccess 由实际共享宿主持有。成功生成 URL 不证明文件存在或 WebView 已加载；所有消费者结束后再 close。目录边界检查不解析符号链接，不能作为不可信文件的安全隔离。
+## 下载、清理与维护
 
-源码维护及验证见[任务指引](references/workflows.md)。
+复制或下载失败只清理本次拥有的产物。下载成功表示响应内容已保存，远端内容完整性另行核对，成功文件交给调用方。清目录仅针对功能专属目录，保留 `partial`、`failed` 和失败项。[下载与取消](https://unif-design.github.io/react-native-files/md/api/download.md) · [清理结果](https://unif-design.github.io/react-native-files/md/api/file-operations.md)
+
+维护时从异常的文件操作或本地服务追到所属平台实现，核对宿主实际使用的依赖和补丁。验证取消后的文件归属、多读者释放、端口关闭及受影响的实际消费者。[维护与验证](references/workflows.md)

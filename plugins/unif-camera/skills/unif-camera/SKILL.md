@@ -1,6 +1,6 @@
 ---
 name: unif-camera
-description: 在查询、接入、维护或排查 @unif/react-native-camera 或 @unif/harmony-camera 的拍照、录像、水印、宿主、媒体交接及鸿蒙目标契约时使用。
+description: 接入拍照、录像与水印，排查相机宿主和临时媒体交接。覆盖 @unif/react-native-camera 的公开用法与库内维护，也可核对原生鸿蒙 @unif/harmony-camera 的拍摄契约与实现状态。
 metadata:
   package: "@unif/react-native-camera"
   harmony_package: "@unif/harmony-camera"
@@ -8,25 +8,15 @@ metadata:
 
 # Unif Camera
 
-原生鸿蒙拍摄的设备权限、媒体验收与文件归属见[鸿蒙契约与实际库入口](references/harmony.md)。
+RN 先按应用锁定的包版本查拍照、录像和水印配置。本地文档在 `website/docs`，官网索引标明构建版本。原生鸿蒙先查 HAR 实际导出，遇到空入口时说明目标能力及实现缺口。[RN 配置与版本索引](https://unif-design.github.io/react-native-camera/llms.txt) · [鸿蒙库入口与媒体契约](references/harmony.md)
 
-## React Native
+## 从打开相机到交付文件
 
-按锁定版本的包导出和公开类型核对下列资料。本地文档位于 `website/docs`，线上文档的构建版本见[官网索引](https://unif-design.github.io/react-native-camera/llms.txt)。
+1. 找到应用已有拍摄入口，复用库提供的取景、预览和选用界面。在稳定的组件树挂载 `useCamera` 返回的 `holder`，由同一实例的 `open` 开始本轮拍摄。[调用与宿主](https://unif-design.github.io/react-native-camera/md/api/use-camera.md)
+2. 按原调用返回的 `success`、`cancelled` 或 `failed` 处理。只有用户选用媒体后，消费者才接手返回的临时文件。随后由应用调用已有保存或上传能力并检查其回执。[结果类型](https://unif-design.github.io/react-native-camera/md/api/types.md)
 
-| 任务 | 使用资料 |
-|---|---|
-| 依赖与原生安装 | [getting-started/installation](https://unif-design.github.io/react-native-camera/md/getting-started/installation.md) |
-| 开始拍摄与宿主 | [getting-started/quick-start](https://unif-design.github.io/react-native-camera/md/getting-started/quick-start.md)、[api/use-camera](https://unif-design.github.io/react-native-camera/md/api/use-camera.md) |
-| 调用、替换、取消与媒体归属 | [getting-started/concepts](https://unif-design.github.io/react-native-camera/md/getting-started/concepts.md)、[api/camera-api](https://unif-design.github.io/react-native-camera/md/api/camera-api.md)、[api/types](https://unif-design.github.io/react-native-camera/md/api/types.md) |
-| 照片、录像与水印 | [guides/taking-photos](https://unif-design.github.io/react-native-camera/md/guides/taking-photos.md)、[guides/recording-video](https://unif-design.github.io/react-native-camera/md/guides/recording-video.md)、[guides/watermark](https://unif-design.github.io/react-native-camera/md/guides/watermark.md) |
-| 排障 | [troubleshooting](https://unif-design.github.io/react-native-camera/md/troubleshooting.md) |
-| Mock 与平台验证 | [testing](https://unif-design.github.io/react-native-camera/md/testing.md) |
+## 宿主退出、调用被替换或媒体丢失
 
-## RN 使用边界
+打不开相机时，先查原调用的错误和实际挂载的宿主。媒体丢失时，查文件在哪一轮产生、用户是否已选用，以及谁还在读取。取消、调用接替和宿主卸载都只处理本轮资源。库回收自己尚未交付的文件，已交付文件等实际消费者读完再清理。[取消与替换](https://unif-design.github.io/react-native-camera/md/api/camera-api.md)
 
-拍照、取景、预览和选择优先使用库已有交互。先核对 useCamera、返回的 holder 与 open 的当前公开类型；输入配置和结果采用归调用方。success 表示用户选用了媒体，文件仍是临时文件，保存与上传另行完成。
-
-库只收回本轮拥有且尚未交付的文件；成功交付后由消费者维护文件生命周期。取消、替换调用和宿主卸载需要分别核对，旧调用不能污染新调用。局部拍照或处理失败保留已有媒体，不以失败原图替代合格产物。
-
-源码维护与验证见[任务指引](references/workflows.md)。
+维护时从出错的会话或原生文件处理入手。局部拍照或处理失败要保留已有媒体，只交付满足要求的产物。改变裁切、方向、水印或录像收尾时，检查设备产生的实际文件及消费者能否读取。[维护与媒体验收](references/workflows.md)

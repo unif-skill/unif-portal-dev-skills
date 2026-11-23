@@ -3,6 +3,8 @@
 import io
 import hashlib
 import json
+import os
+import shutil
 import threading
 import tempfile
 import unittest
@@ -238,8 +240,8 @@ class ProgressTests(unittest.TestCase):
                     return io.BytesIO(json.dumps(response('{"selected_skills":["sample"],"reason":"Matches."}')).encode())
 
                 reports: list[evaluator.CaseReport] = []
-                with patch('sys.stderr', logs), patch('urllib.request.urlopen', side_effect=send), patch.object(
-                        evaluator.Snapshot, 'skill_files', return_value={'skills/sample/SKILL.md': b'skill'}):
+                # The snapshots have no skill bodies. Discovery only consumes their catalogs.
+                with patch('sys.stderr', logs), patch('urllib.request.urlopen', side_effect=send):
                     for _ in range(2):
                         report: evaluator.CaseReport = {'id': case['id'], 'skill': case['skill'], 'mode': case['mode'],
                             'source': case['source'], 'rubric': case['rubric'], 'status': 'insufficient',
@@ -348,6 +350,124 @@ def legacy_adoption(root: Path) -> tuple[Path, Path]:
 
 def files_snapshot(root: Path) -> dict[str, bytes]:
     return {str(path.relative_to(root)): path.read_bytes() for path in root.rglob('*') if path.is_file()}
+
+
+class BaselineTests(unittest.TestCase):
+    def run_migration(self, old: list[str], mode: str, replies: list[evaluator.Response], *,
+                      predecessor: str | None = None, forbid_fresh: bool = False,
+                      damaged: str | None = None, declare_baseline: bool = True) -> tuple[evaluator.CaseReport, list[dict[str, object]]]:
+        """Run the public plan/runner with real Git blobs and a bounded, synthetic transport."""
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            _ = evaluator.git(root, 'init', '-q')
+            _ = evaluator.git(root, 'config', 'user.name', 'Test')
+            _ = evaluator.git(root, 'config', 'user.email', 'test@example.invalid')
+
+            def save(names: list[str], candidate: bool) -> str:
+                directory = root / 'skills'
+                if directory.exists():
+                    shutil.rmtree(directory)
+                cases: list[evaluator.Case] = []
+                for name in names:
+                    skill_dir = directory / name
+                    skill_dir.mkdir(parents=True)
+                    _ = (skill_dir / 'SKILL.md').write_text(f'---\nname: {name}\ndescription: Use {name}.\n---\n')
+                    if not candidate and name == damaged:
+                        (skill_dir / 'bad-link').symlink_to('/outside')
+                    for task in evaluator.CASE_MODES:
+                        case: evaluator.Case = {'id': f'{name}-{task}', 'skill': name, 'mode': task,
+                            'prompt': 'Check this input.', 'source': 'fixture', 'fixtures': {}, 'rubric': ['Correct.'],
+                            'required_skills': [name] if task == 'discovery_positive' else [],
+                            'forbidden_skills': [name] if task == 'discovery_negative' else []}
+                        if candidate and name == 'current':
+                            if task == 'application' and declare_baseline:
+                                case['baseline_skill'] = predecessor
+                            if task == 'discovery_positive' and forbid_fresh:
+                                case['forbidden_skills'].append('fresh')
+                        cases.append(case)
+                suite = root / evaluator.SUITE_PATH
+                suite.parent.mkdir(parents=True, exist_ok=True)
+                _ = suite.write_text(json.dumps({'formatVersion': 1, 'cases': cases}))
+                _ = evaluator.git(root, 'add', '.')
+                _ = evaluator.git(root, 'commit', '--allow-empty', '-qm', 'candidate' if candidate else 'baseline')
+                return evaluator.resolve_commit(root, 'HEAD')
+
+            before = save(old, False)
+            after = save(['current', 'fresh'], True)
+            plan = evaluator.create_plan(root, before, after, 'smoke', 'workflow_dispatch', 'all')
+            plan['case_ids'] = ['current-' + mode]
+            output = root / 'results'
+            reports: list[evaluator.Report] = []
+            write_report = evaluator.write_report
+
+            def capture(folder: str | Path, report: evaluator.Report) -> None:
+                write_report(folder, report)
+                reports.append(report)
+
+            requests: list[urllib.request.Request] = []
+            with patch.dict(os.environ, ENV, clear=True), patch('urllib.request.urlopen',
+                    side_effect=fake_http(replies, requests, [])), patch.object(evaluator, 'write_report', side_effect=capture):
+                self.assertEqual(evaluator.run_plan(plan, output), 2)
+            self.assertEqual(len(requests), len(replies))
+            result = reports[0].get('cases', [])[0]
+            traces: list[dict[str, object]] = []
+            for name in result['traces']:
+                trace = evaluator.load_json((output / name).read_bytes())
+                assert evaluator.is_object(trace)
+                traces.append(trace)
+            return result, traces
+
+    def application(self, skill: str) -> list[evaluator.Response]:
+        read = response('', 'tool_calls')
+        read['choices'][0]['message']['tool_calls'] = [{'id': 'read', 'type': 'function', 'function': {
+            'name': 'read_file', 'arguments': json.dumps({'path': f'skills/{skill}/SKILL.md'})}}]
+        return [read, response('Candidate answer'), response('{"criteria":[{"index":0,"passed":true,"reason":"Observed."}]}')]
+
+    def test_application_reads_real_predecessor_or_existing_current_name(self) -> None:
+        for old, expected in [(['prior'], 'prior'), (['prior', 'current'], 'current')]:
+            with self.subTest(baseline=old):
+                report, traces = self.run_migration(old, 'application', self.application(expected) + self.application('current'),
+                                                    predecessor='prior')
+                self.assertEqual(report.get('completed_pairs'), 1)
+                self.assertEqual([t['skill'] for t in traces], [expected, 'current'])
+                self.assertEqual(traces[0]['case_sha256'], traces[1]['case_sha256'])
+                self.assertTrue(all(t['skill_loaded'] and t['scores'] == [True] for t in traces))
+
+    def test_absent_application_and_unavailable_discovery_names_keep_only_candidate(self) -> None:
+        selected = response('{"selected_skills":["current"],"reason":"Matches the request."}')
+        omitted = response('{"selected_skills":[],"reason":"Only a status query."}')
+        for old, mode, forbid, replies in [(['prior'], 'application', False, self.application('current')),
+                (['prior'], 'discovery_positive', False, [selected]), (['prior'], 'discovery_negative', False, [omitted]),
+                (['current'], 'discovery_positive', True, [selected])]:
+            with self.subTest(mode=mode, before=old):
+                report, traces = self.run_migration(old, mode, replies, forbid_fresh=forbid)
+                self.assertTrue(report.get('candidate_only'))
+                self.assertEqual(report.get('candidate_completed'), 1)
+                self.assertEqual(report.get('completed_pairs'), 0)
+                self.assertEqual((report.get('observed_wins'), report.get('observed_losses')), (0, 0))
+                self.assertIn('基线', report.get('reason', ''))
+                self.assertEqual([t['variant'] for t in traces], ['after'])
+                self.assertTrue(traces[0]['answer'])
+                self.assertEqual(traces[0]['scores'], [True, True] if forbid else [True])
+
+    def test_damaged_predecessor_is_rejected_before_model_requests(self) -> None:
+        report, traces = self.run_migration(['prior'], 'application', [], predecessor='prior', damaged='prior')
+        self.assertIn('符号链接', report.get('reason', ''))
+        self.assertEqual(traces, [])
+
+    def test_undeclared_missing_baseline_preserves_zero_request_behavior(self) -> None:
+        report, traces = self.run_migration(['prior'], 'application', [], declare_baseline=False)
+        self.assertIn('缺少技能', report.get('reason', ''))
+        self.assertFalse(report.get('candidate_only', False))
+        self.assertEqual(traces, [])
+
+    def test_predecessor_only_accepts_an_application_skill_name(self) -> None:
+        data: dict[str, object] = {'id': 'sample', 'skill': 'sample', 'mode': 'application',
+            'prompt': 'Test', 'source': 'fixture', 'fixtures': {}, 'rubric': ['Test'],
+            'required_skills': ['sample'], 'forbidden_skills': []}
+        for mode, name in [('application', '../prior'), ('application', 3), ('discovery_positive', 'prior')]:
+            with self.subTest(mode=mode, name=name), self.assertRaisesRegex(evaluator.EvalError, 'baseline_skill'):
+                _ = evaluator.validate_case(data | {'mode': mode, 'baseline_skill': name}, ['sample'], set())
 
 
 class PluginLayoutTests(unittest.TestCase):

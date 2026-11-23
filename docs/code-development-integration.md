@@ -4,4 +4,4 @@
 
 例如，Portal 的工程入口链接到采用的[平台架构](https://github.com/unif-design/unif-platform-architecture/blob/main/ARCHITECTURE.md)和[开发状态](https://github.com/unif-design/unif-platform-architecture/blob/main/STATUS.md)，模块文档给出真实接线与验证入口。原生鸿蒙库核对采用版本的 HAR 实际导出。
 
-Unif RN 库的组织接入使用 unif-code-delivery 随附的非敏感组织资产，复制到工程的 `.github/organization.json`。已有 `.github/delivery.json` 和 `.github/scripts/check-delivery.cjs` 时按本库定义检查。该组织资产仅适用于 RN 库，私钥与令牌保留在平台。
+Unif RN 库接入 GitHub 工程设施时，使用 `uni-github-delivery-setup` 和 Unif 交付技能随附的非敏感组织资产，复制到工程的 `.github/organization.json`。已有 `.github/delivery.json` 和 `.github/scripts/check-delivery.cjs` 时按本库定义检查。该组织资产仅适用于 RN 库，私钥与令牌保留在平台。

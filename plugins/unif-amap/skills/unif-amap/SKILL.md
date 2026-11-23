@@ -1,30 +1,28 @@
 ---
 name: unif-amap
-description: 在查询、接入、维护或排查 @unif/react-native-amap 的地图选点、定位、地点查询、高德应用唤起及宿主接入时使用。不用于其他地图库或原生鸿蒙地图接口。
+description: 接入 @unif/react-native-amap 的高德选点、定位或地点查询，排查 RN 宿主和高德应用唤起问题。其他地图库和原生鸿蒙地图接口另查对应库。
 metadata:
   package: "@unif/react-native-amap"
 ---
 
 # Unif AMap
 
-先核对实际依赖、锁文件、package.json 的公开入口与类型。[官网索引](https://unif-design.github.io/react-native-amap/llms.txt) 标明文档构建版本；与采用版本不同时，使用对应包或已核实修订的资料。目标设计不证明当前包已有能力。
+先按应用锁文件和包根导出确认实际版本。本地资料在 `website/docs`，官网构建版本不同时，查对应修订的公开类型。[官网版本与操作索引](https://unif-design.github.io/react-native-amap/llms.txt)
 
-## 按任务读取
+## 接入地图或选点
 
-有库工作区时从 website/docs 读取对应页；没有时使用下列资料，不预读整站。
+从应用已有的权限、键盘、外部 URL 能力接入 `configureAmapHost`，取得真实隐私同意后才初始化高德。纯地图展示使用所用版本的底层地图组件。需要用户选点时，可直接渲染 `MapPicker`。函数式选点先挂载 `MapPickerHost`，再调用 `openMapPicker`。确认选择后，再由应用保存。[快速开始与宿主配置](https://unif-design.github.io/react-native-amap/md/quick-start.md)
 
-| 任务 | 资料 |
+## 取消选点后重开，出现了上次的地点
+
+先查原调用的搜索或候选结果由谁采用。对照视野、查询中心、候选、待选和最终确认，区分程序移动视野与用户拖动。关闭或接替后，旧回调不能覆盖新选择。[事件与结果类型](https://unif-design.github.io/react-native-amap/md/api.md)
+
+## 定位、地点查询和外部唤起
+
+| 操作 | 可以从结果判断什么 |
 |---|---|
-| 安装、隐私初始化与权限／键盘宿主 | [快速开始](https://unif-design.github.io/react-native-amap/md/quick-start.md) |
-| 选点组件、函数式调用与控制器 | [API](https://unif-design.github.io/react-native-amap/md/api.md) 的 MapPicker 部分 |
-| 单次／持续定位、地点查询、外部高德 | [API](https://unif-design.github.io/react-native-amap/md/api.md) 对应部分 |
-| SDK 补丁、原生配置与验证 | [原生宿主](https://unif-design.github.io/react-native-amap/md/native-host.md) |
-| 源码维护与真实消费者 | [任务指引](references/workflows.md) |
+| 持续定位 | `subscribed` 表示订阅已建立，位置要等本轮观测。旧句柄只能停止原观察。 |
+| 地点查询 | 按传入的坐标系和参数发一次请求。定位、补查和翻页由调用方显式发起。 |
+| 唤起高德 | 打开成功只表示系统已接收请求。异常时查系统能否处理该链接及实际打开结果。 |
 
-## 使用边界
-
-复用应用已有权限、键盘和外部 URL 能力，通过 configureAmapHost 接线；隐私同意由应用持有，取得真实同意后才初始化高德。选点使用 MapPicker 或 MapPickerHost/openMapPicker；纯地图展示按库文档使用底层地图组件，不额外引入选点流程。
-
-视野、查询中心、候选、待选和最终确认分别按公开契约交接。移动相机不等于用户拖图；success 只表示确认选择，业务保存属于应用。取消、替换和关闭后的迟到结果不能污染新调用。
-
-定位、查询和外部应用唤起是不同操作。查询不隐式定位、补查或自动翻页；采用真实坐标系与返回字段。持续定位的 subscribed 不证明已经取得位置，旧句柄不能停止新观察。外部应用打开成功只表示系统接收交接。
+维护控制器或原生调用时，先定位真实消费者，并核对宿主实际使用的 SDK 补丁。用取消重开和迟到回调验证选择归属，在实际设备检查键盘、手势、定位与地点查询。[原生宿主与补丁](https://unif-design.github.io/react-native-amap/md/native-host.md) · [维护与验证](references/workflows.md)

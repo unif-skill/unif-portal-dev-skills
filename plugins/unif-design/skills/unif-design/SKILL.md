@@ -1,6 +1,6 @@
 ---
 name: unif-design
-description: 在查询、接入、维护或排查 @unif/react-native-design 或 @unif/harmony-design 的基础组件、主题、字体、玻璃表面、UI 宿主及鸿蒙目标契约时使用。
+description: 查找或维护 @unif/react-native-design 的基础组件、主题和弹层，排查字号、玻璃材质或宿主显示问题。原生鸿蒙对应 @unif/harmony-design 的公开导出与目标契约。
 metadata:
   package: "@unif/react-native-design"
   harmony_package: "@unif/harmony-design"
@@ -8,25 +8,20 @@ metadata:
 
 # Unif Design
 
-原生鸿蒙的基础 UI、主题与展示宿主见[鸿蒙契约与实际库入口](references/harmony.md)。
+在 RN 页面找组件时，先查应用锁定版本的包导出和公开类型，按组件名称查看用法。本地文档在 `website/docs`，官网索引标明文档对应的版本。[组件目录](https://unif-design.github.io/react-native-design/md/components/overview.md) · [官网索引](https://unif-design.github.io/react-native-design/llms.txt)
 
-## React Native
+原生鸿蒙从 HAR 清单的 `main` 查起。如果入口只有 `export {};`，只能说明目标组件的职责和实现缺口。有实际导出后，再核对其原生参数与消费者。[鸿蒙公开入口与目标契约](references/harmony.md)
 
-按锁定版本的包导出和公开类型核对下列资料。本地文档位于 `website/docs`，线上文档的构建版本见[官网索引](https://unif-design.github.io/react-native-design/llms.txt)。
+## 在页面接入组件
 
-| 任务 | 使用资料 |
+先看页面已有的 Provider、弹窗宿主和组件。输入框把新值交还页面，确认框返回用户选择，后续业务动作由页面执行。主题和字体设置也由应用保存。需要图标时，从所用图标包的公开入口取对应版本的图标。[Provider 与宿主](https://unif-design.github.io/react-native-design/md/getting-started.md)
+
+## 定位显示问题
+
+| 现象 | 检查位置 |
 |---|---|
-| 安装、Provider 与宿主 | [getting-started](https://unif-design.github.io/react-native-design/md/getting-started.md) |
-| 寻找已有组件与组合 | [components/overview](https://unif-design.github.io/react-native-design/md/components/overview.md) |
-| 主题颜色与字体缩放 | [design/tokens/colors](https://unif-design.github.io/react-native-design/md/design/tokens/colors.md)、[design/tokens/typography](https://unif-design.github.io/react-native-design/md/design/tokens/typography.md) |
-| 输入、图片和底部内容面板 | [components/input](https://unif-design.github.io/react-native-design/md/components/input.md)、[components/textarea](https://unif-design.github.io/react-native-design/md/components/textarea.md)、[components/image-preview](https://unif-design.github.io/react-native-design/md/components/image-preview.md)、[components/sheet](https://unif-design.github.io/react-native-design/md/components/sheet.md) |
-| 确认、提示与玻璃表面 | [components/confirm](https://unif-design.github.io/react-native-design/md/components/confirm.md)、[components/toast](https://unif-design.github.io/react-native-design/md/components/toast.md)、[components/glass-layer](https://unif-design.github.io/react-native-design/md/components/glass-layer.md) |
-| 测试接入与故障 | [testing](https://unif-design.github.io/react-native-design/md/testing.md)、[troubleshooting](https://unif-design.github.io/react-native-design/md/troubleshooting.md) |
+| 应用字号放大了两次 | 从 Provider 的 `fontScale` 追到最终文字样式，确认应用字体系数只作用一次。[字体缩放](https://unif-design.github.io/react-native-design/md/design/tokens/typography.md) |
+| 颜色、间距或玻璃效果异常 | 对照页面实际使用的主题、组件样式和平台降级效果。[玻璃表面](https://unif-design.github.io/react-native-design/md/components/glass-layer.md) |
+| 确认框或提示没有出现 | 查发起调用的窗口以及该窗口能接收请求的 Confirm 或 Toast 宿主。[常见问题](https://unif-design.github.io/react-native-design/md/troubleshooting.md) |
 
-## RN 使用边界
-
-先查已有组件，再核对公开类型、示例和宿主。组件负责展示与必要 UI 状态，业务值、动作及主题／字体持久化归应用；应用字体系数在所属出口只处理一次。
-
-颜色、间距和材质问题先检查所用主题、样式及组合；普通内部修改保留交互、可访问性及平台降级。涉及图标包时核对其采用版本的公开资料。
-
-源码维护与验证见[维护与组件验收](references/maintenance.md)。
+修改库时，从出现问题的组件和实际使用它的页面入手。涉及共享主题或类型，再核对受影响组件。在消费者页面核对中文与系统大字号，分别观察文字、图标和控件尺寸，再检查触达区域、读屏和平台降级。[维护与组件验收](references/maintenance.md)

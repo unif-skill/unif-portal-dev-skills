@@ -90,8 +90,11 @@ def owner(topic: str) -> str:
     if platform == 'harmony' and name.removesuffix('.md') in LIBRARIES:
         library = 'unif-' + name.removesuffix('.md')
         return f'{library}/skills/{library}'
-    package = 'react-native' if platform == 'rn' else platform
-    return f'unif-{package}-skills/skills/unif-{platform}-dev'
+    return {
+        'rn': 'unif-react-native-skills/skills/unif-rn-project',
+        'harmony': 'unif-harmony-skills/skills/unif-harmony-project',
+        'python': 'unif-python-skills/skills/unif-python-service',
+    }[platform]
 
 
 class SourceSection(TypedDict):

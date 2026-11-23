@@ -1,30 +1,22 @@
 ---
 name: unif-architecture-design
-description: 在 Unif Portal、相关 Agent／Channel／CLI 及 @unif RN／原生鸿蒙库设计或评审模块职责、场景组合、状态归属和公共契约时使用。单纯查阅现有接口不触发架构设计。
+description: 需要为 Unif 应用、服务、CLI 或 @unif 库设计或评审模块职责、状态归属和公共接口时使用。跨仓字段已经定稿后，实施或审查该改动使用契约变更技能。
 ---
 
-# 架构与模块设计
+# Unif 架构与模块设计
 
-文中用代码标出的公共主题路径从 `$unif-platform-rules` 读取。
+从用户实际进入的页面、助手或命令开始，说明用户要完成什么、已有能力能完成哪部分，哪些职责或公开输入输出需要调整。按任务或工程指定的规范修订判断。
 
-设计依据包括目标契约、候选方案的事实前提和实际消费者。范围、职责或契约变化按调整依据（`references/architecture/scope.md#11-设计依据与适用范围`）处理。
+## 找到拥有状态和执行动作的一方
 
-## 依据
+先沿现有调用找出谁准备输入、谁让用户选择或确认、谁能决定业务结果。两个入口要复用同一操作时，核实它们能否提供该操作需要的输入。已有操作会创建或提交数据时，要先确认这些副作用符合另一个入口的用途。公共规则见 `$unif-platform-rules` 的 `references/architecture/responsibilities.md` 和 `references/architecture/composition.md`。
 
-优先采用任务或工程指定的规范版本；未指定时按设计对象选读平台规范主题。已有依据在版本、适用条件和覆盖范围不变时复用；条件变化时补充核对受影响的部分：
+状态会保存、恢复或跨模块交接时，明确接收方何时已经采用结果。发起方关闭页面后谁继续处理，取决于状态所有者和业务契约。跨端能力还要核对各自的原生出口和宿主。同一处公共规则中的 `references/architecture/state.md` 与 `references/architecture/contracts.md` 定义了这些边界。
 
-- 需求、范围与现有实现：设计依据（`references/architecture/scope.md`）、[模块文档](references/architecture/documentation.md)。
-- 调用、输入准备与结果复用：能力、场景与入口（`references/architecture/composition.md`）；系统职责：系统边界（`references/architecture/responsibilities.md`）。
-- 状态、持久化、恢复、业务唯一性与异步交接：状态归属（`references/architecture/state.md`）；交互确认：入口确认（`references/architecture/composition.md`）。
-- 自然语言任务与记忆：[智能体与上下文](references/architecture/agent-context.md)；多助手接入同时核对系统边界（`references/architecture/responsibilities.md`），区分超级智能体路由、助手协议适配和领域业务处理，目录按目标工程采用。
-- 跨边界输入输出、业务成功、取消与未确认结果：交接契约（`references/architecture/contracts.md`）。
-- 第三方技术采用依据、依赖与复用：依赖治理（`references/architecture/verification.md#71-依赖治理`）；测试与消费者：测试责任（`references/architecture/verification.md#72-测试责任`）；回归选择：变更影响（`references/architecture/verification.md#73-变更影响`）。
-- 调用与模型成本：[成本验证](references/architecture/cost.md)。
+涉及自然语言或多助手时，分别核对超级智能体的路由、助手协议和领域决策，确定各方实际需要的上下文。[智能体与上下文](references/architecture/agent-context.md)
 
-模块契约确定公共名称与语义；RN／原生鸿蒙的应用、库与共享核心分别确认职责、消费者和运行边界，不以同名推定接口或实现兼容。平台组织与 SDK 约束从目标工程已采用的规范和当前配置取得。未定部分标明草案及影响范围。资料缺口只限制依赖它的设计。
+## 让实现者能按设计验收
 
-## 应用
+写清要保留的行为、改变它的依据、受影响的调用与资源，以及各消费者可以观察到的验收结果。依据和适用范围见 `$unif-platform-rules` 的 `references/architecture/scope.md#11-设计依据与适用范围`。需要换依赖或比较调用成本时，分别查看 `references/architecture/verification.md#71-依赖治理` 和[成本验证](references/architecture/cost.md)。
 
-写明已有能力能否满足需要、新增或替换的依据，以及受影响的调用和资源如何迁移。
-
-按所选规范核对职责、交接、状态和验证范围，设计产物满足最小验收依据（`references/architecture/verification.md#74-设计交付的最小依据`）。已有契约覆盖的等价内部调整沿用有效设计，不重启设计或另建同义模板，也不以假设的新需求阻断这些工作。
+已知问题只影响某个入口时，标明该项还缺什么事实，并完成其余已有依据支持的决定。按 `references/architecture/verification.md#74-设计交付的最小依据` 和[领域文档要求](references/architecture/documentation.md)记录决定。跨仓字段形状已经确定后，用 `unif-contract-change` 实施或审查对应改动。

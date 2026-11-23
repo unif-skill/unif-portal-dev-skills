@@ -85,7 +85,8 @@ class SnapshotTests(unittest.TestCase):
 
     def platform_refs(self, platform: str) -> Path:
         package = 'react-native' if platform == 'rn' else platform
-        return self.refs(f'unif-{package}-skills/skills/unif-{platform}-dev')
+        skill = 'unif-python-service' if platform == 'python' else f'unif-{platform}-project'
+        return self.refs(f'unif-{package}-skills/skills/{skill}')
 
     def library_refs(self, name: str) -> Path:
         return self.refs(f'unif-{name}/skills/unif-{name}')

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif 鸿蒙代码开发"
-  short_description: "按 Unif 企业契约开发 ArkTS、ArkUI 与 HAR，核对原生资源和消费者"
-  default_prompt: "使用 $unif-harmony-dev 依据工程有效契约完成原生鸿蒙实现与验证。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

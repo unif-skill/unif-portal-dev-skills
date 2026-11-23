@@ -2,9 +2,10 @@
 
 使用中文交流。
 
-- 先核对当前 spec、计划、实际目录和未提交修改；技能维护使用 skill-creator、writing-skills，文档维护使用 uni-documentation。
+- 先核对当前 spec、计划、实际目录和未提交修改；技能维护使用 skill-creator、writing-skills 和 `uni-skill-authoring`，文档维护使用 uni-documentation。
 - 按当前任务和采用版本维护技能。已有业务契约与验收结论按其适用范围保留，资料重排不改变业务行为或扩大授权。
 - Unif 共享规范在 unif-platform-architecture 维护，由 scripts/sync_architecture.py 按主题直接写入所属插件。跨插件共用规范由 unif-platform-rules 提供，平台和库的专项规则由各自插件承接。订单等业务细节在专项文档维护，跨项目通用方法沿用 Uni 技能。
+- 维护技能时先核对[工程技能目录与 Uni 分工](README.md#与-uni-技能的职责分工)，把项目采用、消费者和验收写入相应 Unif 技能。
 - RN 专题只承接 Unif 的目录与环境采用、库选型、业务及视觉契约和实际消费者验收。React／Hooks、通用文件组织、平台安装调试、测试选择及库工程流程由通用标准维护，具体任务按需选用对应通用技能。
 - 鸿蒙专题只承接 Unif 项目采用、模块职责、业务契约和具体消费者验收。ArkTS／ArkUI、SDK 支持表、状态机制与 HAR 工程流程由通用标准维护，不在本仓另写或生成平台通用正文。
 - 每个插件的 `plugins/<插件名>/skills/` 是该插件唯一的技能维护与分发目录。全部插件与根清单统一版本。

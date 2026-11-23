@@ -1,6 +1,6 @@
 ---
 name: unif-logger
-description: 在查询、接入、维护或排查 @unif/react-native-logger、@unif/harmony-logger 的公开 API、运行时、脱敏、关联、私有存储和快照交接时使用。通用日志规范、Python 日志及其他日志框架不单独触发。
+description: 接入或排查 @unif/react-native-logger 和原生鸿蒙 @unif/harmony-logger 的日志运行时、身份关联、脱敏、私有存储与诊断快照。通用日志规范、普通 Python 日志和其他日志框架另查各自资料。
 metadata:
   package: "@unif/react-native-logger"
   harmony_package: "@unif/harmony-logger"
@@ -8,25 +8,20 @@ metadata:
 
 # Unif Logger
 
-按宿主使用的平台和锁定版本核对日志包的公开出口，采用版本与官网不同则读对应修订。
+RN 使用 `/files` 文件入口，Web 同一入口采用有界内存。查询公开接口时先看应用锁定版本，和官网构建版本不同时，查对应包或修订。[RN 与 Web 接入](references/rn.md) · [官网索引](https://unif-design.github.io/react-native-logger/llms.txt)
 
-## 按平台查阅
+原生鸿蒙从 HAR 的 `/Files` 取文件能力，共享核心按 `logger-source.json` 记录的修订核对导出。[鸿蒙公开入口与接入](references/harmony.md)
 
-| 目标 | 资料 |
-|---|---|
-| RN／Web 根入口、`/files` 与实际消费者 | [RN 指引](references/rn.md)、[RN 官网索引](https://unif-design.github.io/react-native-logger/llms.txt) |
-| 原生鸿蒙根入口、`/Files`、HAR 与共享核心 | [鸿蒙指引](references/harmony.md)、[HAR 包文档](https://github.com/unif-design/harmony-logger/blob/main/library/README.md) |
+## 让业务日志使用已有运行时
 
-## 接入与生命周期
+宿主统一安装运行时，管理策略、身份和私有存储。业务模块复用公开 logger，在操作开始时固定关联上下文，始终绑定原身份、原运行时和进程。使用公开字段和脱敏方式，凭据在进入日志接口前剔除，业务正文按宿主策略处理。[日志字段与格式](https://unif-design.github.io/react-native-logger/md/FORMAT.md)
 
-宿主持有一套运行时及其策略、存储和身份，生产者复用公开 logger；不在各业务模块另装运行时、建日志目录或切换账号。创建操作时固定上下文，核对异步与身份切换后的有效性，不跨身份、运行期或进程复用上下文对象。字段和安全原因使用所采用版本的公开能力，不自行解析任意异常文字或复制 formatter。
+主字段、附日志和快照各用所属接口。遇到分类大内容需求，先核对采用版本能否采集、索引、读取、限额和释放。具体缺口交给宿主或库维护者，沿用原有文件管理。
 
-主日志字段、附日志和快照分别按真实 API 交接。需求涉及分类大内容时，先核对采用版本是否提供采集、索引、读取、容量和释放能力；缺少能力明确报告给宿主或库维护范围，不把快照接口冒充单次大内容存储，也不在业务层补写第二套文件管理。凭据不交给任一日志接口，业务正文按宿主治理策略处理。
+## 日志未落盘或快照不能读
 
-`captureError` 返回文本不证明落盘，`flush` 或 `setOwner` 完成仍需核对健康状态。日志失败不能改变业务成功、异常或重试；对接口的返回、抛错和健康信息按采用版本处理，不递归写失败通道。
+- **写入**　从生产者追到存储。`captureError` 返回文本只表明规范化完成，`flush` 或 `setOwner` 结算后仍查健康状态。记录故障时保留原业务结果和重试行为，避免递归写入同一失败通道。
+- **清理或切换身份**　`clear` 保留活跃快照，要看实际清理结果。切换身份或 `dispose` 会使未交付的快照句柄失效。
+- **交给分享或上传方**　`takeSnapshotFile` 成功后，文件归接收方。即使切换账号，也要等对方实际读完再调用 `file.release`。[快照与文件交接](https://unif-design.github.io/react-native-logger/md/api/files.md)
 
-未交付快照、已交付文件和源日志分别管理。`clear` 保留活跃快照；身份切换和 `dispose` 使未交付快照失效，不提前删除已交付文件。`takeSnapshotFile` 转移所有权后，等待接收方实际读取结束再调用 `file.release`，分享面板打开或上传取消不证明已经读完。
-
-## 验证与交付
-
-沿生产者、运行时、私有存储和实际读取消费者核对关联、脱敏、健康状态与资源释放，覆盖旧身份、迟到写入及存储失败。查询版本或接口不执行真实日志导出、上传或安装。源码／替身、实际包或 HAR 消费、平台构建、设备文件行为和发布安装分别报告；共享测试不证明另一平台已发布或真实磁盘可用。
+维护时从故障所在的平台适配或共享核心入手，用实际生产者和文件接收方核对脱敏、关联、旧身份写入、存储失败及清理后的释放。HAR 消费、设备私有文件和发布后安装分别取证。[RN 源码维护](https://unif-design.github.io/react-native-logger/md/DEVELOPMENT.md) · [鸿蒙核心生成](https://github.com/unif-design/harmony-logger/blob/main/docs/DEVELOPMENT.md)

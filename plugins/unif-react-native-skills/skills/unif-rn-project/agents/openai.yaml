@@ -1,0 +1,6 @@
+interface:
+  display_name: "Unif React Native 工程"
+  short_description: "核对 Portal 页面、H5 和原生宿主如何使用同一项 RN 能力。"
+  default_prompt: "使用 $unif-rn-project 核对本次 React Native 变更的工程采用、状态交接及消费者验收。"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"

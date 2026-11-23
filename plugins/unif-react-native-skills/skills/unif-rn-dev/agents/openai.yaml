@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif RN 代码开发"
-  short_description: "按客户端契约实现状态与资源交接，保留必要故障证据"
-  default_prompt: "使用 $unif-rn-dev 依据工程有效契约完成 React Native 实现与验证。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

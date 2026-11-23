@@ -53,7 +53,7 @@
 
 ### 7.2.1 日志与故障诊断
 
-Unif 各运行工程采用通用[错误与诊断原则](https://github.com/unif-skill/uni-skills/blob/main/skills/uni-code-organization/references/functions-and-async.md#错误与诊断)，本节维护公共接入、字段、附日志与验收约定。日志责任随功能开发、修改、重构和审查一并落实；SDK 专项文档只说明采用版本的具体接口。
+Unif 各运行工程采用通用[错误与诊断原则](https://github.com/unif-skill/uni-skills/blob/main/skills/uni-code-change/references/functions-and-async.md#错误与诊断)，本节维护公共接入、字段、附日志与验收约定。日志责任随功能开发、修改、重构和审查一并落实；SDK 专项文档只说明采用版本的具体接口。
 
 验收目标是一次问题发生后，能用当时已有记录串起原请求、关键阶段、失败判断和可取得的原因；不能以再次复现并临时加日志作为常规前提。外部调用、模型与协议转换或校验、持久化、异步交接、降级恢复需有对应证据。纯取值、样式、渲染和正常预期分支不机械新增日志；业务结果和技术异常按契约区分。主日志、链路关联与分类附日志按以下条件选用，不要求每个功能或改动产生三份记录；开发任务未提“日志”也须检查本次实际涉及的责任边界。
 

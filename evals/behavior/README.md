@@ -1,35 +1,48 @@
 # CI 自包含行为题库
 
-本目录为 Unif Portal Dev Skills 的只读 CI 输入，覆盖本市场 23 个技能的发现与资料应用。它补充现有评测，不替代原始题目、人工判据、冻结源码清单或历史记录。
+本目录为 Unif Portal Dev Skills 的只读 CI 输入，覆盖本市场 18 个技能的发现与资料应用。它补充现有评测，不替代原始题目、人工判据、冻结源码清单或历史记录。
 
 ## 选题范围
 
-当前技能按市场所列插件目录选题。对比旧提交时，评测器沿用当时的技能位置。基线、候选与受影响题目的选择见 [Uni 评测器的选题规则](https://github.com/unif-skill/uni-skills/blob/b4ed832fa887bf8facae3715395c1327f1738a50/evals/behavior/README.md#选题范围)。
+当前技能按市场所列插件目录选题。评测器用同一题面、素材和判据比较两次修订，基线资料按照下表选择。
+
+| 应用题在基线中的情况 | 取用哪些资料 |
+|---|---|
+| 已有题目 `skill` 指定的现名 | 从基线读现名的技能，与候选配对。 |
+| 当时使用旧名，原题和判据仍可追溯 | 在应用题填写可选的 `baseline_skill`，用该旧入口配对。以后基线已有现名时自动使用现名。 |
+| 全新技能，没有前身，明确要评候选 | 写 `"baseline_skill": null`。记录候选侧作答和判据，跨版本改善仍缺基线证据。 |
+| 基线没有现名，题目也没有声明 `baseline_skill` | 保留证据不足，跳过这道应用题的模型请求。 |
+
+RN、原生鸿蒙和 Python 共 12 道平台应用题分别关联到原开发、测试或审查入口，包括 Python 的三道助手专项。新建的 `unif-contract-change` 应用题显式使用 `null`，单独记录候选证据。
 
 ## 覆盖与执行边界
 
 | 来源组 | 应用 | 正例 | 反例 | 合计 |
 | --- | ---: | ---: | ---: | ---: |
-| 架构、交付及 RN/鸿蒙/Python 开发、测试、审查 | 11 | 11 | 11 | 33 |
+| 架构设计 | 4 | 1 | 1 | 6 |
+| 已授权交付 | 1 | 1 | 1 | 3 |
+| 跨仓契约变更 | 1 | 1 | 1 | 3 |
+| RN 工程 | 3 | 3 | 2 | 8 |
+| 原生鸿蒙工程 | 3 | 3 | 3 | 9 |
+| Python 服务 | 6 | 4 | 1 | 11 |
 | Unif 平台规范 | 1 | 1 | 1 | 3 |
-| 11 个库能力技能 | 11 | 11 | 11 | 33 |
-| 原生库补充：Icons、Design、Chat、Camera、HMS Scan、Umeng、Logger | 7 | 0 | 0 | 7 |
-| 已有能力复用与任务接续 | 1 | 0 | 0 | 1 |
-| Python 智能体、领域能力与类型检查 | 3 | 0 | 0 | 3 |
-| 调整依据与用户确认 | 2 | 0 | 0 | 2 |
-| 合计 | 36 | 23 | 23 | 82 |
+| 11 个库能力技能（含 7 个原生库应用题） | 18 | 11 | 11 | 40 |
+| 合计 | 37 | 25 | 21 | 83 |
 
-每技能至少有一项应用、发现正例和发现反例。流程题沿用 `<skill>-<mode>`；库题保留 `app-unif-*`、`pos-unif-*`、`neg-unif-*`、`native-unif-*` 的稳定题号。
+每个技能均有应用题、发现正例和反例。平台应用题保留原实现、测试、审查各自的 fixtures 及业务判据。Python 另外覆盖助手接入的三种任务和 Worker 配置的审查选择。库题沿用稳定题号和冻结的库源码节选。
 
-CI 应用题提供目标技能、固定题面和 fixtures。插件内的技能若直接链接同包其他技能的专项资料，按原链接提供所需文件。公共插件的题评测跨插件共用规则；业务插件与公共插件的协同另用全新组合安装验证。首次引入新技能时，缺少该技能的旧基线无法进行同技能配对，由运行器记录为证据不足。资料中的代码、diff、合成事件和记录是只读评测材料，不是可构建工程或实际运行结果。
+CI 应用题提供目标技能、固定题面和 fixtures。插件内的技能若直接链接同包其他技能的专项资料，按原链接提供所需文件。公共插件的题评测跨插件共用规则，业务插件与公共插件的协同另用全新组合安装验证。资料中的代码、diff 和合成事件用于书面判断，实际工程执行另行验证。
 
-发现模式只给本包 name/description、自然请求和必要题内事实，不给技能正文。只评价 `required_skills` 与 `forbidden_skills` 的本包约束；未列约束的选择不按数量机械惩罚。纯接口查询的库正例明确排除开发、测试、变更审查、架构与交付误触发；阶段正反例按原任务范围评价，不因提到“测试绿色”或“CI 状态”自动进入其他阶段。本包反例通过不证明外包替代技能被正确发现。
+发现模式只提供当时目录中的名称、描述、自然请求和必要题内事实。按 `required_skills` 与 `forbidden_skills` 判断本包选择。若基线缺少题目要求选取或排除的任何技能名称，只记录候选侧结果，跨版本比较保留为证据不足。
+
+未列约束的选择不按数量评分。按实际平台契约判断工程技能是否适用，单独记录“测试绿色”或“CI 状态”等词引起的误选。外部插件的发现另行评测。
 
 ## 来源与适配
 
 | CI 素材 | 原有依据 | 适配方式 |
 | --- | --- | --- |
-| 11 个流程技能的 33 题 | [独立技能题](../independent-skills/cases.md)、对应 RN/Python/鸿蒙行为与触发题，以及架构/交付题；各题 `source` 精确定位 | 依据对应原题适配为 CI 匿名 fixtures，保留契约、代码场景与语义判据；发现集合限定本包 |
+| 架构、交付及三项平台工程的任务题 | [独立技能题](../independent-skills/cases.md)、对应 RN/Python/鸿蒙行为与触发题，以及架构/交付题；各题 `source` 精确定位 | 依据对应原题适配为 CI 匿名 fixtures，保留契约、代码场景与语义判据；发现集合限定本包 |
+| 已确定的跨仓契约变更 | [跨工程契约交付](https://github.com/unif-design/unif-platform-architecture/blob/main/runtime/contract-delivery.md)及题内合成的生产、转交和恢复材料 | 区分模型与公开字段、严格新写入与旧草稿恢复、初始化与现有数据库，另检验现行规则查询的发现边界 |
 | Design、Chat、Icons、Camera、HMS Scan、Umeng | [库能力 A–F 与发现题](../library-skills/cases.md)、[冻结来源](../independent-skills/capability-fixtures.json) | 采用固定修订的必要文档/公开入口节选，加匿名消费草案；不复制全库源码 |
 | AMap、Files、Logger、OSS、Speech | [K1–K5](../library-skills/additional-library-cases.md)、[来源清单](../library-skills/additional-library-fixtures.json) | 将完整 example/实现追踪收窄为资料应用；保留取消、回执、身份、文件/设备释放的判断 |
 | 原生六库 | [HN1–HN6](../library-skills/harmony-library-cases.md)、[来源清单](../library-skills/harmony-library-fixtures.json) | 提供必要包入口、状态、公开参数或目标规范节选；保持冻结版本实际能力 |
@@ -66,9 +79,16 @@ CI 应用题提供目标技能、固定题面和 fixtures。插件内的技能�
 
 在本仓根目录执行[本地校验与运行手册](https://github.com/unif-skill/uni-skills/blob/b4ed832fa887bf8facae3715395c1327f1738a50/evals/behavior/README.md#本地校验与运行)中的命令，基线与候选使用本仓修订。评测器、测试和工作流按[采用清单](../../scripts/evaluation-tools.json)同步，CI 读取本仓副本及题库。
 
-升级运行器时，复核上方运行手册的对应修订。从本地 Uni 维护源执行同步入口，先比较再按授权更新。既有受管文件与摘要不符，或新纳管路径存在不同的本地文件时停止，保留本地修改：
+升级运行器前，先比较本仓采用的文件和 Uni 维护源。该检查只读。
 
 ```sh
 python /path/to/uni-skills/scripts/sync_evaluation_tools.py --source /path/to/uni-skills --target . --check
+```
+
+同步工具还会采用两份正式联合评测输入。本次只更新运行器、保留现有冻结目录和题库时，从本仓根目录执行下列命令。两份输入逐字节相同时才会执行同步。新一轮联合冻结完成后，按该轮确定的目录与配套题库一起采用。
+
+```sh
+cmp evals/joint-discovery/catalog.json /path/to/uni-skills/evals/joint-discovery/catalog.json &&
+cmp evals/joint-discovery/cases.json /path/to/uni-skills/evals/joint-discovery/cases.json &&
 python /path/to/uni-skills/scripts/sync_evaluation_tools.py --source /path/to/uni-skills --target .
 ```

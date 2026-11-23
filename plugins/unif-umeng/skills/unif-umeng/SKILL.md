@@ -1,6 +1,6 @@
 ---
 name: unif-umeng
-description: 在查询、接入、维护或排查 @unif/react-native-umeng 或 @unif/harmony-umeng 的隐私同意后初始化、统计、分享、平台回调及鸿蒙目标契约时使用。
+description: 接入或维护友盟统计和渠道分享，定位隐私同意后的初始化、分享弹层与平台回调问题。RN 对应 @unif/react-native-umeng，原生鸿蒙覆盖 @unif/harmony-umeng 的目标契约与实际导出。
 metadata:
   package: "@unif/react-native-umeng"
   harmony_package: "@unif/harmony-umeng"
@@ -8,27 +8,22 @@ metadata:
 
 # Unif Umeng
 
-原生鸿蒙的初始化、渠道选择与分享回执见[鸿蒙契约与实际库入口](references/harmony.md)。
+先从应用的隐私同意记录查起。取得真实同意后才调用 `initializeUmeng`，等待本地 SDK 初始化完成，再使用统计或分享。凭据留在宿主配置中，诊断和分享结果只保留必要字段。[隐私与初始化](https://unif-design.github.io/react-native-umeng/md/guides/privacy-pipl.md) · [统计](https://unif-design.github.io/react-native-umeng/md/guides/analytics.md)
 
-## React Native
+查询接口时核对锁定版本的公开类型。RN 本地资料在 `website/docs`，官网索引标明构建版本。原生鸿蒙先看 HAR 实际入口，若入口为空，只能核对目标渠道及实现缺口。[RN 文档与版本索引](https://unif-design.github.io/react-native-umeng/llms.txt) · [鸿蒙公开入口与契约](references/harmony.md)
 
-按锁定版本的包导出和公开类型核对下列资料。本地文档位于 `website/docs`，线上文档的构建版本见[官网索引](https://unif-design.github.io/react-native-umeng/llms.txt)。
+## 选择分享方式
 
-| 任务 | 使用资料 |
+| 场景 | 调用方式 |
 |---|---|
-| 安装与快速接入 | [getting-started/installation](https://unif-design.github.io/react-native-umeng/md/getting-started/installation.md)、[getting-started/quick-start](https://unif-design.github.io/react-native-umeng/md/getting-started/quick-start.md) |
-| 隐私同意与初始化 | [guides/privacy-pipl](https://unif-design.github.io/react-native-umeng/md/guides/privacy-pipl.md)、[api/common](https://unif-design.github.io/react-native-umeng/md/api/common.md) |
-| 直接分享与结果 | [guides/sharing](https://unif-design.github.io/react-native-umeng/md/guides/sharing.md)、[api/share](https://unif-design.github.io/react-native-umeng/md/api/share.md) |
-| SDK 分享弹层与页内渠道列表 | [实例宿主](https://unif-design.github.io/react-native-umeng/md/api/platform-sharesheethost.md)、[SharePanel](https://unif-design.github.io/react-native-umeng/docs/api/platform-sharesheethost#share-panel) |
-| 统计与原生回调 | [guides/analytics](https://unif-design.github.io/react-native-umeng/md/guides/analytics.md)、[api/analytics](https://unif-design.github.io/react-native-umeng/md/api/analytics.md)、[native-setup/ios](https://unif-design.github.io/react-native-umeng/md/native-setup/ios.md)、[native-setup/android](https://unif-design.github.io/react-native-umeng/md/native-setup/android.md) |
-| 测试与排障 | [testing](https://unif-design.github.io/react-native-umeng/md/testing.md)、[troubleshooting](https://unif-design.github.io/react-native-umeng/md/troubleshooting.md) |
+| 渠道和内容都已确定 | 直接调用 `share`，由原调用接收结果。[分享接口](https://unif-design.github.io/react-native-umeng/md/api/share.md) |
+| 内容已备好，让用户在 SDK 弹层选渠道 | 在展示窗口挂载 `useShareSheet` 返回的宿主，用同一实例的控制器打开。[弹层宿主](https://unif-design.github.io/react-native-umeng/md/api/platform-sharesheethost.md) |
+| 在页面内先选渠道，再准备图片 | 用 `SharePanel`，要求 `@unif/react-native-umeng` 2.7.0 或更高版本。[2.7.0 页内渠道面板](https://github.com/unif-design/react-native-umeng/blob/v2.7.0/website/docs/api/platform-sharesheethost.md) |
 
-## RN 使用边界
+在页内选渠道时，把 `getShareTargets()` 返回的渠道交给 `SharePanel`。收到 `onSelect` 后才由应用准备图片、上传并发起分享。
 
-应用取得真实隐私同意后再调用 initializeUmeng；库不拥有用户同意记录。导入包、显示面板和接收系统回调不等于完成初始化。配置与凭据不写入模型输入、日志或分享结果。
+## 面板没有出现或收不到分享结果
 
-目标和内容已确定时调用 `share`。内容已备好、需要 SDK 弹层选渠道时使用 `useShareSheet`，在实际展示窗口挂载同一实例的宿主。`@unif/react-native-umeng` 2.7.0 起，页面内先选渠道再准备内容时使用 `SharePanel`，图片准备和上传由应用负责。
+面板不可见时先核对展示窗口、宿主与控制器的实例。面板关闭或渠道 App 被拉起后，继续查原分享调用的 `success`、`cancelled` 或 `failed`，在途冲突按 `busy` 等原因处理。
 
-按分享结果处理 `success`、`cancelled` 和 `failed`，失败时区分 `busy` 等原因。面板关闭或第三方应用被拉起后，仍以原分享调用的结果为准。
-
-源码维护与验证见[分享接入与验证](references/workflows.md)。
+维护时从异常所属的初始化、分享或统计模块追到原生接线。在实际平台核对渠道回调，统计是否到达则查统计平台的接收情况。[维护与平台验证](references/workflows.md)

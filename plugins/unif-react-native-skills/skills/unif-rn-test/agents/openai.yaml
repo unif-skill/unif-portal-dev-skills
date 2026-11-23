@@ -1,6 +1,0 @@
-interface:
-  display_name: "Unif RN 测试与验收"
-  short_description: "验证客户端真实行为、诊断证据、异步边界和消费者"
-  default_prompt: "使用 $unif-rn-test 依据工程有效契约完成 React Native 测试与验收。"
-  icon_small: "./assets/icon.svg"
-  icon_large: "./assets/icon.svg"

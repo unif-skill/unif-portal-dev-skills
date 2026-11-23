@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32" fill="none">
+  <title>Unif 跨仓契约变更</title>
+  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#FFF7ED" stroke="#FFD6B0"/>
+  <g stroke="#9C3D10" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 6H7v20h6M19 6h6v20h-6M10 13h11l-3-3m3 9H10l3 3"/>
+  </g>
+</svg>

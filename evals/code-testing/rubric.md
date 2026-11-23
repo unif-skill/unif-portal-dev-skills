@@ -1,6 +1,6 @@
 # 测试技能判据
 
-本目录保留历史评测主题名，现有 JS／RN 题设使用 unif-rn-test；其他平台的独立样本见 [平台隔离样本](../independent-skills/cases.md)。冻结 runs 不改写。
+本组 JS／RN 场景用 uni-test-design 处理相应任务，需要 Unif 实际消费者和宿主判据时选 unif-rn-project。其他平台见[平台隔离样本](../independent-skills/cases.md)。冻结 runs 按当时题设保留。
 
 题设为合成工程。判据不给被测上下文；评分同时核对测试源码、实际执行结果与说明，不按关键词计数。
 

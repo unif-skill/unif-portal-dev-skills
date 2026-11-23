@@ -316,7 +316,7 @@ def validate_repository(root: Path | str, release_tag: str | None = None, includ
         expected = {name: ('./plugins/' + name, 'AVAILABLE') for name in BUSINESS_PLUGINS}
         expected[DEFAULT_PLUGIN] = './plugins/' + DEFAULT_PLUGIN, 'INSTALLED_BY_DEFAULT'
         if entries != expected:
-            raise ValueError('市场必须默认安装公共规范，阶段及各库插件按需安装，并分别指向对应目录')
+            raise ValueError('市场必须默认安装公共规范，工程与库插件按需安装，并分别指向对应目录')
         seen: set[str] = set()
         coverage: dict[str, SourceCoverage] = {}
         for name in entries:

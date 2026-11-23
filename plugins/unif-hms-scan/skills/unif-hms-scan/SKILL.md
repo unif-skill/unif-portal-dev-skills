@@ -1,6 +1,6 @@
 ---
 name: unif-hms-scan
-description: 在查询、接入、维护或排查 @unif/react-native-hms-scan 或 @unif/harmony-hms-scan 的实时扫码、图片解码、权限、手电及鸿蒙目标契约时使用。
+description: 选择实时扫码或图片解码，定位相机权限、手电状态和图片占用问题。涉及 @unif/react-native-hms-scan 的调用与维护，以及原生鸿蒙 @unif/harmony-hms-scan 的目标契约与实际导出。
 metadata:
   package: "@unif/react-native-hms-scan"
   harmony_package: "@unif/harmony-hms-scan"
@@ -8,25 +8,25 @@ metadata:
 
 # Unif HMS Scan
 
-原生鸿蒙的相机权限与图片借用见[鸿蒙契约与实际库入口](references/harmony.md)。
+先确认采用的包和版本。RN 的本地文档在 `website/docs`。原生鸿蒙查实际 HAR 入口，入口仅有 `export {};` 时按目标契约说明缺少的能力。[RN 文档与版本索引](https://unif-design.github.io/react-native-hms-scan/llms.txt) · [鸿蒙扫码契约与实际入口](references/harmony.md)
 
-## React Native
+## 选择识别方式
 
-按锁定版本的包导出和公开类型核对下列资料。本地文档位于 `website/docs`，线上文档的构建版本见[官网索引](https://unif-design.github.io/react-native-hms-scan/llms.txt)。
+| 场景 | RN 入口 | 前置条件 |
+|---|---|---|
+| 完整扫码界面 | [Scanner](https://unif-design.github.io/react-native-hms-scan/md/guides/scanner.md) | 需要从相册扫码时，由应用提供选图入口。 |
+| 自定义实时取景 | [HmsScanView](https://unif-design.github.io/react-native-hms-scan/md/guides/headless.md) | 读取相机权限，按需申请，取得授权后挂载。 |
+| 识别已有图片 | [decodeImage](https://unif-design.github.io/react-native-hms-scan/md/guides/decode-image.md) | 应用提供可读的本地文件，无需相机权限。 |
 
-| 任务 | 使用资料 |
-|---|---|
-| 安装与开始接入 | [getting-started/installation](https://unif-design.github.io/react-native-hms-scan/md/getting-started/installation.md)、[getting-started/quick-start](https://unif-design.github.io/react-native-hms-scan/md/getting-started/quick-start.md) |
-| 现成扫码交互 | [guides/scanner](https://unif-design.github.io/react-native-hms-scan/md/guides/scanner.md)、[api/scanner](https://unif-design.github.io/react-native-hms-scan/md/api/scanner.md) |
-| 自定义取景与事件 | [guides/headless](https://unif-design.github.io/react-native-hms-scan/md/guides/headless.md)、[api/hms-scan-view](https://unif-design.github.io/react-native-hms-scan/md/api/hms-scan-view.md) |
-| 本地图片与借用生命周期 | [guides/decode-image](https://unif-design.github.io/react-native-hms-scan/md/guides/decode-image.md)、[api/functions](https://unif-design.github.io/react-native-hms-scan/md/api/functions.md) |
-| 权限、手电和平台支持 | [guides/permissions](https://unif-design.github.io/react-native-hms-scan/md/guides/permissions.md)、[platform-differences](https://unif-design.github.io/react-native-hms-scan/md/platform-differences.md) |
-| 结果、错误与验证 | [api/types](https://unif-design.github.io/react-native-hms-scan/md/api/types.md)、[testing](https://unif-design.github.io/react-native-hms-scan/md/testing.md)、[troubleshooting](https://unif-design.github.io/react-native-hms-scan/md/troubleshooting.md) |
+图片由应用下载或选取。归还临时图片的时机取决于实际读取者。
 
-## RN 使用边界
+- 图片交给 `Scanner` 时，等 `ScannerImage.onSourceReleased` 通知。
+- 直接调用 `decodeImage` 时，等本次 Promise 结算，即使页面已关闭也要保留文件到读取结束。
 
-按任务选择 Scanner 的成品交互、HmsScanView 的自定义取景或 decodeImage 的图片识别。读取权限不应弹出授权；图片识别不需要相机权限，也不负责选图或下载。码值的商品、登录或客户含义由应用解释。
+识别成功后把码值、码制交给应用，由应用解释商品、登录或客户含义。
 
-图片在识别结束前仍被借用，关闭页面不能提前删除；空结果、输入/桥接错误和 SDK 失败分别处理。手电请求与实际状态分开，平台支持范围、厂商静默失败和设备验证以对应版本资料为准。
+## 核对识别结果和设备状态
 
-源码维护与验证见[扫码接入与验证](references/workflows.md)。
+空数组表示本次 SDK 未交付码。出现输入、桥接或 SDK 错误时，保留实际来源及原因。手电无响应时，核对 `onTorchState` 实际反馈、当前设备支持及厂商静默失败的情形。[平台差异](https://unif-design.github.io/react-native-hms-scan/md/platform-differences.md)
+
+维护时从出问题的权限、解码或视图事件追到原生实现和实际消费者。分别验证无结果、多结果、错误、取消和重新挂载。手电、系统权限及图片方向在相应设备上核验。[维护与设备验证](references/workflows.md)

@@ -42,15 +42,10 @@
       ],
       "forbidden_skills": [
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/capability-trigger-cases.md P1；参照 architecture-design/cases/state-identity.md E 的采用与等待区分，保留为自然架构请求。"
     },
@@ -72,15 +67,10 @@
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/capability-trigger-cases.md P5 与架构“单纯接口查询”边界；改为已有 Composer 附件移除 API 的自然反例。"
     },
@@ -126,15 +116,10 @@
       ],
       "forbidden_skills": [
         "unif-architecture-design",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/capability-trigger-cases.md P2，自然请求保持提交阶段，去除任何技能提示。"
     },
@@ -154,21 +139,86 @@
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/capability-trigger-cases.md 排除类场景与候选 unif-code-delivery description 的“单纯查询作业状态”边界；新增自足 CI 记录。跨包交付流程不计分，保留本包阶段排除判据。"
     },
     {
-      "id": "unif-rn-dev-application",
-      "skill": "unif-rn-dev",
+      "id": "unif-contract-change-application",
+      "skill": "unif-contract-change",
+      "baseline_skill": null,
+      "mode": "application",
+      "prompt": "Unif 已确定选中条目的新公开字段为 displayName。请只读审查这份跨仓修改能否交付，说明具体缺陷、修复位置和最小验收材料。新提交和历史草稿回读的要求见题内约定。不要实际编辑、生成、部署或操作数据库。",
+      "fixtures": {
+        "contract.md": "业务决定：新写入的公共结果只接收 displayName，模型输入只含 itemRef。新格式与替代格式中，Portal 均显示用户保存的名称。旧设备冷启动后必须还能读取持久化的 legacyLabel；仅授权读取旧草稿时进行格式转换。服务端已有历史记录保留，本次不允许删除表、列或数据。",
+        "contracts/manifest.txt": "营销领域的唯一源为 contracts/selection.schema.json。generate 从它派生 Python 运行校验、公开 JSON Schema、TS、Go；模型投影另外按 x-model-fields 生成。Agent 锁定营销契约版本，CLI 从提交的 Go 模块消费公开结果。当前唯一源、仓内公开 Schema 与 Go 产物仍只允许 legacyLabel；模型投影只含 itemRef。",
+        "change.diff": "Marketing 的结果生产者已经改成输出 displayName。改动手写了 generated/selection.ts 与 Python 的接收分支，未改 contracts/selection.schema.json；Agent 仍按所锁定旧版本校验后保存再转发。Portal 在线编辑已读取 displayName，本地 restoreDraft 仍从 legacyLabel 取值，保存新版草稿写 displayName。CLI 仍导入当前 Go 导出。",
+        "history.txt": "设备甲的旧持久化草稿 {itemRef:A, legacyLabel:甲}，设备乙新存草稿 {itemRef:B, displayName:乙}。服务初始化定义、部署 SQL 与运行中的历史库有不同生命周期。拟议提交还增加了针对现有表的 DROP COLUMN；没有数据迁移执行记录。",
+        "verification.txt": "已验证新编辑界面用手写 TS 类型编译成功。尚无重新生成的差异核对、运行校验、Agent 转交、Go 消费、冷启动恢复或数据库执行记录。"
+      },
+      "rubric": [
+        "定位所属营销 schema、公开与模型投影边界。指出只改手写生成物会被生成器覆盖，旧运行校验／Agent 仍可能拒绝新结果，锁定的 Go 消费者仍读旧形状。模型本来只有 itemRef，不能据此删除下游显示字段或给模型补 displayName。",
+        "从修改的唯一源重新生成需要的 Python、TS、Go 和公开校验并核对各方实际采用版本，沿 Marketing 生产、Agent 校验保存及转交、Portal 编辑和 CLI 读回追到具体消费者。",
+        "指出新版草稿冷启后 restoreDraft 只能读旧键，会丢显示名称。为已授权的旧草稿读取边界做转换，分别验证题内两条草稿的名称；公开新写入保持严格，不新增跨产品兼容分支。",
+        "指出 DROP COLUMN 超出授权，新库初始化或部署 SQL 变化不能证明既有数据库已安全迁移。分开报告已有表和新建环境，保留原有记录。",
+        "要求对同一份有效公开结果进行实际生成一致性、运行校验、跨仓转交与 Go 消费，验证非法旧格式新写入被拒绝以及两个本地冷启动场景。单端类型编译只能证明本地静态结果。"
+      ],
+      "required_skills": [
+        "unif-contract-change"
+      ],
+      "forbidden_skills": [],
+      "source": "Unif 跨工程契约交付第 1—3 节及旧草稿冷启动的合成生产、转交、消费材料。"
+    },
+    {
+      "id": "unif-contract-change-discovery_positive",
+      "skill": "unif-contract-change",
+      "mode": "discovery_positive",
+      "prompt": "Unif 的领域消息字段已经定稿，需审查 Marketing 生成物、Agent 保存与转交、Portal 的旧草稿冷启动和 CLI 消费是否都已切到指定形状。请核对这份变更和可验证的缺口，保持已确认的模块职责。",
+      "fixtures": {
+        "scope.md": "已确认改动范围为一个跨仓消息字段。旧数据读回仍有效，协议生产、派生类型和客户端消费都在审查范围。"
+      },
+      "rubric": [
+        "选择 unif-contract-change，识别字段已定及跨仓契约、消费与旧数据恢复的审查范围。",
+        "不自动重启架构方案设计或执行 Git 交付。"
+      ],
+      "required_skills": [
+        "unif-contract-change"
+      ],
+      "forbidden_skills": [
+        "unif-architecture-design",
+        "unif-code-delivery"
+      ],
+      "source": "Unif 跨工程契约交付的合成变更审查请求。"
+    },
+    {
+      "id": "unif-contract-change-discovery_negative",
+      "skill": "unif-contract-change",
+      "mode": "discovery_negative",
+      "prompt": "只查 Unif 现行规范里发送方停止等待后，接收方已经采用的条目由谁继续处理、业务成功看谁的回执。给我相应章节即可。",
+      "fixtures": {
+        "scope.md": "没有拟定的字段变化、代码改动、数据迁移或工程交付。"
+      },
+      "rubric": [
+        "选择 unif-platform-rules 查阅已生效的交接与权威结果约定。",
+        "事实查询未涉及跨仓契约变更或架构方案设计。"
+      ],
+      "required_skills": [
+        "unif-platform-rules"
+      ],
+      "forbidden_skills": [
+        "unif-contract-change",
+        "unif-architecture-design",
+        "unif-code-delivery"
+      ],
+      "source": "Unif 交接契约第 6 节的规则查询对照。"
+    },
+    {
+      "id": "unif-rn-project-implementation-application",
+      "skill": "unif-rn-project",
+      "baseline_skill": "unif-rn-dev",
       "mode": "application",
       "prompt": "Unif Portal 有默认巡检台账的跨设备恢复问题：设备甲已经建立默认台账，设备乙首次安装后从首页进入却创建了另一条。团队建议先刷新正文列表，再给本地创建加锁；恢复接口失败时换一个随机 ID 保证打开页面。请根据两个入口及有效契约判断这项方案，并给出本次必要的实现调整边界与尚缺依据。本轮只排查并说明，不改代码。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -188,71 +238,62 @@
         "建议针对两个真实入口、空缓存、同身份不同设备、身份隔离、失败不创建等验证；区分题设单设备测试与未取得的服务端、设备和真实业务证据。"
       ],
       "required_skills": [
-        "unif-rn-dev"
+        "unif-rn-project"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/rn-python-behavior-cases.md B1 → architecture-design/cases/state-identity.md A；按 rn-python-rubric.md B1 保留正文/默认身份差异与两入口，补可读短代码和一页查询契约，去掉“使用某技能”。"
     },
     {
-      "id": "unif-rn-dev-discovery_positive",
-      "skill": "unif-rn-dev",
+      "id": "unif-rn-project-implementation-discovery_positive",
+      "skill": "unif-rn-project",
       "mode": "discovery_positive",
       "prompt": "这是 @unif/react-native-query 的独立 RN 库。示例切换账号后，旧查询结果会覆盖当前列表，同账号退出重登也会出现。请定位共享核心与 Hook 接线的原因，给出必要修复说明。本轮不修改文件，不做具体变更审查或测试计划。",
       "fixtures": {
         "project.md": "源码在 src/query.ts 和 src/useRows.ts，真实示例在 example/RowsScreen.tsx。该仓库不是 Portal 应用，采用本库 AGENTS.md 的文件与检查规则。查询启动时记录 ownerId，返回时只比较当前 ownerId；登录服务每次登录另有不同 sessionId。\n"
       },
       "rubric": [
-        "选择 unif-rn-dev：独立 @unif RN 库及共享核心的缺陷排查属于该入口，不因不是 Portal 而漏选。",
-        "不选择鸿蒙或 Python 开发，也不因分析源码自动进入测试、具体变更审查、架构设计或交付阶段；通用 RN/库维护辅助可按职责选择。"
+        "独立 @unif RN 库的共享核心与示例受登录周期约束，应选 unif-rn-project 核对当前写回与消费者。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-rn-dev"
+        "unif-rn-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md P1；把 Portal 页面适配为明确的独立 @unif RN 库、Hook 和示例消费者，保留同身份重登问题。"
     },
     {
-      "id": "unif-rn-dev-discovery_negative",
-      "skill": "unif-rn-dev",
+      "id": "unif-rn-project-implementation-discovery_negative",
+      "skill": "unif-rn-project",
       "mode": "discovery_negative",
       "prompt": "这是一个独立 React Native 记事应用，不属于 Unif，也未采用 Unif 规范或任何 @unif 库。切换笔记本后旧加载结果覆盖新界面，请只分析给定代码的根因并说明必要修复；没有代码变更审查或测试设计请求。",
       "fixtures": {
         "NotesScreen.tsx": "useEffect(() => {\n  loadNotebook(notebookId).then(setNotes);\n}, [notebookId]);\n"
       },
       "rubric": [
-        "不选择 unif-rn-dev，不能只因 React Native 技术相同就套 Unif 企业入口。",
+        "不选择 unif-rn-project，不能只因 React Native 技术相同就套 Unif 企业入口。",
         "不进入 Unif 的其他平台或阶段；本包以外的通用 RN 入口不在此次发现评分范围。"
       ],
       "required_skills": [],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md N5 与 rn-python-rubric.md N5，保留非 Unif 自然反例并加入最短异步代码。跨包替代路线不计分，只保留本包排除判据。"
     },
     {
-      "id": "unif-rn-test-application",
-      "skill": "unif-rn-test",
+      "id": "unif-rn-project-testing-application",
+      "skill": "unif-rn-project",
+      "baseline_skill": "unif-rn-test",
       "mode": "application",
       "prompt": "请评估 @unif/react-native-query 的现有测试是否覆盖“ownerId 相同但登录生命周期已变化”的场景，并给出最小且能区分错误实现的补强方案。说明真实被测对象、外部替身、交错顺序、消费者断言及证据范围。这个独立 RN 库使用自己的测试配置；本轮不修改源码、不执行测试，也不审查整个库。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -270,77 +311,43 @@
         "明确顺序：A/epoch1 发起且未完成，退出并重新登录 A/epoch2，再兑现或拒绝旧请求；断言新会话的 rows 和 error 均未被旧结果改变，不能仅比较 ownerId 或只断言 Promise 结束。",
         "保留当前有效 epoch 的成功展示、失败反馈及必要调用次数，不能通过屏蔽所有写回获得通过。",
         "核对 useRows 与真实示例消费路径，至少提出实际状态/回调断言；核心测试不能被纯组件渲染或固定值测试替代。",
-        "采用本库 Node/renderer 配置，不强套 Portal 测试目录、Portal npm run check、环境文件或无关网站；不要求装其他阶段技能才可作答。",
+        "采用本库 Node/renderer 配置，不强套 Portal 测试目录、Portal npm run check、环境文件或无关网站；不要求装其他技能才可作答。",
         "清楚区分书面补强方案、题设绿色、真实实现替身测试、RN 渲染、原生产物和设备/服务证据，不宣称本轮运行或证明了真实服务。"
       ],
       "required_skills": [
-        "unif-rn-test"
+        "unif-rn-project"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/cases.md A 与 rn-python-behavior-cases.md B2、rn-python-rubric.md B2。保留同 ownerId 重登及整体替换被测函数，扩充独立 RN 库、真实 Hook 消费者和测试配置材料。"
     },
     {
-      "id": "unif-rn-test-discovery_positive",
-      "skill": "unif-rn-test",
+      "id": "unif-rn-project-testing-discovery_positive",
+      "skill": "unif-rn-project",
       "mode": "discovery_positive",
       "prompt": "这是一个 @unif RN 库的共享查询测试。请评估它是否真正覆盖同账号退出再登录后的迟到响应，给出必要断言和替身边界；不修改实现，不运行工程，也不做整库审查。",
       "fixtures": {
         "test-summary.txt": "产品有真实 refresh 和 useRows 消费者。现有测试用固定成功值替换整个 refresh，只断言返回数组。每次登录的 sessionId 都不同，ownerId 可相同。仓库测试命令是 node --test，不是 Portal 应用。\n"
       },
       "rubric": [
-        "选择 unif-rn-test，评估测试质量和覆盖范围属于测试阶段，独立 RN 库同样适用。",
-        "不因测试会阅读实现而选择 unif-rn-review 或 unif-rn-dev，不扩展到其他平台、架构或交付。"
+        "用 unif-rn-project 核对同账号新登录周期的状态归属和实际共享查询消费者，保持书面测试评估范围。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-rn-test"
+        "unif-rn-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md P2；保持自然测试请求并明确独立库消费者。"
     },
     {
-      "id": "unif-rn-test-discovery_negative",
-      "skill": "unif-rn-test",
-      "mode": "discovery_negative",
-      "prompt": "这次只审查 @unif/react-native-sheet 的具体 diff：取消按钮从 dismiss 接到 save，取消行为测试也被删了。请根据不变的取消契约报告问题；我没有要求补写或执行测试，也不要修复实现。",
-      "fixtures": {
-        "change.diff": "- <Editor onCancel={dismiss} onSubmit={save} />\n+ <Editor onCancel={save} onSubmit={save} />\n- test('cancel does not save', cancellationScenario);\n",
-        "contract.md": "取消关闭编辑器，不保存；提交才调用 save。该契约未变。\n"
-      },
-      "rubric": [
-        "选择 unif-rn-review，任务是具体变更审查，即使 diff 包含测试删除。",
-        "不选择 unif-rn-test 或 unif-rn-dev：没有测试设计/实现/执行或产品修复请求。"
-      ],
-      "required_skills": [
-        "unif-rn-review"
-      ],
-      "forbidden_skills": [
-        "unif-architecture-design",
-        "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
-      ],
-      "source": "evals/independent-skills/cases.md E、rn-python-trigger-cases.md P3；用含测试删除的审查请求作为 RN test 容易混淆的反例。"
-    },
-    {
-      "id": "unif-rn-review-application",
-      "skill": "unif-rn-review",
+      "id": "unif-rn-project-review-application",
+      "skill": "unif-rn-project",
+      "baseline_skill": "unif-rn-review",
       "mode": "application",
       "prompt": "请只读审查 @unif/react-native-sheet 的这次共享编辑器抽取变更。契约未变化，材料包含完整相关接线、测试变化和本库采用规则。报告有证据的缺陷、位置、触发条件和影响；本轮不修复、不运行测试、不提交或发布评论。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -361,43 +368,38 @@
         "只报告本题证据支持的缺陷与验证缺口，不假造文件位置、额外 SDK/平台故障或把纯审查扩大成实现、运行或对外评论；不因无兄弟技能停止。"
       ],
       "required_skills": [
-        "unif-rn-review"
+        "unif-rn-project"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/cases.md E 与 rn-python-behavior-cases.md B3、rn-python-rubric.md B3。保留取消误接保存、原断言删除；适配独立库真实示例消费者并补当前采用规则以检查 Portal 路由。"
     },
     {
-      "id": "unif-rn-review-discovery_positive",
-      "skill": "unif-rn-review",
+      "id": "unif-rn-project-review-discovery_positive",
+      "skill": "unif-rn-project",
       "mode": "discovery_positive",
       "prompt": "请只读审查这个 @unif/react-native-sheet 独立库的明确变更：抽出组件后，运行示例取消时会调用保存，现有提交测试仍是绿色。按未变化的公开契约报告缺陷和影响，不修复、不执行测试。",
       "fixtures": {
         "diff.txt": "旧接线：取消 -> close；提交 -> save。\n新接线：RecordEditor.onCancel -> save；RecordEditor.onSubmit -> save。\n公开契约：取消不保存，提交才保存。变化发生在 example/EditScreen.tsx，该文件是真实示例消费者。\n"
       },
       "rubric": [
-        "选择 unif-rn-review：独立 @unif RN 库实际消费者的明确变更审查属于该入口。",
-        "不因需要理解实现或测试证据而自动进入开发、测试、架构或交付阶段，不选其他平台的审查入口。"
+        "用 unif-rn-project 核对取消的契约和运行示例消费者，指出实际接线影响。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-rn-review"
+        "unif-rn-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md P3；适配为独立 @unif RN 库示例变更，保留自然审查请求。"
     },
     {
-      "id": "unif-rn-review-discovery_negative",
-      "skill": "unif-rn-review",
+      "id": "unif-rn-project-review-discovery_negative",
+      "skill": "unif-rn-project",
       "mode": "discovery_negative",
       "prompt": "请按给定 package.json 和公开说明，告诉我这个 Unif RN 包的版本，以及 close() 返回时是否保证没有排队回调。只解释当前事实，没有代码变更，也不要求诊断实现、评价质量或补测试。",
       "fixtures": {
@@ -405,28 +407,24 @@
         "api.md": "close(): Promise<void> 结束当前观察关系；返回表示已发出关闭请求，不保证所有已排队回调都执行结束。\n"
       },
       "rubric": [
-        "不选择 unif-rn-review：为回答版本和现有 API 事实而查阅文件，不等于明确变更审查。",
+        "不选择 unif-rn-project：为回答版本和现有 API 事实而查阅文件，不等于明确变更审查。",
         "不启动 RN 开发/测试、架构或交付阶段；没有对应专项能力时可直接依据已给材料回答。"
       ],
       "required_skills": [],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md N1 与 rn-python-rubric.md N1，保留版本/close 语义事实查询。"
     },
     {
-      "id": "unif-harmony-dev-application",
-      "skill": "unif-harmony-dev",
+      "id": "unif-harmony-project-implementation-application",
+      "skill": "unif-harmony-project",
+      "baseline_skill": "unif-harmony-dev",
       "mode": "application",
       "prompt": "Unif 原生鸿蒙 ArkUI 上传页发生旧结果覆盖：A→B→A 切换账号后，第一次 A 的上传返回会显示到当前页面；关闭再打开上传页也出现过。请根据共享核心、页面接线和会话契约定位根因，说明必要实现调整。本轮只做开发排查说明，不改文件，不另行审查变更或设计测试。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -444,72 +442,63 @@
         "即使外部 SDK 的取消能力未给出，也完成已有代码可确定的生命周期判断；报告书面分析限制，不宣称编译、HAR、设备或真实上传已经通过。"
       ],
       "required_skills": [
-        "unif-harmony-dev"
+        "unif-harmony-project"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/harmony-trigger-cases.md P1、cases.md D 的独立开发入口；保留原生身份切换问题，加入自足的 bind/close/重开代码和 SDK 缺口，未要求读取兄弟技能。"
     },
     {
-      "id": "unif-harmony-dev-discovery_positive",
-      "skill": "unif-harmony-dev",
+      "id": "unif-harmony-project-implementation-discovery_positive",
+      "skill": "unif-harmony-project",
       "mode": "discovery_positive",
       "prompt": "Unif 的原生 ArkUI 上传页切换账号后会被旧请求覆盖，A→B→A 也能复现。请定位给定 .ets 共享核心和页面生命周期接线，给出必要实现调整说明；本次只排查，不修改文件、不做 diff 审查或测试计划。",
       "fixtures": {
         "project.txt": "目标为 @unif/harmony-sample HAR 及其 ArkUI 运行示例。旧请求只比较 userId，模块复用当前页面回调。会话每次登录还有独立 loginEpoch。此路径没有 React Native/RNOH 调用。\n"
       },
       "rubric": [
-        "选择 unif-harmony-dev，目标是 Unif 原生 ArkTS/ArkUI/HAR 的实现缺陷排查。",
-        "不误选 RN 或 Python 开发，不因读取源码自动进入变更审查、测试设计、架构或交付阶段。"
+        "使用 unif-harmony-project，沿原生 ArkUI 宿主的绑定周期与共享控制器核对迟到写回。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-harmony-dev"
+        "unif-harmony-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/harmony-trigger-cases.md P1，保留自然请求并明确原生 HAR 与 ArkUI 消费者。"
     },
     {
-      "id": "unif-harmony-dev-discovery_negative",
-      "skill": "unif-harmony-dev",
+      "id": "unif-harmony-project-implementation-discovery_negative",
+      "skill": "unif-harmony-project",
       "mode": "discovery_negative",
       "prompt": "本次只定位 Unif React Native 页面的旧上传结果覆盖问题，给出必要修复说明。工作区虽然同时有 harmony/，但这个 RN 页面不调用它；本次不改文件、不做变更审查或测试计划。",
       "fixtures": {
         "src/useUpload.ts": "export async function upload(path, session, setUrl, transport) {\n  const ownerId = session.ownerId;\n  const url = await transport.upload(path);\n  if (session.ownerId === ownerId) setUrl(url);\n}\n"
       },
       "rubric": [
-        "选择 unif-rn-dev，而不选择 unif-harmony-dev；工作区存在鸿蒙目录不扩大本次目标。",
+        "选择 unif-rn-project，而不选择 unif-harmony-project；工作区存在鸿蒙目录不扩大本次目标。",
         "不进入鸿蒙测试/审查或其他无关阶段。"
       ],
       "required_skills": [
-        "unif-rn-dev"
+        "unif-rn-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/harmony-trigger-cases.md N4，保留 RN 任务与旁置鸿蒙目录的范围反例。"
     },
     {
-      "id": "unif-harmony-test-application",
-      "skill": "unif-harmony-test",
+      "id": "unif-harmony-project-testing-application",
+      "skill": "unif-harmony-project",
+      "baseline_skill": "unif-harmony-test",
       "mode": "application",
       "prompt": "请评估这个 Unif 原生鸿蒙 HAR 的监听生命周期测试是否充分，并提出能检出“关闭再打开后旧回调写入新界面”的补强方案。说明真实被测实现、外部边界、交错与副作用断言，以及不同验证层的结论。只给书面测试评估，不改实现或执行工程。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -528,71 +517,62 @@
         "分别表达共享逻辑替身测试、ArkTS 编译、HAR 产物、真实宿主与设备验证的覆盖；RN Jest 不证明原生鸿蒙可用，书面计划不等于本轮实测。"
       ],
       "required_skills": [
-        "unif-harmony-test"
+        "unif-harmony-project"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/cases.md F、harmony-trigger-cases.md P2。保留模块单例监听/Context 与同步替身，补闭环的 Bridge 契约和页面接线，不依赖外部 SDK 事实。"
     },
     {
-      "id": "unif-harmony-test-discovery_positive",
-      "skill": "unif-harmony-test",
+      "id": "unif-harmony-project-testing-discovery_positive",
+      "skill": "unif-harmony-project",
       "mode": "discovery_positive",
       "prompt": "这是 Unif 原生鸿蒙 HAR 的监听测试。请评估现有同步成功替身能否覆盖页面关闭再打开后的迟到回调，并给出必要交错断言和验证范围；不修改实现，不执行测试，也不审查整个库。",
       "fixtures": {
         "test-facts.md": "HAR 共享核心由 ArkUI 页面的打开/关闭生命周期调用。原生接口注销后仍可能投递已排队回调。现有 Node 替身只同步发出 ready；尚无 HAR 或设备结果。\n"
       },
       "rubric": [
-        "选择 unif-harmony-test，任务评估原生鸿蒙 HAR 测试质量与边界。",
-        "Node 被用作共享核心测试运行器不把目标变成 RN；不进入开发、具体变更审查或其他平台阶段。"
+        "使用 unif-harmony-project 确定原生监听与 Context 的持有者，以及共享逻辑与真实 HAR／宿主的验证边界。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-harmony-test"
+        "unif-harmony-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/harmony-trigger-cases.md P2；保留原生测试自然请求及 Node/设备层级差异。"
     },
     {
-      "id": "unif-harmony-test-discovery_negative",
-      "skill": "unif-harmony-test",
+      "id": "unif-harmony-project-testing-discovery_negative",
+      "skill": "unif-harmony-project",
       "mode": "discovery_negative",
       "prompt": "按这份 Unif 原生鸿蒙配置告诉我 targetSdkVersion 和 compatibleSdkVersion 声明了什么值。只读出字段，不评估兼容性、升级方案、测试覆盖或实现质量。",
       "fixtures": {
         "build-profile.json5": "{ app: { products: [{ name: 'default', targetSdkVersion: '6.0.0(20)', compatibleSdkVersion: '5.0.0(12)', runtimeOS: 'HarmonyOS' }] } }\n"
       },
       "rubric": [
-        "不选择 unif-harmony-test：读取两个版本字段不属于测试设计、执行或覆盖评估。",
+        "不选择 unif-harmony-project：读取两个版本字段不属于测试设计、执行或覆盖评估。",
         "也不因是鸿蒙配置自动进入开发、变更审查、架构或交付。"
       ],
       "required_skills": [],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/harmony-trigger-cases.md N1，保留纯版本查询反例并给完整字段。"
     },
     {
-      "id": "unif-harmony-review-application",
-      "skill": "unif-harmony-review",
+      "id": "unif-harmony-project-review-application",
+      "skill": "unif-harmony-project",
+      "baseline_skill": "unif-harmony-review",
       "mode": "application",
       "prompt": "请只读审查 @unif/harmony-image-reader 的这次明确变更：图片读取改为后台异步，同时调整 HAR 包入口。业务契约未改变。请根据 diff、实际消费者与原生桥契约报告有证据的缺陷、位置和影响，并区分缺少的验证证据。本轮不修复、不运行测试或设备操作。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -612,71 +592,62 @@
         "不把 RN 包名或 npm 发布配置强套到 HAR，不以缺其他技能为由拒答；保持只读审查范围，不实施修复、提交或对外评论。"
       ],
       "required_skills": [
-        "unif-harmony-review"
+        "unif-harmony-project"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/cases.md B 与 harmony-trigger-cases.md P3。保留后台图片读取、取消返回后删除与 RN 测试不能替代原生证据；新增自足 main/导出契约与配置 diff，覆盖鸿蒙工程配置审查入口。"
     },
     {
-      "id": "unif-harmony-review-discovery_positive",
-      "skill": "unif-harmony-review",
+      "id": "unif-harmony-project-review-discovery_positive",
+      "skill": "unif-harmony-project",
       "mode": "discovery_positive",
       "prompt": "请审查 @unif/harmony-image-reader 的这份工程配置 diff，检查是否破坏现有 HAR 消费者。只有 oh-package.json5 的 main 从 Index.ets 改到了 internal/NativeReader.ets，没有 .ets 源码改动。本轮只读报告有证据的问题，不修复、不运行构建。",
       "fixtures": {
         "facts.md": "本题包解析由 main 指定公开入口。Index.ets 导出 decodeImage，internal/NativeReader.ets 只导出 NativeReader。现有 ArkUI 宿主从包名导入 decodeImage。业务和公开 API 契约未变。\n"
       },
       "rubric": [
-        "选择 unif-harmony-review：明确的原生鸿蒙工程配置变更审查属于该入口，不要求必须改动 .ets 源码才触发。",
-        "不选择 RN/Python 审查或自动启动开发、测试、架构和发布流程；通用原生库规则可按实际需要辅助。"
+        "使用 unif-harmony-project 核对原生 HAR 入口配置、真实宿主包名导入和资源交接。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-harmony-review"
+        "unif-harmony-project"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/harmony-trigger-cases.md P3 的配置-only 变体；用于检验description 对“工程配置变更”的覆盖，事实完全由题内给出。"
     },
     {
-      "id": "unif-harmony-review-discovery_negative",
-      "skill": "unif-harmony-review",
+      "id": "unif-harmony-project-review-discovery_negative",
+      "skill": "unif-harmony-project",
       "mode": "discovery_negative",
       "prompt": "解释这个 Unif 原生鸿蒙库已采用的 close() 语义：返回时是否保证排队回调已结束？按给定公开说明回答即可。没有代码或配置变更，也没有故障排查或实现质量评审请求。",
       "fixtures": {
         "api.md": "close(): Promise<void>。该 Promise 在取消订阅请求发出后完成；已经排队的回调仍可能送达。调用方按订阅实例识别事件。\n"
       },
       "rubric": [
-        "不选择 unif-harmony-review：现有 API 语义解释不等于明确代码/工程配置变更审查。",
+        "不选择 unif-harmony-project：现有 API 语义解释不等于明确代码/工程配置变更审查。",
         "不自动进入原生开发、测试、架构或交付阶段；材料足够时可直接回答。"
       ],
       "required_skills": [],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/harmony-trigger-cases.md N2，保留原生 API 解释与审查阶段的负例。"
     },
     {
-      "id": "unif-python-dev-application",
-      "skill": "unif-python-dev",
+      "id": "unif-python-service-implementation-application",
+      "skill": "unif-python-service",
+      "baseline_skill": "unif-python-dev",
       "mode": "application",
       "prompt": "Unif Marketing 的两个工作进程偶尔创建出重复默认巡检台账。请根据契约、服务代码和已有数据说明本次后端修复必须到达哪些入口、数据约束与事务边界，以及必要验证。只给实现方案，不修改工程；历史内容未授权删除或合并。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -693,46 +664,41 @@
         "重复请求/超时重试返回或取得同一默认记录，不覆盖已有 body，不把身份或日期缩减为 user_id 单字段。",
         "历史冲突会影响唯一约束落地；先检测、列出冲突与迁移依赖，未获数据处置授权不删并真实内容，但可继续完成方案和非破坏性代码边界说明。",
         "验证至少区分真实数据库约束、多进程并发、冲突/重试、事务失败、重启后恢复，以及普通记录和不同身份/日期不受误限；不以单进程字典通过证明线上唯一性。",
-        "明确这是书面实现与验证方案，未运行数据库或进程，缺迁移决策只限制相关落地步骤；不要求安装其他阶段技能或新增离线/工作流能力。"
+        "明确这是书面实现与验证方案，未运行数据库或进程，缺迁移决策只限制相关落地步骤；不要求安装其他技能或新增离线/工作流能力。"
       ],
       "required_skills": [
-        "unif-python-dev"
+        "unif-python-service"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/rn-python-behavior-cases.md B4 → architecture-design/cases/state-identity.md B；按 rn-python-rubric.md B4 补全已知写入方、数据库能力和历史冲突事实。"
     },
     {
-      "id": "unif-python-dev-discovery_positive",
-      "skill": "unif-python-dev",
+      "id": "unif-python-service-implementation-discovery_positive",
+      "skill": "unif-python-service",
       "mode": "discovery_positive",
       "prompt": "Unif Agent 的 API 和 Worker 在 beta 启动时连到了不同环境。请根据服务配置与启动接线定位原因，说明必要修复；本次没有待审查的 diff，只做开发排查，不改文件、不编写测试或执行部署。",
       "fixtures": {
         "startup.txt": "API 启动入口读取 APP_ENV=beta 并加载 .env.beta。Worker 启动脚本固定加载 .env.prod。两者应属于同一次 beta 环境，题设没有跨环境共享数据或任务池的要求。\n"
       },
       "rubric": [
-        "选择 unif-python-dev：Unif Python 服务配置、环境变体与启动接线的缺陷排查在开发入口范围内。",
-        "不因配置涉及运行环境就选择交付/部署，不因查看代码就选择变更审查，也不自动开启测试阶段。"
+        "使用 unif-python-service 核对关联服务实例与实际 Worker 的运行环境、配置和任务池。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-python-dev"
+        "unif-python-service"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md P5 的后端排查阶段变体；依据 python-dev 的配置/环境范围，以 API/Worker 启动事实替代事务素材。"
     },
     {
-      "id": "unif-python-dev-discovery_negative",
-      "skill": "unif-python-dev",
+      "id": "unif-python-service-implementation-discovery_negative",
+      "skill": "unif-python-service",
       "mode": "discovery_negative",
       "prompt": "按给定配置和接口说明，回答 Unif Agent 声明的服务版本、默认超时，以及 cancel_wait 是否撤销远端工作。只解释这些已有事实，不排查、修改、评审实现或安排测试部署。",
       "fixtures": {
@@ -740,28 +706,24 @@
         "api.md": "cancel_wait(task_id) 停止当前调用方等待；不会向远端发送撤销，也不改变已被接收模块采用条目的状态。\n"
       },
       "rubric": [
-        "不选择 unif-python-dev：版本、配置值与现有接口事实查询不属于开发排查。",
+        "不选择 unif-python-service：版本、配置值与现有接口事实查询不属于开发排查。",
         "不引入 Python 测试、审查、架构或交付阶段。"
       ],
       "required_skills": [],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md N2 与 rn-python-rubric.md N2，保留纯事实查询。"
     },
     {
-      "id": "unif-python-test-application",
-      "skill": "unif-python-test",
+      "id": "unif-python-service-testing-application",
+      "skill": "unif-python-service",
+      "baseline_skill": "unif-python-test",
       "mode": "application",
       "prompt": "请评估 Unif Marketing 创建默认台账的现有测试能证明什么，并给出最小补强方案。线上是两个 worker；重点说明真实被测对象、外部替身、事务与业务唯一性的验证方式。本轮不修改实现或运行测试，也不删除已有记录。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -781,73 +743,64 @@
         "分开报告源码判断、替身测试、真实进程/数据库、真实业务证据；无需另装开发技能才可提出该测试方案。"
       ],
       "required_skills": [
-        "unif-python-test"
+        "unif-python-service"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/cases.md G、rn-python-behavior-cases.md B5、rn-python-rubric.md B5/P6；保留双进程、单字典及整体 mock，加入响应契约未定的明确边界。"
     },
     {
-      "id": "unif-python-test-discovery_positive",
-      "skill": "unif-python-test",
+      "id": "unif-python-service-testing-discovery_positive",
+      "skill": "unif-python-service",
       "mode": "discovery_positive",
       "prompt": "这是 Unif Marketing Python 服务的创建记录测试。请评估固定成功替身和单进程内存字典是否证明了线上两个 worker 的业务唯一性，给出真实被测对象、必要断言与验证边界；不修改实现、不执行测试或审查整个服务。",
       "fixtures": {
         "facts.txt": "约束只适用于同身份同日期的默认记录，普通记录可多条。生产数据库只有随机 ID 主键。现有测试 patch 整个 create_default 并固定返回同一个 ID；另一个恢复测试共用内存字典。\n"
       },
       "rubric": [
-        "选择 unif-python-test，任务明确评估后端测试质量与验证范围。",
-        "不因指出实现缺口自动启动开发或代码变更审查；不把 Python 问题路由到 RN 或原生鸿蒙。"
+        "使用 unif-python-service 确定 API／Worker 与实际数据库的唯一性、事务和并发证据。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-python-test"
+        "unif-python-service"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-review"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md P6，保留自然测试评估任务。"
     },
     {
-      "id": "unif-python-test-discovery_negative",
-      "skill": "unif-python-test",
-      "mode": "discovery_negative",
+      "id": "unif-python-service-worker-config-review",
+      "skill": "unif-python-service",
+      "mode": "discovery_positive",
       "prompt": "请只读审查 Unif Agent 这次 Worker 启动配置的 diff，判断它是否违反给定的环境隔离契约。已有单测是绿色，但本轮我只要具体变更审查，不要设计或执行测试，也不要修复。",
       "fixtures": {
         "change.diff": "- worker_env_file = '.env.beta'\n+ worker_env_file = '.env.prod'\n",
         "contract.md": "这个部署单元为 beta；同单元 API 和 Worker 必须都读取 beta 的数据和任务池配置。API 仍使用 .env.beta。\n"
       },
       "rubric": [
-        "选择 unif-python-review：服务配置的明确变更属于审查阶段。",
-        "不选择 unif-python-test，仅提到现有单测绿色并不构成测试设计或执行请求；也不自动进行开发或部署。"
+        "用 unif-python-service 核对 Worker 启动与队列的环境隔离。",
+        "已有单测绿色不构成测试设计、修复或交付请求。"
       ],
       "required_skills": [
-        "unif-python-review"
+        "unif-python-service"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-contract-change"
       ],
-      "source": "evals/independent-skills/rn-python-trigger-cases.md P7 的服务配置审查变体，用于测试 python-test 的阶段负例。"
+      "source": "evals/independent-skills/rn-python-trigger-cases.md P7 的服务配置审查变体，核对 Worker 环境隔离。"
     },
     {
-      "id": "unif-python-review-application",
-      "skill": "unif-python-review",
+      "id": "unif-python-service-review-application",
+      "skill": "unif-python-service",
+      "baseline_skill": "unif-python-review",
       "mode": "application",
       "prompt": "请只读审查 Unif Agent 后端这份保存函数的明确变更。团队说正常请求测试和客户端 Jest 都绿色，可以交付。请依据给定日志与事务契约指出有证据的缺陷、位置和影响，以及当前仍缺的工程证据；不实现修复或执行测试。\n\n以上工程资料与运行记录均为合成题设，只根据本题材料给书面判断。不修改文件，不运行工程、联网、安装、提交、发布或操作真实服务和设备。未给出的事实请准确限定；其他能够判断的部分继续完成。",
       "fixtures": {
@@ -863,17 +816,17 @@
         "不把 RuntimeError 包装本身一概判错：from exc 已保留原因链，应评价安全诊断与对外契约；不能为日志便利建议记录全部原始异常。",
         "commit 抛错属于结果未确认，不能保证自动 rollback 已撤销远端已提交结果；需要数据库实际回执和契约证据。",
         "需要的验证与本次风险对应：执行/提交/取消/收尾/日志失败，以及真实数据库连接和事务证据；RN Jest 不构成后端验收，本轮未实际运行。",
-        "保持具体变更只读审查范围，不修复、不提交、不发布评论；题内证据足以报告明确问题，不因为其他阶段技能或业务仓源码未提供而整题停止。"
+        "保持具体变更只读审查范围，不修复、不提交、不发布评论；题内证据足以报告明确问题，不因为其他技能或业务仓源码未提供而整题停止。"
       ],
       "required_skills": [
-        "unif-python-review"
+        "unif-python-service"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/cases.md H、rn-python-behavior-cases.md B6、rn-python-rubric.md B6。保留原 SQL/参数日志、取消跳过收尾与 RN 证据误用；补完整 diff、原因链和事务未确认契约以避免依赖外部代码。"
     },
     {
-      "id": "unif-python-review-discovery_positive",
-      "skill": "unif-python-review",
+      "id": "unif-python-service-review-discovery_positive",
+      "skill": "unif-python-service",
       "mode": "discovery_positive",
       "prompt": "请只读审查 Unif Agent Python 后端这份日志 diff：新增 SQL、参数和异常原文字段。按材料里的诊断白名单报告有证据的问题；没有客户端变更，不修复、不运行测试。",
       "fixtures": {
@@ -881,53 +834,20 @@
         "contract.md": "诊断字段仅允许 event、operation、trace_id、error_code。SQL、参数和原始异常可能带敏感输入，不能直接记录。\n"
       },
       "rubric": [
-        "选择 unif-python-review，目标是 Unif 后端明确日志变更的契约审查。",
-        "不选择 RN/鸿蒙审查，不因指出缺陷自动启动开发、测试或交付阶段。"
+        "使用 unif-python-service 检查后端日志变更与服务诊断字段约束。",
+        "只处理题设平台、消费者与请求的工作。"
       ],
       "required_skills": [
-        "unif-python-review"
+        "unif-python-service"
       ],
       "forbidden_skills": [
         "unif-architecture-design",
         "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-contract-change"
       ],
       "source": "evals/independent-skills/rn-python-trigger-cases.md P7，保留自然后端日志 diff 审查。"
-    },
-    {
-      "id": "unif-python-review-discovery_negative",
-      "skill": "unif-python-review",
-      "mode": "discovery_negative",
-      "prompt": "按这段 Unif Agent Python 接口说明解释 cancel_wait 的返回值与默认行为。只是查现有接口语义，没有变更、故障或实现审查需求，也不安排测试部署。",
-      "fixtures": {
-        "api.md": "async cancel_wait(task_id: str) -> None：停止当前调用方等待。它不撤销接收方已采用的条目，不改变远端任务状态。没有明确远端终态时，对外结果仍是未确认。\n"
-      },
-      "rubric": [
-        "不选择 unif-python-review：阅读已提供 API 事实不属于明确代码或服务配置变更审查。",
-        "不引入开发、测试、架构或交付阶段，直接解释材料即可。"
-      ],
-      "required_skills": [],
-      "forbidden_skills": [
-        "unif-architecture-design",
-        "unif-code-delivery",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review"
-      ],
-      "source": "evals/independent-skills/rn-python-trigger-cases.md N2/N4 与 rn-python-rubric.md 的阶段边界，收窄为已有接口语义的反例。"
     },
     {
       "id": "pos-unif-design",
@@ -942,17 +862,12 @@
         "unif-design"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/cases.md A 与“仅描述的发现题”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -984,17 +899,12 @@
         "unif-chat"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/cases.md B 与“仅描述的发现题”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1026,17 +936,12 @@
         "unif-icons"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/cases.md C 与“仅描述的发现题”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1068,17 +973,12 @@
         "unif-camera"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/cases.md D 与“仅描述的发现题”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1110,17 +1010,12 @@
         "unif-hms-scan"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/cases.md E 与“仅描述的发现题”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1152,17 +1047,12 @@
         "unif-umeng"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/cases.md F 与“仅描述的发现题”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1194,17 +1084,12 @@
         "unif-amap"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/additional-library-cases.md K1 与“仅描述发现”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1236,17 +1121,12 @@
         "unif-files"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/additional-library-cases.md K2 与“仅描述发现”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1280,17 +1160,12 @@
         "unif-logger"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/additional-library-cases.md K3 与“仅描述发现”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1322,17 +1197,12 @@
         "unif-oss"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/additional-library-cases.md K4 与“仅描述发现”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1364,17 +1234,12 @@
         "unif-speech"
       ],
       "forbidden_skills": [
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-rn-review",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-harmony-review",
-        "unif-python-dev",
-        "unif-python-test",
-        "unif-python-review",
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
         "unif-code-delivery",
-        "unif-architecture-design"
+        "unif-architecture-design",
+        "unif-contract-change"
       ],
       "source": "evals/library-skills/additional-library-cases.md K5 与“仅描述发现”；按采用包身份与自然请求构造纯接口查询正例，发现评价限定本包并排除阶段误触发。"
     },
@@ -1869,10 +1734,11 @@
       "source": "匿名合成的已有能力复用与新会话接续场景；所有源码为固定节选，只验证书面应用，不对应真实工程或运行验收。"
     },
     {
-      "id": "unif-python-dev-agent-capabilities-application",
-      "skill": "unif-python-dev",
+      "id": "unif-python-service-implementation-agent-capabilities-application",
+      "skill": "unif-python-service",
+      "baseline_skill": "unif-python-dev",
       "mode": "application",
-      "prompt": "请根据本技能和题设完成当前阶段的目录、职责与验证判断。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
+      "prompt": "请根据本技能和题设规划目录迁移、职责与验证。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
       "fixtures": {
         "scenario.md": "Unif Agent 原有 api、core、db、services、schemas、utils。services/agent 负责小U路由、上下文与模型指令，services/execution 负责租约和任务状态，services/attachments 负责文件准备，services/clients/marketing.py 负责营销通信。现在按当前 Python 规范整理智能体自身模块及助手接入，只接入 Marketing，不预建未来助手。\n\nMarketing 的订单、拜访和客户业务规则既被模型流程使用，也被普通 HTTP 入口使用。通用 memory 服务为模型和普通接口提供读写、权限与事务，另有智能体决定如何使用记忆的策略。请说明两工程的目录、依赖方向及必要迁移范围。当前 Python 工程没有 BasedPyright 配置，解释器和依赖已锁定。\n"
       },
@@ -1885,16 +1751,17 @@
         "本题只评书面验证方案。说明实施时如何使用目标工程的解释器和锁定依赖，在无配置时以 recommended 运行 BasedPyright，处理本次检查范围内的错误和警告，并交代哪些验证待执行。无需提供实际诊断清单。缺少执行依据却声称检查已完成、零诊断或已通过，本项不满足。"
       ],
       "required_skills": [
-        "unif-python-dev"
+        "unif-python-service"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/assistant-integration-cases.md A 与 assistant-integration-rubric.md A，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
     },
     {
-      "id": "unif-python-test-agent-capabilities-application",
-      "skill": "unif-python-test",
+      "id": "unif-python-service-testing-agent-capabilities-application",
+      "skill": "unif-python-service",
+      "baseline_skill": "unif-python-test",
       "mode": "application",
-      "prompt": "请根据本技能和题设完成当前阶段的目录、职责与验证判断。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
+      "prompt": "请根据本技能和题设设计接线与持久化验证。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
       "fixtures": {
         "scenario.md": "团队把智能体自身指令与编排、Marketing 接入、领域校验分别归到新目录，普通接口继续调用既有能力，并认为导入检查通过就证明迁移完整。请按本技能设计验证，覆盖实际 Skill 和提示词装配、普通接口、通用 memory、输入来源、暂停恢复、取消、不同助手结果、身份、许可与用量。\n\n可以使用第二个助手替身，但没有真实财务服务。新旧任务指令要求语义等价，Python 已采用工程 BasedPyright 配置。说明各层证据能证明什么。\n"
       },
@@ -1907,16 +1774,17 @@
         "分别报告静态检查、替身、真实进程、持久化和业务证据。本题只给测试方案，没有实际执行或完整效果结论。"
       ],
       "required_skills": [
-        "unif-python-test"
+        "unif-python-service"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/assistant-integration-cases.md B 与 assistant-integration-rubric.md B，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
     },
     {
-      "id": "unif-python-review-agent-capabilities-application",
-      "skill": "unif-python-review",
+      "id": "unif-python-service-review-agent-capabilities-application",
+      "skill": "unif-python-service",
+      "baseline_skill": "unif-python-review",
       "mode": "application",
-      "prompt": "请根据本技能和题设完成当前阶段的目录、职责与验证判断。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
+      "prompt": "请根据本技能和题设审查目录变更与类型检查依据。只给书面回答，不修改文件、运行工程、联网、提交、发布或操作真实服务。不要补造未提供的事实。",
       "fixtures": {
         "scenario.md": "某次目录整理提出以下做法。把所有名称含 AI 或 memory 的函数移入 agent，把普通接口调用的订单校验也搬到 agent/capabilities。营销适配器对唯一商品候选自动选中，Host 读取营销 action 判定拜访完成。公开 Schema 被复制为手写 DTO。为了通过类型检查，新增 ignore 并将未知外部对象直接 cast 成业务类型，却没有协议或运行校验依据。\n\n请按本技能只读审查这些做法，区分智能体策略、独立领域能力、通用服务、协议校验、业务决策与类型检查依据。\n"
       },
@@ -1929,7 +1797,7 @@
         "保持只读审查范围，依据题设指出实际问题，不宣称运行了检查或已修复工程。"
       ],
       "required_skills": [
-        "unif-python-review"
+        "unif-python-service"
       ],
       "forbidden_skills": [],
       "source": "evals/independent-skills/assistant-integration-cases.md C 与 assistant-integration-rubric.md C，按已确认的顶层 agent/capabilities 分工及 Python 类型检查要求提供自包含场景。"
@@ -2017,12 +1885,10 @@
       "forbidden_skills": [
         "unif-code-delivery",
         "unif-architecture-design",
-        "unif-rn-dev",
-        "unif-rn-test",
-        "unif-harmony-dev",
-        "unif-harmony-test",
-        "unif-python-dev",
-        "unif-python-test"
+        "unif-rn-project",
+        "unif-harmony-project",
+        "unif-python-service",
+        "unif-contract-change"
       ],
       "source": "平台规范查询入口及 Unif 系统职责、状态与交接的实际主题。"
     },

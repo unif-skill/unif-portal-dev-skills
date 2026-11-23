@@ -1,30 +1,26 @@
 ---
 name: unif-oss
-description: 在查询、接入、维护或排查 @unif/react-native-oss 的临时凭证、单文件上传、远程转存、顺序批量上传、上传回执及源文件释放时使用。不用于服务端 OSS SDK 或桶权限配置。
+description: 处理 @unif/react-native-oss 的临时凭证、上传回执和源文件释放，涵盖单文件上传、远程转存与顺序批量上传。服务端 OSS SDK 和桶权限另按服务端配置处理。
 metadata:
   package: "@unif/react-native-oss"
 ---
 
 # Unif OSS
 
-先核对应用采用版本、锁文件、exports 和公开类型；[官网索引](https://unif-design.github.io/react-native-oss/llms.txt) 的版本不同于安装包时，使用对应包或已核实修订的资料。凭证与原始服务响应不进入技能材料。
+先从应用锁定版本的根导出选择临时凭证、单文件上传、远程转存或顺序批量接口。对应文档在库的 `docs`。官网构建版本不同时，按已采用的包或修订核对字段。[API 与版本索引](https://unif-design.github.io/react-native-oss/llms.txt)
 
-## 按任务读取
+## 把凭证接到已有上传入口
 
-本地资料位于 docs，website/docs 链接到同一来源；只读当前操作的章节。
+宿主提供当前账号、HTTP 换发和 `ossKey` 白名单。长期密钥留在服务端，客户端使用临时凭证，也可用 `createOssCredentialAccess` 在当前身份内管理它。请求限定在原白名单内。单次取消只结束所属等待，身份结束时调用 `dispose`，忽略迟到的换发响应。诊断记录中省略凭证和原始服务响应。[凭证与对象归属](https://unif-design.github.io/react-native-oss/md/contract.md)
 
-| 任务 | 资料 |
+## 上传取消或回执未知时，文件能否释放
+
+| 观察到的事件 | 可以判断什么 |
 |---|---|
-| 凭证校验、访问实例与取消 | [API](https://unif-design.github.io/react-native-oss/md/api.md) 的临时凭证部分 |
-| 单文件、远程转存与批量 | [API](https://unif-design.github.io/react-native-oss/md/api.md) 对应部分 |
-| 身份、对象回执与文件归属 | [行为与所有权](https://unif-design.github.io/react-native-oss/md/contract.md) |
-| SDK 终态回调、补丁与消费者验证 | [原生接线](https://unif-design.github.io/react-native-oss/md/native-setup.md) |
-| 应用接入与源码维护 | [任务指引](references/workflows.md) |
+| `onRequestStarted` | 已取得即将发送的对象身份，可保存作后续核对。 |
+| 上传回执 | 按该次实际结果处理成功、拒绝、未确认或取消。未确认时保留原对象并避免自动重传，业务保存另查其回执。 |
+| `onSourceReleased` | 已确认原生不再读取本地源文件，调用方此时才归还自己的文件持有。 |
 
-## 使用边界
+远程转存只清理本次私有临时文件。批量按输入顺序执行，保留重复项、每项回执、已成功项和未开始项。[单文件、转存与批量 API](https://unif-design.github.io/react-native-oss/md/api.md)
 
-宿主持有账号、HTTP 换发适配与 ossKey 白名单，createOssCredentialAccess 管理该实例内的临时凭证。身份结束时 dispose；单次取消和实例失效结束本地等待，迟到响应不能写入新缓存。不改用长期密钥，不扩大 key 范围。
-
-onRequestStarted 只交付即将发送的对象身份；成功、拒绝、未确认与取消依据实际回执处理，未确认对象不自动重传。Promise 或清理完成不证明上传、远端状态或业务保存成功。
-
-本地源文件归调用方，等待 onSourceReleased 确认不再读取后再释放。远程转存只管理本次私有临时文件。批量保留输入顺序、逐项结果和未开始项，不默认去重、回滚或并行化。
+维护时从上传消费者追到实际 SDK 补丁及原生终态回调。核对晚到的回执、文件只释放一次，以及清理失败后仍能取得原对象回执。[原生接线](https://unif-design.github.io/react-native-oss/md/native-setup.md) · [维护与消费者验证](references/workflows.md)

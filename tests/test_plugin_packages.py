@@ -14,10 +14,10 @@ LIBRARY_PLUGINS = {f'unif-{name}' for name in
                    ('amap', 'camera', 'chat', 'design', 'files', 'hms-scan', 'icons', 'logger', 'oss', 'speech', 'umeng')}
 GROUPS = {
     'unif-platform-rules': ['unif-platform-rules'],
-    'unif-engineering-skills': ['unif-architecture-design', 'unif-code-delivery'],
-    'unif-react-native-skills': ['unif-rn-dev', 'unif-rn-test', 'unif-rn-review'],
-    'unif-harmony-skills': ['unif-harmony-dev', 'unif-harmony-test', 'unif-harmony-review'],
-    'unif-python-skills': ['unif-python-dev', 'unif-python-test', 'unif-python-review'],
+    'unif-engineering-skills': ['unif-architecture-design', 'unif-contract-change', 'unif-code-delivery'],
+    'unif-react-native-skills': ['unif-rn-project'],
+    'unif-harmony-skills': ['unif-harmony-project'],
+    'unif-python-skills': ['unif-python-service'],
     **{name: [name] for name in LIBRARY_PLUGINS},
 }
 
@@ -83,9 +83,9 @@ class PluginPackageTests(unittest.TestCase):
         plugin = root / 'plugins/unif-react-native-skills'
         content = plugin / 'guide.md'
         _ = content.write_text('RN guide')
-        skill = plugin / 'skills/unif-rn-dev/SKILL.md'
+        skill = plugin / 'skills/unif-rn-project/SKILL.md'
         _ = skill.write_text(skill.read_text() + '\n[Guide](../../guide.md)\n')
-        self.assertEqual(validate_repository(root), (23, 0, 0))
+        self.assertEqual(validate_repository(root), (18, 0, 0))
         self.assertEqual(content.read_text(), 'RN guide')
 
     def test_root_skills_would_duplicate_sources(self) -> None:
@@ -139,7 +139,7 @@ class PluginPackageTests(unittest.TestCase):
                     _ = validate_repository(root)
                 second.unlink()
         record('unif-code-delivery', 3, 4, 'c' * 64)
-        self.assertEqual(validate_repository(root), (23, 0, 0))
+        self.assertEqual(validate_repository(root), (18, 0, 0))
 
     def test_unlisted_package_is_rejected(self) -> None:
         root = self.fixture()
@@ -149,7 +149,7 @@ class PluginPackageTests(unittest.TestCase):
 
     def test_relative_reference_may_not_enter_another_plugin(self) -> None:
         root = self.fixture()
-        skill = root / 'plugins/unif-react-native-skills/skills/unif-rn-dev/SKILL.md'
+        skill = root / 'plugins/unif-react-native-skills/skills/unif-rn-project/SKILL.md'
         _ = skill.write_text(skill.read_text() + '\n[Foreign](../../../unif-platform-rules/plugin.json)\n')
         with self.assertRaisesRegex(ValueError, '越出'):
             _ = validate_repository(root)

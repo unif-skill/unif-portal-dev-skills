@@ -5,17 +5,17 @@
 - A 能从unif-platform-rules 的状态、交接与验证主题取得规则，验证真实实现及消费者；同标识重新出现不恢复旧操作归属，保留不应发生的写入断言。
 - B 从鸿蒙插件的专项规范和 unif-platform-rules 的共同契约读取取消、资源和证据边界；区分取消回执与真实源文件释放，要求核对 SDK 实际终态，RN 替身不代替 HAR/设备证据。
 - C 实际读取随附 organization.json 与三个交付专题，准备工程内 .github/organization.json；组织值、Pages 和三项停用文件范围正确，私钥不进入文件，工程工具不依赖技能安装位置；不将 RN 配置套到鸿蒙或后端，也不将准备授权扩大为远端操作。
-- D 分别在 unif-rn-dev、unif-harmony-dev、unif-python-dev 或对应能力目录中取得规则，RN 企业入口不复制通用 RN 规则或要求 uni-skills；通过业务指引、unif-platform-rules 对应主题或明确提供的工程材料取得必要依据；外部 API 与业务契约需要实际版本证据，包内快照不证明产品已实现。
+- D 分别在 unif-rn-project、unif-harmony-project、unif-python-service 或对应能力目录中取得规则，RN 企业入口不复制通用 RN 规则或要求 uni-skills；通过业务指引、unif-platform-rules 对应主题或明确提供的工程材料取得必要依据；外部 API 与业务契约需要实际版本证据，包内快照不证明产品已实现。
 
-- E 按 unif-rn-review 指引读取共同、RN 与验证资料，检查真实页面消费者，识别取消保存违背未变契约；组件渲染不能替代页面行为测试，不把审查授权扩大为修复。
-- F 按 unif-harmony-test 指引读取状态、接入与验证资料，检查宿主归属和真实回调，覆盖关闭、重开、迟到与终态；替换外部原生边界，不能替换被测组件，Node／HAR／设备证据分别报告。
-- G 按 unif-python-test 指引读取运行、共同状态与验证资料，核对真实创建路径、业务唯一键、事务、进程重启与并发；不以进程内锁或固定成功替身证明持久化约束，也不扩大为删除数据。
-- H 从 unif-python-review 的生命周期与诊断资料检查原异常责任和事务收尾，指出敏感诊断与取消清理问题；实际 SQL、异常与事务证据按工程取得，RN 检查不证明后端正确。
-- I 九个平台阶段请求分别路由到对应平台与阶段；设计和提交使用 unif-architecture-design、unif-code-delivery。事实查询和真实业务请求不因涉及同一项目而触发研发流程；不要求为了测试／审查先安装开发技能，不额外拆 iOS／Android。
+- E 按 unif-rn-project 指引读取共同、RN 与验证资料，检查真实页面消费者，识别取消保存违背未变契约；组件渲染不能替代页面行为测试，不把审查授权扩大为修复。
+- F 按 unif-harmony-project 指引读取状态、接入与验证资料，检查宿主归属和真实回调，覆盖关闭、重开、迟到与终态；替换外部原生边界，不能替换被测组件，Node／HAR／设备证据分别报告。
+- G 按 unif-python-service 指引读取运行、共同状态与验证资料，核对真实创建路径、业务唯一键、事务、进程重启与并发；不以进程内锁或固定成功替身证明持久化约束，也不扩大为删除数据。
+- H 从 unif-python-service 的生命周期与诊断资料检查原异常责任和事务收尾，指出敏感诊断与取消清理问题；实际 SQL、异常与事务证据按工程取得，RN 检查不证明后端正确。
+- I 在改动、测试、审查各自的平台案例中识别需要核对的 RN 工程、鸿蒙工程或 Python 服务。新契约设计、已确定的跨仓变更、授权提交分别选择 unif-architecture-design、unif-contract-change、unif-code-delivery。事实查询和业务请求按其真实目的判断。
 
 鸿蒙开发、测试与审查的宿主隐式加载另用[自动触发题干](harmony-trigger-cases.md)、[工程素材](harmony-trigger-fixtures.json)及[独立判据](harmony-trigger-rubric.md)。该组不点名技能，核对实际正文读取，与本文件的显式独立消费和 I 题描述选择分别记录。
 
-RN 与 Python 六个阶段技能按[独立行为组](rn-python-behavior-cases.md)、[自动触发题干](rn-python-trigger-cases.md)及[专项判据](rn-python-rubric.md)执行。独立题复用本文件及状态归属题的现行来源；触发题使用单题素材和明确的只读边界，不把加载记录与任务完成混为一项。
+RN 与 Python 工程技能按[独立行为组](rn-python-behavior-cases.md)、[自动触发题干](rn-python-trigger-cases.md)及[专项判据](rn-python-rubric.md)执行。独立题复用原有状态、事务及消费者场景。
 
 架构、交付和六库能力按[独立行为组](capability-behavior-cases.md)、[自动触发组](capability-trigger-cases.md)及[专项判据](capability-rubric.md)执行。两组使用相同的版本化库材料来源，现行公共判据继续保留；显式提供技能与自然请求下实际加载分别记录。
 

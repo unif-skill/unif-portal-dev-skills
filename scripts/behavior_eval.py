@@ -35,6 +35,7 @@ LABELS = {'improved': '改善', 'regressed': '退化', 'unchanged': '持平（�
 class Case(TypedDict):
     id: str
     skill: str
+    baseline_skill: NotRequired[str | None]
     mode: str
     prompt: str
     source: str
@@ -201,6 +202,8 @@ class CaseReport(TypedDict):
     expected_pairs: int
     failures: list[Failure]
     traces: list[str]
+    candidate_only: NotRequired[bool]
+    candidate_completed: NotRequired[int]
     usage: NotRequired[Usage]
     usage_complete: NotRequired[bool]
     actual_models: NotRequired[dict[str, list[str]]]
@@ -361,6 +364,15 @@ class Snapshot:
             raise EvalError('固定提交缺少技能：' + name)
         return self.skill_dirs[name]
 
+    def has_skill(self, name: str) -> bool:
+        if name in self.skill_dirs:
+            return True
+        for package in self.package_dirs | {''}:
+            directory = (package + '/' if package else '') + 'skills/' + name
+            if directory in self.entries or any(path.startswith(directory + '/') for path in self.entries):
+                raise EvalError('技能目录缺少有效入口：' + directory)
+        return False
+
     @cached_property
     def peer_docs(self) -> dict[str, dict[str, str]]:
         return {name: linked_peer_paths(directory, self.read(directory + '/SKILL.md'), self.skill_dirs)
@@ -389,6 +401,11 @@ def validate_case(case: object, skills: Sequence[str], identifiers: set[str]) ->
     skill, mode = case.get('skill'), case.get('mode')
     if not isinstance(skill, str) or skill not in skills or not isinstance(mode, str) or mode not in CASE_MODES:
         raise EvalError('题目技能或模式无效：' + identifier)
+    if 'baseline_skill' in case:
+        predecessor = case['baseline_skill']
+        if mode != 'application' or (predecessor is not None and (not isinstance(predecessor, str)
+                or len(predecessor) > 64 or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', predecessor))):
+            raise EvalError('应用题的 baseline_skill 须为前身技能名称或 null：' + identifier)
     for field in ('prompt', 'source'):
         value = case.get(field)
         if not isinstance(value, str) or not value.strip():
@@ -971,14 +988,16 @@ def response_text(response: Response) -> str:
 
 
 def answer_application(client: ChatCompletionsClient, case: Case, files: Mapping[str, bytes], result: Sample) -> str:
-    readonly = ReadOnlyFiles(case['skill'], files, case['fixtures'])
+    skill = result['skill']
+    entry = f'skills/{skill}/SKILL.md'
+    readonly = ReadOnlyFiles(skill, files, case['fixtures'])
     inputs: list[Message] = [{'role': 'system', 'content':
         '这是只读技能应用任务。先阅读给定技能入口，按需读取清单内的技能资料和固定题设资料。' +
         '同一轮可请求读取多份相互独立的必要资料。' +
         '仅有 read_file/list_files；没有 shell、写入、网络业务或其他技能。' +
         '若任务要求修改，请在回答中提供可审阅的修改内容，不声称实际写入或真实验证。'},
         {'role': 'user', 'content': encode({'prompt': case['prompt'],
-            'skill_entry': f"skills/{case['skill']}/SKILL.md", 'files': sorted(readonly.files)})}]
+            'skill_entry': entry, 'files': sorted(readonly.files)})}]
     tools: list[dict[str, object]] = [{'type': 'function', 'function': {'name': name, 'description': description,
               'parameters': object_schema({'path': {'type': 'string'}})}}
              for name, description in (
@@ -1003,7 +1022,7 @@ def answer_application(client: ChatCompletionsClient, case: Case, files: Mapping
             except (ValueError, TypeError) as exc:
                 output = {'error': str(exc)}
             result['read_trace'].append({'name': function['name'], 'arguments': function['arguments'], 'output': output})
-            if (function['name'] == 'read_file' and output.get('path') == f"skills/{case['skill']}/SKILL.md"
+            if (function['name'] == 'read_file' and output.get('path') == entry
                     and 'error' not in output):
                 result['skill_loaded'] = True
             inputs.append({'role': 'tool', 'tool_call_id': call['id'], 'content': encode(output)})
@@ -1075,8 +1094,8 @@ def answer_discovery(client: ChatCompletionsClient, case: Case, catalog: Sequenc
 
 
 def evaluate_sample(client: ChatCompletionsClient, case: Case, files: Mapping[str, bytes],
-                    catalog: Sequence[dict[str, str]], skill_sha256: str) -> Sample:
-    result: Sample = {'status': 'error', 'case_id': case['id'], 'skill': case['skill'],
+                    catalog: Sequence[dict[str, str]], skill_sha256: str, *, source_skill: str | None = None) -> Sample:
+    result: Sample = {'status': 'error', 'case_id': case['id'], 'skill': source_skill or case['skill'],
               'skill_sha256': skill_sha256, 'case_sha256': digest(encode(case).encode()),
               'judgement': 'model_review' if case['mode'] == 'application' else 'programmatic_set_constraints',
               'api_trace': [], 'read_trace': [], 'answer': '', 'scores': [],
@@ -1190,6 +1209,9 @@ def write_report(output_dir: str | Path, report: Report) -> None:
         lines += ['', '逐题依据及前后失败例：', '']
         for case in report.get('cases', []):
             lines.append(f"- {case['id']}：{case.get('reason', '')}")
+            if case.get('candidate_only') and case['traces']:
+                lines.append(f"  - 候选单侧完成 {case.get('candidate_completed', 0)} / {case['expected_pairs']} 份。" +
+                             f"[查看首份答卷与判据]({case['traces'][0]})")
             grouped_errors: dict[str, tuple[int, Failure]] = {}
             failures: list[tuple[Failure, int]] = []
             for failure in case['failures']:
@@ -1262,6 +1284,35 @@ def aggregate(items: Iterable[Mapping[str, object]]) -> str:
     return 'insufficient'
 
 
+def comparison_baseline(case: Case, before: Snapshot,
+                        catalogs: Mapping[str, list[dict[str, str]] | str]) -> tuple[str | None, str]:
+    """Select an equivalent application source or explain why only the candidate can be scored."""
+    target = case['skill']
+    if case['mode'] == 'application':
+        if before.has_skill(target):
+            return target, ''
+        if 'baseline_skill' not in case:
+            raise EvalError('固定提交缺少技能：' + target)
+        predecessor = case['baseline_skill']
+        if predecessor and before.has_skill(predecessor):
+            return predecessor, ''
+        sources = f'{target}、{predecessor}' if predecessor else target
+        return None, '基线缺少可比较的技能正文：' + sources
+    before_catalog = catalogs['before']
+    if isinstance(before_catalog, str):
+        raise EvalError('基线目录 metadata 不可读取：' + before_catalog)
+    after_catalog = catalogs['after']
+    if isinstance(after_catalog, str):
+        raise EvalError('候选目录 metadata 不可读取：' + after_catalog)
+    judged = set(case['required_skills']) | set(case['forbidden_skills'])
+    missing = sorted(judged - {entry['name'] for entry in before_catalog})
+    for name in missing:
+        if before.has_skill(name):
+            raise EvalError('基线目录 metadata 缺少已有技能：' + name)
+    reason = '基线目录缺少判据使用的名称：' + '、'.join(missing) if missing else ''
+    return target, reason
+
+
 def evaluate_case(case_report: CaseReport, case: Case, client: ChatCompletionsClient,
                   snapshots: Mapping[str, Snapshot], catalogs: Mapping[str, list[dict[str, str]] | str],
                   plan: Plan, output_dir: Path, harness_sha256: str) -> CaseReport:
@@ -1269,25 +1320,38 @@ def evaluate_case(case_report: CaseReport, case: Case, client: ChatCompletionsCl
     case_report['usage_complete'] = True
     case_report['actual_models'] = {'answer': [], 'judge': []}
     try:
-        files = {variant: snapshot.skill_files(case['skill']) for variant, snapshot in snapshots.items()}
-        if case['mode'] != 'application' and any(isinstance(catalog, str) for catalog in catalogs.values()):
-            raise EvalError('目录 metadata 不可读取：' + '; '.join(value for value in catalogs.values() if isinstance(value, str)))
+        baseline, single_reason = comparison_baseline(case, snapshots['before'], catalogs)
+        sources = {'before': baseline, 'after': case['skill']}
+        files: dict[str, dict[str, bytes]] = {}
+        for variant, snapshot in snapshots.items():
+            name = sources[variant]
+            files[variant] = {}
+            if name and (case['mode'] == 'application' or snapshot.has_skill(name)):
+                files[variant] = snapshot.skill_files(name)
+                if case['mode'] == 'application':
+                    entry = files[variant][f'skills/{name}/SKILL.md']
+                    _ = skill_metadata(entry.decode('utf-8'), name)
     except (ValueError, OSError, subprocess.SubprocessError) as exc:
         case_report['reason'] = str(exc)
         case_report['failures'].append({'error': str(exc)})
         client.progress.emit(f"题目 {case['id']} 结束：证据不足（样本准备失败，详见报告）")
         return case_report
     pairs: list[tuple[ComparableSample, ComparableSample]] = []
+    if single_reason:
+        case_report['candidate_only'] = True
+        case_report['candidate_completed'] = 0
     for repeat in range(plan['repeats']):
         started = time.monotonic()
         client.progress.emit(f"配对 {case['id']} #{repeat + 1}/{plan['repeats']} 开始")
         pair: dict[str, ComparableSample] = {}
         # Counterbalance order; every evaluate_sample starts a fresh conversation.
-        for variant in (('before', 'after') if repeat % 2 == 0 else ('after', 'before')):
+        variants = ('before', 'after') if repeat % 2 == 0 else ('after', 'before')
+        for variant in (('after',) if single_reason else variants):
             client.progress.emit(f"样本 {case['id']} #{repeat + 1} {variant} 开始")
             files_digest = digest(encode({path: digest(data) for path, data in sorted(files[variant].items())}).encode())
             catalog = catalogs.get(variant, [])
-            sample = evaluate_sample(client, case, files[variant], catalog if not isinstance(catalog, str) else [], files_digest)
+            sample = evaluate_sample(client, case, files[variant], catalog if not isinstance(catalog, str) else [],
+                                     files_digest, source_skill=sources[variant])
             sample.update(variant=variant, repeat=repeat + 1, commit=snapshots[variant].commit,
                 suite_sha256=plan['suite_sha256'], harness_sha256=harness_sha256,
                 config={key: value for key, value in client.config.items() if key != 'api_key'})
@@ -1306,13 +1370,19 @@ def evaluate_case(case_report: CaseReport, case: Case, client: ChatCompletionsCl
                 case_report['actual_models'][role] = sorted(set(case_report['actual_models'][role]) | set(sample['actual_models'][role]))
             pair[variant] = {'status': sample['status'], 'scores': sample['scores'],
                 'actual_models': sample['actual_models'], 'case_sha256': sample['case_sha256']}
-        pairs.append((pair['before'], pair['after']))
-        client.progress.pair_finished(case['id'], repeat + 1, compare_results([pairs[-1]], 1), time.monotonic() - started)
+        if single_reason:
+            case_report['candidate_completed'] = case_report.get('candidate_completed', 0) + int(pair['after']['status'] == 'complete')
+            observation = compare_results([], 1)
+            observation['reason'] = single_reason
+        else:
+            pairs.append((pair['before'], pair['after']))
+            observation = compare_results([pairs[-1]], 1)
+        client.progress.pair_finished(case['id'], repeat + 1, observation, time.monotonic() - started)
     comparison = compare_results(pairs, plan['repeats'])
     case_report.update(status=comparison['status'], completed_pairs=comparison['completed_pairs'],
         expected_pairs=comparison['expected_pairs'], criteria=comparison['criteria'],
         observed_wins=comparison['observed_wins'], observed_losses=comparison['observed_losses'],
-        reason=comparison.get('reason', ''))
+        reason=single_reason or comparison.get('reason', ''))
     client.progress.emit(f"题目 {case['id']} 结束：{LABELS[comparison['status']]}；" +
                          f"完整配对 {comparison['completed_pairs']}/{plan['repeats']}")
     return case_report
