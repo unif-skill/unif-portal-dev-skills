@@ -10,7 +10,7 @@
     ".github/workflows/behavior-eval.yml": "36226c93443ea85c1ebc01044b54d75a1e4cadc37cc9d5d33462d76c112fc7bf",
     "scripts/joint_discovery_eval.py": "fea73e3ebd2d664838a3106a928f68c00de34775a6a3b461c2d3dbf077818eed",
     "tests/test_joint_discovery_eval.py": "e6487fb925e082e2c882212455934eaf12286c2a4b593b88bb7a5600fa06b0a5",
-    "evals/joint-discovery/catalog.json": "994cc0e34af56bc6bf6bdb23893b25526ae7a2621a5ee4fd63561477aee91809",
-    "evals/joint-discovery/cases.json": "97c958e1262eca42e79d01e2e72ef3616a0c86a683cb909be8564bf5719412dc"
+    "evals/joint-discovery/catalog.json": "4c4ab3d6702489b4b369d8a7228a2e88233d8889549bfd4e3bd31c41bcb87007",
+    "evals/joint-discovery/cases.json": "01caf0efa6079fada9347bc69c753dbbe6d36fc8dae09c051365ba6f410bdebf"
   }
 }

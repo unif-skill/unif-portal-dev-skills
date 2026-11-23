@@ -1,241 +1,227 @@
 {
   "formatVersion": 1,
   "sources": {
-    "uni-skills": "3cedf73e8bdb1b67aa1f8422fa646ecea47a40ad",
-    "unif-portal-dev-skills": "eb14514182b511ec14c766ee1598bdb13aac1b02"
+    "uni-skills": "ee90c68e604df2d63032d282887bc839036bacae",
+    "unif-portal-dev-skills": "45b5e97d1afc1d63ce743989df5069dbfe5ddf64"
   },
   "skills": [
     {
-      "name": "uni-code-organization",
-      "description": "在判断代码或工程配置是否需要调整、确定改动范围，或进行实现、排查、修复、重构和审查时使用。涉及职责、类型、依赖、状态、异步、错误处理与验证。仅查询既有接口或修改与源码无关的文案时不触发。",
+      "name": "uni-code-change",
+      "description": "需求和范围已确定，需要实现功能、调整代码或工程配置、重构代码或清理已确认废弃的实现时使用。",
       "package": "uni-skills",
-      "path": "skills/uni-code-organization/SKILL.md",
-      "source_sha256": "2caaad6622fecb8704809069762653ace0cfe62a06520866da8f2ce8c2212e55"
+      "path": "skills/uni-code-change/SKILL.md",
+      "source_sha256": "3664a1e96e147a62a0be57fe2ef453380d454d067088fbe4df5159651b5eb2b2"
+    },
+    {
+      "name": "uni-code-review",
+      "description": "审查 PR、提交或工作区差异，查找变更引入的缺陷、契约回归或验证缺口时使用。",
+      "package": "uni-skills",
+      "path": "skills/uni-code-review/SKILL.md",
+      "source_sha256": "3e8dc4eea70b8ad67bebfeb7eaa70f3bfc1364194bd0e50b2a9876845dc9b0b8"
+    },
+    {
+      "name": "uni-debugging",
+      "description": "遇到原因不明的错误、回归、测试失败或运行异常，需要复现并定位根因时使用。也适用于定位后获准修复同一故障。",
+      "package": "uni-skills",
+      "path": "skills/uni-debugging/SKILL.md",
+      "source_sha256": "7904e5aa7456389ffa61806395fb33bb4c97f8ece4189dda4a44ea6f0d737c1e"
     },
     {
       "name": "uni-documentation",
-      "description": "在编写、整理或审校工程文档、项目描述或源码文档注释，或维护文档站的导航、展示、生成、构建与预览时使用。适用于各平台和语言。",
+      "description": "编写、更新或审校工程文档、项目介绍和源码契约注释时使用。也用于维护文档站的导航、生成、构建与预览。",
       "package": "uni-skills",
       "path": "skills/uni-documentation/SKILL.md",
-      "source_sha256": "e0b37ffbc18cae7f460c23625ea05e716035543e7d9eae19a38b87bdeb10670a"
+      "source_sha256": "e0507487b3ae7e632cac165f18e8bdad36c377d72d982e5bdf0c1482d9d0a9f1"
     },
     {
-      "name": "uni-github-delivery",
-      "description": "在接入或维护 GitHub 工程交付配置、CI、仓库设置与保护、共享模板、发布与恢复流程，或核验已采用交付标准时使用。单纯源码实现、文档内容或作业状态查询不触发。",
+      "name": "uni-github-delivery-setup",
+      "description": "建设、维护或核查 GitHub 交付配置时使用。适用于 CI 工作流、仓库规则集、分支保护、共享模板，以及发布和恢复机制。",
       "package": "uni-skills",
-      "path": "skills/uni-github-delivery/SKILL.md",
-      "source_sha256": "c562d761a1a381e739a1756f98bcf044847c130e3e26ae904ce7f8b96ff6c931"
+      "path": "skills/uni-github-delivery-setup/SKILL.md",
+      "source_sha256": "a5d5e72f494b990b9630051d6e66af9833aebaa279b84d446d4f1c88cfde45e8"
     },
     {
       "name": "uni-harmony-dev",
-      "description": "在原生 HarmonyOS 应用或库中实现、调整、排查或审查 ArkTS／ArkUI 组件、状态、生命周期、平台适配及 SDK 接入时使用。不用于 RN／RNOH 实现或纯文档修改。",
+      "description": "开发或调整原生 HarmonyOS 页面和组件时使用。也适用于 ArkTS／ArkUI 状态、宿主生命周期、平台适配和 SDK 接入。",
       "package": "uni-skills",
       "path": "skills/uni-harmony-dev/SKILL.md",
-      "source_sha256": "93a1a0d0815e5fe9f5b26c08127e2b30fecc55524d5e682d7d2e50a60eddabb2"
+      "source_sha256": "b55e2b12d5fbee55c9c04bf7d6c73fda244b00f76d0a9c041557f9ce59317da6"
     },
     {
       "name": "uni-harmony-library",
-      "description": "在创建、提取或维护原生 HarmonyOS HAR 库工程，处理工程标准、公共入口、依赖、共享源码与资源、打包发布或原生运行示例时使用。应用仅消费已有 API、RN 库和纯文档任务不触发。",
+      "description": "创建、提取或维护原生 HarmonyOS HAR 库时使用。适用于调整公开入口、依赖和资源，以及用独立原生应用验证实际 HAR。",
       "package": "uni-skills",
       "path": "skills/uni-harmony-library/SKILL.md",
-      "source_sha256": "c793d083b958c0f643c9d76369de0327a3b195a9aa3bc8c999525bb3a8af92f7"
+      "source_sha256": "1e10e40f450f7c849804a4d2965365ff57c1025d30de4f39a34616418b4f920c"
     },
     {
       "name": "uni-rn-dev",
-      "description": "在 React Native 应用或库中实现、调整或审查组件、Hook、样式、交互状态、平台适配、原生接入和工程检查配置，或进行 iOS 真机安装、Metro 调试及设备连接恢复时使用。不用于纯文案修改或原生鸿蒙代码。",
+      "description": "开发或调整 React Native 组件、Hook、交互样式和原生接线时使用。也适用于工程检查配置、iOS 真机安装、Metro 调试和连接恢复。",
       "package": "uni-skills",
       "path": "skills/uni-rn-dev/SKILL.md",
-      "source_sha256": "056b3ee37bb65a5518493ef183c11e77c1b83ed0f76e838b28b2816164000886"
+      "source_sha256": "caa50426a5093a7559325e2c91f6962ab5a5aa8b68a1a141b58388a50c0c8f24"
     },
     {
       "name": "uni-rn-library",
-      "description": "在创建、提取或维护 React Native 库工程，处理工程标准、公共入口、依赖、打包发布或运行示例时使用。应用仅消费已有 API、纯文档或文档站任务不触发。",
+      "description": "创建、提取或维护 React Native 库时使用。适用于调整包的公开入口和依赖、编写运行示例，以及验证打包产物能被独立应用使用。",
       "package": "uni-skills",
       "path": "skills/uni-rn-library/SKILL.md",
-      "source_sha256": "c1f7544d1ed83d007b9b189a40727d9018c7ae8002d225d32569d4943f19a82a"
+      "source_sha256": "b9c738a1fc626e08734c73a4d78bd1be3a7f3950c5fcad0fd523c75ffe44c04f"
     },
     {
       "name": "uni-skill-authoring",
-      "description": "在创建、修改、整理或审查 Agent 技能的 SKILL.md、触发描述和配套资料时使用。普通工程文档、业务代码及仅安装或更新已发布技能时不触发。",
+      "description": "创建或更新 Agent 技能，或审查技能的触发条件、正文可读性、配套资料和执行效果时使用。",
       "package": "uni-skills",
       "path": "skills/uni-skill-authoring/SKILL.md",
-      "source_sha256": "7e6bbbf61536d6f2d88a5a0fd2790fb5662340af0a0e045db98857fc3b37e9f6"
+      "source_sha256": "802086062fa01ba0a298221b44f27998f9f4fe57f1b98fceb355575d4947e163"
     },
     {
       "name": "uni-test-design",
-      "description": "在为新功能设计测试、为已有系统补回归用例、审查测试有效性或建立和核验覆盖率门禁时使用。",
+      "description": "为功能或缺陷设计和补写测试用例、审查现有断言，或建立和核验覆盖率门禁时使用。",
       "package": "uni-skills",
       "path": "skills/uni-test-design/SKILL.md",
-      "source_sha256": "96beb35a2067c94f8c2d048ffe4e077e6baee5e21d4a10b6af21f53dce4a7e68"
+      "source_sha256": "8567226b87ec98c16dff3bcd03c61f8dcd08617a3924934bee7e79f1d75a4b73"
     },
     {
       "name": "uni-third-party-integration",
-      "description": "在涉及第三方库、框架或 SDK 的方案设计、接入、封装开发、升级评估或故障排查时使用，包括自有库对第三方能力的封装。不用于与第三方用法无关的纯业务逻辑、文案或目录调整。",
+      "description": "选择、接入、封装或升级第三方库、框架和 SDK 时使用。也适用于核实上游缺陷和修复版本，以及准备缺陷报告。",
       "package": "uni-skills",
       "path": "skills/uni-third-party-integration/SKILL.md",
-      "source_sha256": "c7efe5e4c2cb6677726d1c9e4709e1f066ae4d17cca6c28c32804c60d657db74"
+      "source_sha256": "a09c4befa3ff8564f4eb74b016bdbd902287030ecefcd34d66d4cf262277698e"
+    },
+    {
+      "name": "uni-verify-change",
+      "description": "已有代码或配置改动，需要按实际差异选择并运行检查，确认哪些行为已经验证时使用。",
+      "package": "uni-skills",
+      "path": "skills/uni-verify-change/SKILL.md",
+      "source_sha256": "f88cc2ae39f694a00f612d2075d20b811175090e9f105e1ebf00633b353b968f"
     },
     {
       "name": "unif-amap",
-      "description": "在查询、接入、维护或排查 @unif/react-native-amap 的地图选点、定位、地点查询、高德应用唤起及宿主接入时使用。不用于其他地图库或原生鸿蒙地图接口。",
+      "description": "接入 @unif/react-native-amap 的高德选点、定位或地点查询，排查 RN 宿主和高德应用唤起问题。其他地图库和原生鸿蒙地图接口另查对应库。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-amap/skills/unif-amap/SKILL.md",
-      "source_sha256": "ec170bb1ecbfddba3a74e16e1cfeceb2de077cdb967efb8f72e8fb8855db0541"
+      "source_sha256": "c4377753995905c9ef213f9d19cb9f50ed39ad350a15db68c43e1e9b6d2c79a9"
     },
     {
       "name": "unif-architecture-design",
-      "description": "在 Unif Portal、相关 Agent／Channel／CLI 及 @unif RN／原生鸿蒙库设计或评审模块职责、场景组合、状态归属和公共契约时使用。单纯查阅现有接口不触发架构设计。",
+      "description": "需要为 Unif 应用、服务、CLI 或 @unif 库设计或评审模块职责、状态归属和公共接口时使用。跨仓字段已经定稿后，实施或审查该改动使用契约变更技能。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md",
-      "source_sha256": "90871e1f51e7f8813c5a49305e0ccb9e89a848f64ab489df7e4fd8419485d046"
+      "source_sha256": "1205f00645c7d3acd98acd5635a824ef1829298f8fa59fcb423f2dbd9c019407"
     },
     {
       "name": "unif-camera",
-      "description": "在查询、接入、维护或排查 @unif/react-native-camera 或 @unif/harmony-camera 的拍照、录像、水印、宿主、媒体交接及鸿蒙目标契约时使用。",
+      "description": "接入拍照、录像与水印，排查相机宿主和临时媒体交接。覆盖 @unif/react-native-camera 的公开用法与库内维护，也可核对原生鸿蒙 @unif/harmony-camera 的拍摄契约与实现状态。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-camera/skills/unif-camera/SKILL.md",
-      "source_sha256": "33a42f6ab490da63023880d41fbbd6f83a9dbfaf0c17b18232352850984007e8"
+      "source_sha256": "c0005d3741f0718035622357df87f1d21e087d2c07086e3454b873505975e585"
     },
     {
       "name": "unif-chat",
-      "description": "在查询、接入、维护或排查 @unif/react-native-chat 或 @unif/harmony-chat 的消息列表、输入、附件、流式展示、组件组合及鸿蒙目标契约时使用。",
+      "description": "组合消息列表、输入框和附件，处理滚动与流式展示等聊天界面问题。涵盖 @unif/react-native-chat 的组件用法与维护，以及原生鸿蒙 @unif/harmony-chat 的实际导出与目标契约。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-chat/skills/unif-chat/SKILL.md",
-      "source_sha256": "9bb728fc6b2cd69aadc135665470a886c2b4cea752a0af162b18bb5fb9c5f619"
+      "source_sha256": "65be9a28d92772d4e1720d5ecad58243620a72aa872a9be154e1a327384363db"
     },
     {
       "name": "unif-code-delivery",
-      "description": "在 Portal、相关服务或 @unif RN／原生鸿蒙库准备或执行提交、推送、PR/MR、合并、发布、分支清理，或核对这些操作的交付条件时使用。单纯查询作业状态不触发。",
+      "description": "准备一次具体的 Unif 交付，或执行已获授权的提交、推送、合并、发布、部署或分支清理时使用。只查 CI 状态或维护 GitHub 设施时使用相应工具。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md",
-      "source_sha256": "fe8ab1f3c3fa512b284a920b7707787b7f2efab83313465df14511bfaaf67cad"
+      "source_sha256": "4772a383e8c0793abc19617be7f9fea1bceafbc4947bf2c7b41739ab0cd89f81"
+    },
+    {
+      "name": "unif-contract-change",
+      "description": "Unif 跨仓字段、消息或存储格式已经定稿，需要实施或审查这次改动时使用。尚待确定模块职责时选架构设计，只查现行约定时选平台规范。",
+      "package": "unif-portal-dev-skills",
+      "path": "plugins/unif-engineering-skills/skills/unif-contract-change/SKILL.md",
+      "source_sha256": "0b89463749787a3c3ca430a791fd4e5ba224446152ef22b56761c07e45381c3a"
     },
     {
       "name": "unif-design",
-      "description": "在查询、接入、维护或排查 @unif/react-native-design 或 @unif/harmony-design 的基础组件、主题、字体、玻璃表面、UI 宿主及鸿蒙目标契约时使用。",
+      "description": "查找或维护 @unif/react-native-design 的基础组件、主题和弹层，排查字号、玻璃材质或宿主显示问题。原生鸿蒙对应 @unif/harmony-design 的公开导出与目标契约。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-design/skills/unif-design/SKILL.md",
-      "source_sha256": "e5a83d3e0397e8604155d8fb975574af0d0770cc7f0aecc6c380acf08edcb661"
+      "source_sha256": "8ba0de92b75f7e5a79c5fa2d76d3390844a8c6d7dda89c8fd59ba94f170f6c31"
     },
     {
       "name": "unif-files",
-      "description": "在查询、接入、维护或排查 @unif/react-native-files 的文件读写、复制、下载、目录清理、文件生命周期或本地 HTTP 资源访问时使用。不用于 Logger 专属日志文件管理。",
+      "description": "管理 @unif/react-native-files 的文件读写、复制、下载与目录清理，排查预览和上传共用文件或 WebView 本地 HTTP 访问问题。Logger 的私有日志文件和诊断快照归日志库。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-files/skills/unif-files/SKILL.md",
-      "source_sha256": "676a4592e4255ab603c54efbb969d1d7966f22c228bd91094994004324168e94"
+      "source_sha256": "35381f2e6d56d6892fedc72625bb489d1fe03b7e5e32f482d1c15f5bc9ad07e3"
     },
     {
-      "name": "unif-harmony-dev",
-      "description": "在 Unif 原生鸿蒙 ArkTS／ArkUI 客户端、@unif/harmony-* HAR 库或其共享核心中实现、调整或排查源码和运行示例时使用。仅查询版本或既有 API、纯文档维护及 RN 开发不触发。",
+      "name": "unif-harmony-project",
+      "description": "在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要核对宿主接线、资源交接或跨端功能验收时使用。只查 SDK 版本或已发布 API 时查看相应资料。",
       "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-harmony-skills/skills/unif-harmony-dev/SKILL.md",
-      "source_sha256": "e4405151f65b9781a3667d58f3889226ab78e15ce296ade2c7069408b0c3e14a"
-    },
-    {
-      "name": "unif-harmony-review",
-      "description": "在 Unif 原生鸿蒙客户端、@unif/harmony-* HAR 库或其共享核心中对明确代码或工程配置变更进行缺陷、契约符合性和工程规范审查时使用。为回答事实问题而查阅源码不单独触发。",
-      "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-harmony-skills/skills/unif-harmony-review/SKILL.md",
-      "source_sha256": "a5b419fdd7c8296843cd56e30f3dcf7606a7dbf601fbede33aec3f0139e0b537"
-    },
-    {
-      "name": "unif-harmony-test",
-      "description": "在 Unif 原生鸿蒙客户端、@unif/harmony-* HAR 库或其共享核心中设计、编写、修正或执行测试，以及评估测试质量与验证范围时使用。",
-      "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-harmony-skills/skills/unif-harmony-test/SKILL.md",
-      "source_sha256": "afd308a2922ad033fb9d66f1efe4e6a3104baeaea4316727a8cf63f8a01e459d"
+      "path": "plugins/unif-harmony-skills/skills/unif-harmony-project/SKILL.md",
+      "source_sha256": "58dde41a14e32166f62216047ae98169b38ce15d97e91aab7e2ab3291a27f5c5"
     },
     {
       "name": "unif-hms-scan",
-      "description": "在查询、接入、维护或排查 @unif/react-native-hms-scan 或 @unif/harmony-hms-scan 的实时扫码、图片解码、权限、手电及鸿蒙目标契约时使用。",
+      "description": "选择实时扫码或图片解码，定位相机权限、手电状态和图片占用问题。涉及 @unif/react-native-hms-scan 的调用与维护，以及原生鸿蒙 @unif/harmony-hms-scan 的目标契约与实际导出。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-hms-scan/skills/unif-hms-scan/SKILL.md",
-      "source_sha256": "52fca864b626eef338460c0222d6d530aebbd367ba36ca3389e863df55a6995c"
+      "source_sha256": "f9b5ccd01bb5df2fdb154c22372e8a0ef06828e8e8d55d6c188248d507813ebc"
     },
     {
       "name": "unif-icons",
-      "description": "在查询、使用、维护或排查 @unif/react-native-icons、@unif/harmony-icons 的图标，或调整唯一 SVG／命名源及两端生成产物时使用。",
+      "description": "选用已有图标、排查渲染和读屏问题，或维护共用的 SVG、命名和两端生成产物。对应 @unif/react-native-icons 和原生鸿蒙图标库 @unif/harmony-icons。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-icons/skills/unif-icons/SKILL.md",
-      "source_sha256": "c065a1a2193048cbff51c4f2fe3f4553ec7a3a5af7597b2e22bda22c56f5a6ae"
+      "source_sha256": "786367da9b8930281991e56067e8d9f0b2048ea99014a4da2db585b9a664ccb4"
     },
     {
       "name": "unif-logger",
-      "description": "在查询、接入、维护或排查 @unif/react-native-logger、@unif/harmony-logger 的公开 API、运行时、脱敏、关联、私有存储和快照交接时使用。通用日志规范、Python 日志及其他日志框架不单独触发。",
+      "description": "接入或排查 @unif/react-native-logger 和原生鸿蒙 @unif/harmony-logger 的日志运行时、身份关联、脱敏、私有存储与诊断快照。通用日志规范、普通 Python 日志和其他日志框架另查各自资料。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-logger/skills/unif-logger/SKILL.md",
-      "source_sha256": "c1ab36e1b7dec37e872a18febac8e0df5d9a4b7b99431060a7e1951d68d56718"
+      "source_sha256": "1cdcdd26312b284b4fded6740d3432936ff106a6e54622dde0b6be0ad176dd6d"
     },
     {
       "name": "unif-oss",
-      "description": "在查询、接入、维护或排查 @unif/react-native-oss 的临时凭证、单文件上传、远程转存、顺序批量上传、上传回执及源文件释放时使用。不用于服务端 OSS SDK 或桶权限配置。",
+      "description": "处理 @unif/react-native-oss 的临时凭证、上传回执和源文件释放，涵盖单文件上传、远程转存与顺序批量上传。服务端 OSS SDK 和桶权限另按服务端配置处理。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-oss/skills/unif-oss/SKILL.md",
-      "source_sha256": "a3d387c0d4e0702c4802bfd5c6f5c445f9a844288b86b2d8f1262e0507008eb6"
+      "source_sha256": "42e32edf8eaabc3ed7027b3776306118fe6482818445bb619d4379ff93b6a03b"
     },
     {
       "name": "unif-platform-rules",
-      "description": "查阅 Unif 项目共用的职责、状态、业务回执与验证规则时使用。其他 Unif 技能引用本目录的具体主题时，按给出的路径和章节读取。",
+      "description": "查阅 Unif 现行规则时使用，例如草稿归谁、停止等待后谁继续处理、哪个回执代表业务成功。要实施或审查已确定的跨仓字段变更时，选契约变更技能。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-platform-rules/skills/unif-platform-rules/SKILL.md",
-      "source_sha256": "7ce654a22773bb2a4f747be6415f1c2e0260c8ec38458ff03e324d0104dc97ef"
+      "source_sha256": "c4621714f16f2620b11a46288f4182dbc3cc3e53e99b2e9607739ccdec4a83f7"
     },
     {
-      "name": "unif-python-dev",
-      "description": "在 Unif Agent、Marketing 等 Python 服务实现、修复或重构代码与配置，处理服务接入、异步运行、持久化或故障诊断时使用。仅查询运行状态、版本或既有接口不触发。",
+      "name": "unif-python-service",
+      "description": "在 Unif Agent、Marketing 等 Python 服务中，需要核对助手路由、领域能力、Worker 隔离或数据库事务时使用。只查配置值、版本或现有接口时查看工程资料。",
       "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-python-skills/skills/unif-python-dev/SKILL.md",
-      "source_sha256": "e3eafbaee853762474965818f1ba6ba373f7a6362dc7462071588a608e1789b5"
+      "path": "plugins/unif-python-skills/skills/unif-python-service/SKILL.md",
+      "source_sha256": "9fa2ce62a5ffb9e7ad153a8f5fc25c69bea211718fde1e68f447ac2e22b1a863"
     },
     {
-      "name": "unif-python-review",
-      "description": "在审查 Unif Python 代码或服务配置的正确性、契约、状态与资源责任、故障证据和验证范围时使用。仅为回答事实问题阅读源码不触发。",
+      "name": "unif-rn-project",
+      "description": "在 Portal 的 React Native 应用或 @unif RN 库中，需要核对页面状态、环境配置、H5 交接或共享核心的实际消费者时使用。只查包版本或已有 API 时查看相应库资料。",
       "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-python-skills/skills/unif-python-review/SKILL.md",
-      "source_sha256": "cf0e6326830a0907f82c696d71e5765753feb22fc59557e2269a9ed517b14517"
-    },
-    {
-      "name": "unif-python-test",
-      "description": "在为 Unif Python 服务设计、编写、执行或评估测试时使用，包括消费者接线、异步与持久化边界，以及一次失败能否留下可定位的诊断证据。仅查看测试状态不触发。",
-      "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-python-skills/skills/unif-python-test/SKILL.md",
-      "source_sha256": "e9be638ebd5c79ed248fba261afb17b5089f9bc2e6152c2e6b0b507a7dc254cd"
-    },
-    {
-      "name": "unif-rn-dev",
-      "description": "在 Unif React Native 应用、@unif RN 库或共享核心实现、修复和重构源码、示例与构建配置，处理客户端状态、资源交接或故障诊断时使用。仅查 API／版本、纯文档及原生鸿蒙开发不触发。",
-      "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-react-native-skills/skills/unif-rn-dev/SKILL.md",
-      "source_sha256": "607dd30b25d87070506a637e7f30ae465cb5c438d62b539642f35ee09ce08bf0"
-    },
-    {
-      "name": "unif-rn-review",
-      "description": "在审查 Unif React Native 应用、@unif RN 库或共享核心的代码与构建配置，核对契约、状态、资源、故障证据和验证范围时使用。仅为回答事实问题阅读源码不触发。",
-      "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-react-native-skills/skills/unif-rn-review/SKILL.md",
-      "source_sha256": "22d4f4ffad292775bafc88a21136df0e3cd52aebe4c29ee986d3415c0d4ee2fb"
-    },
-    {
-      "name": "unif-rn-test",
-      "description": "在为 Unif React Native 应用、@unif RN 库或共享核心设计、编写、执行或评估测试时使用，包括异步与资源边界、诊断证据及真实消费者。仅查看测试状态不触发。",
-      "package": "unif-portal-dev-skills",
-      "path": "plugins/unif-react-native-skills/skills/unif-rn-test/SKILL.md",
-      "source_sha256": "fefce409662ae6e16086e7be626d1f904ab6fea2e8b50f97b5fb91e67a491f3e"
+      "path": "plugins/unif-react-native-skills/skills/unif-rn-project/SKILL.md",
+      "source_sha256": "6aed6642468cc3865cc108ce4f120376e6cd88f6aeffc9bd35de51f5dc077318"
     },
     {
       "name": "unif-speech",
-      "description": "在查询、接入、维护或排查 @unif/react-native-speech 的音频采集、临时凭证、实时识别会话、语音输入及麦克风释放时使用。不用于语音合成或其他语音 SDK。",
+      "description": "接入 @unif/react-native-speech 的音频采集、临时凭证和实时识别，排查语音输入结果和麦克风释放。语音合成及其他语音 SDK 另查对应接口。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-speech/skills/unif-speech/SKILL.md",
-      "source_sha256": "225587f535292910d5b9a4412716fde59bd8b1956fb20a37636b912af0c57956"
+      "source_sha256": "8069f500b4ace547e180408c52aaa52489fc0375dfb6a41a44c429c07ac2a8a4"
     },
     {
       "name": "unif-umeng",
-      "description": "在查询、接入、维护或排查 @unif/react-native-umeng 或 @unif/harmony-umeng 的隐私同意后初始化、统计、分享、平台回调及鸿蒙目标契约时使用。",
+      "description": "接入或维护友盟统计和渠道分享，定位隐私同意后的初始化、分享弹层与平台回调问题。RN 对应 @unif/react-native-umeng，原生鸿蒙覆盖 @unif/harmony-umeng 的目标契约与实际导出。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-umeng/skills/unif-umeng/SKILL.md",
-      "source_sha256": "c3fdc16ad6e736e99547f4813de297f42454cebf61796c8641be0944827421a8"
+      "source_sha256": "533d7615625aa614310f86def45bbf8f79e696dcde7b5ad8b9490f3ffab1a4c2"
     }
   ],
-  "sha256": "3e5630bd80d8a3992924a700c5df205be9e3ae324d4e78bb24e14043bd4cf07d"
+  "sha256": "d5a42ee9c3686c76086433f0d266514b6b6a48d3c02ee790ecce388dc621ea3d"
 }
