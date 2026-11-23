@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-oss",
-  "version": "1.10.8",
+  "version": "1.10.9",
   "description": "Unif 临时凭证、上传、转存与源文件释放技能",
   "extensions": {
     "com.openai": {
