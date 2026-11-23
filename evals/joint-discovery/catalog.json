@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "sources": {
-    "uni-skills": "ee90c68e604df2d63032d282887bc839036bacae",
-    "unif-portal-dev-skills": "45b5e97d1afc1d63ce743989df5069dbfe5ddf64"
+    "uni-skills": "019912918e52f0484cfba91e6df4cd809734a5cc",
+    "unif-portal-dev-skills": "f3bf1c2feb905e0e551c43ea48eb974f2948179d"
   },
   "skills": [
     {
@@ -105,10 +105,10 @@
     },
     {
       "name": "unif-architecture-design",
-      "description": "需要为 Unif 应用、服务、CLI 或 @unif 库设计或评审模块职责、状态归属和公共接口时使用。跨仓字段已经定稿后，实施或审查该改动使用契约变更技能。",
+      "description": "需要为 Unif 应用、服务或 @unif 库设计或评审模块职责、状态归属和公共接口时使用。跨仓字段已经定稿后，实施或审查该改动使用契约变更技能。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-engineering-skills/skills/unif-architecture-design/SKILL.md",
-      "source_sha256": "1205f00645c7d3acd98acd5635a824ef1829298f8fa59fcb423f2dbd9c019407"
+      "source_sha256": "896dbfbcab3cdd75870c2a17fc1acc42d398fbe0c1f18a0e4436ba7b2742e9ba"
     },
     {
       "name": "unif-camera",
@@ -129,14 +129,14 @@
       "description": "准备一次具体的 Unif 交付，或执行已获授权的提交、推送、合并、发布、部署或分支清理时使用。只查 CI 状态或维护 GitHub 设施时使用相应工具。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-engineering-skills/skills/unif-code-delivery/SKILL.md",
-      "source_sha256": "4772a383e8c0793abc19617be7f9fea1bceafbc4947bf2c7b41739ab0cd89f81"
+      "source_sha256": "cb8c1dbe863d2d3bf782b5bdaa03b115a201080ecdb4ed5b8d139800455218dc"
     },
     {
       "name": "unif-contract-change",
       "description": "Unif 跨仓字段、消息或存储格式已经定稿，需要实施或审查这次改动时使用。尚待确定模块职责时选架构设计，只查现行约定时选平台规范。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-engineering-skills/skills/unif-contract-change/SKILL.md",
-      "source_sha256": "0b89463749787a3c3ca430a791fd4e5ba224446152ef22b56761c07e45381c3a"
+      "source_sha256": "e7f791ad41185c996df326c3750348e7b69f66ecd0c4979d3f783f43765595b8"
     },
     {
       "name": "unif-design",
@@ -157,7 +157,7 @@
       "description": "在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要核对宿主接线、资源交接或跨端功能验收时使用。只查 SDK 版本或已发布 API 时查看相应资料。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-harmony-skills/skills/unif-harmony-project/SKILL.md",
-      "source_sha256": "58dde41a14e32166f62216047ae98169b38ce15d97e91aab7e2ab3291a27f5c5"
+      "source_sha256": "5fbe9a6fab8ad646752d3f7e821c5f513429cf6afde1db1585ac5c38d261bcf7"
     },
     {
       "name": "unif-hms-scan",
@@ -171,14 +171,14 @@
       "description": "选用已有图标、排查渲染和读屏问题，或维护共用的 SVG、命名和两端生成产物。对应 @unif/react-native-icons 和原生鸿蒙图标库 @unif/harmony-icons。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-icons/skills/unif-icons/SKILL.md",
-      "source_sha256": "786367da9b8930281991e56067e8d9f0b2048ea99014a4da2db585b9a664ccb4"
+      "source_sha256": "c8d3cd46f2244899c863ee30f08ed956c93e3f00e74d1770a0e1f450e6f19635"
     },
     {
       "name": "unif-logger",
       "description": "接入或排查 @unif/react-native-logger 和原生鸿蒙 @unif/harmony-logger 的日志运行时、身份关联、脱敏、私有存储与诊断快照。通用日志规范、普通 Python 日志和其他日志框架另查各自资料。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-logger/skills/unif-logger/SKILL.md",
-      "source_sha256": "1cdcdd26312b284b4fded6740d3432936ff106a6e54622dde0b6be0ad176dd6d"
+      "source_sha256": "79bd5bd21a17313744c87ded801ae420fd24d57c089bd2c056987e59f71e331a"
     },
     {
       "name": "unif-oss",
@@ -223,5 +223,5 @@
       "source_sha256": "533d7615625aa614310f86def45bbf8f79e696dcde7b5ad8b9490f3ffab1a4c2"
     }
   ],
-  "sha256": "d5a42ee9c3686c76086433f0d266514b6b6a48d3c02ee790ecce388dc621ea3d"
+  "sha256": "52dfa3f051f8d1c7504b30a410bc4170c2e22241ea3c9a69214e100cc5727a1d"
 }
