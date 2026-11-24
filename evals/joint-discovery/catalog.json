@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "sources": {
-    "uni-skills": "019912918e52f0484cfba91e6df4cd809734a5cc",
-    "unif-portal-dev-skills": "f3bf1c2feb905e0e551c43ea48eb974f2948179d"
+    "uni-skills": "cbdded20774df0d03dc2c270c31b5ad9b7132d0e",
+    "unif-portal-dev-skills": "4a0557533ffc31c23a33b8cd9e2b9691a6ef09b4"
   },
   "skills": [
     {
@@ -154,10 +154,10 @@
     },
     {
       "name": "unif-harmony-project",
-      "description": "在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要核对宿主接线、资源交接或跨端功能验收时使用。只查 SDK 版本或已发布 API 时查看相应资料。",
+      "description": "在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要组织 ArkTS 源码、对照 RN 公开接口，或核对宿主接线、资源交接和跨端验收时使用。仅从已有材料读出 SDK 版本、配置字段值或已发布 API 事实时不使用。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-harmony-skills/skills/unif-harmony-project/SKILL.md",
-      "source_sha256": "5fbe9a6fab8ad646752d3f7e821c5f513429cf6afde1db1585ac5c38d261bcf7"
+      "source_sha256": "0bac87fb5af0c4fa75880462071ae4d337f4722f065b4ee41b76f6bfa4349f66"
     },
     {
       "name": "unif-hms-scan",
@@ -196,17 +196,17 @@
     },
     {
       "name": "unif-python-service",
-      "description": "在 Unif Agent、Marketing 等 Python 服务中，需要核对助手路由、领域能力、Worker 隔离或数据库事务时使用。只查配置值、版本或现有接口时查看工程资料。",
+      "description": "在 Unif Agent、Marketing 等 Python 服务中，需要核对助手路由、领域能力、Worker 隔离、数据库事务或服务诊断时使用。仅解释已给出的配置值、版本或接口事实，不涉及实现核对时不使用。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-python-skills/skills/unif-python-service/SKILL.md",
-      "source_sha256": "9fa2ce62a5ffb9e7ad153a8f5fc25c69bea211718fde1e68f447ac2e22b1a863"
+      "source_sha256": "724d06a5c4d8479828e114bc42dad900d3a0ad83b36681bd26998ef01f427d98"
     },
     {
       "name": "unif-rn-project",
-      "description": "在 Portal 的 React Native 应用或 @unif RN 库中，需要核对页面状态、环境配置、H5 交接或共享核心的实际消费者时使用。只查包版本或已有 API 时查看相应库资料。",
+      "description": "在 Portal React Native 应用或 @unif RN 库中，实施、排查或审查组件回调、异步状态、环境配置、H5 交接和实际消费者时使用。公开契约未变的单库接线审查也使用本技能；仅查询已给出的包版本或 API 事实时不使用。",
       "package": "unif-portal-dev-skills",
       "path": "plugins/unif-react-native-skills/skills/unif-rn-project/SKILL.md",
-      "source_sha256": "6aed6642468cc3865cc108ce4f120376e6cd88f6aeffc9bd35de51f5dc077318"
+      "source_sha256": "6928b1269755fb5f644037ed2e77a7412d74aa02d4c1f23b0e91332dcf7ca4d9"
     },
     {
       "name": "unif-speech",
@@ -223,5 +223,5 @@
       "source_sha256": "533d7615625aa614310f86def45bbf8f79e696dcde7b5ad8b9490f3ffab1a4c2"
     }
   ],
-  "sha256": "52dfa3f051f8d1c7504b30a410bc4170c2e22241ea3c9a69214e100cc5727a1d"
+  "sha256": "140c429080f8e774fd53304b7ed6365d73e575da62883171e38ec3813266720d"
 }
