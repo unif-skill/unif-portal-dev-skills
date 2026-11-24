@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-portal-dev-skills",
-  "version": "1.11.7",
+  "version": "1.11.8",
   "description": "Unif 平台规范及工程、RN、原生鸿蒙、Python 与各个独立库插件。平台规范提供共用契约，业务插件按需安装。",
   "extensions": {
     "com.openai": {
