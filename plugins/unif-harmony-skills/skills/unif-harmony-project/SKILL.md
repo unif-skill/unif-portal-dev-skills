@@ -7,11 +7,10 @@ description: 在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要组织 ArkT
 
 从宿主的依赖配置定位采用的原生模块、公开导出和实际导入它的 ArkUI 宿主。Portal 主应用和每个 HAR 分别以本工程采用的 RN 版本和 Git 修订为对照，原生实现使用 ArkTS、ArkUI 和本端 SDK。
 
-## 核对 RN 行为和源码组织
+## 核对 RN 行为
 
 1. 对照开发、重构或修正警告前，先查本工程采用记录，再读该修订的公开入口、实际调用链和契约。保持公开名称、参数与默认值、用户流程、状态变化、业务回执、失败、重试、取消和资源交接。测试预期从 RN 实际行为取得。资料缺失、RN 与契约冲突，或原生平台无法等价实现时，列出依据和影响，取得确认后再处理该差异。
-2. 调整 ArkTS 文件时，按[ArkTS 文件与公共入口](references/harmony/files.md)和[工程目录](references/harmony/directory.md)先查现有目录，按实际职责划分功能单元。单元内的模块级常量放在 `constants.ets`，显式类型放在 `types.ets`。聊天附件等有独立实现的子功能使用自己的目录，例如 `chat/attachment/constants.ets`。同单元已有文件时直接复用。共享纯工具放在现有工具单元，功能专用逻辑随所属功能维护。手写源码和入口使用 `.ets`，局部运行值、工具固定入口和生成文件按原职责维护。
-3. 验收实际改动及消费者。对应同一输入核对两端的结果、时序和副作用，尤其是权限、错误、取消和重试。检查改动中是否出现 RN 没有的业务分支、兼容、公开项或默认行为，并逐文件确认常量、类型、工具和实现的归属。有差异时按第 1 步处理。
+2. 验收实际改动及消费者。对应同一输入核对两端的结果、时序和副作用，尤其是权限、错误、取消和重试。检查改动中是否出现 RN 没有的业务分支、兼容、公开项或默认行为。有差异时按第 1 步处理。
 
 ## 确认宿主实际能用什么
 
@@ -33,7 +32,7 @@ Icons、Design、Chat、Camera、HMS Scan、Umeng 的目标行为见所属库技
 
 | 当前任务 | 方法入口 |
 |---|---|
-| 实施 ArkTS／ArkUI 改动 | `uni-code-change`；平台机制查 `uni-harmony-dev` |
+| 实施 ArkTS／ArkUI 改动 | 按 `uni-code-change` 实施，查本项目的[工程目录](references/harmony/directory.md)与[ArkTS 文件及公共入口](references/harmony/files.md)。平台机制查 `uni-harmony-dev` |
 | 定位宿主或 SDK 故障 | `uni-debugging` |
 | 审查原生接线或配置差异 | `uni-code-review` |
 | 设计生命周期、取消或回调交错用例 | `uni-test-design` |
