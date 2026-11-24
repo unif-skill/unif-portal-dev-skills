@@ -8,8 +8,8 @@
     "tests/test_behavior_eval_runtime.py": "37cb2f225f5b1e084352b5c621a81139dfbabacd6a267a93805dcf82bf958fdf",
     "tests/test_sync_evaluation_tools.py": "501607f1f8eb0c0b5f5fc0e3f867b586f279d61c1186a2d05a74f66cfa0bd786",
     ".github/workflows/behavior-eval.yml": "36226c93443ea85c1ebc01044b54d75a1e4cadc37cc9d5d33462d76c112fc7bf",
-    "scripts/joint_discovery_eval.py": "fea73e3ebd2d664838a3106a928f68c00de34775a6a3b461c2d3dbf077818eed",
-    "tests/test_joint_discovery_eval.py": "e6487fb925e082e2c882212455934eaf12286c2a4b593b88bb7a5600fa06b0a5",
+    "scripts/joint_discovery_eval.py": "9e314d215f4fc3aa92b194313cfbcff9225558b303ea350ebe1ae39c57a0b73b",
+    "tests/test_joint_discovery_eval.py": "de62e41cb5ad806feae82a15d593bc9c5e80cc60e5f129d1b8e9b2d4989742e3",
     "evals/joint-discovery/catalog.json": "dea331aa638aded6e37a83b27abd83877547a35a84cb216627f2959340812ece",
     "evals/joint-discovery/cases.json": "cd1f3ea284ed9b42b82bcaf243d6e29b001ee6f6a8651afbb510dd90f35e5f45"
   }

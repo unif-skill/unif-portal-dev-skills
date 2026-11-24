@@ -82,7 +82,7 @@ RN 库的文档站和运行示例采用方式见 [RN 项目采用](plugins/unif-
 sh scripts/install-plugins.sh unif-chat
 ```
 
-更新已配置的 Git 市场可运行 `codex plugin marketplace upgrade unif-portal-dev-skills`。安装后打开新会话，核对公共插件和所选业务插件的技能入口。
+更新已配置的 Git 市场可运行 `codex plugin marketplace upgrade unif-portal-dev-skills`。安装或更新后，在新 Codex 会话核对所选技能已启用的来源路径及插件版本。若 Claude Code 使用共享副本，另查技能链接实际指向的目录。分别将加载的正文、展示配置、必要资料和资产与目标插件目录核对。
 
 ### 组合使用 Uni 技能
 
@@ -191,13 +191,14 @@ python3.12 -m venv .venv
 
 校验工具版本与 Agent Skills 参考库提交固定在 [requirements-ci.txt](scripts/requirements-ci.txt)；[插件 Schema](scripts/schemas/plugin.schema.json) 是已声明版本的官方副本，校验时无需另行下载。CI 不读取开发机上的架构源，快照新鲜度仍在同步时通过上面的 `--check` 核对；模型行为通过下方独立工作流和本地专项评测取得证据。
 
-Uni／Unif 同时可用时的专项发现评测采用 Uni 维护的工具、题库和冻结目录。分发的冻结目录与运行结果按其中记录的版本解读；当前单包目录的发现和资料应用使用各包自己的题库。维护来源与运行说明见 [Uni 联合发现评测](https://github.com/unif-skill/uni-skills#联合发现评测)。采用内容可直接离线校验：
+Uni／Unif 同时可用时的专项发现评测采用 Uni 维护的工具、题库和冻结目录。历史结果按冻结来源解读。常规 CI 另将本仓检出提交的名称、描述与冻结条目比较，有差异时列出变动技能。覆盖指定发布组合时，按两个实际发布 SHA 分别比较，引用发现结果还需核对原题库、工具、模型和运行设置。[Uni 联合发现评测](https://github.com/unif-skill/uni-skills#联合发现评测)
 
 ```sh
 .venv/bin/python -m scripts.joint_discovery_eval validate
+.venv/bin/python -m scripts.joint_discovery_eval compare-package
 ```
 
-该命令不读取另一仓库或本机安装，也不调用模型。真实模型运行须显式启用，缺配置或完整证据时报告证据不足；两个包的发现正反例通过不等于宿主组合加载已验证。
+以上检查只读取仓内资料和当前 Git 提交。当前单包目录的发现和资料应用使用各包自己的题库。真实模型运行须显式启用，缺配置或完整证据时报告证据不足；两个包的发现正反例通过不等于宿主组合加载已验证。
 
 ### 查看评测报告
 

@@ -123,6 +123,72 @@ class JointDiscoveryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '固定来源'):
             joint.verify_sources(catalog, self.repositories['uni-skills'], self.repositories['unif-portal-dev-skills'])
 
+    def test_package_comparison_only_uses_the_selected_committed_discovery_inputs(self) -> None:
+        _ = self.frozen()
+        repo = self.repositories['unif-portal-dev-skills']
+        _ = self.repositories['uni-skills'].rename(self.base / 'offline')
+        manifest = repo / 'plugin.json'
+        original = manifest.read_bytes()
+        _ = manifest.write_text('{"name":"unif-portal-dev-skills","version":"1.1.1"}', encoding='utf-8')
+        _ = subprocess.run(['git', 'commit', '-qam', 'change only version'], cwd=repo, check=True)
+        version_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip()
+
+        _ = manifest.write_bytes(original)
+        path = repo / 'skills/unif-example/SKILL.md'
+        _ = path.write_text(path.read_text(encoding='utf-8') + '\nRevised body.\n', encoding='utf-8')
+        _ = subprocess.run(['git', 'commit', '-qam', 'restore version and update body'], cwd=repo, check=True)
+        body_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip()
+        _ = path.write_text('uncommitted edit', encoding='utf-8')
+        args = ('compare-package', '--repo', str(repo), '--catalog', str(self.catalog))
+        for revision, flags in ((version_commit, ('--ref', version_commit)), (body_commit, ())):
+            with self.subTest(revision=revision):
+                result = self.command(*args, *flags)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('名称和描述一致', result.stdout)
+                self.assertIn(revision, result.stdout)
+
+    def test_package_comparison_reports_changes_while_the_historical_baseline_remains_valid(self) -> None:
+        catalog = self.frozen()
+        repo = self.repositories['uni-skills']
+        path = repo / 'skills/uni-example/SKILL.md'
+        _ = path.write_text(path.read_text(encoding='utf-8').replace('is requested', 'is reviewed'), encoding='utf-8')
+        old = repo / 'skills/uni-optional/SKILL.md'
+        new = repo / 'skills/uni-added/SKILL.md'
+        new.parent.mkdir()
+        _ = new.write_text(old.read_text(encoding='utf-8').replace('uni-optional', 'uni-added'), encoding='utf-8')
+        old.unlink()
+        _ = subprocess.run(['git', 'add', '-A'], cwd=repo, check=True)
+        _ = subprocess.run(['git', 'commit', '-qm', 'change discovery inputs'], cwd=repo, check=True)
+
+        _ = joint.validate(self.catalog, self.suite())
+        joint.verify_sources(catalog, repo, self.repositories['unif-portal-dev-skills'])
+        args = ('compare-package', '--repo', str(repo), '--catalog', str(self.catalog))
+        for ci in (False, True):
+            with self.subTest(ci=ci):
+                summary = self.base / 'summary.md'
+                with patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': str(summary)}):
+                    result = self.command(*args, *(['--ci'] if ci else []))
+                self.assertEqual(result.returncode, 0 if ci else 1, result.stderr)
+                for change in ('新增：uni-added', '删除：uni-optional', '描述变化：uni-example'):
+                    self.assertIn(change, result.stdout)
+                    if ci:
+                        self.assertIn(change, summary.read_text(encoding='utf-8'))
+                self.assertEqual('::warning::' in result.stdout, ci)
+        previous = self.command(*args, '--ref', self.revisions['uni-skills'])
+        self.assertEqual(previous.returncode, 0, previous.stderr)
+        self.assertIn('名称和描述一致', previous.stdout)
+
+    def test_ci_keeps_unreadable_sources_and_invalid_catalogs_as_errors(self) -> None:
+        _ = self.frozen()
+        args = ('compare-package', '--ci', '--repo', str(self.repositories['uni-skills']), '--catalog', str(self.catalog))
+        missing = self.command(*args, '--ref', 'missing-ref')
+        self.assertEqual(missing.returncode, 2)
+        self.assertIn('Git 对象不可读取', missing.stderr)
+        _ = self.catalog.write_text('{}', encoding='utf-8')
+        invalid = self.command(*args)
+        self.assertEqual(invalid.returncode, 2)
+        self.assertIn('formatVersion', invalid.stderr)
+
     def test_run_without_explicit_configuration_is_insufficient_and_offline(self) -> None:
         _ = self.frozen()
         output = self.base / 'disabled-run'
