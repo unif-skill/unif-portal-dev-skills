@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""冻结两仓目录，离线校验联合题库，并显式运行跨包发现集合评测。"""
+"""冻结两仓目录，校验历史题库，比较指定提交的发现条目，并显式运行发现评测。"""
 
 import argparse
 from collections.abc import Mapping, Sequence
@@ -83,22 +83,33 @@ def read_json(path: Path) -> object:
     return evaluator.load_json(raw)
 
 
+def read_package(repo: Path, revision: str) -> tuple[str, str, list[Entry]]:
+    """按插件分发目录读取一个 Git 提交中的技能。"""
+    snapshot = evaluator.Snapshot(repo, revision)
+    manifest = evaluator.load_json(snapshot.read('plugin.json'))
+    package = manifest.get('name') if evaluator.is_object(manifest) else None
+    if not isinstance(package, str) or package not in PACKAGES:
+        raise evaluator.EvalError('来源仓库身份不符')
+    entries: list[Entry] = []
+    for name in snapshot.skill_names():
+        path = snapshot.skill_dir(name) + '/SKILL.md'
+        raw = snapshot.read(path)
+        metadata = evaluator.skill_metadata(raw.decode('utf-8'), name)
+        entries.append({'name': name, 'description': metadata['description'], 'package': package,
+                        'path': path, 'source_sha256': evaluator.digest(raw)})
+    return package, snapshot.commit, entries
+
+
 def freeze(uni_repo: Path, uni_ref: str, unif_repo: Path, unif_ref: str) -> Catalog:
     """仅从显式指定提交读取技能 metadata，不读取工作区或本机安装。"""
     sources: dict[str, str] = {}
     entries: list[Entry] = []
     for package, repo, revision in zip(PACKAGES, (uni_repo, unif_repo), (uni_ref, unif_ref), strict=True):
-        snapshot = evaluator.Snapshot(repo, revision)
-        manifest = evaluator.load_json(snapshot.read('plugin.json'))
-        if not evaluator.is_object(manifest) or manifest.get('name') != package:
+        name, commit, skills = read_package(repo, revision)
+        if name != package:
             raise evaluator.EvalError('来源仓库身份不符：' + package)
-        sources[package] = snapshot.commit
-        for name in snapshot.skill_names():
-            path = snapshot.skill_dir(name) + '/SKILL.md'
-            raw = snapshot.read(path)
-            metadata = evaluator.skill_metadata(raw.decode('utf-8'), name)
-            entries.append({'name': name, 'description': metadata['description'], 'package': package,
-                            'path': path, 'source_sha256': evaluator.digest(raw)})
+        sources[package] = commit
+        entries.extend(skills)
     return parse_catalog({'formatVersion': 1, 'sources': sources, 'skills': entries,
                           'sha256': catalog_digest(sources, entries)})
 
@@ -108,6 +119,31 @@ def verify_sources(catalog: Catalog, uni_repo: Path, unif_repo: Path) -> None:
                      unif_repo, catalog['sources']['unif-portal-dev-skills'])
     if current != catalog:
         raise evaluator.EvalError('冻结目录与固定来源提交不一致')
+
+
+def compare_package(catalog: Catalog, repo: Path, revision: str, *, ci: bool) -> int:
+    package, commit, skills = read_package(repo, revision)
+    frozen = {entry['name']: entry['description'] for entry in catalog['skills'] if entry['package'] == package}
+    current = {entry['name']: entry['description'] for entry in skills}
+    changed = {name for name in current.keys() & frozen.keys() if current[name] != frozen[name]}
+    differences = [('新增', current.keys() - frozen.keys()), ('删除', frozen.keys() - current.keys()),
+                   ('描述变化', changed)]
+    lines = [f"{package} 受检提交 {commit}，冻结来源 {catalog['sources'][package]}。"]
+    if current == frozen:
+        lines.append(f'{len(current)} 个技能的名称和描述一致。')
+    else:
+        lines.append('历史评测按冻结目录解读。当前提交的发现条目有以下变动。')
+        lines.extend(f'- {label}：{", ".join(sorted(names))}' for label, names in differences if names)
+    report = '\n'.join(lines)
+    print(report)
+    if ci:
+        if current != frozen:
+            print(f'::warning::{package} 的发现条目与冻结目录有差异，见本步骤输出和 job 摘要。')
+        summary = os.environ.get('GITHUB_STEP_SUMMARY')
+        if summary:
+            with Path(summary).open('a', encoding='utf-8') as stream:
+                _ = stream.write('### 联合发现目录\n\n' + report + '\n\n')
+    return 0 if ci or current == frozen else 1
 
 
 def read_cases(path: Path, catalog: Catalog) -> list[evaluator.Case]:
@@ -197,6 +233,9 @@ class Arguments(argparse.Namespace):
     unif_repo: Path | None = None
     uni_ref: str = ''
     unif_ref: str = ''
+    repo: Path = ROOT
+    ref: str = 'HEAD'
+    ci: bool = False
     output: Path | None = None
     repeats: int = 5
     case: list[str] | None = None
@@ -205,7 +244,7 @@ class Arguments(argparse.Namespace):
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
-    for command in ('freeze', 'validate', 'verify-sources', 'run'):
+    for command in ('freeze', 'validate', 'verify-sources', 'compare-package', 'run'):
         item = commands.add_parser(command)
         _ = item.add_argument('--catalog', type=Path, default=ROOT / CATALOG)
         if command in ('freeze', 'verify-sources'):
@@ -216,6 +255,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             _ = item.add_argument('--unif-ref', required=True)
         if command in ('validate', 'run'):
             _ = item.add_argument('--suite', type=Path, default=ROOT / SUITE)
+        if command == 'compare-package':
+            _ = item.add_argument('--repo', type=Path, default=ROOT, help='单个 Uni 或 Unif 仓库')
+            _ = item.add_argument('--ref', default='HEAD', help='受检 Git 修订，默认 HEAD')
+            _ = item.add_argument('--ci', action='store_true', help='将条目差异报告为 CI 警告并写入 job 摘要')
         if command == 'run':
             _ = item.add_argument('--output', type=Path, required=True)
             _ = item.add_argument('--repeats', type=int, default=5)
@@ -229,6 +272,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == 'verify-sources' and args.uni_repo is not None and args.unif_repo is not None:
             verify_sources(parse_catalog(read_json(args.catalog)), args.uni_repo, args.unif_repo)
             print('联合目录与两个固定来源提交一致')
+        elif args.command == 'compare-package':
+            return compare_package(parse_catalog(read_json(args.catalog)), args.repo, args.ref, ci=args.ci)
         elif args.command == 'validate':
             catalog, cases = validate(args.catalog, args.suite)
             print(f'联合目录校验通过：{len(catalog["skills"])} 个技能、{len(cases)} 道专项发现题')

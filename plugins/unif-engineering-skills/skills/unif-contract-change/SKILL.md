@@ -7,6 +7,8 @@ description: Unif 跨仓字段、消息或存储格式已经定稿，需要实�
 
 先确定这次改动影响哪一种数据。字段可能只用于模型输入，也可能被服务转交、业务客户端编辑，或在重启后用于恢复草稿。同一个字段名要沿实际读写路径判断。
 
+职责转移时，从工程 `AGENTS.md` 确认采用的架构修订，沿[架构状态表](https://github.com/unif-design/unif-platform-architecture/blob/main/STATUS.md)找到所属领域的现行契约。架构仓维护跨仓分工与判定条件。对受影响的 Agent、Marketing 或 Portal，从各仓 `docs/README.md` 打开模块说明和实现入口，核对谁产生输入、谁作判断、谁采用结果。各工程按实际接线维护自己的说明和验证依据。
+
 ## 找到唯一源和需要更新的产物
 
 定位所属 `contracts` 单元、生成命令和消费者锁定的版本。基础封套和身份归平台基础契约，营销输入、结果和模型投影归 Marketing，Agent API 组合所采用的公开契约。根据字段的实际用途核对 OpenAPI、Python 运行校验和 TypeScript／Go 产物，沿调用方锁定的版本检查读取与写入。[跨工程契约交付](https://github.com/unif-design/unif-platform-architecture/blob/main/runtime/contract-delivery.md)
