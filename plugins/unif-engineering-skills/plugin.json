@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-engineering-skills",
-  "version": "1.11.8",
+  "version": "1.12.0",
   "description": "Unif 架构设计、跨仓契约变更与授权交付",
   "extensions": {
     "com.openai": {
