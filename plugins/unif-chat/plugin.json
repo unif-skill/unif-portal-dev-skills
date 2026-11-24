@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-chat",
-  "version": "1.11.4",
+  "version": "1.11.5",
   "description": "Unif 消息、输入、附件与聊天组合技能，覆盖 RN 和原生鸿蒙",
   "extensions": {
     "com.openai": {
