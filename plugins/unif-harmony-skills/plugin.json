@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unif-harmony-skills",
-  "version": "1.11.6",
+  "version": "1.11.7",
   "description": "Unif 原生鸿蒙工程采用、HAR 公开出口与宿主验收",
   "extensions": {
     "com.openai": {
