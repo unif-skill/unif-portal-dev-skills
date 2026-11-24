@@ -88,7 +88,7 @@
     "orderPath": "下单通过 Bearer 会话请求提交",
     "session": "当前身份收到 HTTP 401，刷新成功后原请求只重试一次；业务码 1003 直接结束原会话"
   },
-  "harmonyAccount": "AccountReply.ets 混有业务文案常量、跨模块回执类型和解析函数，同目录已有 AccountConstants.ets 与 AccountTypes.ets"
+  "harmonyAccount": "AccountReply.ets 混有业务文案常量、跨模块回执类型和解析函数，同目录已有 constants.ets 与 types.ets。聊天附件已有独立实现，但平铺在 chat/，常量文件名为 PortalAgentAttachmentConstants.ets"
 }
 ```
 
