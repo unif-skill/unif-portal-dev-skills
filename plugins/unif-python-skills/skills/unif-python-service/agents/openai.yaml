@@ -1,6 +1,6 @@
 interface:
   display_name: "Unif Python 服务"
-  short_description: "沿真实服务入口核对助手路由、领域能力、Worker 和数据库事务。"
+  short_description: "核对助手路由、领域能力、Worker、数据库事务和服务诊断。"
   default_prompt: "使用 $unif-python-service 核对本次 Python 服务的助手、领域能力、Worker 与持久化契约。"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"

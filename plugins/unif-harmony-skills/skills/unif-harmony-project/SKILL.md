@@ -1,6 +1,6 @@
 ---
 name: unif-harmony-project
-description: 在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要组织 ArkTS 源码、对照 RN 公开接口，或核对宿主接线、资源交接和跨端验收时使用。只查 SDK 版本或已发布 API 时查看相应资料。
+description: 在 Unif 原生鸿蒙应用或 @unif HAR 库中，需要组织 ArkTS 源码、对照 RN 公开接口，或核对宿主接线、资源交接和跨端验收时使用。仅从已有材料读出 SDK 版本、配置字段值或已发布 API 事实时不使用。
 ---
 
 # Unif 原生鸿蒙工程

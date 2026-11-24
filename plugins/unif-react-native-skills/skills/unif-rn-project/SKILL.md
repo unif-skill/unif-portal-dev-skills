@@ -1,6 +1,6 @@
 ---
 name: unif-rn-project
-description: 在 Portal 的 React Native 应用或 @unif RN 库中，需要核对页面状态、环境配置、H5 交接或共享核心的实际消费者时使用。只查包版本或已有 API 时查看相应库资料。
+description: 在 Portal React Native 应用或 @unif RN 库中，实施、排查或审查组件回调、异步状态、环境配置、H5 交接和实际消费者时使用。公开契约未变的单库接线审查也使用本技能；仅查询已给出的包版本或 API 事实时不使用。
 ---
 
 # Unif React Native 工程

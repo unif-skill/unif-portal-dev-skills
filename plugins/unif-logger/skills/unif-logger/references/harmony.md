@@ -5,7 +5,7 @@ Portal（原生鸿蒙）在 `ai-app-portal-harmony` 开发。读 `entry/oh-packa
 | 要核对什么 | Portal 工程位置 |
 |---|---|
 | 版本、包身份和导出配置 | `packages/logger/oh-package.json5` |
-| 根入口和文件入口 | `packages/logger/Index.ts`、`packages/logger/Files.ts` |
+| 根入口和文件入口 | `packages/logger/Index.ets`、`packages/logger/Files.ets` |
 | 使用方法与验收入口 | `packages/logger/README.md` |
 | 日志格式与 RN 行为对照 | `packages/logger/FORMAT.md`、`docs/acceptance/rn-harmony-parity.md` |
 

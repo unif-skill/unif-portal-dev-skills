@@ -1,6 +1,6 @@
 ---
 name: unif-python-service
-description: 在 Unif Agent、Marketing 等 Python 服务中，需要核对助手路由、领域能力、Worker 隔离或数据库事务时使用。只查配置值、版本或现有接口时查看工程资料。
+description: 在 Unif Agent、Marketing 等 Python 服务中，需要核对助手路由、领域能力、Worker 隔离、数据库事务或服务诊断时使用。仅解释已给出的配置值、版本或接口事实，不涉及实现核对时不使用。
 ---
 
 # Unif Python 服务

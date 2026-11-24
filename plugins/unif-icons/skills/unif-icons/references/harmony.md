@@ -4,12 +4,12 @@
 
 | 任务 | 所属资料 |
 |---|---|
-| 消费、同源生成与验证 | [仓库 README](https://github.com/unif-design/harmony-icons/blob/main/README.md)、[包说明](https://github.com/unif-design/harmony-icons/blob/main/library/README.md) |
-| 原生参数与渲染 | [docs/API.md](https://github.com/unif-design/harmony-icons/blob/main/docs/API.md)、[UnifIcon.ets](https://github.com/unif-design/harmony-icons/blob/main/library/src/main/ets/UnifIcon.ets) |
-| 实际公开入口与版本 | [Index.ets](https://github.com/unif-design/harmony-icons/blob/main/library/Index.ets)、[包清单](https://github.com/unif-design/harmony-icons/blob/main/library/oh-package.json5) |
+| 接入用法与包版本 | 实际采用模块或已安装 HAR 内的 `README.md`、`oh-package.json5`，以及宿主依赖声明和锁文件 |
+| 原生参数与公开导出 | 包清单指定的公开入口及配套声明；已发布 HAR 可提供 `Index.d.ets`，沿其导出核对组件声明 |
+| SVG 源、命名与生成 | RN Icons 的[同源生成与跨仓校验](https://github.com/unif-design/react-native-icons/blob/main/docs/DEVELOPMENT.md#同源生成与跨仓校验)，以及其中指定的生成器和实际鸿蒙源码目标 |
 | 项目契约与目标验收 | [鸿蒙 Icons 规范](https://github.com/unif-design/unif-platform-architecture/blob/main/libraries/harmony-icons.md)；包内规范见[对应章节](harmony/icons.md#4-验证与采用) |
 
-仓库链接用于定位 Icons 的生成规则和参考实现，宿主可用的参数和资源以其实际依赖为准。
+宿主可用的参数和资源以实际采用的包为准。仅有已安装 HAR 时可核对公开消费；生成校验和手写渲染维护还需取得对应的原生源码工程。
 
 ## 应用消费
 
