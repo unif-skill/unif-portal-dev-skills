@@ -7,7 +7,7 @@ Portal（原生鸿蒙）在 `ai-app-portal-harmony` 开发。读 `entry/oh-packa
 | 版本、包身份和导出配置 | `packages/logger/oh-package.json5` |
 | 根入口和文件入口 | `packages/logger/Index.ets`、`packages/logger/Files.ets` |
 | 使用方法与验收入口 | `packages/logger/README.md` |
-| 日志格式与 RN 行为对照 | `packages/logger/FORMAT.md`、`docs/acceptance/rn-harmony-parity.md` |
+| 日志格式与 RN 行为对照 | `packages/logger/FORMAT.md`；验收记录从 `packages/logger/README.md` 的开发与验证入口查找 |
 
 文件工厂从 `@unif/harmony-logger/Files` 导入，大小写有意义。工厂接收 `context`、`directoryName` 和 `createId`，使用 `context.filesDir` 下的私有目录。保留系统文件 URI 的 authority，参数以鸿蒙公开入口为准。
 

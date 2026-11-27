@@ -10,7 +10,7 @@ metadata:
 
 RN 使用 `/files` 文件入口，Web 同一入口采用有界内存。查询公开接口时先看应用锁定版本，和官网构建版本不同时，查对应包或修订。[RN 与 Web 接入](references/rn.md) · [官网索引](https://unif-design.github.io/react-native-logger/llms.txt)
 
-Portal（原生鸿蒙）使用 `@unif/harmony-logger`。从宿主依赖定位同仓 HAR 或已安装的包，通过公开 `/Files` 使用文件能力。[鸿蒙公开入口与接入](references/harmony.md)
+接入原生鸿蒙 `@unif/harmony-logger` 时，从宿主依赖定位同仓 HAR 或已安装的包，核对其公开入口和宿主实际接线。采用版本提供 `/Files` 时，通过该入口使用文件能力。[鸿蒙公开入口与接入](references/harmony.md)
 
 ## 让业务日志使用已有运行时
 
