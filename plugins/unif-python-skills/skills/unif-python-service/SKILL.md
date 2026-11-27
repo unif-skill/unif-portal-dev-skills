@@ -9,7 +9,7 @@ description: 在 Unif Agent、Marketing 等 Python 服务中，需要核对助�
 
 ## 确认助手、领域和通用服务各自负责什么
 
-Agent 工程的 `agent/` 和 `capabilities/` 位于服务包根目录下，彼此同级。`agent/` 装配 Skill、提示词、工具和任务编排。`capabilities/<助手名>/` 保存该助手的能力说明，负责协议校验和交接。
+Agent 工程的 `agent/` 和 `capabilities/` 位于服务包根目录下，彼此同级。`agent/` 装配路由提示词和工具。`capabilities/<助手名>/` 登记路由说明，负责协议校验和资料交接。查营销助手的路由规则时，读 `agent/prompts/routing.md` 的“营销助手”小节。
 
 Marketing 工程的 `capabilities/<业务域>/` 拥有相应领域的规则，供智能体和普通 HTTP 接口共同调用。通用 memory 的读写、权限和事务由相应服务管理。[目录与依赖](references/python/structure.md)
 

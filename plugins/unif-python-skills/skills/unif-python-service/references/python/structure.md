@@ -19,7 +19,7 @@ Unif Python 服务按实际职责采用 api、agent、capabilities、core、db�
 
 `services` 中的 `execution` 负责受理、领取、租约、暂停恢复、取消及资源收尾等通用执行协调。`clients` 负责供应商技术请求、响应与连接生命周期。`attachments`、`memory`、`speech` 等保留各自实际服务职责，同一功能的 HTTP、持久化和协议实现分别归 api、db、schemas。通用 memory 的读写、权限和事务沿这些边界维护，只有智能体使用记忆的策略或编排归 agent。
 
-Agent 的 `capabilities/<助手名>` 维护该助手的能力说明、工具声明、显式入口映射、已有资料交接、协议校验及专属通信。`capabilities/marketing` 对接营销助手，订单、拜访等业务处理归 Marketing 工程。附件上传、原件读取、校验与解析准备继续由 Agent 的既有服务提供。
+Agent 的 `capabilities/<助手名>` 登记助手的路由说明，维护工具声明、显式入口映射、已有资料交接、协议校验及专属通信。`capabilities/marketing` 引用 `agent/prompts/routing.md` 的“营销助手”小节并对接 Marketing 服务，订单、拜访等业务处理归 Marketing 工程。附件上传、原件读取、校验与解析准备继续由 Agent 的既有服务提供。
 
 Marketing 的 `capabilities/<业务域>` 维护订单、拜访、客户等领域规则与校验，向智能体和普通接口提供实际需要的公开能力。Marketing 智能体自身的任务 Skill、提示词、工具选择、上下文及跨能力编排归顶层 `agent/`，由其调用所属领域能力。名称包含 AI 或 memory 不决定普通接口共用模块的归属。
 
